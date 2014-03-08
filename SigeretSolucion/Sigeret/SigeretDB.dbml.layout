@@ -1,0 +1,109 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="SigeretDB">
+  <DataContextMoniker Name="/SigeretDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="d2b4bed3-80b3-437f-861b-830b510c5a46" absoluteBounds="3.5, 6.625, 2, 1.5785953776041666">
+      <DataClassMoniker Name="/SigeretDBDataContext/Contacto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="74d42328-9e1f-4976-b025-312ba6d8e0c6" absoluteBounds="3.5150000000000006, 7.0850000000000009, 1.9700000000000002, 1.0185953776041665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="f6b5f40c-26ae-4d6e-bbec-44a9693bfcd2" absoluteBounds="0.75, 3.75, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/SigeretDBDataContext/Lugar" />
+      <nestedChildShapes>
+        <elementListCompartment Id="6b40aef6-eb2f-4553-8704-ba870e9b819a" absoluteBounds="0.76500000000000012, 4.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="2bac5837-ea5f-406b-98a5-e49b423432d2" absoluteBounds="3.5, 3.5, 2, 1.9631982427090406">
+      <DataClassMoniker Name="/SigeretDBDataContext/Solicitud" />
+      <nestedChildShapes>
+        <elementListCompartment Id="df091030-4821-4f3b-a15b-a1a242bc3b5d" absoluteBounds="3.5150000005960464, 3.9600000008940697, 1.9700000000000002, 1.4031982421875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 4.44314697265625); (2.82291666666667 : 4.44314697265625 : JumpStart); (3.02083583333333 : 4.44314697265625 : JumpEnd); (3.5 : 4.44314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/SigeretDBDataContext/Lugar/Lugar_Solicitud" />
+      <nodes>
+        <classShapeMoniker Id="f6b5f40c-26ae-4d6e-bbec-44a9693bfcd2" />
+        <classShapeMoniker Id="2bac5837-ea5f-406b-98a5-e49b423432d2" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="9e5af894-659d-4d89-8008-bafeae0b5fe1" absoluteBounds="6.25, 3.75, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/SigeretDBDataContext/SolicitudEquipo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="f70b776a-0f3e-479c-a1cb-844f31cfffca" absoluteBounds="6.2650000000000006, 4.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(5.5 : 4.44314697265625); (6.25 : 4.44314697265625)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/SigeretDBDataContext/Solicitud/Solicitud_SolicitudEquipo" />
+      <nodes>
+        <classShapeMoniker Id="2bac5837-ea5f-406b-98a5-e49b423432d2" />
+        <classShapeMoniker Id="9e5af894-659d-4d89-8008-bafeae0b5fe1" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="c3db8746-9a43-4bac-bca0-8a692760f895" absoluteBounds="1, 1.125, 2, 1.3862939453125005">
+      <DataClassMoniker Name="/SigeretDBDataContext/SolicitudSms" />
+      <nestedChildShapes>
+        <elementListCompartment Id="85cea5ed-ac6c-4c6d-82bc-bf6401fb742e" absoluteBounds="1.0150000000000006, 1.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(3.5 : 6.71875); (2.90625 : 6.71875); (2.90625 : 2.5112939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SigeretDBDataContext/Contacto/Contacto_SolicitudSms" />
+      <nodes>
+        <classShapeMoniker Id="d2b4bed3-80b3-437f-861b-830b510c5a46" />
+        <classShapeMoniker Id="c3db8746-9a43-4bac-bca0-8a692760f895" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(3.5 : 5.33099609401077); (2.9375025 : 5.33099609401077); (2.9375025 : 2.5112939453125)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SigeretDBDataContext/Solicitud/Solicitud_SolicitudSms" />
+      <nodes>
+        <classShapeMoniker Id="2bac5837-ea5f-406b-98a5-e49b423432d2" />
+        <classShapeMoniker Id="c3db8746-9a43-4bac-bca0-8a692760f895" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="51ea1c5c-d320-4d1a-a2ff-9dd45c694795" absoluteBounds="0.75, 6.875, 2, 1.1939925130208344">
+      <DataClassMoniker Name="/SigeretDBDataContext/TipoContacto" />
+      <nestedChildShapes>
+        <elementListCompartment Id="1700095b-cefb-4c30-bc58-94fb2d66ee78" absoluteBounds="0.76500000000000057, 7.3350000000000009, 1.9700000000000002, 0.63399251302083326" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(2.75 : 7.47199625651042); (3.5 : 7.47199625651042)]" fixedFrom="NotFixed" fixedTo="NotFixed">
+      <AssociationMoniker Name="/SigeretDBDataContext/TipoContacto/TipoContacto_Contacto" />
+      <nodes>
+        <classShapeMoniker Id="51ea1c5c-d320-4d1a-a2ff-9dd45c694795" />
+        <classShapeMoniker Id="d2b4bed3-80b3-437f-861b-830b510c5a46" />
+      </nodes>
+    </associationConnector>
+    <classShape Id="e9be598b-71eb-4069-996c-1e41cc138535" absoluteBounds="6.75, 6.375, 2, 1.3862939458340406">
+      <DataClassMoniker Name="/SigeretDBDataContext/UsuarioNipSms" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b1b5dc65-92aa-49df-8376-e5f345d450bb" absoluteBounds="6.7650000005960464, 6.83500000089407, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="27e1c9ff-a60a-4232-abb7-692451b1a1f5" absoluteBounds="8.75, 1.75, 2, 1.3862939453125">
+      <DataClassMoniker Name="/SigeretDBDataContext/EstatusEquipo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="ebb5d652-7827-4743-a57c-9cea3237fe9f" absoluteBounds="8.765, 2.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="8283186c-c54e-4d5b-8912-e2ce20fbfd18" absoluteBounds="5.25, 0.875, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/SigeretDBDataContext/Equipo" />
+      <nestedChildShapes>
+        <elementListCompartment Id="7617dbb8-9462-45f6-bd7a-6b167172dba7" absoluteBounds="5.265, 1.335, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <associationConnector edgePoints="[(6.75 : 3.03049967447917); (6.75 : 3.75)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SigeretDBDataContext/Equipo/Equipo_SolicitudEquipo" />
+      <nodes>
+        <classShapeMoniker Id="8283186c-c54e-4d5b-8912-e2ce20fbfd18" />
+        <classShapeMoniker Id="9e5af894-659d-4d89-8008-bafeae0b5fe1" />
+      </nodes>
+    </associationConnector>
+    <associationConnector edgePoints="[(8.75 : 2.39024983723958); (7.25 : 2.39024983723958)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+      <AssociationMoniker Name="/SigeretDBDataContext/EstatusEquipo/EstatusEquipo_Equipo" />
+      <nodes>
+        <classShapeMoniker Id="27e1c9ff-a60a-4232-abb7-692451b1a1f5" />
+        <classShapeMoniker Id="8283186c-c54e-4d5b-8912-e2ce20fbfd18" />
+      </nodes>
+    </associationConnector>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

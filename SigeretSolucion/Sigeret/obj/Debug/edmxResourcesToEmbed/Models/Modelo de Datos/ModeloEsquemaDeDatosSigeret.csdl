@@ -1,0 +1,294 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="SigeretModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Contacto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdUserProfile" Type="Int32" Nullable="false" />
+    <Property Name="IdTipoContacto" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="TipoContacto" Relationship="Self.FK_Contacto_TipoContacto" FromRole="Contacto" ToRole="TipoContacto" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK_Contacto_UserProfile" FromRole="Contacto" ToRole="UserProfile" />
+    <NavigationProperty Name="SolicitudSms" Relationship="Self.FK_SolicitudSms_Contacto" FromRole="Contacto" ToRole="SolicitudSms" />
+  </EntityType>
+  <EntityType Name="Equipo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Serie" Type="Binary" MaxLength="75" FixedLength="false" Nullable="false" />
+    <NavigationProperty Name="SolicitudEquipoes" Relationship="Self.FK_SolicitudEquipo_Equipo" FromRole="Equipo" ToRole="SolicitudEquipo" />
+  </EntityType>
+  <EntityType Name="Lugar">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Edificio" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Solicituds" Relationship="Self.FK_Solicitud_Lugar" FromRole="Lugar" ToRole="Solicitud" />
+  </EntityType>
+  <EntityType Name="Solicitud">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="HoraInicio" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="HoraFin" Type="Time" Nullable="false" Precision="7" />
+    <Property Name="Descripcion" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdUserProfile" Type="Int32" Nullable="false" />
+    <Property Name="IdLugar" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Lugar" Relationship="Self.FK_Solicitud_Lugar" FromRole="Solicitud" ToRole="Lugar" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK_Solicitud_UserProfile" FromRole="Solicitud" ToRole="UserProfile" />
+    <NavigationProperty Name="SolicitudEquipoes" Relationship="Self.FK_SolicitudEquipo_Solicitud" FromRole="Solicitud" ToRole="SolicitudEquipo" />
+    <NavigationProperty Name="SolicitudSms" Relationship="Self.FK_SolicitudSms_Solicitud" FromRole="Solicitud" ToRole="SolicitudSms" />
+  </EntityType>
+  <EntityType Name="SolicitudEquipo">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="IdSolicitud" Type="Int32" Nullable="false" />
+    <Property Name="idEquipo" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Equipo" Relationship="Self.FK_SolicitudEquipo_Equipo" FromRole="SolicitudEquipo" ToRole="Equipo" />
+    <NavigationProperty Name="Solicitud" Relationship="Self.FK_SolicitudEquipo_Solicitud" FromRole="SolicitudEquipo" ToRole="Solicitud" />
+  </EntityType>
+  <EntityType Name="SolicitudSm">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="IdSolicitud" Type="Int32" Nullable="false" />
+    <Property Name="IdContacto" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="Contacto" Relationship="Self.FK_SolicitudSms_Contacto" FromRole="SolicitudSms" ToRole="Contacto" />
+    <NavigationProperty Name="Solicitud" Relationship="Self.FK_SolicitudSms_Solicitud" FromRole="SolicitudSms" ToRole="Solicitud" />
+  </EntityType>
+  <EntityType Name="TipoContacto">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <NavigationProperty Name="Contactoes" Relationship="Self.FK_Contacto_TipoContacto" FromRole="TipoContacto" ToRole="Contacto" />
+  </EntityType>
+  <EntityType Name="UserProfile">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="UserName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Contactoes" Relationship="Self.FK_Contacto_UserProfile" FromRole="UserProfile" ToRole="Contacto" />
+    <NavigationProperty Name="Solicituds" Relationship="Self.FK_Solicitud_UserProfile" FromRole="UserProfile" ToRole="Solicitud" />
+    <NavigationProperty Name="UsuarioNipSms" Relationship="Self.FK_UsuarioNipSms_UserProfile" FromRole="UserProfile" ToRole="UsuarioNipSms" />
+    <NavigationProperty Name="webpages_Roles" Relationship="Self.webpages_UsersInRoles" FromRole="UserProfile" ToRole="webpages_Roles" />
+  </EntityType>
+  <EntityType Name="UsuarioNipSm">
+    <Key>
+      <PropertyRef Name="Id" />
+    </Key>
+    <Property Name="Id" Type="Int32" Nullable="false" />
+    <Property Name="Nip" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+    <Property Name="IdUserProfile" Type="Int32" Nullable="false" />
+    <NavigationProperty Name="UserProfile" Relationship="Self.FK_UsuarioNipSms_UserProfile" FromRole="UsuarioNipSms" ToRole="UserProfile" />
+  </EntityType>
+  <EntityType Name="webpages_Membership">
+    <Key>
+      <PropertyRef Name="UserId" />
+    </Key>
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+    <Property Name="CreateDate" Type="DateTime" Precision="3" />
+    <Property Name="ConfirmationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="IsConfirmed" Type="Boolean" />
+    <Property Name="LastPasswordFailureDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordFailuresSinceLastSuccess" Type="Int32" Nullable="false" />
+    <Property Name="Password" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PasswordChangedDate" Type="DateTime" Precision="3" />
+    <Property Name="PasswordSalt" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="PasswordVerificationToken" Type="String" MaxLength="128" FixedLength="false" Unicode="true" />
+    <Property Name="PasswordVerificationTokenExpirationDate" Type="DateTime" Precision="3" />
+  </EntityType>
+  <EntityType Name="webpages_OAuthMembership">
+    <Key>
+      <PropertyRef Name="Provider" />
+      <PropertyRef Name="ProviderUserId" />
+    </Key>
+    <Property Name="Provider" Type="String" MaxLength="30" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="ProviderUserId" Type="String" MaxLength="100" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="UserId" Type="Int32" Nullable="false" />
+  </EntityType>
+  <EntityType Name="webpages_Roles">
+    <Key>
+      <PropertyRef Name="RoleId" />
+    </Key>
+    <Property Name="RoleId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RoleName" Type="String" MaxLength="256" FixedLength="false" Unicode="true" Nullable="false" />
+    <NavigationProperty Name="UserProfiles" Relationship="Self.webpages_UsersInRoles" FromRole="webpages_Roles" ToRole="UserProfile" />
+  </EntityType>
+  <Association Name="FK_Contacto_TipoContacto">
+    <End Role="TipoContacto" Type="Self.TipoContacto" Multiplicity="1" />
+    <End Role="Contacto" Type="Self.Contacto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TipoContacto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Contacto">
+        <PropertyRef Name="IdTipoContacto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Contacto_UserProfile">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+    <End Role="Contacto" Type="Self.Contacto" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Contacto">
+        <PropertyRef Name="IdUserProfile" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SolicitudSms_Contacto">
+    <End Role="Contacto" Type="Self.Contacto" Multiplicity="1" />
+    <End Role="SolicitudSms" Type="Self.SolicitudSm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Contacto">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitudSms">
+        <PropertyRef Name="IdContacto" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SolicitudEquipo_Equipo">
+    <End Role="Equipo" Type="Self.Equipo" Multiplicity="1" />
+    <End Role="SolicitudEquipo" Type="Self.SolicitudEquipo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Equipo">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitudEquipo">
+        <PropertyRef Name="idEquipo" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solicitud_Lugar">
+    <End Role="Lugar" Type="Self.Lugar" Multiplicity="1" />
+    <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Lugar">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="Solicitud">
+        <PropertyRef Name="IdLugar" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Solicitud_UserProfile">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+    <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="Solicitud">
+        <PropertyRef Name="IdUserProfile" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SolicitudEquipo_Solicitud">
+    <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+    <End Role="SolicitudEquipo" Type="Self.SolicitudEquipo" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitud">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitudEquipo">
+        <PropertyRef Name="IdSolicitud" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SolicitudSms_Solicitud">
+    <End Role="Solicitud" Type="Self.Solicitud" Multiplicity="1" />
+    <End Role="SolicitudSms" Type="Self.SolicitudSm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Solicitud">
+        <PropertyRef Name="Id" />
+      </Principal>
+      <Dependent Role="SolicitudSms">
+        <PropertyRef Name="IdSolicitud" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_UsuarioNipSms_UserProfile">
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="1" />
+    <End Role="UsuarioNipSms" Type="Self.UsuarioNipSm" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="UserProfile">
+        <PropertyRef Name="UserId" />
+      </Principal>
+      <Dependent Role="UsuarioNipSms">
+        <PropertyRef Name="IdUserProfile" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="webpages_UsersInRoles">
+    <End Role="webpages_Roles" Type="Self.webpages_Roles" Multiplicity="*" />
+    <End Role="UserProfile" Type="Self.UserProfile" Multiplicity="*" />
+  </Association>
+  <EntityContainer Name="SigeretEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Contactoes" EntityType="Self.Contacto" />
+    <EntitySet Name="Equipoes" EntityType="Self.Equipo" />
+    <EntitySet Name="Lugars" EntityType="Self.Lugar" />
+    <EntitySet Name="Solicituds" EntityType="Self.Solicitud" />
+    <EntitySet Name="SolicitudEquipoes" EntityType="Self.SolicitudEquipo" />
+    <EntitySet Name="SolicitudSms" EntityType="Self.SolicitudSm" />
+    <EntitySet Name="TipoContactoes" EntityType="Self.TipoContacto" />
+    <EntitySet Name="UserProfiles" EntityType="Self.UserProfile" />
+    <EntitySet Name="UsuarioNipSms" EntityType="Self.UsuarioNipSm" />
+    <EntitySet Name="webpages_Membership" EntityType="Self.webpages_Membership" />
+    <EntitySet Name="webpages_OAuthMembership" EntityType="Self.webpages_OAuthMembership" />
+    <EntitySet Name="webpages_Roles" EntityType="Self.webpages_Roles" />
+    <AssociationSet Name="FK_Contacto_TipoContacto" Association="Self.FK_Contacto_TipoContacto">
+      <End Role="TipoContacto" EntitySet="TipoContactoes" />
+      <End Role="Contacto" EntitySet="Contactoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Contacto_UserProfile" Association="Self.FK_Contacto_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Contacto" EntitySet="Contactoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SolicitudSms_Contacto" Association="Self.FK_SolicitudSms_Contacto">
+      <End Role="Contacto" EntitySet="Contactoes" />
+      <End Role="SolicitudSms" EntitySet="SolicitudSms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SolicitudEquipo_Equipo" Association="Self.FK_SolicitudEquipo_Equipo">
+      <End Role="Equipo" EntitySet="Equipoes" />
+      <End Role="SolicitudEquipo" EntitySet="SolicitudEquipoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solicitud_Lugar" Association="Self.FK_Solicitud_Lugar">
+      <End Role="Lugar" EntitySet="Lugars" />
+      <End Role="Solicitud" EntitySet="Solicituds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Solicitud_UserProfile" Association="Self.FK_Solicitud_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="Solicitud" EntitySet="Solicituds" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SolicitudEquipo_Solicitud" Association="Self.FK_SolicitudEquipo_Solicitud">
+      <End Role="Solicitud" EntitySet="Solicituds" />
+      <End Role="SolicitudEquipo" EntitySet="SolicitudEquipoes" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SolicitudSms_Solicitud" Association="Self.FK_SolicitudSms_Solicitud">
+      <End Role="Solicitud" EntitySet="Solicituds" />
+      <End Role="SolicitudSms" EntitySet="SolicitudSms" />
+    </AssociationSet>
+    <AssociationSet Name="FK_UsuarioNipSms_UserProfile" Association="Self.FK_UsuarioNipSms_UserProfile">
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+      <End Role="UsuarioNipSms" EntitySet="UsuarioNipSms" />
+    </AssociationSet>
+    <AssociationSet Name="webpages_UsersInRoles" Association="Self.webpages_UsersInRoles">
+      <End Role="webpages_Roles" EntitySet="webpages_Roles" />
+      <End Role="UserProfile" EntitySet="UserProfiles" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

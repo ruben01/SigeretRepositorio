@@ -1,0 +1,87 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Sigeret" Class="SigeretDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=(LocalDb)\v11.0;AttachDbFilename=|DataDirectory|\Sigeret.mdf;Initial Catalog=Sigeret;Integrated Security=True" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="SigeretConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Contacto" Member="Contacto">
+    <Type Name="Contacto">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(60) NOT NULL" CanBeNull="false" />
+      <Column Name="IdUserProfile" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdTipoContacto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Contacto_SolicitudSms" Member="SolicitudSms" ThisKey="Id" OtherKey="IdContacto" Type="SolicitudSms" />
+      <Association Name="TipoContacto_Contacto" Member="TipoContacto" ThisKey="IdTipoContacto" OtherKey="Id" Type="TipoContacto" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Lugar" Member="Lugar">
+    <Type Name="Lugar">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Edificio" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Lugar_Solicitud" Member="Solicitud" ThisKey="Id" OtherKey="IdLugar" Type="Solicitud" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Solicitud" Member="Solicitud">
+    <Type Name="Solicitud">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="HoraInicio" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="HoraFin" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="IdUserProfile" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdLugar" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Solicitud_SolicitudEquipo" Member="SolicitudEquipo" ThisKey="Id" OtherKey="IdSolicitud" Type="SolicitudEquipo" />
+      <Association Name="Solicitud_SolicitudSms" Member="SolicitudSms" ThisKey="Id" OtherKey="IdSolicitud" Type="SolicitudSms" />
+      <Association Name="Lugar_Solicitud" Member="Lugar" ThisKey="IdLugar" OtherKey="Id" Type="Lugar" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SolicitudEquipo" Member="SolicitudEquipo">
+    <Type Name="SolicitudEquipo">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdSolicitud" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="idEquipo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Solicitud_SolicitudEquipo" Member="Solicitud" ThisKey="IdSolicitud" OtherKey="Id" Type="Solicitud" IsForeignKey="true" />
+      <Association Name="Equipo_SolicitudEquipo" Member="Equipo" ThisKey="idEquipo" OtherKey="Id" Type="Equipo" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.SolicitudSms" Member="SolicitudSms">
+    <Type Name="SolicitudSms">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="IdSolicitud" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdContacto" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Contacto_SolicitudSms" Member="Contacto" ThisKey="IdContacto" OtherKey="Id" Type="Contacto" IsForeignKey="true" />
+      <Association Name="Solicitud_SolicitudSms" Member="Solicitud" ThisKey="IdSolicitud" OtherKey="Id" Type="Solicitud" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TipoContacto" Member="TipoContacto">
+    <Type Name="TipoContacto">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="TipoContacto_Contacto" Member="Contacto" ThisKey="Id" OtherKey="IdTipoContacto" Type="Contacto" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UsuarioNipSms" Member="UsuarioNipSms">
+    <Type Name="UsuarioNipSms">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL" IsPrimaryKey="true" CanBeNull="false" />
+      <Column Name="Nip" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="IdUserProfile" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EstatusEquipo" Member="EstatusEquipo">
+    <Type Name="EstatusEquipo">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(MAX)" CanBeNull="true" />
+      <Association Name="EstatusEquipo_Equipo" Member="Equipo" ThisKey="Id" OtherKey="IdEstatusEquipo" Type="Equipo" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Equipo" Member="Equipo">
+    <Type Name="Equipo">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Serie" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Modelo" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Marca" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="descripcion" Type="System.String" DbType="VarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Column Name="IdEstatusEquipo" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
+      <Association Name="Equipo_SolicitudEquipo" Member="SolicitudEquipo" ThisKey="Id" OtherKey="idEquipo" Type="SolicitudEquipo" />
+      <Association Name="EstatusEquipo_Equipo" Member="EstatusEquipo" ThisKey="IdEstatusEquipo" OtherKey="Id" Type="EstatusEquipo" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>

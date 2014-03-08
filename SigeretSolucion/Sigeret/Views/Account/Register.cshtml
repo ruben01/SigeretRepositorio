@@ -1,0 +1,68 @@
+﻿@model Sigeret.Models.UserProfile
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>UserProfile</legend>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Nombre)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Nombre)
+            @Html.ValidationMessageFor(model => model.Nombre)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Apellido)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Apellido)
+            @Html.ValidationMessageFor(model => model.Apellido)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.UserName)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.UserName)
+            @Html.ValidationMessageFor(model => model.UserName)
+        </div>
+        
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Cedula)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Cedula)
+            @Html.ValidationMessageFor(model => model.Cedula)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Matricula)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Matricula)
+            @Html.ValidationMessageFor(model => model.Matricula)
+        </div>
+
+        <p>
+            <input type="submit" value="Guardar" />
+        </p>
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Regresar", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

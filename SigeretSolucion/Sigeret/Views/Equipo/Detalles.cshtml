@@ -1,0 +1,64 @@
+﻿@model Sigeret.Equipo
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+<fieldset>
+    <legend>Equipo</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Serie)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Serie)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Modelo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Modelo)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Marca)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Marca)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.descripcion)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IdEstatusEquipo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstatusEquipo)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstatusEquipo)
+    </div>
+
+    
+
+
+</fieldset>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id=Model.Id }) |
+    @Html.ActionLink("Regresar", "Index")
+</p>
