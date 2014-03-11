@@ -1,0 +1,62 @@
+﻿@model Sigeret.Models.UserProfile
+
+@{
+    ViewBag.Title = "Habilitar";
+}
+
+<h2>Habilitar</h2>
+
+<h3>Seguro que desea Habilitar este Usuario?</h3>
+<fieldset>
+    <legend>Usuario</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Apellido)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.UserName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.UserName)
+    </div>
+
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Apellido)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Cedula)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Cedula)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Matricula)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Matricula)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.IdEstatusUsuario)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.IdEstatusUsuario)
+    </div>
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Habilitar" /> |
+        @Html.ActionLink("regresar", "Index")
+    </p>
+}

@@ -49,9 +49,19 @@
             @Html.DisplayFor(modelItem => item.Cedula)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Editar", new { id=item.UserId }) |
-            @Html.ActionLink("Detalles", "Detalles", new { id=item.UserId }) |
-            @Html.ActionLink("Eliminar", "Eliminar", new { id=item.UserId })
+            
+            @Html.ActionLink("Detalles", "Detalles", new { id=item.UserId }) 
+
+            @if (item.IdEstatusUsuario != 2) { 
+                
+                @:|
+                @Html.ActionLink("Suspender", "Suspender", new { id=item.UserId })
+            }
+            else if(item.IdEstatusUsuario == 2)
+            {
+                @:|
+                @Html.ActionLink("Habilitar", "Habilitar", new { id=item.UserId })
+            }
         </td>
     </tr>
 }

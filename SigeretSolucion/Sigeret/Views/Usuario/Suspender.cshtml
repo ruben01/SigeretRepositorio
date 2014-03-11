@@ -1,0 +1,55 @@
+﻿@model Sigeret.Models.UserProfile
+
+@{
+    ViewBag.Title = "Suspender";
+}
+
+<h2>Suspender</h2>
+
+<h3>Seguro que desea Suspender este Usuario?</h3>
+<fieldset>
+    <legend>Perfil Usuario</legend>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Nombre)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Nombre)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Apellido)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Apellido)
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.UserName)
+    </div>
+    <div class="display-field">
+        @Html.Display("Nombre de Usuario")
+    </div>
+
+    <div class="display-label">
+        @Html.DisplayNameFor(model => model.Matricula)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Matricula)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Cedula)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Cedula)
+    </div>
+
+</fieldset>
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    <p>
+        <input type="submit" value="Suspender" /> |
+        @Html.ActionLink("Retroceder", "Index")
+    </p>
+}

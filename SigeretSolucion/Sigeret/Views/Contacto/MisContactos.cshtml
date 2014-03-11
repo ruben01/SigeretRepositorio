@@ -1,0 +1,40 @@
+﻿@model IEnumerable<Sigeret.Contacto>
+
+@{
+    ViewBag.Title = "Mis Contactos";
+}
+
+<h2>Mis Contactos</h2>
+
+<p>
+    @Html.ActionLink("Nuevo", "NuevoContacto")
+</p>
+<table>
+    <tr>
+        <th>
+            @Html.DisplayName("Contacto")
+        </th>
+
+        <th>
+            @Html.DisplayName("Tipo")
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Descripcion)
+        </td>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.TipoContacto.Descripcion)
+        </td>
+        <td>
+            @Html.ActionLink("Editar", "Editar", new { id=item.Id }) |
+            @Html.ActionLink("Eliminar", "Eliminar", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

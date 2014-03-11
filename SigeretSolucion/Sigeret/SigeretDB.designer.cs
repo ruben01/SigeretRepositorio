@@ -30,9 +30,6 @@ namespace Sigeret
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnCreated();
-    partial void InsertContacto(Contacto instance);
-    partial void UpdateContacto(Contacto instance);
-    partial void DeleteContacto(Contacto instance);
     partial void InsertLugar(Lugar instance);
     partial void UpdateLugar(Lugar instance);
     partial void DeleteLugar(Lugar instance);
@@ -57,6 +54,9 @@ namespace Sigeret
     partial void InsertEquipo(Equipo instance);
     partial void UpdateEquipo(Equipo instance);
     partial void DeleteEquipo(Equipo instance);
+    partial void InsertContacto(Contacto instance);
+    partial void UpdateContacto(Contacto instance);
+    partial void DeleteContacto(Contacto instance);
     #endregion
 		
 		public SigeretDBDataContext() : 
@@ -87,14 +87,6 @@ namespace Sigeret
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<Contacto> Contacto
-		{
-			get
-			{
-				return this.GetTable<Contacto>();
-			}
 		}
 		
 		public System.Data.Linq.Table<Lugar> Lugar
@@ -160,208 +152,13 @@ namespace Sigeret
 				return this.GetTable<Equipo>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Contacto")]
-	public partial class Contacto : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Descripcion;
-		
-		private int _IdUserProfile;
-		
-		private int _IdTipoContacto;
-		
-		private EntitySet<SolicitudSms> _SolicitudSms;
-		
-		private EntityRef<TipoContacto> _TipoContacto;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnDescripcionChanging(string value);
-    partial void OnDescripcionChanged();
-    partial void OnIdUserProfileChanging(int value);
-    partial void OnIdUserProfileChanged();
-    partial void OnIdTipoContactoChanging(int value);
-    partial void OnIdTipoContactoChanged();
-    #endregion
-		
-		public Contacto()
-		{
-			this._SolicitudSms = new EntitySet<SolicitudSms>(new Action<SolicitudSms>(this.attach_SolicitudSms), new Action<SolicitudSms>(this.detach_SolicitudSms));
-			this._TipoContacto = default(EntityRef<TipoContacto>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
+		public System.Data.Linq.Table<Contacto> Contacto
 		{
 			get
 			{
-				return this._Id;
+				return this.GetTable<Contacto>();
 			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this.OnDescripcionChanging(value);
-					this.SendPropertyChanging();
-					this._Descripcion = value;
-					this.SendPropertyChanged("Descripcion");
-					this.OnDescripcionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUserProfile", DbType="Int NOT NULL")]
-		public int IdUserProfile
-		{
-			get
-			{
-				return this._IdUserProfile;
-			}
-			set
-			{
-				if ((this._IdUserProfile != value))
-				{
-					this.OnIdUserProfileChanging(value);
-					this.SendPropertyChanging();
-					this._IdUserProfile = value;
-					this.SendPropertyChanged("IdUserProfile");
-					this.OnIdUserProfileChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTipoContacto", DbType="Int NOT NULL")]
-		public int IdTipoContacto
-		{
-			get
-			{
-				return this._IdTipoContacto;
-			}
-			set
-			{
-				if ((this._IdTipoContacto != value))
-				{
-					if (this._TipoContacto.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdTipoContactoChanging(value);
-					this.SendPropertyChanging();
-					this._IdTipoContacto = value;
-					this.SendPropertyChanged("IdTipoContacto");
-					this.OnIdTipoContactoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contacto_SolicitudSms", Storage="_SolicitudSms", ThisKey="Id", OtherKey="IdContacto")]
-		public EntitySet<SolicitudSms> SolicitudSms
-		{
-			get
-			{
-				return this._SolicitudSms;
-			}
-			set
-			{
-				this._SolicitudSms.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TipoContacto_Contacto", Storage="_TipoContacto", ThisKey="IdTipoContacto", OtherKey="Id", IsForeignKey=true)]
-		public TipoContacto TipoContacto
-		{
-			get
-			{
-				return this._TipoContacto.Entity;
-			}
-			set
-			{
-				TipoContacto previousValue = this._TipoContacto.Entity;
-				if (((previousValue != value) 
-							|| (this._TipoContacto.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._TipoContacto.Entity = null;
-						previousValue.Contacto.Remove(this);
-					}
-					this._TipoContacto.Entity = value;
-					if ((value != null))
-					{
-						value.Contacto.Add(this);
-						this._IdTipoContacto = value.Id;
-					}
-					else
-					{
-						this._IdTipoContacto = default(int);
-					}
-					this.SendPropertyChanged("TipoContacto");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_SolicitudSms(SolicitudSms entity)
-		{
-			this.SendPropertyChanging();
-			entity.Contacto = this;
-		}
-		
-		private void detach_SolicitudSms(SolicitudSms entity)
-		{
-			this.SendPropertyChanging();
-			entity.Contacto = null;
 		}
 	}
 	
@@ -986,9 +783,9 @@ namespace Sigeret
 		
 		private int _IdContacto;
 		
-		private EntityRef<Contacto> _Contacto;
-		
 		private EntityRef<Solicitud> _Solicitud;
+		
+		private EntityRef<Contacto> _Contacto;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -1004,8 +801,8 @@ namespace Sigeret
 		
 		public SolicitudSms()
 		{
-			this._Contacto = default(EntityRef<Contacto>);
 			this._Solicitud = default(EntityRef<Solicitud>);
+			this._Contacto = default(EntityRef<Contacto>);
 			OnCreated();
 		}
 		
@@ -1077,40 +874,6 @@ namespace Sigeret
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contacto_SolicitudSms", Storage="_Contacto", ThisKey="IdContacto", OtherKey="Id", IsForeignKey=true)]
-		public Contacto Contacto
-		{
-			get
-			{
-				return this._Contacto.Entity;
-			}
-			set
-			{
-				Contacto previousValue = this._Contacto.Entity;
-				if (((previousValue != value) 
-							|| (this._Contacto.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Contacto.Entity = null;
-						previousValue.SolicitudSms.Remove(this);
-					}
-					this._Contacto.Entity = value;
-					if ((value != null))
-					{
-						value.SolicitudSms.Add(this);
-						this._IdContacto = value.Id;
-					}
-					else
-					{
-						this._IdContacto = default(int);
-					}
-					this.SendPropertyChanged("Contacto");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Solicitud_SolicitudSms", Storage="_Solicitud", ThisKey="IdSolicitud", OtherKey="Id", IsForeignKey=true)]
 		public Solicitud Solicitud
 		{
@@ -1141,6 +904,40 @@ namespace Sigeret
 						this._IdSolicitud = default(int);
 					}
 					this.SendPropertyChanged("Solicitud");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contacto_SolicitudSms", Storage="_Contacto", ThisKey="IdContacto", OtherKey="Id", IsForeignKey=true)]
+		public Contacto Contacto
+		{
+			get
+			{
+				return this._Contacto.Entity;
+			}
+			set
+			{
+				Contacto previousValue = this._Contacto.Entity;
+				if (((previousValue != value) 
+							|| (this._Contacto.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Contacto.Entity = null;
+						previousValue.SolicitudSms.Remove(this);
+					}
+					this._Contacto.Entity = value;
+					if ((value != null))
+					{
+						value.SolicitudSms.Add(this);
+						this._IdContacto = value.Id;
+					}
+					else
+					{
+						this._IdContacto = default(int);
+					}
+					this.SendPropertyChanged("Contacto");
 				}
 			}
 		}
@@ -1800,6 +1597,209 @@ namespace Sigeret
 		{
 			this.SendPropertyChanging();
 			entity.Equipo = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Contacto")]
+	public partial class Contacto : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Descripcion;
+		
+		private int _IdUserProfile;
+		
+		private int _IdTipoContacto;
+		
+		private EntitySet<SolicitudSms> _SolicitudSms;
+		
+		private EntityRef<TipoContacto> _TipoContacto;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnDescripcionChanging(string value);
+    partial void OnDescripcionChanged();
+    partial void OnIdUserProfileChanging(int value);
+    partial void OnIdUserProfileChanged();
+    partial void OnIdTipoContactoChanging(int value);
+    partial void OnIdTipoContactoChanged();
+    #endregion
+		
+		public Contacto()
+		{
+			this._SolicitudSms = new EntitySet<SolicitudSms>(new Action<SolicitudSms>(this.attach_SolicitudSms), new Action<SolicitudSms>(this.detach_SolicitudSms));
+			this._TipoContacto = default(EntityRef<TipoContacto>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(60) NOT NULL", CanBeNull=false)]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this.OnDescripcionChanging(value);
+					this.SendPropertyChanging();
+					this._Descripcion = value;
+					this.SendPropertyChanged("Descripcion");
+					this.OnDescripcionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUserProfile", DbType="Int NOT NULL")]
+		public int IdUserProfile
+		{
+			get
+			{
+				return this._IdUserProfile;
+			}
+			set
+			{
+				if ((this._IdUserProfile != value))
+				{
+					this.OnIdUserProfileChanging(value);
+					this.SendPropertyChanging();
+					this._IdUserProfile = value;
+					this.SendPropertyChanged("IdUserProfile");
+					this.OnIdUserProfileChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdTipoContacto", DbType="Int NOT NULL")]
+		public int IdTipoContacto
+		{
+			get
+			{
+				return this._IdTipoContacto;
+			}
+			set
+			{
+				if ((this._IdTipoContacto != value))
+				{
+					if (this._TipoContacto.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdTipoContactoChanging(value);
+					this.SendPropertyChanging();
+					this._IdTipoContacto = value;
+					this.SendPropertyChanged("IdTipoContacto");
+					this.OnIdTipoContactoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contacto_SolicitudSms", Storage="_SolicitudSms", ThisKey="Id", OtherKey="IdContacto")]
+		public EntitySet<SolicitudSms> SolicitudSms
+		{
+			get
+			{
+				return this._SolicitudSms;
+			}
+			set
+			{
+				this._SolicitudSms.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="TipoContacto_Contacto", Storage="_TipoContacto", ThisKey="IdTipoContacto", OtherKey="Id", IsForeignKey=true)]
+		public TipoContacto TipoContacto
+		{
+			get
+			{
+				return this._TipoContacto.Entity;
+			}
+			set
+			{
+				TipoContacto previousValue = this._TipoContacto.Entity;
+				if (((previousValue != value) 
+							|| (this._TipoContacto.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._TipoContacto.Entity = null;
+						previousValue.Contacto.Remove(this);
+					}
+					this._TipoContacto.Entity = value;
+					if ((value != null))
+					{
+						value.Contacto.Add(this);
+						this._IdTipoContacto = value.Id;
+					}
+					else
+					{
+						this._IdTipoContacto = default(int);
+					}
+					this.SendPropertyChanged("TipoContacto");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SolicitudSms(SolicitudSms entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contacto = this;
+		}
+		
+		private void detach_SolicitudSms(SolicitudSms entity)
+		{
+			this.SendPropertyChanging();
+			entity.Contacto = null;
 		}
 	}
 }

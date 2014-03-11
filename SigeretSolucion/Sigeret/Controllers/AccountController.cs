@@ -19,6 +19,16 @@ namespace Sigeret.Controllers
     [InitializeSimpleMembership]
     public class AccountController : Controller
     {
+        SigeretDBDataContext sigeretDb = new SigeretDBDataContext();
+
+        public ActionResult Index()
+        {
+            
+            return View();
+        }
+        
+        
+        
         //
         // GET: /Account/Login
 
@@ -65,6 +75,8 @@ namespace Sigeret.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
+            
+
             return View();
         }
 
@@ -137,6 +149,8 @@ namespace Sigeret.Controllers
                 : "";
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
+
+            ViewBag.IdTipoContacto = new SelectList(sigeretDb.TipoContacto, "Id", "Descripcion");
             return View();
         }
 
