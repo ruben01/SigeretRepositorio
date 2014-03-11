@@ -32,26 +32,67 @@ namespace Sigeret.Controllers
             return View(sigeretDbEntity.UserProfiles.SingleOrDefault(u=>u.UserId==Id));
         }
 
-        public ActionResult Eliminar(int Id)
+        public ActionResult Suspender(int Id)
         {
-            ViewBag.UsuarioEliminado = "";
+            ViewBag.UsuarioSuspendido = "";
 
             return View(sigeretDbEntity.UserProfiles.SingleOrDefault(u=>u.UserId==Id));
         }
         
-        [HttpPost, ActionName("Eliminar")]
+        [HttpPost, ActionName("Suspender")]
         [ValidateAntiForgeryToken]
-        public ActionResult EliminarConfirmado(int Id)
+        public ActionResult SuspenderConfirmado(int Id)
         {
             
 
-            
-            sigeretDbEntity.UserProfiles.Remove(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id));
-            sigeretDbEntity.SaveChanges();
+           // Eliminar Usuario
+            /*************
+            //sigeretDbEntity.UserProfiles.Remove(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id));
+            //sigeretDbEntity.SaveChanges();
+             *////////
+
+           var UsuarioSuspendido = sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id);
+
+           UsuarioSuspendido.IdEstatusUsuario = 2;
+
+           sigeretDbEntity.SaveChanges();
 
             
             return RedirectToAction("Index");
         }
+
+
+        public ActionResult Habilitar(int Id)
+        {
+            ViewBag.UsuarioHabilitado = "";
+
+            return View(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id));
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Habilitar(int Id, FormCollection formcol)
+        {
+
+
+            // Eliminar Usuario
+            /*************
+            //sigeretDbEntity.UserProfiles.Remove(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id));
+            //sigeretDbEntity.SaveChanges();
+             */
+            ///////
+
+            var UsuarioSuspendido = sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id);
+
+            UsuarioSuspendido.IdEstatusUsuario = 1;
+
+            sigeretDbEntity.SaveChanges();
+
+
+            return RedirectToAction("Index");
+        }
+
+
 
     }
 }

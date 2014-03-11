@@ -185,6 +185,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
@@ -333,7 +334,7 @@
     <Content Include="Views\Equipo\Editar.cshtml" />
     <Content Include="Views\Usuario\ReporteUsuarios.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
-    <Content Include="Views\Usuario\Eliminar.cshtml" />
+    <Content Include="Views\Usuario\Suspender.cshtml" />
     <Content Include="Views\Usuario\Detalles.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\PartialMenuUsuario.cshtml" />
@@ -341,6 +342,14 @@
     <Content Include="Views\Solicitud\Nueva.cshtml" />
     <Content Include="Views\Solicitud\ReporteSolicitudesAdm.cshtml" />
     <Content Include="Views\Solicitud\PartialMenuSolicitudes.cshtml" />
+    <Content Include="Views\Usuario\Habilitar.cshtml" />
+    <Content Include="Views\Contacto\Index.cshtml" />
+    <Content Include="Views\Contacto\PartialMenuContacto.cshtml" />
+    <Content Include="Views\Contacto\NuevoContacto.cshtml" />
+    <Content Include="Views\Contacto\MisContactos.cshtml" />
+    <Content Include="Views\Account\Index.cshtml" />
+    <Content Include="Views\Account\PartialMenuCuenta.cshtml" />
+    <Content Include="Views\Contacto\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

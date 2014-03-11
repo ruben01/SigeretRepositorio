@@ -1,12 +1,12 @@
 ﻿@model Sigeret.Models.UserProfile
 
 @{
-    ViewBag.Title = "Eliminar";
+    ViewBag.Title = "Suspender";
 }
 
-<h2>Eliminar</h2>
+<h2>Suspender</h2>
 
-<h3>Seguro que desea Eliminar este Usuario?</h3>
+<h3>Seguro que desea Suspender este Usuario?</h3>
 <fieldset>
     <legend>Perfil Usuario</legend>
 
@@ -49,7 +49,7 @@
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     <p>
-        <input type="submit" value="Eliminar" /> |
+        <input type="submit" value="Suspender" /> |
         @Html.ActionLink("Retroceder", "Index")
     </p>
 }

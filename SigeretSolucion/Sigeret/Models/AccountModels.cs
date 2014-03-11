@@ -27,14 +27,14 @@ namespace Sigeret.Models
     public class UserProfile
     {
         [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]
-        
+        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]        
         public int UserId { get; set; }
         public string UserName { get; set; }
         public string Apellido { get; set; }
         public string Nombre { get; set; }
         public string Cedula { get; set; }
         public string Matricula { get; set; }
+        public int IdEstatusUsuario { get; set; }
     }
      
 
@@ -118,20 +118,7 @@ namespace Sigeret.Models
         public string ConfirmPassword { get; set; }
 
 
-        public static byte[] ImageAArray(Image Imagen)
-        {
-            MemoryStream ms = new MemoryStream();
-            Imagen.Save(ms, System.Drawing.Imaging.ImageFormat.Gif);
-            return ms.ToArray();
-        }
 
-        ///De byte [] a image:
-        public static Image ArrayAImage(byte[] ArrBite)
-        {
-            MemoryStream ms = new MemoryStream(ArrBite);
-            Image returnImage = Image.FromStream(ms);
-            return returnImage;
-        }
     }
      
 

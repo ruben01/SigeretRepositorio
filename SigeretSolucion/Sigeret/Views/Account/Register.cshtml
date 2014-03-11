@@ -1,10 +1,10 @@
 ﻿@model Sigeret.Models.UserProfile
 
 @{
-    ViewBag.Title = "Register";
+    ViewBag.Title = "Registro";
 }
 
-<h2>Register</h2>
+<h2>Registrese</h2>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
@@ -30,15 +30,15 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.UserName)
+            @Html.Label("Nombre Usuario")
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.UserName)
+            @Html.EditorFor(model=>Model.UserName)
             @Html.ValidationMessageFor(model => model.UserName)
         </div>
         
         <div class="editor-label">
-            @Html.LabelFor(model => model.Cedula)
+            @Html.Label("Cédula")
         </div>
         <div class="editor-field">
             @Html.EditorFor(model => model.Cedula)
@@ -53,6 +53,15 @@
             @Html.ValidationMessageFor(model => model.Matricula)
         </div>
 
+        <div class="editor-label">
+            @Html.Label("Correo Electrónico")
+        </div>
+        <div class="editor-field">
+
+           <input type="email" name="correo" placeholder="juanperez@ejemplo.com"/>
+           
+        </div>
+
         <p>
             <input type="submit" value="Guardar" />
         </p>
@@ -60,7 +69,7 @@
 }
 
 <div>
-    @Html.ActionLink("Regresar", "Index")
+    @Html.ActionLink("Regresar", "Index","Home")
 </div>
 
 @section Scripts {

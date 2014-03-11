@@ -1,11 +1,5 @@
 ﻿@model Sigeret.Models.LocalPasswordModel
-@{
-    ViewBag.Title = "Administrar cuenta";
-}
 
-<hgroup class="title">
-    <h1>@ViewBag.Title.</h1>
-</hgroup>
 
 <p class="message-success">@ViewBag.StatusMessage</p>
 
@@ -19,6 +13,9 @@ else
 { 
     @Html.Partial("_SetPasswordPartial")
 }
+
+
+
 
 <section id="externalLogins">
     @Html.Action("RemoveExternalLogins")
