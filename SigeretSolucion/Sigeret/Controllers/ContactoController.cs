@@ -11,6 +11,7 @@ namespace Sigeret.Controllers
     public class ContactoController : Controller
     {
         SigeretDBDataContext sigeretDb = new SigeretDBDataContext();
+        
         //
         // GET: /Contacto/
 
@@ -65,8 +66,9 @@ namespace Sigeret.Controllers
 
         public ActionResult Editar(int Id)
         {
-            ViewBag.IdTipoContacto = new SelectList(sigeretDb.TipoContacto, "Id", "Descripcion");
-            return View(sigeretDb.Contacto.SingleOrDefault(c => c.Id == Id));
+            var contacto = sigeretDb.Contacto.SingleOrDefault(c => c.Id == Id);
+            ViewBag.IdTipoContacto = new SelectList(sigeretDb.TipoContacto, "Id", "Descripcion", contacto.IdTipoContacto );
+            return View(contacto);
         }
 
         //

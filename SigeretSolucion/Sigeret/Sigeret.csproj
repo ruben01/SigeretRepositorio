@@ -350,6 +350,8 @@
     <Content Include="Views\Account\Index.cshtml" />
     <Content Include="Views\Account\PartialMenuCuenta.cshtml" />
     <Content Include="Views\Contacto\Editar.cshtml" />
+    <Content Include="Views\Account\Editar.cshtml" />
+    <Content Include="Views\Account\Detalles.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

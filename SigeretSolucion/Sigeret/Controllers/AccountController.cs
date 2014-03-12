@@ -12,6 +12,7 @@ using Sigeret.Filters;
 using Sigeret.Models;
 using System.Drawing;
 using System.IO;
+using System.Data.Entity;
 
 namespace Sigeret.Controllers
 {
@@ -20,6 +21,8 @@ namespace Sigeret.Controllers
     public class AccountController : Controller
     {
         SigeretDBDataContext sigeretDb = new SigeretDBDataContext();
+        UsersContext sigeretDbEntity = new UsersContext();
+        
 
         public ActionResult Index()
         {
@@ -381,6 +384,52 @@ namespace Sigeret.Controllers
                 OAuthWebSecurity.RequestAuthentication(Provider, ReturnUrl);
             }
         }
+
+        public ActionResult Editar()
+        {
+            int Id = WebSecurity.GetUserId(User.Identity.Name);
+            
+            return View(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId ==Id));
+        }
+
+        [HttpPost]
+        public ActionResult Editar(UserProfile usuario)
+        {
+            if (ModelState.IsValid)
+            {
+
+                try
+                {
+                    usuario.UserId = WebSecurity.GetUserId(User.Identity.Name);
+                    var actualizarUsuario = sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == usuario.UserId);
+
+                    actualizarUsuario.Nombre = usuario.Nombre;
+                    actualizarUsuario.Apellido = usuario.Apellido;
+
+                    //Validar que la Matricula este en la tabla matricuala y la cedula tambn
+                    actualizarUsuario.Matricula = usuario.Matricula;
+                    actualizarUsuario.Cedula = usuario.Cedula;
+
+                    sigeretDbEntity.SaveChanges();
+
+                    return RedirectToAction("Detalles");
+                }
+                catch
+                {
+                    return View(usuario);
+                }
+            }
+
+            return View(usuario);
+        }
+
+        public ActionResult Detalles()
+        {
+            int Id = WebSecurity.GetUserId(User.Identity.Name);
+
+            return View(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id));
+        }
+
 
         private static string ErrorCodeToString(MembershipCreateStatus createStatus)
         {
