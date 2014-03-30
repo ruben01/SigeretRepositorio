@@ -30,15 +30,6 @@ namespace Sigeret
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnCreated();
-    partial void InsertLugar(Lugar instance);
-    partial void UpdateLugar(Lugar instance);
-    partial void DeleteLugar(Lugar instance);
-    partial void InsertSolicitud(Solicitud instance);
-    partial void UpdateSolicitud(Solicitud instance);
-    partial void DeleteSolicitud(Solicitud instance);
-    partial void InsertSolicitudEquipo(SolicitudEquipo instance);
-    partial void UpdateSolicitudEquipo(SolicitudEquipo instance);
-    partial void DeleteSolicitudEquipo(SolicitudEquipo instance);
     partial void InsertSolicitudSms(SolicitudSms instance);
     partial void UpdateSolicitudSms(SolicitudSms instance);
     partial void DeleteSolicitudSms(SolicitudSms instance);
@@ -51,12 +42,30 @@ namespace Sigeret
     partial void InsertEstatusEquipo(EstatusEquipo instance);
     partial void UpdateEstatusEquipo(EstatusEquipo instance);
     partial void DeleteEstatusEquipo(EstatusEquipo instance);
-    partial void InsertEquipo(Equipo instance);
-    partial void UpdateEquipo(Equipo instance);
-    partial void DeleteEquipo(Equipo instance);
     partial void InsertContacto(Contacto instance);
     partial void UpdateContacto(Contacto instance);
     partial void DeleteContacto(Contacto instance);
+    partial void InsertEquipo(Equipo instance);
+    partial void UpdateEquipo(Equipo instance);
+    partial void DeleteEquipo(Equipo instance);
+    partial void InsertMarcaEquipo(MarcaEquipo instance);
+    partial void UpdateMarcaEquipo(MarcaEquipo instance);
+    partial void DeleteMarcaEquipo(MarcaEquipo instance);
+    partial void InsertSolicitud(Solicitud instance);
+    partial void UpdateSolicitud(Solicitud instance);
+    partial void DeleteSolicitud(Solicitud instance);
+    partial void InsertSolicitudEquipo(SolicitudEquipo instance);
+    partial void UpdateSolicitudEquipo(SolicitudEquipo instance);
+    partial void DeleteSolicitudEquipo(SolicitudEquipo instance);
+    partial void InsertModeloEquipo(ModeloEquipo instance);
+    partial void UpdateModeloEquipo(ModeloEquipo instance);
+    partial void DeleteModeloEquipo(ModeloEquipo instance);
+    partial void InsertLugar(Lugar instance);
+    partial void UpdateLugar(Lugar instance);
+    partial void DeleteLugar(Lugar instance);
+    partial void InsertAulaEdificio(AulaEdificio instance);
+    partial void UpdateAulaEdificio(AulaEdificio instance);
+    partial void DeleteAulaEdificio(AulaEdificio instance);
     #endregion
 		
 		public SigeretDBDataContext() : 
@@ -87,30 +96,6 @@ namespace Sigeret
 				base(connection, mappingSource)
 		{
 			OnCreated();
-		}
-		
-		public System.Data.Linq.Table<Lugar> Lugar
-		{
-			get
-			{
-				return this.GetTable<Lugar>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Solicitud> Solicitud
-		{
-			get
-			{
-				return this.GetTable<Solicitud>();
-			}
-		}
-		
-		public System.Data.Linq.Table<SolicitudEquipo> SolicitudEquipo
-		{
-			get
-			{
-				return this.GetTable<SolicitudEquipo>();
-			}
 		}
 		
 		public System.Data.Linq.Table<SolicitudSms> SolicitudSms
@@ -145,6 +130,14 @@ namespace Sigeret
 			}
 		}
 		
+		public System.Data.Linq.Table<Contacto> Contacto
+		{
+			get
+			{
+				return this.GetTable<Contacto>();
+			}
+		}
+		
 		public System.Data.Linq.Table<Equipo> Equipo
 		{
 			get
@@ -153,620 +146,51 @@ namespace Sigeret
 			}
 		}
 		
-		public System.Data.Linq.Table<Contacto> Contacto
+		public System.Data.Linq.Table<MarcaEquipo> MarcaEquipo
 		{
 			get
 			{
-				return this.GetTable<Contacto>();
+				return this.GetTable<MarcaEquipo>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Lugar")]
-	public partial class Lugar : INotifyPropertyChanging, INotifyPropertyChanged
-	{
 		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Edificio;
-		
-		private string _Descripcion;
-		
-		private EntitySet<Solicitud> _Solicitud;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnEdificioChanging(string value);
-    partial void OnEdificioChanged();
-    partial void OnDescripcionChanging(string value);
-    partial void OnDescripcionChanged();
-    #endregion
-		
-		public Lugar()
-		{
-			this._Solicitud = new EntitySet<Solicitud>(new Action<Solicitud>(this.attach_Solicitud), new Action<Solicitud>(this.detach_Solicitud));
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
+		public System.Data.Linq.Table<Solicitud> Solicitud
 		{
 			get
 			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
+				return this.GetTable<Solicitud>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Edificio", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Edificio
+		public System.Data.Linq.Table<SolicitudEquipo> SolicitudEquipo
 		{
 			get
 			{
-				return this._Edificio;
-			}
-			set
-			{
-				if ((this._Edificio != value))
-				{
-					this.OnEdificioChanging(value);
-					this.SendPropertyChanging();
-					this._Edificio = value;
-					this.SendPropertyChanged("Edificio");
-					this.OnEdificioChanged();
-				}
+				return this.GetTable<SolicitudEquipo>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Descripcion
+		public System.Data.Linq.Table<ModeloEquipo> ModeloEquipo
 		{
 			get
 			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this.OnDescripcionChanging(value);
-					this.SendPropertyChanging();
-					this._Descripcion = value;
-					this.SendPropertyChanged("Descripcion");
-					this.OnDescripcionChanged();
-				}
+				return this.GetTable<ModeloEquipo>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lugar_Solicitud", Storage="_Solicitud", ThisKey="Id", OtherKey="IdLugar")]
-		public EntitySet<Solicitud> Solicitud
+		public System.Data.Linq.Table<Lugar> Lugar
 		{
 			get
 			{
-				return this._Solicitud;
-			}
-			set
-			{
-				this._Solicitud.Assign(value);
+				return this.GetTable<Lugar>();
 			}
 		}
 		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Solicitud(Solicitud entity)
-		{
-			this.SendPropertyChanging();
-			entity.Lugar = this;
-		}
-		
-		private void detach_Solicitud(Solicitud entity)
-		{
-			this.SendPropertyChanging();
-			entity.Lugar = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Solicitud")]
-	public partial class Solicitud : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private System.TimeSpan _HoraInicio;
-		
-		private System.TimeSpan _HoraFin;
-		
-		private string _Descripcion;
-		
-		private int _IdUserProfile;
-		
-		private int _IdLugar;
-		
-		private EntitySet<SolicitudEquipo> _SolicitudEquipo;
-		
-		private EntitySet<SolicitudSms> _SolicitudSms;
-		
-		private EntityRef<Lugar> _Lugar;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnHoraInicioChanging(System.TimeSpan value);
-    partial void OnHoraInicioChanged();
-    partial void OnHoraFinChanging(System.TimeSpan value);
-    partial void OnHoraFinChanged();
-    partial void OnDescripcionChanging(string value);
-    partial void OnDescripcionChanged();
-    partial void OnIdUserProfileChanging(int value);
-    partial void OnIdUserProfileChanged();
-    partial void OnIdLugarChanging(int value);
-    partial void OnIdLugarChanged();
-    #endregion
-		
-		public Solicitud()
-		{
-			this._SolicitudEquipo = new EntitySet<SolicitudEquipo>(new Action<SolicitudEquipo>(this.attach_SolicitudEquipo), new Action<SolicitudEquipo>(this.detach_SolicitudEquipo));
-			this._SolicitudSms = new EntitySet<SolicitudSms>(new Action<SolicitudSms>(this.attach_SolicitudSms), new Action<SolicitudSms>(this.detach_SolicitudSms));
-			this._Lugar = default(EntityRef<Lugar>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
+		public System.Data.Linq.Table<AulaEdificio> AulaEdificio
 		{
 			get
 			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoraInicio", DbType="Time NOT NULL")]
-		public System.TimeSpan HoraInicio
-		{
-			get
-			{
-				return this._HoraInicio;
-			}
-			set
-			{
-				if ((this._HoraInicio != value))
-				{
-					this.OnHoraInicioChanging(value);
-					this.SendPropertyChanging();
-					this._HoraInicio = value;
-					this.SendPropertyChanged("HoraInicio");
-					this.OnHoraInicioChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoraFin", DbType="Time NOT NULL")]
-		public System.TimeSpan HoraFin
-		{
-			get
-			{
-				return this._HoraFin;
-			}
-			set
-			{
-				if ((this._HoraFin != value))
-				{
-					this.OnHoraFinChanging(value);
-					this.SendPropertyChanging();
-					this._HoraFin = value;
-					this.SendPropertyChanged("HoraFin");
-					this.OnHoraFinChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this.OnDescripcionChanging(value);
-					this.SendPropertyChanging();
-					this._Descripcion = value;
-					this.SendPropertyChanged("Descripcion");
-					this.OnDescripcionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUserProfile", DbType="Int NOT NULL")]
-		public int IdUserProfile
-		{
-			get
-			{
-				return this._IdUserProfile;
-			}
-			set
-			{
-				if ((this._IdUserProfile != value))
-				{
-					this.OnIdUserProfileChanging(value);
-					this.SendPropertyChanging();
-					this._IdUserProfile = value;
-					this.SendPropertyChanged("IdUserProfile");
-					this.OnIdUserProfileChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdLugar", DbType="Int NOT NULL")]
-		public int IdLugar
-		{
-			get
-			{
-				return this._IdLugar;
-			}
-			set
-			{
-				if ((this._IdLugar != value))
-				{
-					if (this._Lugar.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdLugarChanging(value);
-					this.SendPropertyChanging();
-					this._IdLugar = value;
-					this.SendPropertyChanged("IdLugar");
-					this.OnIdLugarChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Solicitud_SolicitudEquipo", Storage="_SolicitudEquipo", ThisKey="Id", OtherKey="IdSolicitud")]
-		public EntitySet<SolicitudEquipo> SolicitudEquipo
-		{
-			get
-			{
-				return this._SolicitudEquipo;
-			}
-			set
-			{
-				this._SolicitudEquipo.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Solicitud_SolicitudSms", Storage="_SolicitudSms", ThisKey="Id", OtherKey="IdSolicitud")]
-		public EntitySet<SolicitudSms> SolicitudSms
-		{
-			get
-			{
-				return this._SolicitudSms;
-			}
-			set
-			{
-				this._SolicitudSms.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lugar_Solicitud", Storage="_Lugar", ThisKey="IdLugar", OtherKey="Id", IsForeignKey=true)]
-		public Lugar Lugar
-		{
-			get
-			{
-				return this._Lugar.Entity;
-			}
-			set
-			{
-				Lugar previousValue = this._Lugar.Entity;
-				if (((previousValue != value) 
-							|| (this._Lugar.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Lugar.Entity = null;
-						previousValue.Solicitud.Remove(this);
-					}
-					this._Lugar.Entity = value;
-					if ((value != null))
-					{
-						value.Solicitud.Add(this);
-						this._IdLugar = value.Id;
-					}
-					else
-					{
-						this._IdLugar = default(int);
-					}
-					this.SendPropertyChanged("Lugar");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_SolicitudEquipo(SolicitudEquipo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Solicitud = this;
-		}
-		
-		private void detach_SolicitudEquipo(SolicitudEquipo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Solicitud = null;
-		}
-		
-		private void attach_SolicitudSms(SolicitudSms entity)
-		{
-			this.SendPropertyChanging();
-			entity.Solicitud = this;
-		}
-		
-		private void detach_SolicitudSms(SolicitudSms entity)
-		{
-			this.SendPropertyChanging();
-			entity.Solicitud = null;
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SolicitudEquipo")]
-	public partial class SolicitudEquipo : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private int _IdSolicitud;
-		
-		private int _idEquipo;
-		
-		private EntityRef<Solicitud> _Solicitud;
-		
-		private EntityRef<Equipo> _Equipo;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnIdSolicitudChanging(int value);
-    partial void OnIdSolicitudChanged();
-    partial void OnidEquipoChanging(int value);
-    partial void OnidEquipoChanged();
-    #endregion
-		
-		public SolicitudEquipo()
-		{
-			this._Solicitud = default(EntityRef<Solicitud>);
-			this._Equipo = default(EntityRef<Equipo>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", DbType="Int NOT NULL", IsPrimaryKey=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSolicitud", DbType="Int NOT NULL")]
-		public int IdSolicitud
-		{
-			get
-			{
-				return this._IdSolicitud;
-			}
-			set
-			{
-				if ((this._IdSolicitud != value))
-				{
-					if (this._Solicitud.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdSolicitudChanging(value);
-					this.SendPropertyChanging();
-					this._IdSolicitud = value;
-					this.SendPropertyChanged("IdSolicitud");
-					this.OnIdSolicitudChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEquipo", DbType="Int NOT NULL")]
-		public int idEquipo
-		{
-			get
-			{
-				return this._idEquipo;
-			}
-			set
-			{
-				if ((this._idEquipo != value))
-				{
-					if (this._Equipo.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnidEquipoChanging(value);
-					this.SendPropertyChanging();
-					this._idEquipo = value;
-					this.SendPropertyChanged("idEquipo");
-					this.OnidEquipoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Solicitud_SolicitudEquipo", Storage="_Solicitud", ThisKey="IdSolicitud", OtherKey="Id", IsForeignKey=true)]
-		public Solicitud Solicitud
-		{
-			get
-			{
-				return this._Solicitud.Entity;
-			}
-			set
-			{
-				Solicitud previousValue = this._Solicitud.Entity;
-				if (((previousValue != value) 
-							|| (this._Solicitud.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Solicitud.Entity = null;
-						previousValue.SolicitudEquipo.Remove(this);
-					}
-					this._Solicitud.Entity = value;
-					if ((value != null))
-					{
-						value.SolicitudEquipo.Add(this);
-						this._IdSolicitud = value.Id;
-					}
-					else
-					{
-						this._IdSolicitud = default(int);
-					}
-					this.SendPropertyChanged("Solicitud");
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Equipo_SolicitudEquipo", Storage="_Equipo", ThisKey="idEquipo", OtherKey="Id", IsForeignKey=true)]
-		public Equipo Equipo
-		{
-			get
-			{
-				return this._Equipo.Entity;
-			}
-			set
-			{
-				Equipo previousValue = this._Equipo.Entity;
-				if (((previousValue != value) 
-							|| (this._Equipo.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Equipo.Entity = null;
-						previousValue.SolicitudEquipo.Remove(this);
-					}
-					this._Equipo.Entity = value;
-					if ((value != null))
-					{
-						value.SolicitudEquipo.Add(this);
-						this._idEquipo = value.Id;
-					}
-					else
-					{
-						this._idEquipo = default(int);
-					}
-					this.SendPropertyChanged("Equipo");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+				return this.GetTable<AulaEdificio>();
 			}
 		}
 	}
@@ -783,9 +207,9 @@ namespace Sigeret
 		
 		private int _IdContacto;
 		
-		private EntityRef<Solicitud> _Solicitud;
-		
 		private EntityRef<Contacto> _Contacto;
+		
+		private EntityRef<Solicitud> _Solicitud;
 		
     #region Definiciones de métodos de extensibilidad
     partial void OnLoaded();
@@ -801,8 +225,8 @@ namespace Sigeret
 		
 		public SolicitudSms()
 		{
-			this._Solicitud = default(EntityRef<Solicitud>);
 			this._Contacto = default(EntityRef<Contacto>);
+			this._Solicitud = default(EntityRef<Solicitud>);
 			OnCreated();
 		}
 		
@@ -874,40 +298,6 @@ namespace Sigeret
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Solicitud_SolicitudSms", Storage="_Solicitud", ThisKey="IdSolicitud", OtherKey="Id", IsForeignKey=true)]
-		public Solicitud Solicitud
-		{
-			get
-			{
-				return this._Solicitud.Entity;
-			}
-			set
-			{
-				Solicitud previousValue = this._Solicitud.Entity;
-				if (((previousValue != value) 
-							|| (this._Solicitud.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Solicitud.Entity = null;
-						previousValue.SolicitudSms.Remove(this);
-					}
-					this._Solicitud.Entity = value;
-					if ((value != null))
-					{
-						value.SolicitudSms.Add(this);
-						this._IdSolicitud = value.Id;
-					}
-					else
-					{
-						this._IdSolicitud = default(int);
-					}
-					this.SendPropertyChanged("Solicitud");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Contacto_SolicitudSms", Storage="_Contacto", ThisKey="IdContacto", OtherKey="Id", IsForeignKey=true)]
 		public Contacto Contacto
 		{
@@ -938,6 +328,40 @@ namespace Sigeret
 						this._IdContacto = default(int);
 					}
 					this.SendPropertyChanged("Contacto");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Solicitud_SolicitudSms", Storage="_Solicitud", ThisKey="IdSolicitud", OtherKey="Id", IsForeignKey=true)]
+		public Solicitud Solicitud
+		{
+			get
+			{
+				return this._Solicitud.Entity;
+			}
+			set
+			{
+				Solicitud previousValue = this._Solicitud.Entity;
+				if (((previousValue != value) 
+							|| (this._Solicitud.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Solicitud.Entity = null;
+						previousValue.SolicitudSms.Remove(this);
+					}
+					this._Solicitud.Entity = value;
+					if ((value != null))
+					{
+						value.SolicitudSms.Add(this);
+						this._IdSolicitud = value.Id;
+					}
+					else
+					{
+						this._IdSolicitud = default(int);
+					}
+					this.SendPropertyChanged("Solicitud");
 				}
 			}
 		}
@@ -1325,281 +749,6 @@ namespace Sigeret
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Equipo")]
-	public partial class Equipo : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _Id;
-		
-		private string _Serie;
-		
-		private string _Modelo;
-		
-		private string _Marca;
-		
-		private string _descripcion;
-		
-		private int _IdEstatusEquipo;
-		
-		private string _Nombre;
-		
-		private EntitySet<SolicitudEquipo> _SolicitudEquipo;
-		
-		private EntityRef<EstatusEquipo> _EstatusEquipo;
-		
-    #region Definiciones de métodos de extensibilidad
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnIdChanging(int value);
-    partial void OnIdChanged();
-    partial void OnSerieChanging(string value);
-    partial void OnSerieChanged();
-    partial void OnModeloChanging(string value);
-    partial void OnModeloChanged();
-    partial void OnMarcaChanging(string value);
-    partial void OnMarcaChanged();
-    partial void OndescripcionChanging(string value);
-    partial void OndescripcionChanged();
-    partial void OnIdEstatusEquipoChanging(int value);
-    partial void OnIdEstatusEquipoChanged();
-    partial void OnNombreChanging(string value);
-    partial void OnNombreChanged();
-    #endregion
-		
-		public Equipo()
-		{
-			this._SolicitudEquipo = new EntitySet<SolicitudEquipo>(new Action<SolicitudEquipo>(this.attach_SolicitudEquipo), new Action<SolicitudEquipo>(this.detach_SolicitudEquipo));
-			this._EstatusEquipo = default(EntityRef<EstatusEquipo>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int Id
-		{
-			get
-			{
-				return this._Id;
-			}
-			set
-			{
-				if ((this._Id != value))
-				{
-					this.OnIdChanging(value);
-					this.SendPropertyChanging();
-					this._Id = value;
-					this.SendPropertyChanged("Id");
-					this.OnIdChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Serie", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Serie
-		{
-			get
-			{
-				return this._Serie;
-			}
-			set
-			{
-				if ((this._Serie != value))
-				{
-					this.OnSerieChanging(value);
-					this.SendPropertyChanging();
-					this._Serie = value;
-					this.SendPropertyChanged("Serie");
-					this.OnSerieChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Modelo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Modelo
-		{
-			get
-			{
-				return this._Modelo;
-			}
-			set
-			{
-				if ((this._Modelo != value))
-				{
-					this.OnModeloChanging(value);
-					this.SendPropertyChanging();
-					this._Modelo = value;
-					this.SendPropertyChanged("Modelo");
-					this.OnModeloChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marca", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Marca
-		{
-			get
-			{
-				return this._Marca;
-			}
-			set
-			{
-				if ((this._Marca != value))
-				{
-					this.OnMarcaChanging(value);
-					this.SendPropertyChanging();
-					this._Marca = value;
-					this.SendPropertyChanged("Marca");
-					this.OnMarcaChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_descripcion", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
-		public string descripcion
-		{
-			get
-			{
-				return this._descripcion;
-			}
-			set
-			{
-				if ((this._descripcion != value))
-				{
-					this.OndescripcionChanging(value);
-					this.SendPropertyChanging();
-					this._descripcion = value;
-					this.SendPropertyChanged("descripcion");
-					this.OndescripcionChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstatusEquipo", DbType="Int NOT NULL")]
-		public int IdEstatusEquipo
-		{
-			get
-			{
-				return this._IdEstatusEquipo;
-			}
-			set
-			{
-				if ((this._IdEstatusEquipo != value))
-				{
-					if (this._EstatusEquipo.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnIdEstatusEquipoChanging(value);
-					this.SendPropertyChanging();
-					this._IdEstatusEquipo = value;
-					this.SendPropertyChanged("IdEstatusEquipo");
-					this.OnIdEstatusEquipoChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this.OnNombreChanging(value);
-					this.SendPropertyChanging();
-					this._Nombre = value;
-					this.SendPropertyChanged("Nombre");
-					this.OnNombreChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Equipo_SolicitudEquipo", Storage="_SolicitudEquipo", ThisKey="Id", OtherKey="idEquipo")]
-		public EntitySet<SolicitudEquipo> SolicitudEquipo
-		{
-			get
-			{
-				return this._SolicitudEquipo;
-			}
-			set
-			{
-				this._SolicitudEquipo.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="EstatusEquipo_Equipo", Storage="_EstatusEquipo", ThisKey="IdEstatusEquipo", OtherKey="Id", IsForeignKey=true)]
-		public EstatusEquipo EstatusEquipo
-		{
-			get
-			{
-				return this._EstatusEquipo.Entity;
-			}
-			set
-			{
-				EstatusEquipo previousValue = this._EstatusEquipo.Entity;
-				if (((previousValue != value) 
-							|| (this._EstatusEquipo.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._EstatusEquipo.Entity = null;
-						previousValue.Equipo.Remove(this);
-					}
-					this._EstatusEquipo.Entity = value;
-					if ((value != null))
-					{
-						value.Equipo.Add(this);
-						this._IdEstatusEquipo = value.Id;
-					}
-					else
-					{
-						this._IdEstatusEquipo = default(int);
-					}
-					this.SendPropertyChanged("EstatusEquipo");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_SolicitudEquipo(SolicitudEquipo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Equipo = this;
-		}
-		
-		private void detach_SolicitudEquipo(SolicitudEquipo entity)
-		{
-			this.SendPropertyChanging();
-			entity.Equipo = null;
-		}
-	}
-	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Contacto")]
 	public partial class Contacto : INotifyPropertyChanging, INotifyPropertyChanged
 	{
@@ -1800,6 +949,1403 @@ namespace Sigeret
 		{
 			this.SendPropertyChanging();
 			entity.Contacto = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Equipo")]
+	public partial class Equipo : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Serie;
+		
+		private int _IdEstatusEquipo;
+		
+		private int _IdModelo;
+		
+		private EntitySet<SolicitudEquipo> _SolicitudEquipo;
+		
+		private EntityRef<EstatusEquipo> _EstatusEquipo;
+		
+		private EntityRef<ModeloEquipo> _ModeloEquipo;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnSerieChanging(string value);
+    partial void OnSerieChanged();
+    partial void OnIdEstatusEquipoChanging(int value);
+    partial void OnIdEstatusEquipoChanged();
+    partial void OnIdModeloChanging(int value);
+    partial void OnIdModeloChanged();
+    #endregion
+		
+		public Equipo()
+		{
+			this._SolicitudEquipo = new EntitySet<SolicitudEquipo>(new Action<SolicitudEquipo>(this.attach_SolicitudEquipo), new Action<SolicitudEquipo>(this.detach_SolicitudEquipo));
+			this._EstatusEquipo = default(EntityRef<EstatusEquipo>);
+			this._ModeloEquipo = default(EntityRef<ModeloEquipo>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Serie", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Serie
+		{
+			get
+			{
+				return this._Serie;
+			}
+			set
+			{
+				if ((this._Serie != value))
+				{
+					this.OnSerieChanging(value);
+					this.SendPropertyChanging();
+					this._Serie = value;
+					this.SendPropertyChanged("Serie");
+					this.OnSerieChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstatusEquipo", DbType="Int NOT NULL")]
+		public int IdEstatusEquipo
+		{
+			get
+			{
+				return this._IdEstatusEquipo;
+			}
+			set
+			{
+				if ((this._IdEstatusEquipo != value))
+				{
+					if (this._EstatusEquipo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdEstatusEquipoChanging(value);
+					this.SendPropertyChanging();
+					this._IdEstatusEquipo = value;
+					this.SendPropertyChanged("IdEstatusEquipo");
+					this.OnIdEstatusEquipoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdModelo", DbType="Int NOT NULL")]
+		public int IdModelo
+		{
+			get
+			{
+				return this._IdModelo;
+			}
+			set
+			{
+				if ((this._IdModelo != value))
+				{
+					if (this._ModeloEquipo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdModeloChanging(value);
+					this.SendPropertyChanging();
+					this._IdModelo = value;
+					this.SendPropertyChanged("IdModelo");
+					this.OnIdModeloChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Equipo_SolicitudEquipo", Storage="_SolicitudEquipo", ThisKey="Id", OtherKey="idEquipo")]
+		public EntitySet<SolicitudEquipo> SolicitudEquipo
+		{
+			get
+			{
+				return this._SolicitudEquipo;
+			}
+			set
+			{
+				this._SolicitudEquipo.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="EstatusEquipo_Equipo", Storage="_EstatusEquipo", ThisKey="IdEstatusEquipo", OtherKey="Id", IsForeignKey=true)]
+		public EstatusEquipo EstatusEquipo
+		{
+			get
+			{
+				return this._EstatusEquipo.Entity;
+			}
+			set
+			{
+				EstatusEquipo previousValue = this._EstatusEquipo.Entity;
+				if (((previousValue != value) 
+							|| (this._EstatusEquipo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._EstatusEquipo.Entity = null;
+						previousValue.Equipo.Remove(this);
+					}
+					this._EstatusEquipo.Entity = value;
+					if ((value != null))
+					{
+						value.Equipo.Add(this);
+						this._IdEstatusEquipo = value.Id;
+					}
+					else
+					{
+						this._IdEstatusEquipo = default(int);
+					}
+					this.SendPropertyChanged("EstatusEquipo");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ModeloEquipo_Equipo", Storage="_ModeloEquipo", ThisKey="IdModelo", OtherKey="Id", IsForeignKey=true)]
+		public ModeloEquipo ModeloEquipo
+		{
+			get
+			{
+				return this._ModeloEquipo.Entity;
+			}
+			set
+			{
+				ModeloEquipo previousValue = this._ModeloEquipo.Entity;
+				if (((previousValue != value) 
+							|| (this._ModeloEquipo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._ModeloEquipo.Entity = null;
+						previousValue.Equipo.Remove(this);
+					}
+					this._ModeloEquipo.Entity = value;
+					if ((value != null))
+					{
+						value.Equipo.Add(this);
+						this._IdModelo = value.Id;
+					}
+					else
+					{
+						this._IdModelo = default(int);
+					}
+					this.SendPropertyChanged("ModeloEquipo");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SolicitudEquipo(SolicitudEquipo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Equipo = this;
+		}
+		
+		private void detach_SolicitudEquipo(SolicitudEquipo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Equipo = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.MarcaEquipo")]
+	public partial class MarcaEquipo : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Marca;
+		
+		private EntitySet<ModeloEquipo> _ModeloEquipo;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnMarcaChanging(string value);
+    partial void OnMarcaChanged();
+    #endregion
+		
+		public MarcaEquipo()
+		{
+			this._ModeloEquipo = new EntitySet<ModeloEquipo>(new Action<ModeloEquipo>(this.attach_ModeloEquipo), new Action<ModeloEquipo>(this.detach_ModeloEquipo));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Marca", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Marca
+		{
+			get
+			{
+				return this._Marca;
+			}
+			set
+			{
+				if ((this._Marca != value))
+				{
+					this.OnMarcaChanging(value);
+					this.SendPropertyChanging();
+					this._Marca = value;
+					this.SendPropertyChanged("Marca");
+					this.OnMarcaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MarcaEquipo_ModeloEquipo", Storage="_ModeloEquipo", ThisKey="Id", OtherKey="IdMarca")]
+		public EntitySet<ModeloEquipo> ModeloEquipo
+		{
+			get
+			{
+				return this._ModeloEquipo;
+			}
+			set
+			{
+				this._ModeloEquipo.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_ModeloEquipo(ModeloEquipo entity)
+		{
+			this.SendPropertyChanging();
+			entity.MarcaEquipo = this;
+		}
+		
+		private void detach_ModeloEquipo(ModeloEquipo entity)
+		{
+			this.SendPropertyChanging();
+			entity.MarcaEquipo = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Solicitud")]
+	public partial class Solicitud : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private System.TimeSpan _HoraInicio;
+		
+		private System.TimeSpan _HoraFin;
+		
+		private string _Descripcion;
+		
+		private int _IdUserProfile;
+		
+		private int _IdLugar;
+		
+		private int _IdEstatusSolicitud;
+		
+		private System.DateTime _Fecha;
+		
+		private EntitySet<SolicitudSms> _SolicitudSms;
+		
+		private EntitySet<SolicitudEquipo> _SolicitudEquipo;
+		
+		private EntityRef<Lugar> _Lugar;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnHoraInicioChanging(System.TimeSpan value);
+    partial void OnHoraInicioChanged();
+    partial void OnHoraFinChanging(System.TimeSpan value);
+    partial void OnHoraFinChanged();
+    partial void OnDescripcionChanging(string value);
+    partial void OnDescripcionChanged();
+    partial void OnIdUserProfileChanging(int value);
+    partial void OnIdUserProfileChanged();
+    partial void OnIdLugarChanging(int value);
+    partial void OnIdLugarChanged();
+    partial void OnIdEstatusSolicitudChanging(int value);
+    partial void OnIdEstatusSolicitudChanged();
+    partial void OnFechaChanging(System.DateTime value);
+    partial void OnFechaChanged();
+    #endregion
+		
+		public Solicitud()
+		{
+			this._SolicitudSms = new EntitySet<SolicitudSms>(new Action<SolicitudSms>(this.attach_SolicitudSms), new Action<SolicitudSms>(this.detach_SolicitudSms));
+			this._SolicitudEquipo = new EntitySet<SolicitudEquipo>(new Action<SolicitudEquipo>(this.attach_SolicitudEquipo), new Action<SolicitudEquipo>(this.detach_SolicitudEquipo));
+			this._Lugar = default(EntityRef<Lugar>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoraInicio", DbType="Time NOT NULL")]
+		public System.TimeSpan HoraInicio
+		{
+			get
+			{
+				return this._HoraInicio;
+			}
+			set
+			{
+				if ((this._HoraInicio != value))
+				{
+					this.OnHoraInicioChanging(value);
+					this.SendPropertyChanging();
+					this._HoraInicio = value;
+					this.SendPropertyChanged("HoraInicio");
+					this.OnHoraInicioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoraFin", DbType="Time NOT NULL")]
+		public System.TimeSpan HoraFin
+		{
+			get
+			{
+				return this._HoraFin;
+			}
+			set
+			{
+				if ((this._HoraFin != value))
+				{
+					this.OnHoraFinChanging(value);
+					this.SendPropertyChanging();
+					this._HoraFin = value;
+					this.SendPropertyChanged("HoraFin");
+					this.OnHoraFinChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this.OnDescripcionChanging(value);
+					this.SendPropertyChanging();
+					this._Descripcion = value;
+					this.SendPropertyChanged("Descripcion");
+					this.OnDescripcionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdUserProfile", DbType="Int NOT NULL")]
+		public int IdUserProfile
+		{
+			get
+			{
+				return this._IdUserProfile;
+			}
+			set
+			{
+				if ((this._IdUserProfile != value))
+				{
+					this.OnIdUserProfileChanging(value);
+					this.SendPropertyChanging();
+					this._IdUserProfile = value;
+					this.SendPropertyChanged("IdUserProfile");
+					this.OnIdUserProfileChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdLugar", DbType="Int NOT NULL")]
+		public int IdLugar
+		{
+			get
+			{
+				return this._IdLugar;
+			}
+			set
+			{
+				if ((this._IdLugar != value))
+				{
+					if (this._Lugar.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdLugarChanging(value);
+					this.SendPropertyChanging();
+					this._IdLugar = value;
+					this.SendPropertyChanged("IdLugar");
+					this.OnIdLugarChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstatusSolicitud", DbType="Int NOT NULL")]
+		public int IdEstatusSolicitud
+		{
+			get
+			{
+				return this._IdEstatusSolicitud;
+			}
+			set
+			{
+				if ((this._IdEstatusSolicitud != value))
+				{
+					this.OnIdEstatusSolicitudChanging(value);
+					this.SendPropertyChanging();
+					this._IdEstatusSolicitud = value;
+					this.SendPropertyChanged("IdEstatusSolicitud");
+					this.OnIdEstatusSolicitudChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="Date NOT NULL")]
+		public System.DateTime Fecha
+		{
+			get
+			{
+				return this._Fecha;
+			}
+			set
+			{
+				if ((this._Fecha != value))
+				{
+					this.OnFechaChanging(value);
+					this.SendPropertyChanging();
+					this._Fecha = value;
+					this.SendPropertyChanged("Fecha");
+					this.OnFechaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Solicitud_SolicitudSms", Storage="_SolicitudSms", ThisKey="Id", OtherKey="IdSolicitud")]
+		public EntitySet<SolicitudSms> SolicitudSms
+		{
+			get
+			{
+				return this._SolicitudSms;
+			}
+			set
+			{
+				this._SolicitudSms.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Solicitud_SolicitudEquipo", Storage="_SolicitudEquipo", ThisKey="Id", OtherKey="IdSolicitud")]
+		public EntitySet<SolicitudEquipo> SolicitudEquipo
+		{
+			get
+			{
+				return this._SolicitudEquipo;
+			}
+			set
+			{
+				this._SolicitudEquipo.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lugar_Solicitud", Storage="_Lugar", ThisKey="IdLugar", OtherKey="Id", IsForeignKey=true)]
+		public Lugar Lugar
+		{
+			get
+			{
+				return this._Lugar.Entity;
+			}
+			set
+			{
+				Lugar previousValue = this._Lugar.Entity;
+				if (((previousValue != value) 
+							|| (this._Lugar.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Lugar.Entity = null;
+						previousValue.Solicitud.Remove(this);
+					}
+					this._Lugar.Entity = value;
+					if ((value != null))
+					{
+						value.Solicitud.Add(this);
+						this._IdLugar = value.Id;
+					}
+					else
+					{
+						this._IdLugar = default(int);
+					}
+					this.SendPropertyChanged("Lugar");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_SolicitudSms(SolicitudSms entity)
+		{
+			this.SendPropertyChanging();
+			entity.Solicitud = this;
+		}
+		
+		private void detach_SolicitudSms(SolicitudSms entity)
+		{
+			this.SendPropertyChanging();
+			entity.Solicitud = null;
+		}
+		
+		private void attach_SolicitudEquipo(SolicitudEquipo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Solicitud = this;
+		}
+		
+		private void detach_SolicitudEquipo(SolicitudEquipo entity)
+		{
+			this.SendPropertyChanging();
+			entity.Solicitud = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.SolicitudEquipo")]
+	public partial class SolicitudEquipo : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private int _IdSolicitud;
+		
+		private int _idEquipo;
+		
+		private EntityRef<Equipo> _Equipo;
+		
+		private EntityRef<Solicitud> _Solicitud;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnIdSolicitudChanging(int value);
+    partial void OnIdSolicitudChanged();
+    partial void OnidEquipoChanging(int value);
+    partial void OnidEquipoChanged();
+    #endregion
+		
+		public SolicitudEquipo()
+		{
+			this._Equipo = default(EntityRef<Equipo>);
+			this._Solicitud = default(EntityRef<Solicitud>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSolicitud", DbType="Int NOT NULL")]
+		public int IdSolicitud
+		{
+			get
+			{
+				return this._IdSolicitud;
+			}
+			set
+			{
+				if ((this._IdSolicitud != value))
+				{
+					if (this._Solicitud.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdSolicitudChanging(value);
+					this.SendPropertyChanging();
+					this._IdSolicitud = value;
+					this.SendPropertyChanged("IdSolicitud");
+					this.OnIdSolicitudChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEquipo", DbType="Int NOT NULL")]
+		public int idEquipo
+		{
+			get
+			{
+				return this._idEquipo;
+			}
+			set
+			{
+				if ((this._idEquipo != value))
+				{
+					if (this._Equipo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnidEquipoChanging(value);
+					this.SendPropertyChanging();
+					this._idEquipo = value;
+					this.SendPropertyChanged("idEquipo");
+					this.OnidEquipoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Equipo_SolicitudEquipo", Storage="_Equipo", ThisKey="idEquipo", OtherKey="Id", IsForeignKey=true)]
+		public Equipo Equipo
+		{
+			get
+			{
+				return this._Equipo.Entity;
+			}
+			set
+			{
+				Equipo previousValue = this._Equipo.Entity;
+				if (((previousValue != value) 
+							|| (this._Equipo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Equipo.Entity = null;
+						previousValue.SolicitudEquipo.Remove(this);
+					}
+					this._Equipo.Entity = value;
+					if ((value != null))
+					{
+						value.SolicitudEquipo.Add(this);
+						this._idEquipo = value.Id;
+					}
+					else
+					{
+						this._idEquipo = default(int);
+					}
+					this.SendPropertyChanged("Equipo");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Solicitud_SolicitudEquipo", Storage="_Solicitud", ThisKey="IdSolicitud", OtherKey="Id", IsForeignKey=true)]
+		public Solicitud Solicitud
+		{
+			get
+			{
+				return this._Solicitud.Entity;
+			}
+			set
+			{
+				Solicitud previousValue = this._Solicitud.Entity;
+				if (((previousValue != value) 
+							|| (this._Solicitud.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Solicitud.Entity = null;
+						previousValue.SolicitudEquipo.Remove(this);
+					}
+					this._Solicitud.Entity = value;
+					if ((value != null))
+					{
+						value.SolicitudEquipo.Add(this);
+						this._IdSolicitud = value.Id;
+					}
+					else
+					{
+						this._IdSolicitud = default(int);
+					}
+					this.SendPropertyChanged("Solicitud");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.ModeloEquipo")]
+	public partial class ModeloEquipo : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Modelo;
+		
+		private string _Descripcion;
+		
+		private int _IdMarca;
+		
+		private string _Nombre;
+		
+		private EntitySet<Equipo> _Equipo;
+		
+		private EntityRef<MarcaEquipo> _MarcaEquipo;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnModeloChanging(string value);
+    partial void OnModeloChanged();
+    partial void OnDescripcionChanging(string value);
+    partial void OnDescripcionChanged();
+    partial void OnIdMarcaChanging(int value);
+    partial void OnIdMarcaChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    #endregion
+		
+		public ModeloEquipo()
+		{
+			this._Equipo = new EntitySet<Equipo>(new Action<Equipo>(this.attach_Equipo), new Action<Equipo>(this.detach_Equipo));
+			this._MarcaEquipo = default(EntityRef<MarcaEquipo>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Modelo", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Modelo
+		{
+			get
+			{
+				return this._Modelo;
+			}
+			set
+			{
+				if ((this._Modelo != value))
+				{
+					this.OnModeloChanging(value);
+					this.SendPropertyChanging();
+					this._Modelo = value;
+					this.SendPropertyChanged("Modelo");
+					this.OnModeloChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(MAX) NOT NULL", CanBeNull=false)]
+		public string Descripcion
+		{
+			get
+			{
+				return this._Descripcion;
+			}
+			set
+			{
+				if ((this._Descripcion != value))
+				{
+					this.OnDescripcionChanging(value);
+					this.SendPropertyChanging();
+					this._Descripcion = value;
+					this.SendPropertyChanged("Descripcion");
+					this.OnDescripcionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdMarca", DbType="Int NOT NULL")]
+		public int IdMarca
+		{
+			get
+			{
+				return this._IdMarca;
+			}
+			set
+			{
+				if ((this._IdMarca != value))
+				{
+					if (this._MarcaEquipo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdMarcaChanging(value);
+					this.SendPropertyChanging();
+					this._IdMarca = value;
+					this.SendPropertyChanged("IdMarca");
+					this.OnIdMarcaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="ModeloEquipo_Equipo", Storage="_Equipo", ThisKey="Id", OtherKey="IdModelo")]
+		public EntitySet<Equipo> Equipo
+		{
+			get
+			{
+				return this._Equipo;
+			}
+			set
+			{
+				this._Equipo.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="MarcaEquipo_ModeloEquipo", Storage="_MarcaEquipo", ThisKey="IdMarca", OtherKey="Id", IsForeignKey=true)]
+		public MarcaEquipo MarcaEquipo
+		{
+			get
+			{
+				return this._MarcaEquipo.Entity;
+			}
+			set
+			{
+				MarcaEquipo previousValue = this._MarcaEquipo.Entity;
+				if (((previousValue != value) 
+							|| (this._MarcaEquipo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._MarcaEquipo.Entity = null;
+						previousValue.ModeloEquipo.Remove(this);
+					}
+					this._MarcaEquipo.Entity = value;
+					if ((value != null))
+					{
+						value.ModeloEquipo.Add(this);
+						this._IdMarca = value.Id;
+					}
+					else
+					{
+						this._IdMarca = default(int);
+					}
+					this.SendPropertyChanged("MarcaEquipo");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Equipo(Equipo entity)
+		{
+			this.SendPropertyChanging();
+			entity.ModeloEquipo = this;
+		}
+		
+		private void detach_Equipo(Equipo entity)
+		{
+			this.SendPropertyChanging();
+			entity.ModeloEquipo = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Lugar")]
+	public partial class Lugar : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Edificio;
+		
+		private EntitySet<Solicitud> _Solicitud;
+		
+		private EntitySet<AulaEdificio> _AulaEdificio;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnEdificioChanging(string value);
+    partial void OnEdificioChanged();
+    #endregion
+		
+		public Lugar()
+		{
+			this._Solicitud = new EntitySet<Solicitud>(new Action<Solicitud>(this.attach_Solicitud), new Action<Solicitud>(this.detach_Solicitud));
+			this._AulaEdificio = new EntitySet<AulaEdificio>(new Action<AulaEdificio>(this.attach_AulaEdificio), new Action<AulaEdificio>(this.detach_AulaEdificio));
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Edificio", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Edificio
+		{
+			get
+			{
+				return this._Edificio;
+			}
+			set
+			{
+				if ((this._Edificio != value))
+				{
+					this.OnEdificioChanging(value);
+					this.SendPropertyChanging();
+					this._Edificio = value;
+					this.SendPropertyChanged("Edificio");
+					this.OnEdificioChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lugar_Solicitud", Storage="_Solicitud", ThisKey="Id", OtherKey="IdLugar")]
+		public EntitySet<Solicitud> Solicitud
+		{
+			get
+			{
+				return this._Solicitud;
+			}
+			set
+			{
+				this._Solicitud.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lugar_AulaEdificio", Storage="_AulaEdificio", ThisKey="Id", OtherKey="IdLugar")]
+		public EntitySet<AulaEdificio> AulaEdificio
+		{
+			get
+			{
+				return this._AulaEdificio;
+			}
+			set
+			{
+				this._AulaEdificio.Assign(value);
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Solicitud(Solicitud entity)
+		{
+			this.SendPropertyChanging();
+			entity.Lugar = this;
+		}
+		
+		private void detach_Solicitud(Solicitud entity)
+		{
+			this.SendPropertyChanging();
+			entity.Lugar = null;
+		}
+		
+		private void attach_AulaEdificio(AulaEdificio entity)
+		{
+			this.SendPropertyChanging();
+			entity.Lugar = this;
+		}
+		
+		private void detach_AulaEdificio(AulaEdificio entity)
+		{
+			this.SendPropertyChanging();
+			entity.Lugar = null;
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.AulaEdificio")]
+	public partial class AulaEdificio : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _Id;
+		
+		private string _Aula;
+		
+		private int _IdLugar;
+		
+		private EntityRef<Lugar> _Lugar;
+		
+    #region Definiciones de métodos de extensibilidad
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdChanging(int value);
+    partial void OnIdChanged();
+    partial void OnAulaChanging(string value);
+    partial void OnAulaChanged();
+    partial void OnIdLugarChanging(int value);
+    partial void OnIdLugarChanged();
+    #endregion
+		
+		public AulaEdificio()
+		{
+			this._Lugar = default(EntityRef<Lugar>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Id", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int Id
+		{
+			get
+			{
+				return this._Id;
+			}
+			set
+			{
+				if ((this._Id != value))
+				{
+					this.OnIdChanging(value);
+					this.SendPropertyChanging();
+					this._Id = value;
+					this.SendPropertyChanged("Id");
+					this.OnIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Aula", DbType="VarChar(50) NOT NULL", CanBeNull=false)]
+		public string Aula
+		{
+			get
+			{
+				return this._Aula;
+			}
+			set
+			{
+				if ((this._Aula != value))
+				{
+					this.OnAulaChanging(value);
+					this.SendPropertyChanging();
+					this._Aula = value;
+					this.SendPropertyChanged("Aula");
+					this.OnAulaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdLugar", DbType="Int NOT NULL")]
+		public int IdLugar
+		{
+			get
+			{
+				return this._IdLugar;
+			}
+			set
+			{
+				if ((this._IdLugar != value))
+				{
+					if (this._Lugar.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdLugarChanging(value);
+					this.SendPropertyChanging();
+					this._IdLugar = value;
+					this.SendPropertyChanged("IdLugar");
+					this.OnIdLugarChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Lugar_AulaEdificio", Storage="_Lugar", ThisKey="IdLugar", OtherKey="Id", IsForeignKey=true)]
+		public Lugar Lugar
+		{
+			get
+			{
+				return this._Lugar.Entity;
+			}
+			set
+			{
+				Lugar previousValue = this._Lugar.Entity;
+				if (((previousValue != value) 
+							|| (this._Lugar.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Lugar.Entity = null;
+						previousValue.AulaEdificio.Remove(this);
+					}
+					this._Lugar.Entity = value;
+					if ((value != null))
+					{
+						value.AulaEdificio.Add(this);
+						this._IdLugar = value.Id;
+					}
+					else
+					{
+						this._IdLugar = default(int);
+					}
+					this.SendPropertyChanged("Lugar");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
 		}
 	}
 }

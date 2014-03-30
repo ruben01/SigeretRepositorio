@@ -4,65 +4,224 @@
     ViewBag.Title = "Solicitud";
 }
 
-<h2>Nueva Solicitud</h2>
+@{
+AjaxOptions options = new AjaxOptions();
+options.HttpMethod = "POST";
+options.Confirm = "Do you wish to submit this form?";
+options.OnBegin = "OnBegin";
+options.OnComplete = "OnComplete";
+options.OnFailure = "OnFailure";
+options.OnSuccess = "OnSuccess";
+options.LoadingElementId = "divResponse";
+options.LoadingElementDuration = 1000;
+options.UpdateTargetId = "divResponse";
+options.InsertionMode = InsertionMode.InsertAfter;
 
-@using (Html.BeginForm()) {
+}
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
+
+
+
+
+
+    <h2>Nueva Solicitud</h2>
+
+    @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
 
     <fieldset>
-        <legend>Solicitud</legend>
+            <legend>Solicitud</legend>
+
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.HoraInicio)
+            @Html.LabelFor(model => model.Fecha)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.HoraInicio)
-            @Html.ValidationMessageFor(model => model.HoraInicio)
+            @Html.EditorFor(model => model.Fecha)
+            @Html.ValidationMessageFor(model => model.Fecha)
         </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.HoraFin)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.HoraFin)
-            @Html.ValidationMessageFor(model => model.HoraFin)
-        </div>
+            <div class="editor-label">
+                @Html.Label("Hora Inicio")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.HoraInicio)
+                @Html.ValidationMessageFor(model => model.HoraInicio)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Descripcion)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Descripcion)
-            @Html.ValidationMessageFor(model => model.Descripcion)
-        </div>
+            <div class="editor-label">
+                @Html.Label("Hora final")
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.HoraFin)
+                @Html.ValidationMessageFor(model => model.HoraFin)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IdUserProfile)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IdUserProfile)
-            @Html.ValidationMessageFor(model => model.IdUserProfile)
-        </div>
+            <div class="editor-label">
+                @Html.LabelFor(model => model.Descripcion)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.Descripcion)
+                @Html.ValidationMessageFor(model => model.Descripcion)
+            </div>
 
-        <div class="editor-label">
-            @Html.LabelFor(model => model.IdLugar)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.IdLugar)
-            @Html.ValidationMessageFor(model => model.IdLugar)
-        </div>
+            <div class="editor-label">
+                @Html.Label("Edificio")
+            </div>
+            <div class="editor-field">
 
-        <p>
-            <input type="submit" value="Crear" />
-        </p>
-    </fieldset>
+                @Html.DropDownList("istateid", (SelectList)ViewBag.stateList, "--Seleccione Edificio--")
+
+            </div>
+
+            <div class="editor-label">
+                @Html.Label("Salon")
+                
+            </div>
+            <div class="editor-field">
+
+                @Html.DropDownList("icityid", (IEnumerable<SelectListItem>)ViewBag.cityList, "--Seleccione Salon--")
+
+            </div>
+
+            <div id="ModelMensaje" style="color:red; font-size:x-large; font-weight:bold">
+                <br />
+                @ViewBag.Seleccionar
+            </div>
+           
+
+            <table>
+                <tr>
+                    <th>
+
+                    </th>
+                    <th>
+                        @Html.DisplayName("Cantidad")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Nombre")
+                    </th>
+                    <th>
+                        @Html.DisplayName("Descripción")
+
+                    </th>
+
+
+                    <th></th>
+                </tr>
+
+
+
+                @foreach (var item in ViewBag.ModeloEquipo)
+            {
+                var checkBoxId = "chk"+@item.Id;
+                var checkBoxValue = @item.Id;
+                var cantidad = "cant" + @item.Id;
+                var td = "td" + @item.Id;
+                <tr>
+
+                        <td id="@td">
+                           
+                        
+                              <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>
+                         
+                        </td>
+                    <td>
+                        <div class="editor-field">
+
+                            <input type="text" name="@cantidad" id="@checkBoxId" class="chkclass" style="width:30px; text-align:center;" disabled="disabled" value="1" />
+
+                        </div>
+
+
+                    </td>
+                        <td>
+                           
+                            @item.Nombre
+                        </td>
+                        <td>
+                            @item.Descripcion
+                        </td>
+
+
+                    </tr>
+            }
+
+            </table>
+
+            <p>
+                <input type="submit" value="Crear" />
+            </p>
+        </fieldset>
 }
 
-<div>
-    @Html.ActionLink("Retroceder", "Index")
-</div>
 
-@section Scripts {
+
+
+  
+   
+
+ 
+
+    <div>
+        @Html.ActionLink("Retroceder", "Index")
+    </div>
+
+    @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
-}
+
+    }
+
+
+
+
+<script>
+
+    $("#istateid").change(function () {
+        alert("1");
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("getCityJson", "Solicitud")',
+            data: { stateId: $("#istateid > option:selected").attr("value") },
+            success: function (data) {
+                var items = [];
+                items.push("<option>--Seleccione Salon--</option>");
+                $.each(data, function () {
+                    items.push("<option value=" + this.Value + ">" + this.Text + "</option>");
+                });
+                $("#icityid").html(items.join(' '));
+
+                alert("1");
+            }
+        })
+    });
+
+ 
+
+
+
+    function habilitarCantidad() {
+        $("input:text").prop("disabled", false);
+    }
+    function OnBegin() {
+        $("#divMsg").append("<h3>Beginning Ajax request.</h3>");
+    }
+    function OnComplete() {
+        $("#divMsg").append("<h3>Completing Ajax request.</h3>");
+    }
+    function OnSuccess() {
+        $("#divMsg").append("<h3>Ajax request successful.</h3>");
+    }
+    function OnFailure() {
+        $("#divMsg").append("<h3>Ajax request failed.</h3>");
+    }
+
+
+
+
+
+</script>

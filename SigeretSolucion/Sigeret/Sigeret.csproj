@@ -195,6 +195,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
+    <Compile Include="Models\AgregarEquipo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SigeretDB.designer.cs">
       <AutoGen>True</AutoGen>
@@ -207,6 +208,7 @@
     <Content Include="App_Data\Sigeret_log.ldf">
       <DependentUpon>Sigeret.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\themes\base\images\ProgressCircle.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_glass_55_fbf9ee_1x400.png" />
@@ -352,6 +354,7 @@
     <Content Include="Views\Contacto\Editar.cshtml" />
     <Content Include="Views\Account\Editar.cshtml" />
     <Content Include="Views\Account\Detalles.cshtml" />
+    <Content Include="Views\Solicitud\PartialListaEquipoCheck.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

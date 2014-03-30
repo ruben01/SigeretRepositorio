@@ -59,9 +59,9 @@ namespace Sigeret.Controllers
                {
                    var editarEquipo = sigeretDb.Equipo.SingleOrDefault(e => e.Id == equipo.Id);
 
-                   editarEquipo.Nombre = equipo.Nombre;
-                   editarEquipo.Marca = equipo.Marca;
-                   editarEquipo.Modelo = equipo.Modelo;
+                  // editarEquipo.Nombre = equipo.Nombre;
+                 //  editarEquipo.Marca = equipo.Marca;
+                 //  editarEquipo.Modelo = equipo.Modelo;
                    editarEquipo.IdEstatusEquipo = equipo.IdEstatusEquipo;
                    editarEquipo.Serie = equipo.Serie;
                    
