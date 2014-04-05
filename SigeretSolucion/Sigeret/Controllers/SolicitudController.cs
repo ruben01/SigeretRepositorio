@@ -56,15 +56,15 @@ namespace Sigeret.Controllers
                     
                 
             }
-          
-            ViewBag.Edificio = new SelectList(sigeretDb.Lugar, "Id", "Edificio");
-            ViewBag.Salon = new SelectList(sigeretDb.Lugar, "Id", "Descripcion");
+
+            ViewBag.Edificio = getEdificio();
+            ViewBag.Salon = new List<SelectListItem> { };
             ViewBag.ModeloEquipo = equiposDisponibles;
+            ViewBag.check = new List<String>();
+            ViewBag.cantidad = new List<Tuple<String, String>>();
+            ViewBag.lugar = new List<Tuple<string, string>>();
 
 
-            ViewBag.stateList = getState();
-            ViewBag.cityList = new List<SelectListItem> { };  //blank dropdownlist
-            ViewBag.areaList = new List<SelectListItem> { };  //blank no item
 
 
             return View();
@@ -80,12 +80,50 @@ namespace Sigeret.Controllers
             try
             {
 
+                List<String> check = new List<string>();
+                List<Tuple<String, String>> cantidad = new List<Tuple<string, string>>();
+                 IEnumerable<SelectListItem>edificioList= new List<SelectListItem>();
+                IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
+
                 //Seleccionando los id de las solicitudes anteriores para obtener la ultima
                 var solicitudId = from s in sigeretDb.Solicitud
                                   select s.Id;
 
                 //variable para verificar que en la solicitud se ha seleccionado al menos un equipo
                 bool contieneEquipos=false;
+                bool modelStateValido = true;
+
+
+                //validando que el edificio haya sido seleccionado
+                if (form["edificioId"] == null || form["edificioId"]=="")
+                {
+
+                       ViewBag.Edificio = getEdificio();
+
+                       ModelState.AddModelError("edificioId", " !Debe Seleccionar el Edificio!");
+                }
+                else{
+                        edificioList = (from l in sigeretDb.Lugar  select l).AsEnumerable().Select(e => new SelectListItem() { Text = e.Edificio, Value = e.Id.ToString() });
+                        ViewBag.Edificio = new SelectList(edificioList, "Value", "Text", form["edificioId"]);
+
+                     }
+
+               
+                //validando que el salon haya sido seleccionado
+                if (form["salonId"] == null || form["salonId"]=="")
+                {
+                    ModelState.AddModelError("salonId", "  !Debe seleccionar el salon!");
+                    modelStateValido = false;
+                    ViewBag.Salon = new List<SelectListItem> { }; 
+                }
+                else
+                {
+                  
+                   salonList = (from a in sigeretDb.AulaEdificio where a.IdLugar == int.Parse(form["edificioId"]) select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
+
+                   ViewBag.Salon = new SelectList(salonList, "Value", "Text", form["salonId"]);
+                    ModelState.AddModelError("salonId", " ");
+                }
 
                 //lista para almacenar los equipos seleccionados en la solicitud
                 List<SolicitudEquipo> listaEquiposSelecionados=new List<SolicitudEquipo>();
@@ -96,6 +134,12 @@ namespace Sigeret.Controllers
 
                     if (form["chk" + i] != null)
                     {
+                        //agregando los check seleccionado a la lista para mantener el modelo en caso de error
+                        check.Add("chk"+i);
+                        cantidad.Add(new Tuple<string,string>("cant"+i, form["cant" + i]));
+
+                        contieneEquipos = true;
+
                         var equipoSelecionado = from e in sigeretDb.Equipo
                                                 where (e.IdModelo ==i && e.IdEstatusEquipo == 1)
                                                 select e;
@@ -135,31 +179,24 @@ namespace Sigeret.Controllers
 
                             }
 
-                            contieneEquipos = true;
+                            
+                      
 
-                        }
-                        else
-                        {
-
-                            contieneEquipos = false;
-                        }
+                        }else{
+                                //Mostramos un mensaje diciendo que la cantidad del equipo seleccionado no esta disponible
+                                ViewBag.Seleccionar = "Cantidad "+sigeretDb.ModeloEquipo.SingleOrDefault(e=>e.Id==i).Nombre+" No disponible!";
+                                
+                                modelStateValido = false;
+                                break;
+                             }
 
 
                     }
+                    
 
-                   /* int f=1;
-                   while (f < form.Count)
-                   {
-                       if (form["chk" + i] == f.ToString())
-                       {
-                           contieneEquipos = true;
-                       }
-                       f++;
-                   }
-                    */
                 }
 
-               if(contieneEquipos){
+               if(modelStateValido&&contieneEquipos){
 
                     //Registrando la nueva solicitud
                     nuevaSolicitud.IdEstatusSolicitud = 3;                
@@ -173,8 +210,17 @@ namespace Sigeret.Controllers
 
                }else{
 
-                   ViewBag.Seleccionar = "Debe Seleccionar al menos un equipo!";
+                   //almacenar check activos por si hay error en el modelo
+                   ViewBag.check = check;
+                   ViewBag.cantidad = cantidad;
 
+                   if (contieneEquipos==false)
+                   {
+                       ViewBag.Seleccionar = "Debe seleccionar al menos un equipo!";
+
+                   }
+
+                  
                    //seleccionando los equipos disponibles
                    var modelosDisponibles = from e in sigeretDb.Equipo
                                             where e.IdEstatusEquipo == 1
@@ -194,8 +240,8 @@ namespace Sigeret.Controllers
 
                    }
 
-                   ViewBag.Edificio = new SelectList(sigeretDb.Lugar, "Id", "Edificio");
-                   ViewBag.Salon = new SelectList(sigeretDb.Lugar, "Id", "Descripcion");
+                   
+
                    ViewBag.ModeloEquipo = equiposDisponibles;
 
 
@@ -279,32 +325,8 @@ namespace Sigeret.Controllers
         }
 
 
-        [HttpPost]
-        public string CantidadDisponible(int Id)
-        {
 
-            var cantidadDisponible =( from e in sigeretDb.Equipo
-                                     where e.IdEstatusEquipo == 1 && e.IdModelo==Id
-                                     select e).Count();
 
-            
-
-    /*        if (cantidadDisponible > 0)
-            {
-                return "";
-            }
-            else
-            {
-                //add model error
-
-                return "";
-            }
-     */
-            return "Disponible";
-
-   
-           
-        }
 
 
         ////////////////////////////////////////////
@@ -313,43 +335,43 @@ namespace Sigeret.Controllers
         ///
 
 
-        public JsonResult getStateJson(string selectStateId = null)
+        public JsonResult getLugarJson(string selectEdificioId = null)
         {
-            return Json(getState(selectStateId));
+            return Json(getEdificio(selectEdificioId));
         }
-        public SelectList getState(string selectStateId = null)
+        public SelectList getEdificio(string selectEdificioId = null)
         {
-            IEnumerable<SelectListItem> stateList = (from m in sigeretDb.Lugar select m).AsEnumerable().Select(m => new SelectListItem() { Text = m.Edificio, Value = m.Id.ToString() });
-            return new SelectList(stateList, "Value", "Text", selectStateId);
+            IEnumerable<SelectListItem> edificioList = (from m in sigeretDb.Lugar select m).AsEnumerable().Select(m => new SelectListItem() { Text = m.Edificio, Value = m.Id.ToString() });
+            return new SelectList(edificioList, "Value", "Text", selectEdificioId);
 
         }
 
         [HttpPost]
-        public JsonResult getCityJson(string stateId, string selectCityId = null)
+        public JsonResult getSalonJson(string salonId, string selectSalonId = null)
         {
-            return Json(getCity(stateId, selectCityId));
+            return Json(getSalon(salonId, selectSalonId));
         }
-        public SelectList getCity(string stateId, string selectCityId = null)
+        public SelectList getSalon(string salonId, string selectSalonId = null)
         {
-            IEnumerable<SelectListItem> cityList = new List<SelectListItem>();
-            if (!string.IsNullOrEmpty(stateId))
+            IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
+            if (!string.IsNullOrEmpty(salonId))
             {
-                int _stateId = Convert.ToInt32(stateId);
-                cityList = (from m in sigeretDb.AulaEdificio where m.IdLugar==int.Parse(stateId) select m).AsEnumerable().Select(m => new SelectListItem() { Text = m.Aula, Value = m.Id.ToString() });
+                int _stateId = Convert.ToInt32(salonId);
+                salonList = (from m in sigeretDb.AulaEdificio where m.IdLugar==int.Parse(salonId) select m).AsEnumerable().Select(m => new SelectListItem() { Text = m.Aula, Value = m.Id.ToString() });
             }
-            return new SelectList(cityList, "Value", "Text", selectCityId);
+            return new SelectList(salonList, "Value", "Text", selectSalonId);
 
         }
 
        
 
-
+        //NO funciona hasta ahora OJOOOOO
         //State management during postback bind again
         [HttpPost]
         public ActionResult postyourad(FormCollection value)
         {
-            ViewBag.stateList = getState(value["istateid"]);
-            ViewBag.cityList = getCity(value["istateid"], value["icityid"]);
+            ViewBag.edificioList = getEdificio(value["edificioId"]);
+            ViewBag.salonList = getSalon(value["edificioId"], value["salonId"]);
             
 
             return View();

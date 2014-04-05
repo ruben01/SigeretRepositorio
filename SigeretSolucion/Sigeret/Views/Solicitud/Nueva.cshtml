@@ -74,7 +74,9 @@ options.InsertionMode = InsertionMode.InsertAfter;
             </div>
             <div class="editor-field">
 
-                @Html.DropDownList("istateid", (SelectList)ViewBag.stateList, "--Seleccione Edificio--")
+                @Html.DropDownList("edificioId", (SelectList)ViewBag.Edificio, "--Seleccione Edificio--")
+
+                @Html.ValidationMessage("edificioId")
 
             </div>
 
@@ -84,7 +86,10 @@ options.InsertionMode = InsertionMode.InsertAfter;
             </div>
             <div class="editor-field">
 
-                @Html.DropDownList("icityid", (IEnumerable<SelectListItem>)ViewBag.cityList, "--Seleccione Salon--")
+                @Html.DropDownList("salonId", (IEnumerable<SelectListItem>)ViewBag.Salon, "--Seleccione Salon--")
+                @Html.ValidationMessage("salonId")
+
+                
 
             </div>
 
@@ -114,7 +119,13 @@ options.InsertionMode = InsertionMode.InsertAfter;
                     <th></th>
                 </tr>
 
+                @{
+                    List<String> check = new List<string>();
+                    check = ViewBag.check;
 
+                    List<Tuple<String,String>> cantidadSel = new List<Tuple<string,string>>();
+                    cantidadSel = ViewBag.cantidad;
+                }
 
                 @foreach (var item in ViewBag.ModeloEquipo)
             {
@@ -125,17 +136,46 @@ options.InsertionMode = InsertionMode.InsertAfter;
                 <tr>
 
                         <td id="@td">
-                           
-                        
-                              <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>
-                         
+
+                            @if(check.Count==0 ){ 
+                               
+                                 <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>   
+                               
+                           }else{
+                                    foreach (var ck in check) {
+
+                                        if (checkBoxId == ck) { 
+                            
+                                            <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>
+                                        }
+                                    
+                                    }
+                                    
+                                 }
                         </td>
                     <td>
+
+@if(cantidadSel.Count==0 ){
+    
                         <div class="editor-field">
 
-                            <input type="text" name="@cantidad" id="@checkBoxId" class="chkclass" style="width:30px; text-align:center;" disabled="disabled" value="1" />
+                            <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;"  value="1" />
 
                         </div>
+}else{
+        foreach (var cant in cantidadSel) {
+
+            if (cantidad == cant.Item1) { 
+            
+            
+                        <div class="editor-field">
+
+                            <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width: 30px; text-align: center; border-color: red; border:1em;"  value="@cant.Item2" />
+
+                        </div>
+            }
+        }
+}
 
 
                     </td>
@@ -160,10 +200,7 @@ options.InsertionMode = InsertionMode.InsertAfter;
 }
 
 
-
-
   
-   
 
  
 
@@ -181,27 +218,29 @@ options.InsertionMode = InsertionMode.InsertAfter;
 
 <script>
 
-    $("#istateid").change(function () {
-        alert("1");
+    $("#edificioId").change(function () {
+        
         $.ajax({
             type: "POST",
-            url: '@Url.Action("getCityJson", "Solicitud")',
-            data: { stateId: $("#istateid > option:selected").attr("value") },
+            url: '@Url.Action("getSalonJson", "Solicitud")',
+            data: { salonId: $("#edificioId > option:selected").attr("value") },
             success: function (data) {
                 var items = [];
                 items.push("<option>--Seleccione Salon--</option>");
                 $.each(data, function () {
                     items.push("<option value=" + this.Value + ">" + this.Text + "</option>");
                 });
-                $("#icityid").html(items.join(' '));
+                $("#salonId").html(items.join(' '));
 
-                alert("1");
+                
             }
         })
     });
 
  
-
+    $(document).ready(function () {
+        $('.date').datepicker({ dateFormat: "dd/mm/yy" });
+    });
 
 
     function habilitarCantidad() {
