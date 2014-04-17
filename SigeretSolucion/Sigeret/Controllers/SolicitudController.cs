@@ -108,13 +108,21 @@ namespace Sigeret.Controllers
 
                      }
 
-               
+                
                 //validando que el salon haya sido seleccionado
-                if (form["salonId"] == null || form["salonId"]=="")
+                if (form["salonId"] == null || form["salonId"]=="" || form["salonId"]=="--Seleccione Salon--")
                 {
                     ModelState.AddModelError("salonId", "  !Debe seleccionar el salon!");
                     modelStateValido = false;
-                    ViewBag.Salon = new List<SelectListItem> { }; 
+                    if (form["edificioId"] != null && form["edificioId"] != "")
+                    {
+                        salonList = (from a in sigeretDb.AulaEdificio where a.IdLugar == int.Parse(form["edificioId"]) select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
+                        ViewBag.Salon = new SelectList(salonList, "Value", "Text");
+                    }
+                    else
+                    {
+                        ViewBag.Salon = new List<SelectListItem> { };
+                    }
                 }
                 else
                 {
@@ -122,7 +130,7 @@ namespace Sigeret.Controllers
                    salonList = (from a in sigeretDb.AulaEdificio where a.IdLugar == int.Parse(form["edificioId"]) select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
 
                    ViewBag.Salon = new SelectList(salonList, "Value", "Text", form["salonId"]);
-                    ModelState.AddModelError("salonId", " ");
+                    
                 }
 
                 //lista para almacenar los equipos seleccionados en la solicitud
@@ -196,13 +204,15 @@ namespace Sigeret.Controllers
 
                 }
 
-               if(modelStateValido&&contieneEquipos){
+                var error = ModelState.Values.SelectMany(e => e.Errors);
+
+               if(modelStateValido && contieneEquipos && ModelState.IsValid ){
 
                     //Registrando la nueva solicitud
                     nuevaSolicitud.IdEstatusSolicitud = 3;                
                     nuevaSolicitud.IdUserProfile = WebSecurity.GetUserId(User.Identity.Name);
                     nuevaSolicitud.IdLugar =Int32.Parse( form["Salon"]);
-                    nuevaSolicitud.Fecha = DateTime.Today;
+                   
 
                     sigeretDb.Solicitud.InsertOnSubmit(nuevaSolicitud);
                     sigeretDb.SolicitudEquipo.InsertAllOnSubmit(listaEquiposSelecionados);
@@ -244,6 +254,7 @@ namespace Sigeret.Controllers
 
                    ViewBag.ModeloEquipo = equiposDisponibles;
 
+                   
 
 
                    return View(nuevaSolicitud);

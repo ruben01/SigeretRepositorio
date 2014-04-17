@@ -431,12 +431,12 @@ input, textarea {
     font-size: 1.2em;
     margin: 5px 0 6px 0;
     padding: 5px;
-    width: 300px;
+    width: 31%;
 }
 
 textarea {
     font-family: inherit;
-    width: 500px;
+    width:31%;
 }
 
     input:focus, textarea:focus {
@@ -479,7 +479,7 @@ textarea {
 
 .message-error {
     clear: both;
-    color: #e80c4d;
+    color: red;
     font-size: 1.1em;
     font-weight: bold;
     margin: 20px 0 10px 0;
@@ -498,7 +498,7 @@ textarea {
 
 /* styles for validation helpers */
 .field-validation-error {
-    color: #e80c4d;
+    color: red;
     font-weight: bold;
 }
 
@@ -507,7 +507,7 @@ textarea {
 }
 
 input.input-validation-error {
-    border: 1px solid #e80c4d;
+    border: 1px solid red;
 }
 
 input[type="checkbox"].input-validation-error {
@@ -515,7 +515,7 @@ input[type="checkbox"].input-validation-error {
 }
 
 .validation-summary-errors {
-    color: #e80c4d;
+    color: red;
     font-weight: bold;
     font-size: 1.1em;
 }

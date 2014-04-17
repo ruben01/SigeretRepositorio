@@ -20,6 +20,8 @@ namespace Sigeret
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
+    using System.ComponentModel.DataAnnotations;
+    using Sigeret.Models;
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Sigeret")]
@@ -1389,6 +1391,10 @@ namespace Sigeret
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoraInicio", DbType="Time NOT NULL")]
+        [DisplayName("Hora Inicio")]
+        [DisplayFormat(DataFormatString = "{0:h\\:mm}", ApplyFormatInEditMode = true)]
+        [DataType(DataType.Time)]
+        [ValidarHora(TipoValidacion.ValidarRango, "Hora fuera del Horario laboral 7:00am-10:00pm")]        
 		public System.TimeSpan HoraInicio
 		{
 			get
@@ -1409,7 +1415,12 @@ namespace Sigeret
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoraFin", DbType="Time NOT NULL")]
-		public System.TimeSpan HoraFin
+        [DisplayName("Hora Final")]
+        [DisplayFormat(DataFormatString = "{0:h\\:mm}", ApplyFormatInEditMode = true)]       
+        [DataType(DataType.Time)]
+        [ValidarHora(TipoValidacion.Comparar, "La hora Final debe ser mayor a la inicial", compararCon: "HoraInicio")]
+        [ValidarHora(TipoValidacion.ValidarRango, "Hora fuera del Horario laboral 7:00am-10:00pm")]        
+        public System.TimeSpan HoraFin
 		{
 			get
 			{
@@ -1429,6 +1440,8 @@ namespace Sigeret
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="VarChar(200) NOT NULL", CanBeNull=false)]
+        [Required]
+        [DisplayName("Descripción")]
 		public string Descripcion
 		{
 			get
@@ -1511,8 +1524,13 @@ namespace Sigeret
 				}
 			}
 		}
-		
+        string fecha = DateTime.Today.ToString();
+        string fechaMaxima = DateTime.Today.AddDays(30).ToString();
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="Date NOT NULL")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/mm/yyyy}")]
+        [DataType(DataType.Date)]
+     //   [Range(typeof(DateTime), DateTime.Today.ToString()+"" , DateTime.Today.ToString())]
+        [validarFecha]
 		public System.DateTime Fecha
 		{
 			get

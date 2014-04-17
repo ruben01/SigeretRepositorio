@@ -19,6 +19,8 @@ options.InsertionMode = InsertionMode.InsertAfter;
 
 }
 
+
+
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
@@ -41,7 +43,7 @@ options.InsertionMode = InsertionMode.InsertAfter;
             @Html.LabelFor(model => model.Fecha)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Fecha)
+            @Html.EditorFor(model => model.Fecha, new { type = "date" })
             @Html.ValidationMessageFor(model => model.Fecha)
         </div>
 
@@ -62,10 +64,10 @@ options.InsertionMode = InsertionMode.InsertAfter;
             </div>
 
             <div class="editor-label">
-                @Html.LabelFor(model => model.Descripcion)
+                @Html.Label("Descripción")
             </div>
             <div class="editor-field">
-                @Html.EditorFor(model => model.Descripcion)
+                @Html.TextAreaFor(model => model.Descripcion)
                 @Html.ValidationMessageFor(model => model.Descripcion)
             </div>
 
@@ -238,9 +240,6 @@ options.InsertionMode = InsertionMode.InsertAfter;
     });
 
  
-    $(document).ready(function () {
-        $('.date').datepicker({ dateFormat: "dd/mm/yy" });
-    });
 
 
     function habilitarCantidad() {
@@ -262,5 +261,5 @@ options.InsertionMode = InsertionMode.InsertAfter;
 
 
 
-
+    
 </script>
