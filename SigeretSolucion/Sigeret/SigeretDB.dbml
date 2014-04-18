@@ -59,21 +59,6 @@
       <Association Name="MarcaEquipo_ModeloEquipo" Member="ModeloEquipo" ThisKey="Id" OtherKey="IdMarca" Type="ModeloEquipo" />
     </Type>
   </Table>
-  <Table Name="dbo.Solicitud" Member="Solicitud">
-    <Type Name="Solicitud">
-      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="HoraInicio" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
-      <Column Name="HoraFin" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
-      <Column Name="Descripcion" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
-      <Column Name="IdUserProfile" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdLugar" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="IdEstatusSolicitud" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Fecha" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
-      <Association Name="Solicitud_SolicitudSms" Member="SolicitudSms" ThisKey="Id" OtherKey="IdSolicitud" Type="SolicitudSms" />
-      <Association Name="Solicitud_SolicitudEquipo" Member="SolicitudEquipo" ThisKey="Id" OtherKey="IdSolicitud" Type="SolicitudEquipo" />
-      <Association Name="Lugar_Solicitud" Member="Lugar" ThisKey="IdLugar" OtherKey="Id" Type="Lugar" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.SolicitudEquipo" Member="SolicitudEquipo">
     <Type Name="SolicitudEquipo">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -98,7 +83,6 @@
     <Type Name="Lugar">
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Edificio" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
-      <Association Name="Lugar_Solicitud" Member="Solicitud" ThisKey="Id" OtherKey="IdLugar" Type="Solicitud" />
       <Association Name="Lugar_AulaEdificio" Member="AulaEdificio" ThisKey="Id" OtherKey="IdLugar" Type="AulaEdificio" />
     </Type>
   </Table>
@@ -107,7 +91,32 @@
       <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="Aula" Type="System.String" DbType="VarChar(50) NOT NULL" CanBeNull="false" />
       <Column Name="IdLugar" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="AulaEdificio_Solicitud" Member="Solicitud" ThisKey="Id" OtherKey="IdLugar" Type="Solicitud" />
       <Association Name="Lugar_AulaEdificio" Member="Lugar" ThisKey="IdLugar" OtherKey="Id" Type="Lugar" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Solicitud" Member="Solicitud">
+    <Type Name="Solicitud">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="HoraInicio" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="HoraFin" Type="System.TimeSpan" DbType="Time NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="VarChar(200) NOT NULL" CanBeNull="false" />
+      <Column Name="IdUserProfile" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdLugar" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IdEstatusSolicitud" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Association Name="Solicitud_SolicitudSms" Member="SolicitudSms" ThisKey="Id" OtherKey="IdSolicitud" Type="SolicitudSms" />
+      <Association Name="Solicitud_SolicitudEquipo" Member="SolicitudEquipo" ThisKey="Id" OtherKey="IdSolicitud" Type="SolicitudEquipo" />
+      <Association Name="AulaEdificio_Solicitud" Member="AulaEdificio" ThisKey="IdLugar" OtherKey="Id" Type="AulaEdificio" IsForeignKey="true" />
+      <Association Name="EstatusSolicitud_Solicitud" Member="EstatusSolicitud" ThisKey="IdEstatusSolicitud" OtherKey="Id" Type="EstatusSolicitud" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.EstatusSolicitud" Member="EstatusSolicitud">
+    <Type Name="EstatusSolicitud">
+      <Column Name="Id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Estatus" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(MAX) NOT NULL" CanBeNull="false" />
+      <Association Name="EstatusSolicitud_Solicitud" Member="Solicitud" ThisKey="Id" OtherKey="IdEstatusSolicitud" Type="Solicitud" />
     </Type>
   </Table>
 </Database>

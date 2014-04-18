@@ -18,11 +18,11 @@
         @Html.HiddenFor(model => model.Id)
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Nombre)
+            @Html.LabelFor(model => model.ModeloEquipo.Nombre)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Nombre)
-            @Html.ValidationMessageFor(model => model.Nombre)
+            @Html.EditorFor(model => model.ModeloEquipo.Nombre)
+            @Html.ValidationMessageFor(model => model.ModeloEquipo.Nombre)
         </div>
 
         <div class="editor-label">
@@ -34,27 +34,27 @@
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Modelo)
+            @Html.LabelFor(model => model.ModeloEquipo.Modelo)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Modelo)
-            @Html.ValidationMessageFor(model => model.Modelo)
+            @Html.EditorFor(model => model.ModeloEquipo.Modelo)
+            @Html.ValidationMessageFor(model => model.ModeloEquipo.Modelo)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.Marca)
+            @Html.LabelFor(model => model.ModeloEquipo.MarcaEquipo.Marca)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.Marca)
-            @Html.ValidationMessageFor(model => model.Marca)
+            @Html.EditorFor(model => model.ModeloEquipo.MarcaEquipo.Marca)
+            @Html.ValidationMessageFor(model => model.ModeloEquipo.MarcaEquipo.Marca)
         </div>
 
         <div class="editor-label">
-            @Html.LabelFor(model => model.descripcion)
+            @Html.LabelFor(model => model.ModeloEquipo.Descripcion)
         </div>
         <div class="editor-field">
-            @Html.EditorFor(model => model.descripcion)
-            @Html.ValidationMessageFor(model => model.descripcion)
+            @Html.EditorFor(model => model.ModeloEquipo.Descripcion)
+            @Html.ValidationMessageFor(model => model.ModeloEquipo.Descripcion)
         </div>
 
         <div class="editor-label">

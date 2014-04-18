@@ -1,0 +1,128 @@
+﻿@model Sigeret.Solicitud
+
+@{
+    ViewBag.Title = "Detalles";
+}
+
+<h2>Detalles</h2>
+
+
+    <div class="display-label">
+        @Html.DisplayName("Número Solicitud")
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Id)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HoraInicio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HoraInicio)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.HoraFin)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.HoraFin)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Descripcion)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Descripcion)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.AulaEdificio.Lugar.Edificio)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AulaEdificio.Lugar.Edificio)
+    </div>
+    <div class="display-label">
+        @Html.DisplayName("Salon")
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.AulaEdificio.Aula)
+    </div>
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.EstatusSolicitud.Estatus)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.EstatusSolicitud.Estatus)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Fecha)
+    </div>
+    <div class="display-field">
+
+         @Html.DisplayFor(model => model.Fecha)
+    </div>
+
+    <fieldset>
+
+        <legend>
+            Equipos Solicitados
+        </legend>
+
+        <table>
+            <tr>
+                <th>
+                    @Html.DisplayName("Serie")
+                </th>
+
+                <th>
+                    @Html.DisplayName("Nombre")
+                </th>
+                <th>
+                    @Html.DisplayName("Marca")
+                </th>
+                <th>
+                    @Html.DisplayName("Modelo")
+                </th>
+                <th>
+                    @Html.DisplayName("Descripción")
+                </th>
+
+            </tr>
+            @{
+                
+                
+            }
+
+            @foreach (var item in ViewBag.EquiposSeleccionados)
+            {
+                <tr>
+
+                    <td>
+                      @item.Serie
+                    </td>
+                    <td>
+                        @item.ModeloEquipo.Nombre
+                    </td>
+                    <td>
+                        @item.ModeloEquipo.MarcaEquipo.Marca
+                    </td>
+                    <td>
+                       @item.ModeloEquipo.Modelo
+                    </td>
+                    <td>
+                       @item.ModeloEquipo.Descripcion
+                    </td>
+
+                </tr>
+            }
+
+        </table>
+
+
+    </fieldset>
+
+
+
+
+<p>
+    @Html.ActionLink("Editar", "Editar", new { id=Model.Id }) |
+    @Html.ActionLink("Regresar", "ReporteSolicitudesAdm")
+</p>

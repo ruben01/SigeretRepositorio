@@ -59,13 +59,13 @@ namespace Sigeret.Models
                     {
 
                         var baseProperyInfo = validationContext.ObjectType.GetProperty(nombreCampoComparar);
-                        var fechaInicio = (TimeSpan)baseProperyInfo.GetValue(validationContext.ObjectInstance, null);
+                        var horaInicio = (TimeSpan)baseProperyInfo.GetValue(validationContext.ObjectInstance, null);
                        
                         if (value!= null)
                         {
-                            TimeSpan fechaFin = (TimeSpan)value;
+                            TimeSpan horaFin = (TimeSpan)value;
 
-                            if (fechaFin <= fechaInicio)
+                            if (horaFin <= horaInicio)
                             {
 
                                 string message = string.Format(error, validationContext.DisplayName);

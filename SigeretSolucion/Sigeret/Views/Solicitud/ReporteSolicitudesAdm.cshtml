@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<Sigeret.Solicitud>
 
+
 @{
     ViewBag.Title = "Reporte Solicitudes Adm";
 }
@@ -12,46 +13,43 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.HoraInicio)
+            @Html.DisplayName("Número")
         </th>
-        <th>
-            @Html.DisplayNameFor(model => model.HoraFin)
-        </th>
+
         <th>
             @Html.DisplayNameFor(model => model.Descripcion)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdUserProfile)
+            @Html.DisplayName("Edificio")
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.IdLugar)
+            @Html.DisplayName("Salon")
         </th>
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoraInicio)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.HoraFin)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Descripcion)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdUserProfile)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.IdLugar)
-        </td>
-        <td>
-            @Html.ActionLink("Editar", "Edit", new { id=item.Id }) |
-            @Html.ActionLink("Detalles", "Detalles", new { id=item.Id }) |
-            @Html.ActionLink("Cancelar", "Cancelar", new { id=item.Id })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descripcion)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AulaEdificio.Lugar.Edificio)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.AulaEdificio.Aula)
+            </td>
+            <td>
+                @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
+                @Html.ActionLink("Detalles", "Detalles", new { id = item.Id }) |
+                @Html.ActionLink("Cancelar", "Cancelar", new { id = item.Id })
+            </td>
+        </tr>
+    }
 
 </table>

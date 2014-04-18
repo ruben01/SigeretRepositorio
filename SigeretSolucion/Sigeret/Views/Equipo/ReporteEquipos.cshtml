@@ -12,19 +12,19 @@
 <table>
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.Nombre)
+            @Html.DisplayNameFor(model => model.ModeloEquipo.Nombre)
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Serie)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Modelo)
+            @Html.DisplayNameFor(model => model.ModeloEquipo.Modelo)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Marca)
+            @Html.DisplayNameFor(model => model.ModeloEquipo.MarcaEquipo.Marca)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.descripcion)
+            @Html.DisplayNameFor(model => model.ModeloEquipo.Descripcion)
         </th>
         <th>
             @Html.DisplayName("Estatus")
@@ -36,19 +36,19 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.Nombre)
+            @Html.DisplayFor(modelItem => item.ModeloEquipo.Nombre)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.Serie)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Modelo)
+            @Html.DisplayFor(modelItem => item.ModeloEquipo.Modelo)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Marca)
+            @Html.DisplayFor(modelItem => item.ModeloEquipo.MarcaEquipo.Marca)
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.descripcion)
+            @Html.DisplayFor(modelItem => item.ModeloEquipo.Descripcion)
         </td>
         <td>
             @Html.DisplayFor(modelItem => item.EstatusEquipo.Estatus)

@@ -1,0 +1,230 @@
+﻿@model Sigeret.Solicitud
+
+@{
+    ViewBag.Title = "Editar Solicitud";
+}
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+<h2>Editar Solicitud</h2>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    <fieldset>
+        <legend>Solicitud</legend>
+
+        @Html.HiddenFor(model => model.Id)
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Fecha)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Fecha, new { @class = "date" })
+            @Html.ValidationMessageFor(model => model.Fecha)
+        </div>
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HoraInicio)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HoraInicio)
+            @Html.ValidationMessageFor(model => model.HoraInicio)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.HoraFin)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.HoraFin)
+            @Html.ValidationMessageFor(model => model.HoraFin)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.Descripcion)
+        </div>
+        <div class="editor-field">
+            @Html.EditorFor(model => model.Descripcion)
+            @Html.ValidationMessageFor(model => model.Descripcion)
+        </div>
+
+        <div class="editor-label">
+            @Html.LabelFor(model => model.AulaEdificio.Lugar.Edificio)
+        </div>
+        @Html.DropDownList("edificioId")
+
+
+        <div class="editor-label">
+            @Html.Label("Salon")
+        </div>
+        @Html.DropDownList("IdAula", "--Seleccione Salon--")
+        @Html.ValidationMessage("IdAula")
+
+
+    </fieldset>
+    
+    <fieldset>
+        <legend>Editar Equipos Seleccionados</legend>
+
+        <table>
+            <tr>
+                <th>
+
+                </th>
+                <th>
+                    @Html.DisplayName("Cantidad")
+                </th>
+                <th>
+                    @Html.DisplayName("Nombre")
+                </th>
+                <th>
+                    @Html.DisplayName("Descripción")
+
+                </th>
+
+
+                <th></th>
+            </tr>
+
+            @{
+    List<String> check = new List<string>();
+    check = ViewBag.check;
+
+    List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>();
+    cantidadSel = ViewBag.cantidad;
+            }
+
+            @foreach (var item in ViewBag.ModeloEquipo)
+            {
+                var checkBoxId = "chk" + @item.Id;
+                var checkBoxValue = @item.Id;
+                var cantidad = "cant" + @item.Id;
+                var td = "td" + @item.Id;
+                <tr>
+
+                    <td id="@td">
+
+                        @if (check.Count == 0)
+                        {
+
+                            <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
+
+                        }
+                        else
+                        {
+
+                            var a = 0;
+                            foreach (var ck in check)
+                            {
+
+
+
+                                if (checkBoxId == ck)
+                                {
+
+                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
+                                    a = 1;
+                                }
+
+                                if (a != 1)
+                                {
+
+                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
+
+
+                                }
+                            }
+
+                        }
+                    </td>
+                    <td>
+
+                        @if (cantidadSel.Count == 0)
+                        {
+
+                            <div class="editor-field">
+
+                                <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;" value="1" />
+
+                            </div>
+                        }
+                        else
+                        {
+
+                            var a = 0;
+                            foreach (var cant in cantidadSel)
+                            {
+
+                                if (cantidad == cant.Item1)
+                                {
+
+                                    a = 1;
+                                    <div class="editor-field">
+
+                                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width: 30px; text-align: center; border-color: red; border:1em;" value="@cant.Item2" />
+
+                                    </div>
+                                }
+                            }
+
+                            if (a == 0)
+                            {
+                                <div class="editor-field">
+
+                                    <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;" value="1" />
+
+                                </div>
+                            }
+                        }
+
+
+                    </td>
+                    <td>
+
+                        @item.Nombre
+                    </td>
+                    <td>
+                        @item.Descripcion
+                    </td>
+
+
+                </tr>
+            }
+
+        </table>
+
+    </fieldset>
+            <p>
+            <input type="submit" value="Guardar" />
+        </p>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
+
+<script>
+
+    $("#edificioId").change(function () {
+
+        $.ajax({
+            type: "POST",
+            url: '@Url.Action("getSalonJson", "Solicitud")',
+            data: { salonId: $("#edificioId > option:selected").attr("value") },
+            success: function (data) {
+                var items = [];
+                items.push("<option>--Seleccione Salon--</option>");
+                $.each(data, function () {
+                    items.push("<option value=" + this.Value + ">" + this.Text + "</option>");
+                });
+                $("#IdAula").html(items.join(' '));
+
+
+            }
+        })
+    });
+</script>

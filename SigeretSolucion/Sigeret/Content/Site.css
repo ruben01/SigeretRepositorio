@@ -396,13 +396,15 @@ aside {
 
 /* forms */
 fieldset {
-    border: none;
+    border: groove;
     margin: 0;
-    padding: 0;
+    padding: 0.5em;
+    width:auto;
 }
 
     fieldset legend {
-        display: none;
+      padding:0.5em;
+      font-weight:900;
     }
 
     fieldset ol {
@@ -422,6 +424,10 @@ label {
 
 label.checkbox {
     display: inline;
+}
+.display-label{
+
+    font-weight:900;
 }
 
 input, textarea {

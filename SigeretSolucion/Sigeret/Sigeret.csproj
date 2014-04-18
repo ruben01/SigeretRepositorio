@@ -344,7 +344,6 @@
     <Content Include="Views\Usuario\PartialMenuUsuario.cshtml" />
     <Content Include="Views\Solicitud\Index.cshtml" />
     <Content Include="Views\Solicitud\Nueva.cshtml" />
-    <Content Include="Views\Solicitud\ReporteSolicitudesAdm.cshtml" />
     <Content Include="Views\Solicitud\PartialMenuSolicitudes.cshtml" />
     <Content Include="Views\Usuario\Habilitar.cshtml" />
     <Content Include="Views\Contacto\Index.cshtml" />
@@ -357,6 +356,9 @@
     <Content Include="Views\Account\Editar.cshtml" />
     <Content Include="Views\Account\Detalles.cshtml" />
     <Content Include="Views\Solicitud\PartialListaEquipoCheck.cshtml" />
+    <Content Include="Views\Solicitud\ReporteSolicitudesAdm.cshtml" />
+    <Content Include="Views\Solicitud\Detalles.cshtml" />
+    <Content Include="Views\Solicitud\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

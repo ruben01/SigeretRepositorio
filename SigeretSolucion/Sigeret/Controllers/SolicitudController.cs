@@ -25,9 +25,34 @@ namespace Sigeret.Controllers
         //
         // GET: /Solicitud/Details/5
 
-        public ActionResult Details(int id)
+        public ActionResult Detalles(int id)
         {
-            return View();
+
+
+            List<Equipo> equiposSeleccionados = new List<Equipo>();
+
+
+
+            var query = from e in sigeretDb.SolicitudEquipo
+                        where e.IdSolicitud == id
+                        select e.idEquipo;
+
+            foreach (var equipoId in query)
+            {
+
+                equiposSeleccionados.Add(sigeretDb.Equipo.SingleOrDefault(e => e.Id == equipoId));
+            }
+
+
+            
+
+
+
+           ViewBag.equiposSeleccionados = equiposSeleccionados;
+
+
+
+            return View(sigeretDb.Solicitud.SingleOrDefault(s=>s.Id==id));
         }
 
 
@@ -154,7 +179,7 @@ namespace Sigeret.Controllers
 
                         if (equipoSelecionado.Count() >= int.Parse(form["cant" + i]))
                         {
-
+                            int cantidadSeleccionada = int.Parse(form["cant" + i]);
                             //buscando en la lista de equipos los equipos que estan disponibles
                             foreach (var item in equipoSelecionado)
                             {
@@ -165,9 +190,6 @@ namespace Sigeret.Controllers
                                     nuevoEquipo.idEquipo = item.Id;
 
 
-                                    //Actualizar estatus equipo selecionado
-
-                                    sigeretDb.Equipo.SingleOrDefault(e => e.Id == item.Id).IdEstatusEquipo = 5;
 
                                     //Verificando si hay solicitudes Registrada
                                     if (solicitudId.Count() > 0)
@@ -179,9 +201,18 @@ namespace Sigeret.Controllers
                                         nuevoEquipo.IdSolicitud = 1;
                                     }
 
-                                    //agregando el equipo seleccionado a la lista de equipos seleccionados
 
-                                    listaEquiposSelecionados.Add(nuevoEquipo);
+                                    if (cantidadSeleccionada > 0)
+                                    {
+                                        //agregando el equipo seleccionado a la lista de equipos seleccionados
+
+                                        listaEquiposSelecionados.Add(nuevoEquipo);
+
+                                        //Actualizar estatus equipo selecionado
+
+                                        sigeretDb.Equipo.SingleOrDefault(e => e.Id == item.Id).IdEstatusEquipo = 5;
+                                        cantidadSeleccionada--;
+                                    }
                                 
                                
 
@@ -211,10 +242,11 @@ namespace Sigeret.Controllers
                     //Registrando la nueva solicitud
                     nuevaSolicitud.IdEstatusSolicitud = 3;                
                     nuevaSolicitud.IdUserProfile = WebSecurity.GetUserId(User.Identity.Name);
-                    nuevaSolicitud.IdLugar =Int32.Parse( form["Salon"]);
+                    nuevaSolicitud.IdLugar =Int32.Parse( form["SalonId"]);
                    
 
                     sigeretDb.Solicitud.InsertOnSubmit(nuevaSolicitud);
+                                   
                     sigeretDb.SolicitudEquipo.InsertAllOnSubmit(listaEquiposSelecionados);
                     sigeretDb.SubmitChanges();
 
@@ -285,22 +317,110 @@ namespace Sigeret.Controllers
         //
         // GET: /Solicitud/Edit/5
 
-        public ActionResult Edit(int id)
+        public ActionResult Editar(int id)
         {
-            return View();
+            var Lugar = from s in sigeretDb.Solicitud
+                        join aula in sigeretDb.AulaEdificio on s.IdLugar equals aula.Id
+                          join edificio in sigeretDb.Lugar on aula.IdLugar equals edificio.Id
+                          where s.Id==id
+                          select s;
+
+            int aulaId=0;
+            int edificioId=0;
+
+            foreach (var ids in Lugar)
+            {
+                aulaId = ids.AulaEdificio.Id;
+                edificioId = ids.AulaEdificio.IdLugar;
+
+            }
+
+            
+
+            var LugarSeleccionado = sigeretDb.Lugar.SingleOrDefault(l => l.Id ==edificioId);
+            ViewBag.edificioId = new SelectList(sigeretDb.Lugar, "Id", "Edificio", LugarSeleccionado.Id);
+
+
+            var AulaSeleccionada = sigeretDb.AulaEdificio.SingleOrDefault(a => a.Id == aulaId);
+            ViewBag.IdAula = new SelectList(sigeretDb.AulaEdificio.Where(x=>x.IdLugar==edificioId), "Id", "Aula", AulaSeleccionada.Id);
+
+            Solicitud editar = sigeretDb.Solicitud.SingleOrDefault(x => x.Id == id);
+
+            //seleccionando los equipos disponibles
+            var modelosDisponibles = from e in sigeretDb.Equipo
+                                     where e.IdEstatusEquipo == 1
+                                     group e by e.IdModelo into equipo
+                                     select equipo;
+
+            List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
+
+
+            foreach (var modelos in modelosDisponibles)
+            {
+
+
+
+                equiposDisponibles.Add(sigeretDb.ModeloEquipo.SingleOrDefault(e => e.Id == modelos.Key));
+
+
+            }
+
+            ViewBag.ModeloEquipo = equiposDisponibles;
+            ViewBag.check = new List<String>();
+            ViewBag.cantidad = new List<Tuple<String, String>>();
+            
+
+            return View(editar);
         }
 
-        //
-        // POST: /Solicitud/Edit/5
+        
 
         [HttpPost]
-        public ActionResult Edit(int id, FormCollection collection)
+        public ActionResult Editar(int id, Solicitud editada,FormCollection form)
         {
             try
             {
-                // TODO: Add update logic here
+                var solicitudBD = sigeretDb.Solicitud.SingleOrDefault(s => s.Id == id);
 
-                return RedirectToAction("Index");
+                solicitudBD.Descripcion = editada.Descripcion;
+                solicitudBD.HoraInicio = editada.HoraInicio;
+                solicitudBD.HoraFin = editada.HoraFin;
+                solicitudBD.Fecha = editada.Fecha;
+
+                if(form["IdAula"]==null || form["IdAula"]==""|| form["IdAula"]=="--Seleccione Salon--"){
+
+                    ModelState.AddModelError("IdAula", "Debe Seleccionar el Salon");
+
+                    
+                }
+                else
+                {
+
+                    solicitudBD.IdLugar = Int32.Parse(form["IdAula"]);
+                }
+
+                if (ModelState.IsValid)
+                {
+
+                    sigeretDb.SubmitChanges();
+                    return RedirectToAction("Detalles", new { Id = editada.Id });
+                }
+                else
+                {
+
+
+                    var LugarSeleccionado = sigeretDb.Lugar.SingleOrDefault(l => l.Id == Int32.Parse( form["edificioId"]));
+                    ViewBag.edificioId = new SelectList(sigeretDb.Lugar, "Id", "Edificio", LugarSeleccionado.Id);
+
+                                       
+                    ViewBag.IdAula = new SelectList(sigeretDb.AulaEdificio.Where(x => x.IdLugar ==Int32.Parse(form["edificioId"])), "Id", "Aula");
+
+
+
+                    return View(editada);
+                }
+
+                
             }
             catch
             {

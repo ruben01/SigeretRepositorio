@@ -4,29 +4,9 @@
     ViewBag.Title = "Solicitud";
 }
 
-@{
-AjaxOptions options = new AjaxOptions();
-options.HttpMethod = "POST";
-options.Confirm = "Do you wish to submit this form?";
-options.OnBegin = "OnBegin";
-options.OnComplete = "OnComplete";
-options.OnFailure = "OnFailure";
-options.OnSuccess = "OnSuccess";
-options.LoadingElementId = "divResponse";
-options.LoadingElementDuration = 1000;
-options.UpdateTargetId = "divResponse";
-options.InsertionMode = InsertionMode.InsertAfter;
-
-}
-
-
 
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-
-
-
-
 
 
     <h2>Nueva Solicitud</h2>
@@ -34,10 +14,6 @@ options.InsertionMode = InsertionMode.InsertAfter;
     @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(true)
-
-    <fieldset>
-            <legend>Solicitud</legend>
-
 
         <div class="editor-label">
             @Html.LabelFor(model => model.Fecha)
@@ -143,14 +119,28 @@ options.InsertionMode = InsertionMode.InsertAfter;
                                
                                  <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>   
                                
-                           }else{
+                            }
+                            else
+                            {
+
+                                var a = 0;
                                     foreach (var ck in check) {
+                                        
+                                       
 
                                         if (checkBoxId == ck) { 
                             
                                             <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>
+                                            a = 1;
                                         }
-                                    
+
+                                        if (a != 1)
+                                        {
+                                            
+                                         <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>       
+                                         
+                                                                                 
+                                        }
                                     }
                                     
                                  }
@@ -165,11 +155,13 @@ options.InsertionMode = InsertionMode.InsertAfter;
 
                         </div>
 }else{
+    
+    var a=0;
         foreach (var cant in cantidadSel) {
 
             if (cantidad == cant.Item1) { 
             
-            
+            a=1;
                         <div class="editor-field">
 
                             <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width: 30px; text-align: center; border-color: red; border:1em;"  value="@cant.Item2" />
@@ -177,6 +169,15 @@ options.InsertionMode = InsertionMode.InsertAfter;
                         </div>
             }
         }
+
+    if (a == 0)
+    {
+        <div class="editor-field">
+            
+            <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;"  value="1" />
+
+        </div>
+    }
 }
 
 
@@ -198,7 +199,7 @@ options.InsertionMode = InsertionMode.InsertAfter;
             <p>
                 <input type="submit" value="Crear" />
             </p>
-        </fieldset>
+       
 }
 
 
