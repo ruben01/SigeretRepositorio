@@ -190,12 +190,33 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="CustomCode\DataHelpers.cs" />
+    <Compile Include="CustomCode\GlobalHelpers.cs" />
+    <Compile Include="CustomCode\HtmlHelpers.cs" />
+    <Compile Include="CustomCode\ViewBase.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AgregarEquipo.cs" />
+    <Compile Include="Models\AulaEdificio.cs" />
+    <Compile Include="Models\CedulaUASD.cs" />
+    <Compile Include="Models\Contacto.cs" />
+    <Compile Include="Models\Equipo.cs" />
+    <Compile Include="Models\EstatusEquipo.cs" />
+    <Compile Include="Models\EstatusMatricula.cs" />
+    <Compile Include="Models\EstatusSolicitud.cs" />
+    <Compile Include="Models\EstatusUsuario.cs" />
+    <Compile Include="Models\Lugar.cs" />
+    <Compile Include="Models\MarcaEquipo.cs" />
+    <Compile Include="Models\MatriculaUASD.cs" />
+    <Compile Include="Models\ModeloEquipo.cs" />
+    <Compile Include="Models\Solicitud.cs" />
+    <Compile Include="Models\SolicitudEquipo.cs" />
+    <Compile Include="Models\SolicitudSm.cs" />
+    <Compile Include="Models\TipoContacto.cs" />
+    <Compile Include="Models\UsuarioNipSm.cs" />
     <Compile Include="Models\validarFecha.cs" />
     <Compile Include="Models\ValidarHora.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -210,6 +231,13 @@
     <Content Include="App_Data\Sigeret_log.ldf">
       <DependentUpon>Sigeret.mdf</DependentUpon>
     </Content>
+    <Content Include="Content\bootrap.css" />
+    <Content Include="Content\bootstrap-modal-bs3patch.css" />
+    <Content Include="Content\bootstrap-modal.css" />
+    <Content Include="Content\bootstrap-theme.css" />
+    <Content Include="Content\bootstrap-theme.min.css" />
+    <Content Include="Content\bootstrap.css" />
+    <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\themes\base\images\ProgressCircle.gif" />
     <Content Include="Content\themes\base\images\ui-bg_flat_0_aaaaaa_40x100.png" />
     <Content Include="Content\themes\base\images\ui-bg_flat_75_ffffff_40x100.png" />
@@ -266,10 +294,20 @@
     <Content Include="Content\themes\base\minified\jquery.ui.tabs.min.css" />
     <Content Include="Content\themes\base\minified\jquery.ui.theme.min.css" />
     <Content Include="favicon.ico" />
+    <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <None Include="Scripts\jquery-1.8.2-vsdoc.js" />
+    <Content Include="Scripts\bootstrap.js" />
+    <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-1.8.2.js" />
-    <Content Include="Scripts\jquery-1.8.2.min.js" />
+    <Content Include="fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="Content\bootstrap-theme.css.map" />
+    <Content Include="Content\bootstrap.css.map" />
+    <None Include="Scripts\jquery-1.9.1.intellisense.js" />
+    <Content Include="Scripts\jquery-1.9.1.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.js" />
+    <Content Include="Scripts\jquery-1.9.1.min.map" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.js" />
     <Content Include="Scripts\jquery-ui-1.8.24.min.js" />
@@ -359,6 +397,7 @@
     <Content Include="Views\Solicitud\ReporteSolicitudesAdm.cshtml" />
     <Content Include="Views\Solicitud\Detalles.cshtml" />
     <Content Include="Views\Solicitud\Editar.cshtml" />
+    <Content Include="Views\Shared\_NavBar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -367,7 +406,9 @@
   <ItemGroup>
     <Content Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\ModelMetadata\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

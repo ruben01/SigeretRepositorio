@@ -1,40 +1,47 @@
-﻿@model Sigeret.Contacto
+﻿@model Sigeret.Models.Contacto
 
 @{
     ViewBag.Title = "Nuevo Contacto";
 }
 
-<h2>Nuevo Contacto</h2>
+<div class="row">
+    <div class="col-lg-12">
+        <hgroup>
+        <h2>Nuevo Contacto</h2>
+            </hgroup>
 
-@using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true)
 
-    <fieldset>
-        <legend>Contacto</legend>
+            <fieldset>
+                <legend>Contacto</legend>
 
-        <div class="editor-label">
-            @Html.Label("Tipo Contacto")
+                <div class="editor-label">
+                    @Html.Label("Tipo Contacto")
+                </div>
+                <div class="editor-field">
+                    @Html.DropDownList("IdTipoContacto", "Seleccionar")
+
+                </div>
+
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.Descripcion)
+                    @Html.ValidationMessageFor(model => model.Descripcion)
+                </div>
+
+
+                <p>
+                    <input type="submit" value="Guardar" />
+                </p>
+            </fieldset>
+        }
+
+        <div>
+            @Html.ActionLink("Regresar", "Index")
         </div>
-        <div class="editor-field">
-            @Html.DropDownList("IdTipoContacto", "Seleccionar")
-
-        </div>
-
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Descripcion)
-            @Html.ValidationMessageFor(model => model.Descripcion)
-        </div>
-
-
-        <p>
-            <input type="submit" value="Guardar" />
-        </p>
-</fieldset>
-}
-
-<div>
-    @Html.ActionLink("Regresar", "Index")
+    </div>
 </div>
 
 @section Scripts {
