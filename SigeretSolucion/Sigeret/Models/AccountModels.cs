@@ -23,19 +23,19 @@ namespace Sigeret.Models
     }
      
     
-    [Table("UserProfile")]
-    public class UserProfile
-    {
-        [Key]
-        [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]        
-        public int UserId { get; set; }
-        public string UserName { get; set; }
-        public string Apellido { get; set; }
-        public string Nombre { get; set; }
-        public string Cedula { get; set; }
-        public string Matricula { get; set; }
-        public int IdEstatusUsuario { get; set; }
-    }
+    //[Table("UserProfile")]
+    //public class UserProfile
+    //{
+    //    [Key]
+    //    [DatabaseGeneratedAttribute(DatabaseGeneratedOption.Identity)]        
+    //    public int UserId { get; set; }
+    //    public string UserName { get; set; }
+    //    public string Apellido { get; set; }
+    //    public string Nombre { get; set; }
+    //    public string Cedula { get; set; }
+    //    public string Matricula { get; set; }
+    //    public int IdEstatusUsuario { get; set; }
+    //}
      
 
     public class RegisterExternalLoginModel

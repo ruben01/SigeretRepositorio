@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sigeret.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -23,6 +24,7 @@ namespace Sigeret
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
+            WebSecurityStart.Register();
         }
     }
 }

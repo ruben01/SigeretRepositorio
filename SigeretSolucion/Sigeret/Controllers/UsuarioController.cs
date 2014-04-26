@@ -9,72 +9,63 @@ namespace Sigeret.Controllers
 {
     public class UsuarioController : Controller
     {
+
+        SigeretContext db = new SigeretContext();
+
         //
         // GET: /Usuario/
-        UsersContext sigeretDbEntity = new UsersContext();
-        
 
         public ActionResult Index()
         {
-            
-            
             return View();
         }
 
         public ActionResult ReporteUsuarios()
         {
             
-            return View(sigeretDbEntity.UserProfiles.ToList());
+            return View(db.UserProfiles.ToList());
         }
 
         public ActionResult Detalles(int Id)
         {
-            return View(sigeretDbEntity.UserProfiles.SingleOrDefault(u=>u.UserId==Id));
+            return View(db.UserProfiles.SingleOrDefault(u=>u.UserId==Id));
         }
 
         public ActionResult Suspender(int Id)
         {
             ViewBag.UsuarioSuspendido = "";
 
-            return View(sigeretDbEntity.UserProfiles.SingleOrDefault(u=>u.UserId==Id));
+            return View(db.UserProfiles.SingleOrDefault(u=>u.UserId==Id));
         }
         
         [HttpPost, ActionName("Suspender")]
         [ValidateAntiForgeryToken]
         public ActionResult SuspenderConfirmado(int Id)
         {
-            
-
            // Eliminar Usuario
             /*************
             //sigeretDbEntity.UserProfiles.Remove(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id));
             //sigeretDbEntity.SaveChanges();
              *////////
 
-           var UsuarioSuspendido = sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id);
-
+           var UsuarioSuspendido = db.UserProfiles.SingleOrDefault(u => u.UserId == Id);
            UsuarioSuspendido.IdEstatusUsuario = 2;
+           db.SaveChanges();
 
-           sigeretDbEntity.SaveChanges();
-
-            
             return RedirectToAction("Index");
         }
-
 
         public ActionResult Habilitar(int Id)
         {
             ViewBag.UsuarioHabilitado = "";
 
-            return View(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id));
+            return View(db.UserProfiles.SingleOrDefault(u => u.UserId == Id));
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Habilitar(int Id, FormCollection formcol)
         {
-
-
             // Eliminar Usuario
             /*************
             //sigeretDbEntity.UserProfiles.Remove(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id));
@@ -82,17 +73,12 @@ namespace Sigeret.Controllers
              */
             ///////
 
-            var UsuarioSuspendido = sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id);
-
+            var UsuarioSuspendido = db.UserProfiles.SingleOrDefault(u => u.UserId == Id);
             UsuarioSuspendido.IdEstatusUsuario = 1;
-
-            sigeretDbEntity.SaveChanges();
+            db.SaveChanges();
 
 
             return RedirectToAction("Index");
         }
-
-
-
     }
 }

@@ -184,6 +184,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="App_Start\WebSecurityStart.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ContactoController.cs" />
     <Compile Include="Controllers\EquipoController.cs" />
@@ -209,22 +210,43 @@
     <Compile Include="Models\EstatusSolicitud.cs" />
     <Compile Include="Models\EstatusUsuario.cs" />
     <Compile Include="Models\Lugar.cs" />
+    <Compile Include="Models\Mapping\AulaEdificioMap.cs" />
+    <Compile Include="Models\Mapping\CedulaUASDMap.cs" />
+    <Compile Include="Models\Mapping\ContactoMap.cs" />
+    <Compile Include="Models\Mapping\EquipoMap.cs" />
+    <Compile Include="Models\Mapping\EstatusEquipoMap.cs" />
+    <Compile Include="Models\Mapping\EstatusMatriculaMap.cs" />
+    <Compile Include="Models\Mapping\EstatusSolicitudMap.cs" />
+    <Compile Include="Models\Mapping\EstatusUsuarioMap.cs" />
+    <Compile Include="Models\Mapping\LugarMap.cs" />
+    <Compile Include="Models\Mapping\MarcaEquipoMap.cs" />
+    <Compile Include="Models\Mapping\MatriculaUASDMap.cs" />
+    <Compile Include="Models\Mapping\ModeloEquipoMap.cs" />
+    <Compile Include="Models\Mapping\SolicitudEquipoMap.cs" />
+    <Compile Include="Models\Mapping\SolicitudMap.cs" />
+    <Compile Include="Models\Mapping\SolicitudSmMap.cs" />
+    <Compile Include="Models\Mapping\TipoContactoMap.cs" />
+    <Compile Include="Models\Mapping\UserProfileMap.cs" />
+    <Compile Include="Models\Mapping\UsuarioNipSmMap.cs" />
+    <Compile Include="Models\Mapping\webpages_MembershipMap.cs" />
+    <Compile Include="Models\Mapping\webpages_OAuthMembershipMap.cs" />
+    <Compile Include="Models\Mapping\webpages_RolesMap.cs" />
     <Compile Include="Models\MarcaEquipo.cs" />
     <Compile Include="Models\MatriculaUASD.cs" />
     <Compile Include="Models\ModeloEquipo.cs" />
+    <Compile Include="Models\SigeretContext.cs" />
     <Compile Include="Models\Solicitud.cs" />
     <Compile Include="Models\SolicitudEquipo.cs" />
     <Compile Include="Models\SolicitudSm.cs" />
     <Compile Include="Models\TipoContacto.cs" />
+    <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\UsuarioNipSm.cs" />
     <Compile Include="Models\validarFecha.cs" />
     <Compile Include="Models\ValidarHora.cs" />
+    <Compile Include="Models\webpages_Membership.cs" />
+    <Compile Include="Models\webpages_OAuthMembership.cs" />
+    <Compile Include="Models\webpages_Roles.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SigeretDB.designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>SigeretDB.dbml</DependentUpon>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Sigeret.mdf" />
@@ -360,14 +382,6 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Web.config" />
-    <Content Include="SigeretDB.dbml">
-      <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>SigeretDB.designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </Content>
-    <None Include="SigeretDB.dbml.layout">
-      <DependentUpon>SigeretDB.dbml</DependentUpon>
-    </None>
     <Content Include="Views\Equipo\PartialMenuEquipos.cshtml" />
     <Content Include="Views\Equipo\Index.cshtml" />
     <Content Include="Views\Equipo\NuevoEquipo.cshtml" />

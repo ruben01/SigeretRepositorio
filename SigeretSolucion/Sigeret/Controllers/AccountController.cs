@@ -13,16 +13,15 @@ using Sigeret.Models;
 using System.Drawing;
 using System.IO;
 using System.Data.Entity;
+using System.Data;
 
 namespace Sigeret.Controllers
 {
     [Authorize]
-    [InitializeSimpleMembership]
+    //[InitializeSimpleMembership]
     public class AccountController : Controller
     {
-        SigeretDBDataContext sigeretDb = new SigeretDBDataContext();
-        UsersContext sigeretDbEntity = new UsersContext();
-        
+        SigeretContext db = new SigeretContext();        
 
         public ActionResult Index()
         {
@@ -126,7 +125,7 @@ namespace Sigeret.Controllers
             if (ownerAccount == User.Identity.Name)
             {
                 // Usar una transacción para evitar que el usuario elimine su última credencial de inicio de sesión
-                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = IsolationLevel.Serializable }))
+                using (var scope = new TransactionScope(TransactionScopeOption.Required, new TransactionOptions { IsolationLevel = System.Transactions.IsolationLevel.Serializable }))
                 {
                     bool hasLocalAccount = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
                     if (hasLocalAccount || OAuthWebSecurity.GetAccountsFromUserName(User.Identity.Name).Count > 1)
@@ -154,7 +153,7 @@ namespace Sigeret.Controllers
             ViewBag.HasLocalPassword = OAuthWebSecurity.HasLocalAccount(WebSecurity.GetUserId(User.Identity.Name));
             ViewBag.ReturnUrl = Url.Action("Manage");
 
-            ViewBag.IdTipoContacto = new SelectList(sigeretDb.TipoContacto, "Id", "Descripcion");
+            ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id", "Descripcion");
             return View();
         }
 
@@ -284,7 +283,7 @@ namespace Sigeret.Controllers
             if (ModelState.IsValid)
             {
                 // Insertar un nuevo usuario en la base de datos
-                using (UsersContext db = new UsersContext())
+                using (SigeretContext db = new SigeretContext())
                 {
                     UserProfile user = db.UserProfiles.FirstOrDefault(u => u.UserName.ToLower() == model.UserName.ToLower());
                     // Comprobar si el usuario ya existe
@@ -388,9 +387,9 @@ namespace Sigeret.Controllers
 
         public ActionResult Editar()
         {
-            int Id = WebSecurity.GetUserId(User.Identity.Name);
-            
-            return View(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId ==Id));
+            int Id = WebSecurity.CurrentUserId;
+            var profile = db.UserProfiles.FirstOrDefault(u => u.UserId == Id);
+            return View(profile);
         }
 
         [HttpPost]
@@ -402,7 +401,7 @@ namespace Sigeret.Controllers
                 try
                 {
                     usuario.UserId = WebSecurity.GetUserId(User.Identity.Name);
-                    var actualizarUsuario = sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == usuario.UserId);
+                    var actualizarUsuario = db.UserProfiles.FirstOrDefault(u => u.UserId == usuario.UserId);
 
                     actualizarUsuario.Nombre = usuario.Nombre;
                     actualizarUsuario.Apellido = usuario.Apellido;
@@ -411,7 +410,8 @@ namespace Sigeret.Controllers
                     actualizarUsuario.Matricula = usuario.Matricula;
                     actualizarUsuario.Cedula = usuario.Cedula;
 
-                    sigeretDbEntity.SaveChanges();
+                    db.Entry(actualizarUsuario).State = EntityState.Modified;
+                    db.SaveChanges();
 
                     return RedirectToAction("Detalles");
                 }
@@ -426,9 +426,9 @@ namespace Sigeret.Controllers
 
         public ActionResult Detalles()
         {
-            int Id = WebSecurity.GetUserId(User.Identity.Name);
-
-            return View(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id));
+            int Id = WebSecurity.CurrentUserId;
+            var profile = db.UserProfiles.FirstOrDefault(u => u.UserId == Id);
+            return View(profile);
         }
 
 

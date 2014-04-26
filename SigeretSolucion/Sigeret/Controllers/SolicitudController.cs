@@ -5,15 +5,14 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
+using SIGERET.CustomCode;
 
 namespace Sigeret.Controllers
 {
     public class SolicitudController : Controller
     {
+        SigeretContext db = new SigeretContext();
 
-        SigeretDBDataContext sigeretDb = new SigeretDBDataContext();
-        
-             
         //
         // GET: /Solicitud/
 
@@ -31,55 +30,39 @@ namespace Sigeret.Controllers
 
             List<Equipo> equiposSeleccionados = new List<Equipo>();
 
+            var solicitados = db.SolicitudEquipoes.Where(se => se.IdSolicitud == id)
+                .Select(se => se.idEquipo).ToList();
 
-
-            var query = from e in sigeretDb.SolicitudEquipo
+            var query = from e in db.SolicitudEquipoes
                         where e.IdSolicitud == id
                         select e.idEquipo;
 
-            foreach (var equipoId in query)
+            foreach (var equipoId in solicitados)
             {
 
-                equiposSeleccionados.Add(sigeretDb.Equipo.SingleOrDefault(e => e.Id == equipoId));
+                equiposSeleccionados.Add(db.Equipoes.FirstOrDefault(e => e.Id == equipoId));
             }
 
+            ViewBag.equiposSeleccionados = equiposSeleccionados;
 
-            
-
-
-
-           ViewBag.equiposSeleccionados = equiposSeleccionados;
-
-
-
-            return View(sigeretDb.Solicitud.SingleOrDefault(s=>s.Id==id));
+            return View(db.Solicituds.FirstOrDefault(s => s.Id == id));
         }
-
-
 
         //
         // GET: /Solicitud/Create
 
         public ActionResult Nueva()
         {
-
-           
             //seleccionando los equipos disponibles
-          var modelosDisponibles  = from e in sigeretDb.Equipo
-                                        where e.IdEstatusEquipo==1
-                                        group e by e.IdModelo into equipo
-                                     select equipo;
+            var disponibles = db.Equipoes.Where(e => e.IdEstatusEquipo == 1)
+                .GroupBy(e => e.IdModelo).ToList();
 
-          List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
+            List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
 
 
-            foreach( var modelos in modelosDisponibles){
-
-
-
-                        equiposDisponibles.Add(sigeretDb.ModeloEquipo.SingleOrDefault(e => e.Id == modelos.Key));
-                    
-                
+            foreach (var modelos in disponibles)
+            {
+                equiposDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == modelos.Key));
             }
 
             ViewBag.Edificio = getEdificio();
@@ -88,9 +71,6 @@ namespace Sigeret.Controllers
             ViewBag.check = new List<String>();
             ViewBag.cantidad = new List<Tuple<String, String>>();
             ViewBag.lugar = new List<Tuple<string, string>>();
-
-
-
 
             return View();
         }
@@ -101,47 +81,42 @@ namespace Sigeret.Controllers
         [HttpPost]
         public ActionResult Nueva(Solicitud nuevaSolicitud, FormCollection form)
         {
-           
-            try
+            if (ModelState.IsValid)
             {
-
                 List<String> check = new List<string>();
                 List<Tuple<String, String>> cantidad = new List<Tuple<string, string>>();
-                 IEnumerable<SelectListItem>edificioList= new List<SelectListItem>();
+                IEnumerable<SelectListItem> edificioList = new List<SelectListItem>();
                 IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
 
                 //Seleccionando los id de las solicitudes anteriores para obtener la ultima
-                var solicitudId = from s in sigeretDb.Solicitud
-                                  select s.Id;
+                var solicitudId = db.Solicituds.Select(s => s.Id).ToList();
 
                 //variable para verificar que en la solicitud se ha seleccionado al menos un equipo
-                bool contieneEquipos=false;
+                bool contieneEquipos = false;
                 bool modelStateValido = true;
 
-
                 //validando que el edificio haya sido seleccionado
-                if (form["edificioId"] == null || form["edificioId"]=="")
+                if (form["edificioId"] == null || form["edificioId"] == "")
                 {
-
-                       ViewBag.Edificio = getEdificio();
-
-                       ModelState.AddModelError("edificioId", " !Debe Seleccionar el Edificio!");
+                    ViewBag.Edificio = getEdificio();
+                    ModelState.AddModelError("edificioId", " !Debe Seleccionar el Edificio!");
                 }
-                else{
-                        edificioList = (from l in sigeretDb.Lugar  select l).AsEnumerable().Select(e => new SelectListItem() { Text = e.Edificio, Value = e.Id.ToString() });
-                        ViewBag.Edificio = new SelectList(edificioList, "Value", "Text", form["edificioId"]);
+                else
+                {
+                    edificioList = db.Lugars.ToList().ToSelectListItems(e => e.Edificio, e => e.Id.ToString());
+                    ViewBag.Edificio = new SelectList(edificioList, "Value", "Text", form["edificioId"]);
+                }
 
-                     }
-
-                
                 //validando que el salon haya sido seleccionado
-                if (form["salonId"] == null || form["salonId"]=="" || form["salonId"]=="--Seleccione Salon--")
+                if (form["salonId"] == null || form["salonId"] == "" || form["salonId"] == "--Seleccione Salon--")
                 {
                     ModelState.AddModelError("salonId", "  !Debe seleccionar el salon!");
                     modelStateValido = false;
                     if (form["edificioId"] != null && form["edificioId"] != "")
                     {
-                        salonList = (from a in sigeretDb.AulaEdificio where a.IdLugar == int.Parse(form["edificioId"]) select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
+                        salonList = db.AulaEdificios
+                            .Where(a => a.IdLugar == int.Parse(form["edificioId"])).ToList()
+                            .ToSelectListItems(a => a.Aula, a => a.Id.ToString());
                         ViewBag.Salon = new SelectList(salonList, "Value", "Text");
                     }
                     else
@@ -151,31 +126,28 @@ namespace Sigeret.Controllers
                 }
                 else
                 {
-                  
-                   salonList = (from a in sigeretDb.AulaEdificio where a.IdLugar == int.Parse(form["edificioId"]) select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
+                    salonList = db.AulaEdificios.Where(a => a.IdLugar == int.Parse(form["edificioId"]))
+                        .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString());
+                    ViewBag.Salon = new SelectList(salonList, "Value", "Text", form["salonId"]);
 
-                   ViewBag.Salon = new SelectList(salonList, "Value", "Text", form["salonId"]);
-                    
                 }
 
                 //lista para almacenar los equipos seleccionados en la solicitud
-                List<SolicitudEquipo> listaEquiposSelecionados=new List<SolicitudEquipo>();
+                List<SolicitudEquipo> listaEquiposSelecionados = new List<SolicitudEquipo>();
 
                 //Verificando si hay equipos seleccionado en la solicitud
-                for (int i = 1; i < form.Count; i++ )
+                for (int i = 1; i < form.Count; i++)
                 {
 
                     if (form["chk" + i] != null)
                     {
                         //agregando los check seleccionado a la lista para mantener el modelo en caso de error
-                        check.Add("chk"+i);
-                        cantidad.Add(new Tuple<string,string>("cant"+i, form["cant" + i]));
-
+                        check.Add("chk" + i);
+                        cantidad.Add(new Tuple<string, string>("cant" + i, form["cant" + i]));
                         contieneEquipos = true;
-
-                        var equipoSelecionado = from e in sigeretDb.Equipo
-                                                where (e.IdModelo ==i && e.IdEstatusEquipo == 1)
-                                                select e;
+                        var equipoSelecionado = db.Equipoes
+                            .Where(e => e.IdModelo == i && e.IdEstatusEquipo == 1)
+                            .ToList();
 
                         if (equipoSelecionado.Count() >= int.Parse(form["cant" + i]))
                         {
@@ -185,123 +157,83 @@ namespace Sigeret.Controllers
                             {
                                 //Instancia de equipo para almacenar los nuevos equipos
                                 SolicitudEquipo nuevoEquipo = new SolicitudEquipo();
+                                nuevoEquipo.idEquipo = item.Id;
 
+                                //Verificando si hay solicitudes Registrada
+                                if (solicitudId.Count() > 0)
+                                {
+                                    nuevoEquipo.IdSolicitud = solicitudId.Max() + 1;
+                                }
+                                else
+                                {
+                                    nuevoEquipo.IdSolicitud = 1;
+                                }
 
-                                    nuevoEquipo.idEquipo = item.Id;
+                                if (cantidadSeleccionada > 0)
+                                {
+                                    //agregando el equipo seleccionado a la lista de equipos seleccionados
+                                    listaEquiposSelecionados.Add(nuevoEquipo);
 
-
-
-                                    //Verificando si hay solicitudes Registrada
-                                    if (solicitudId.Count() > 0)
-                                    {
-                                        nuevoEquipo.IdSolicitud = solicitudId.Max()+1;
-                                    }
-                                    else
-                                    {
-                                        nuevoEquipo.IdSolicitud = 1;
-                                    }
-
-
-                                    if (cantidadSeleccionada > 0)
-                                    {
-                                        //agregando el equipo seleccionado a la lista de equipos seleccionados
-
-                                        listaEquiposSelecionados.Add(nuevoEquipo);
-
-                                        //Actualizar estatus equipo selecionado
-
-                                        sigeretDb.Equipo.SingleOrDefault(e => e.Id == item.Id).IdEstatusEquipo = 5;
-                                        cantidadSeleccionada--;
-                                    }
-                                
-                               
-
+                                    //Actualizar estatus equipo selecionado
+                                    db.Equipoes.SingleOrDefault(e => e.Id == item.Id).IdEstatusEquipo = 5;
+                                    cantidadSeleccionada--;
+                                }
                             }
-
-                            
-                      
-
-                        }else{
-                                //Mostramos un mensaje diciendo que la cantidad del equipo seleccionado no esta disponible
-                                ViewBag.Seleccionar = "Cantidad "+sigeretDb.ModeloEquipo.SingleOrDefault(e=>e.Id==i).Nombre+" No disponible!";
-                                
-                                modelStateValido = false;
-                                break;
-                             }
-
-
+                        }
+                        else
+                        {
+                            //Mostramos un mensaje diciendo que la cantidad del equipo seleccionado no esta disponible
+                            ViewBag.Seleccionar = "Cantidad " + db.ModeloEquipoes.FirstOrDefault(e => e.Id == i).Nombre + " No disponible!";
+                            modelStateValido = false;
+                            break;
+                        }
                     }
-                    
-
                 }
 
                 var error = ModelState.Values.SelectMany(e => e.Errors);
-
-               if(modelStateValido && contieneEquipos && ModelState.IsValid ){
-
+                if (modelStateValido && contieneEquipos && ModelState.IsValid)
+                {
                     //Registrando la nueva solicitud
-                    nuevaSolicitud.IdEstatusSolicitud = 3;                
+                    nuevaSolicitud.IdEstatusSolicitud = 3;
                     nuevaSolicitud.IdUserProfile = WebSecurity.GetUserId(User.Identity.Name);
-                    nuevaSolicitud.IdLugar =Int32.Parse( form["SalonId"]);
-                   
+                    nuevaSolicitud.IdLugar = Int32.Parse(form["SalonId"]);
+                    db.Solicituds.Add(nuevaSolicitud);
+                    foreach (var item in listaEquiposSelecionados)
+                    {
+                        db.SolicitudEquipoes.Add(item);
+                    }
+                    db.SaveChanges();
+                }
+                else
+                {
+                    //almacenar check activos por si hay error en el modelo
+                    ViewBag.check = check;
+                    ViewBag.cantidad = cantidad;
 
-                    sigeretDb.Solicitud.InsertOnSubmit(nuevaSolicitud);
-                                   
-                    sigeretDb.SolicitudEquipo.InsertAllOnSubmit(listaEquiposSelecionados);
-                    sigeretDb.SubmitChanges();
+                    if (contieneEquipos == false)
+                    {
+                        ViewBag.Seleccionar = "Debe seleccionar al menos un equipo!";
+                    }
 
-               }else{
+                    //seleccionando los equipos disponibles
+                    var modelosDisponibles = db.Equipoes.Where(e => e.IdEstatusEquipo == 1)
+                        .GroupBy(e => e.IdModelo).ToList();
 
-                   //almacenar check activos por si hay error en el modelo
-                   ViewBag.check = check;
-                   ViewBag.cantidad = cantidad;
+                    List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
+                    foreach (var modelos in modelosDisponibles)
+                    {
+                        equiposDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == modelos.Key));
+                    }
+                    ViewBag.ModeloEquipo = equiposDisponibles;
 
-                   if (contieneEquipos==false)
-                   {
-                       ViewBag.Seleccionar = "Debe seleccionar al menos un equipo!";
-
-                   }
-
-                  
-                   //seleccionando los equipos disponibles
-                   var modelosDisponibles = from e in sigeretDb.Equipo
-                                            where e.IdEstatusEquipo == 1
-                                            group e by e.IdModelo into equipo
-                                            select equipo;
-
-                   List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
-
-
-                   foreach (var modelos in modelosDisponibles)
-                   {
-
-
-
-                       equiposDisponibles.Add(sigeretDb.ModeloEquipo.SingleOrDefault(e => e.Id == modelos.Key));
-
-
-                   }
-
-                   
-
-                   ViewBag.ModeloEquipo = equiposDisponibles;
-
-                   
-
-
-                   return View(nuevaSolicitud);
-               }
-
-
-
-
-               
+                    return View(nuevaSolicitud);
+                }
 
                 return RedirectToAction("Index");
             }
-            catch
+            else
             {
-                return View();
+                return View(nuevaSolicitud);
             }
         }
 
@@ -311,7 +243,7 @@ namespace Sigeret.Controllers
         /// <returns></returns>
         public ActionResult ReporteSolicitudesAdm()
         {
-           return View(sigeretDb.Solicitud.ToList());
+            return View(db.Solicituds.ToList());
         }
 
         //
@@ -319,108 +251,79 @@ namespace Sigeret.Controllers
 
         public ActionResult Editar(int id)
         {
-            var Lugar = from s in sigeretDb.Solicitud
-                        join aula in sigeretDb.AulaEdificio on s.IdLugar equals aula.Id
-                          join edificio in sigeretDb.Lugar on aula.IdLugar equals edificio.Id
-                          where s.Id==id
-                          select s;
+            var Lugar = from s in db.Solicituds
+                        join aula in db.AulaEdificios on s.IdLugar equals aula.Id
+                        join edificio in db.Lugars on aula.IdLugar equals edificio.Id
+                        where s.Id == id
+                        select s;
 
-            int aulaId=0;
-            int edificioId=0;
+            int aulaId = 0;
+            int edificioId = 0;
 
             foreach (var ids in Lugar)
             {
                 aulaId = ids.AulaEdificio.Id;
                 edificioId = ids.AulaEdificio.IdLugar;
-
             }
 
-            
-
-            var LugarSeleccionado = sigeretDb.Lugar.SingleOrDefault(l => l.Id ==edificioId);
-            ViewBag.edificioId = new SelectList(sigeretDb.Lugar, "Id", "Edificio", LugarSeleccionado.Id);
-
-
-            var AulaSeleccionada = sigeretDb.AulaEdificio.SingleOrDefault(a => a.Id == aulaId);
-            ViewBag.IdAula = new SelectList(sigeretDb.AulaEdificio.Where(x=>x.IdLugar==edificioId), "Id", "Aula", AulaSeleccionada.Id);
-
-            Solicitud editar = sigeretDb.Solicitud.SingleOrDefault(x => x.Id == id);
+            var LugarSeleccionado = db.Lugars.FirstOrDefault(l => l.Id == edificioId);
+            ViewBag.edificioId = new SelectList(db.Lugars, "Id", "Edificio", LugarSeleccionado.Id);
+            var AulaSeleccionada = db.AulaEdificios.FirstOrDefault(a => a.Id == aulaId);
+            ViewBag.IdAula = new SelectList(db.AulaEdificios.Where(x => x.IdLugar == edificioId), "Id", "Aula", AulaSeleccionada.Id);
+            Solicitud editar = db.Solicituds.SingleOrDefault(x => x.Id == id);
 
             //seleccionando los equipos disponibles
-            var modelosDisponibles = from e in sigeretDb.Equipo
-                                     where e.IdEstatusEquipo == 1
-                                     group e by e.IdModelo into equipo
-                                     select equipo;
+            var modelosDisponibles = db.Equipoes.Where(e => e.IdEstatusEquipo == 1)
+                .GroupBy(e => e.IdModelo).ToList();
 
             List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
-
-
             foreach (var modelos in modelosDisponibles)
             {
-
-
-
-                equiposDisponibles.Add(sigeretDb.ModeloEquipo.SingleOrDefault(e => e.Id == modelos.Key));
-
-
+                equiposDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == modelos.Key));
             }
 
             ViewBag.ModeloEquipo = equiposDisponibles;
             ViewBag.check = new List<String>();
             ViewBag.cantidad = new List<Tuple<String, String>>();
-            
 
             return View(editar);
         }
 
-        
 
         [HttpPost]
-        public ActionResult Editar(int id, Solicitud editada,FormCollection form)
+        public ActionResult Editar(int id, Solicitud editada, FormCollection form)
         {
             try
             {
-                var solicitudBD = sigeretDb.Solicitud.SingleOrDefault(s => s.Id == id);
-
+                var solicitudBD = db.Solicituds.SingleOrDefault(s => s.Id == id);
                 solicitudBD.Descripcion = editada.Descripcion;
                 solicitudBD.HoraInicio = editada.HoraInicio;
                 solicitudBD.HoraFin = editada.HoraFin;
                 solicitudBD.Fecha = editada.Fecha;
 
-                if(form["IdAula"]==null || form["IdAula"]==""|| form["IdAula"]=="--Seleccione Salon--"){
-
+                if (form["IdAula"] == null || form["IdAula"] == "" || form["IdAula"] == "--Seleccione Salon--")
+                {
                     ModelState.AddModelError("IdAula", "Debe Seleccionar el Salon");
-
-                    
                 }
                 else
                 {
-
                     solicitudBD.IdLugar = Int32.Parse(form["IdAula"]);
                 }
-
                 if (ModelState.IsValid)
                 {
+                    db.Entry(solicitudBD).State = System.Data.EntityState.Modified;
+                    db.SaveChanges();
 
-                    sigeretDb.SubmitChanges();
                     return RedirectToAction("Detalles", new { Id = editada.Id });
                 }
                 else
                 {
-
-
-                    var LugarSeleccionado = sigeretDb.Lugar.SingleOrDefault(l => l.Id == Int32.Parse( form["edificioId"]));
-                    ViewBag.edificioId = new SelectList(sigeretDb.Lugar, "Id", "Edificio", LugarSeleccionado.Id);
-
-                                       
-                    ViewBag.IdAula = new SelectList(sigeretDb.AulaEdificio.Where(x => x.IdLugar ==Int32.Parse(form["edificioId"])), "Id", "Aula");
-
-
+                    var LugarSeleccionado = db.Lugars.SingleOrDefault(l => l.Id == Int32.Parse(form["edificioId"]));
+                    ViewBag.edificioId = new SelectList(db.Lugars, "Id", "Edificio", LugarSeleccionado.Id);
+                    ViewBag.IdAula = new SelectList(db.AulaEdificios.Where(x => x.IdLugar == Int32.Parse(form["edificioId"])), "Id", "Aula");
 
                     return View(editada);
                 }
-
-                
             }
             catch
             {
@@ -455,26 +358,20 @@ namespace Sigeret.Controllers
             }
         }
 
-
-
-
-
-
         ////////////////////////////////////////////
-                    
         ///ajaxjson
         ///
-
 
         public JsonResult getLugarJson(string selectEdificioId = null)
         {
             return Json(getEdificio(selectEdificioId));
         }
+
         public SelectList getEdificio(string selectEdificioId = null)
         {
-            IEnumerable<SelectListItem> edificioList = (from m in sigeretDb.Lugar select m).AsEnumerable().Select(m => new SelectListItem() { Text = m.Edificio, Value = m.Id.ToString() });
-            return new SelectList(edificioList, "Value", "Text", selectEdificioId);
+            IEnumerable<SelectListItem> edificioList = db.Lugars.ToList().ToSelectListItems(l => l.Edificio, l => l.Id.ToString());
 
+            return new SelectList(edificioList, "Value", "Text", selectEdificioId);
         }
 
         [HttpPost]
@@ -482,19 +379,18 @@ namespace Sigeret.Controllers
         {
             return Json(getSalon(salonId, selectSalonId));
         }
+
         public SelectList getSalon(string salonId, string selectSalonId = null)
         {
             IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
             if (!string.IsNullOrEmpty(salonId))
             {
-                int _stateId = Convert.ToInt32(salonId);
-                salonList = (from m in sigeretDb.AulaEdificio where m.IdLugar==int.Parse(salonId) select m).AsEnumerable().Select(m => new SelectListItem() { Text = m.Aula, Value = m.Id.ToString() });
+                int _salonId = int.Parse(salonId);
+                salonList = db.AulaEdificios.Where(a => a.IdLugar == _salonId).ToList().ToSelectListItems(e => e.Aula, e => e.Id.ToString()); 
             }
             return new SelectList(salonList, "Value", "Text", selectSalonId);
 
         }
-
-       
 
         //NO funciona hasta ahora OJOOOOO
         //State management during postback bind again
@@ -503,11 +399,8 @@ namespace Sigeret.Controllers
         {
             ViewBag.edificioList = getEdificio(value["edificioId"]);
             ViewBag.salonList = getSalon(value["edificioId"], value["salonId"]);
-            
 
             return View();
-
         }
-
     }
 }

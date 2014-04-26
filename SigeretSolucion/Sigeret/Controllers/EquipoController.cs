@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sigeret.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,7 +10,8 @@ namespace Sigeret.Controllers
     public class EquipoController : Controller
     {
         //Utilizar Singleton
-        SigeretDBDataContext sigeretDb = new SigeretDBDataContext();
+        SigeretContext db = new SigeretContext();
+
         //
         // GET: /Equipo/
 
@@ -25,61 +27,55 @@ namespace Sigeret.Controllers
         [HttpPost]
         public ActionResult NuevoEquipo(Equipo equipo)
         {
-            sigeretDb.Equipo.InsertOnSubmit(equipo);
-            sigeretDb.SubmitChanges();
+            if (ModelState.IsValid)
+            {
+                db.Equipoes.Add(equipo);
+                db.SaveChanges();
 
-            
-            return View();
+                return RedirectToAction("Index");
+            }
+
+            return View(equipo);
         }
 
         public ActionResult ReporteEquipos()
         {
 
-            return View(sigeretDb.Equipo.ToList());
+            return View(db.Equipoes.ToList());
         }
 
         public ActionResult Detalles(int Id)
         {
 
-            return View(sigeretDb.Equipo.Single( e=>e.Id == Id));
+            return View(db.Equipoes.Find(Id));
         }
 
         public ActionResult Editar(int Id)
         {
-
-            return View(sigeretDb.Equipo.Single(e => e.Id == Id));
+            return View(db.Equipoes.Find(Id));
         }
+
         [HttpPost]
         public ActionResult Editar(Equipo equipo)
         {
             if (ModelState.IsValid)
             {
-                                       
-               try
-               {
-                   var editarEquipo = sigeretDb.Equipo.SingleOrDefault(e => e.Id == equipo.Id);
+                var editarEquipo = db.Equipoes.FirstOrDefault(e => e.Id == equipo.Id);
 
-                  // editarEquipo.Nombre = equipo.Nombre;
-                 //  editarEquipo.Marca = equipo.Marca;
-                 //  editarEquipo.Modelo = equipo.Modelo;
-                   editarEquipo.IdEstatusEquipo = equipo.IdEstatusEquipo;
-                   editarEquipo.Serie = equipo.Serie;
-                   
-                   
-                   sigeretDb.SubmitChanges();
-                   return RedirectToAction("Detalles", new { Id = equipo.Id });
-               }
-               catch
-               {
-                   return View(equipo);
-               }
+                // editarEquipo.Nombre = equipo.Nombre;
+                //  editarEquipo.Marca = equipo.Marca;
+                //  editarEquipo.Modelo = equipo.Modelo;
+                editarEquipo.IdEstatusEquipo = equipo.IdEstatusEquipo;
+                editarEquipo.Serie = equipo.Serie;
+                db.Entry(editarEquipo).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("Detalles", new { Id = equipo.Id });
             }
 
+
             return View(equipo);
-            
         }
-
-
 
     }
 }

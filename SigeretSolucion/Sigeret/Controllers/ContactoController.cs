@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sigeret.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
@@ -10,8 +11,8 @@ namespace Sigeret.Controllers
 {
     public class ContactoController : Controller
     {
-        SigeretDBDataContext sigeretDb = new SigeretDBDataContext();
-        
+        SigeretContext db = new SigeretContext();
+
         //
         // GET: /Contacto/
 
@@ -26,7 +27,7 @@ namespace Sigeret.Controllers
 
         public ActionResult NuevoContacto()
         {
-            ViewBag.IdTipoContacto = new SelectList(sigeretDb.TipoContacto, "Id","Descripcion");
+            ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id","Descripcion");
 
             return View();
         }
@@ -37,28 +38,25 @@ namespace Sigeret.Controllers
         [HttpPost]
         public ActionResult NuevoContacto(Contacto nuevoContacto)
         {
-            try
+            if (ModelState.IsValid)
             {
-
-             
-                nuevoContacto.IdUserProfile=  WebSecurity.GetUserId(User.Identity.Name);
-
-                sigeretDb.Contacto.InsertOnSubmit(nuevoContacto);
-                sigeretDb.SubmitChanges();
+                nuevoContacto.IdUserProfile = WebSecurity.CurrentUserId;
+                db.Contactoes.Add(nuevoContacto);
+                db.SaveChanges();
 
                 return RedirectToAction("MisContactos");
             }
-            catch
-            {
-                return View();
-            }
+
+            ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id", "Descripcion", nuevoContacto.IdTipoContacto);
+
+            return View(nuevoContacto);
         }
 
         public ActionResult MisContactos()
         {
+            var contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId);
 
-
-            return View(sigeretDb.Contacto.ToList());
+            return View(contactos.ToList());
         }
 
         //
@@ -66,8 +64,9 @@ namespace Sigeret.Controllers
 
         public ActionResult Editar(int Id)
         {
-            var contacto = sigeretDb.Contacto.SingleOrDefault(c => c.Id == Id);
-            ViewBag.IdTipoContacto = new SelectList(sigeretDb.TipoContacto, "Id", "Descripcion", contacto.IdTipoContacto );
+            var contacto = db.Contactoes.FirstOrDefault(c => c.Id == Id);
+            ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id", "Descripcion", contacto.IdTipoContacto );
+
             return View(contacto);
         }
 
@@ -77,23 +76,20 @@ namespace Sigeret.Controllers
         [HttpPost]
         public ActionResult Editar(int Id, Contacto contacto)
         {
-            try
-            {
-                var contactoBd = sigeretDb.Contacto.SingleOrDefault(c => c.Id == Id);
+            if(ModelState.IsValid){
+                var contactoBd = db.Contactoes.FirstOrDefault(c => c.Id == Id);
                 
                 contactoBd.IdTipoContacto = contacto.IdTipoContacto;
                 contactoBd.Descripcion = contacto.Descripcion;
 
-                sigeretDb.SubmitChanges();
+                db.Entry(contactoBd).State = System.Data.EntityState.Modified;
 
                 return RedirectToAction("Detalles", new { Id = contacto.Id });
+            }
 
-                
-            }
-            catch
-            {
-                return View();
-            }
+            ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id", "Descripcion", contacto.IdTipoContacto);
+
+            return View(contacto);
         }
 
         //
