@@ -328,6 +328,8 @@
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\bootstrapmodal\bootstrap-modal.js" />
+    <Content Include="Scripts\bootstrapmodal\bootstrap-modalmanager.js" />
     <Content Include="Scripts\chosen.jquery.js" />
     <Content Include="Scripts\chosen.jquery.min.js" />
     <Content Include="Scripts\ClientGlobal.js" />
@@ -344,6 +346,18 @@
     <Content Include="Scripts\jquery-ui-sliderAccess.js" />
     <Content Include="Scripts\jquery-ui-timepicker-addon.js" />
     <Content Include="Scripts\jquery-ui-timepicker-es.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask-2.4.3.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask-2.4.3.min.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.date.extensions-2.4.3.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.date.extensions-2.4.3.min.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.extensions-2.4.3.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.extensions-2.4.3.min.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.numeric.extensions-2.4.3.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.numeric.extensions-2.4.3.min.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.phone.extensions-2.4.3.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.phone.extensions-2.4.3.min.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.regex.extensions-2.4.3.js" />
+    <Content Include="Scripts\jquery.inputmask\jquery.inputmask.regex.extensions-2.4.3.min.js" />
     <Content Include="Scripts\jquery.mask.js" />
     <Content Include="Scripts\jquery.maskMoney.js" />
     <Content Include="Scripts\jquery.maskMoney.min.js" />

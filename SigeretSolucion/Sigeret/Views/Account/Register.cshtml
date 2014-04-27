@@ -25,16 +25,20 @@
                             @Html.CTextBoxFor(model => model.Nombre)
                             @Html.CValidationMessageFor(model => model.Nombre)
                         </div>
-
                         <div class="form-group col-lg-4">
                             @Html.CLabelFor(model => model.Apellido)
                             @Html.CTextBoxFor(model => model.Apellido)
                             @Html.CValidationMessageFor(model => model.Apellido)
                         </div>
-
                         <div class="form-group col-lg-4">
-                            @Html.CLabelFor(model => model.Cedula)
-                            @Html.CTextBoxFor(model => model.Cedula)
+                            @*@Html.CLabelFor(model => model.Cedula)*@
+                            <label for="Cedula" class="control-label">
+                                C&eacute;dula&nbsp;&nbsp;
+                                <i data-toggle="popover" data-content="La cédula debe estar en el formato 000-0000000-0" 
+                                    title="Formato de cédula" class="glyphicon glyphicon-info-sign">
+                                </i>
+                            </label>
+                            @Html.CTextBoxFor(model => model.Cedula, new { @class = "cedula" })
                             @Html.CValidationMessageFor(model => model.Cedula)
                         </div>
                     </div>
@@ -64,13 +68,14 @@
                             @Html.CValidationMessageFor(model => model.Matricula)
                         </div>
                         <div class="form-group col-lg-4">
-                            @Html.Label("Correo Electrónico", new { @class = "control-label" })
-                            <input type="email" name="correo" placeholder="juanperez@ejemplo.com" class="form-control" />
+                            @Html.CLabelFor(model => model.Correo)
+                            @Html.CTextBoxFor(model => model.Correo, new{ placeholder="juanperez@ejemplo.com" })
+                            @Html.CValidationMessageFor(model => model.Correo)
                         </div>
                     </div>
 
                     <div class="row form-group col-lg-12">
-                        <input type="submit" class="btn btn-primary" value="Guardar" />
+                        <input type="submit" class="btn btn-primary" value="Guardar" />                        
                         @Html.ActionLink("Regresar", "Index", "Home", new { @class = "btn btn-default" })
                     </div>
                 </fieldset>
@@ -79,6 +84,3 @@
     </div>
 </div>
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
-}

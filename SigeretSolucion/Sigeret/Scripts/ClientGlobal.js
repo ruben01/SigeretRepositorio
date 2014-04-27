@@ -10,7 +10,7 @@
 // utilizando estilos de bootstrap, para la validación
 // de Jquery.
 //
-//Configuración del Jquery validate para soportar los estilos de bootstrap
+//Configuración del Jquery validate para soportar los estilos de bootstrap -- Saúl H. S.
 $.validator.setDefaults({
     highlight: function (element) { //añadir clases de error
         $(element).closest('.form-group').addClass('has-error');
@@ -32,4 +32,32 @@ $.validator.setDefaults({
     onkeyup: false, //no activar validacion al presionado de cada tecla
     //onfocusout: false,
     onsubmit: true //activar validacion en cada submit de formulario
+});
+
+$(document).ready(function () {
+    //Inicializacion de mascarillas usando el plugin Jquery Input mask -- Saúl H. S.
+    var telefono = '(999) 999-9999'; //telefono
+    var cedula = '999-9999999-9'; //cedula
+
+    //Remover datos si estos no estan completos.
+    $('.telefono').inputmask(telefono, { "clearIncomplete": true });
+    $('.cedula').inputmask(cedula, { "clearIncomplete": true });
+
+    //quitar mascara de inputs luego del submit -- Saúl H. S.
+    $('form').submit(function () {
+        if ($(this).valid()) {
+            $('.telefono').inputmask('remove');
+            $('.cedula').inputmask('remove');
+        }
+    });
+
+    //Activación de tooltips -- Saúl H. S.
+    $(document.body).tooltip({
+        selector: '[data-toggle="tooltip"]'
+    });
+
+    //Activación de popovers -- Saúl H. S.
+    $(document.body).popover({
+        selector: '[data-toggle="popover"]'
+    });
 });

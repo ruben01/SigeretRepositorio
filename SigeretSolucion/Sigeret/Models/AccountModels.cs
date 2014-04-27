@@ -103,7 +103,7 @@ namespace Sigeret.Models
         public string Matricula { get; set; }
 
         [Required]
-        [Display(Name = "Cedula '000-0000000-0' ")]
+        [Display(Name = "Cedula")]
         public string Cedula { get; set; }
 
         [Required]
@@ -117,8 +117,10 @@ namespace Sigeret.Models
         [Compare("Password", ErrorMessage = "La contraseña y la contraseña de confirmación no coinciden.")]
         public string ConfirmPassword { get; set; }
 
-
-
+        [Display(Name = "Correo Electrónico")]
+        [Required]
+        [EmailAddress(ErrorMessage="Introduzca una dirección de correo válida")]
+        public string Correo { get; set; }
     }
      
 

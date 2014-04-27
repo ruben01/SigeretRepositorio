@@ -26,6 +26,17 @@ namespace Sigeret
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/timepicker").Include(
+                        "~/Scripts/jquery-ui-timepicker-addon.js",
+                        "~/Scripts/jquery-ui-sliderAccess.js",
+                        "~/Scripts/jquery-ui-timepicker-es.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/maskedinput").Include(
+                        "~/Scripts/jquery.inputmask/jquery.inputmask-{version}.js",
+                        "~/Scripts/jquery.inputmask/jquery.inputmask.extensions-{version}.js",
+                        "~/Scripts/jquery.inputmask/jquery.inputmask.date.extensions-{version}.js",
+                        "~/Scripts/jquery.inputmask/jquery.inputmask.numeric.extensions-{version}.js"));
+
             // Utilice la versión de desarrollo de Modernizr para desarrollar y obtener información sobre los formularios. De este modo, estará
             // preparado para la producción y podrá utilizar la herramienta de creación disponible en http://modernizr.com para seleccionar solo las pruebas que necesite.
             bundles.Add(new ScriptBundle("~/bundles/modernizr").Include(
@@ -35,6 +46,8 @@ namespace Sigeret
 
             // Adicionando referencia para los estilos. -- Saúl H. S.
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));
+
+            bundles.Add(new ScriptBundle("~/bundles/chosen").Include("~/Scripts/chosen*"));
 
             bundles.Add(new StyleBundle("~/Content/themes/base/css").Include(
                         "~/Content/themes/base/jquery.ui.core.css",
