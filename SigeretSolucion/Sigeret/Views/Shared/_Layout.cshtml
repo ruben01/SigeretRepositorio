@@ -1,35 +1,39 @@
 ﻿<!DOCTYPE html>
 <html lang="es">
-    <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta charset="utf-8" />
-        <title>@ViewBag.Title - Mi aplicación ASP.NET MVC</title>
-        <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-        <meta name="viewport" content="width=device-width" />
-        @Styles.Render("~/Content/css")
-        @Styles.Render("~/Content/bootstrap")
-        @Scripts.Render("~/bundles/modernizr")
-    </head>
-    <body>
-        <!-- Agregando código personal del NavBar Saúl H. S. -->
-        @Html.Partial("_NavBar")
-        <div id="holder" class="container">
-            @RenderSection("featured", required: false)
-            @RenderBody()
-        </div>
-        <div id="footer" class="">
-            <footer>
-                <div id="footer-content" class="content-wrapper">
-                    <div class="float-left">
-                        @Html.ActionLink("SIGERET", "Index", "Home", null, new { @class = "navbar-brand pl0" })
-                        <p class="fr foot">&copy; @DateTime.Now.Year - SIGERET, UASD</p>
-                    </div>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title - Mi aplicación ASP.NET MVC</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/bootstrap")
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <!-- Agregando código personal del NavBar Saúl H. S. -->
+    @Html.Partial("_NavBar")
+    <div id="holder" class="container">
+        @RenderSection("featured", required: false)
+        @RenderBody()
+    </div>
+    <div id="footer" class="">
+        <footer>
+            <div id="footer-content" class="content-wrapper">
+                <div class="float-left">
+                    @Html.ActionLink("SIGERET", "Index", "Home", null, new { @class = "navbar-brand pl0" })
+                    <p class="fr foot">&copy; @DateTime.Now.Year - SIGERET, UASD</p>
                 </div>
-            </footer>
-        </div>
+            </div>
+        </footer>
+    </div>
 
-        @Scripts.Render("~/bundles/jquery")
-        @Scripts.Render("~/bundles/bootstrap")
-        @RenderSection("scripts", required: false)
-    </body>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryui")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+    @Scripts.Render("~/bundles/global")
+</body>
 </html>

@@ -73,7 +73,6 @@ namespace Sigeret.Controllers
                 return RedirectToAction("Detalles", new { Id = equipo.Id });
             }
 
-
             return View(equipo);
         }
 
