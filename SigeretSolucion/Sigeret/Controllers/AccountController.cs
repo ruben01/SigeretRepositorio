@@ -97,7 +97,9 @@ namespace Sigeret.Controllers
                 try
                 {
                    
-                    WebSecurity.CreateUserAndAccount(model.UserName, model.Password, propertyValues: new { Nombre = model.Nombre, Apellido = model.Apellido, Cedula = model.Cedula });
+                    WebSecurity.CreateUserAndAccount(
+                        model.UserName, model.Password,
+                        propertyValues: new { Nombre = model.Nombre, Apellido = model.Apellido, Cedula = model.Cedula, Matricula = model.Matricula });
                     WebSecurity.Login(model.UserName, model.Password);
                     return RedirectToAction("Index", "Home");
                 }

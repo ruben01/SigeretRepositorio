@@ -10,38 +10,41 @@
         </div>
         <div class="navbar-collapse collapse navbar-responsive-collapse">
             <ul class="nav navbar-nav">
-                
                 <li>@Html.ActionLink("Inicio", "Index", "Home")</li>
                 <li>@Html.ActionLink("Acerca de", "About", "Home")</li>
                 <li>@Html.ActionLink("Contacto", "Contact", "Home")</li>
-
             </ul>
             <ul class="nav navbar-nav navbar-right">
 
-                    <li>@Html.ActionLink("Equipo", "Index", "Equipo")</li>
-                    <li>@Html.ActionLink("Usuario", "Index", "Usuario")</li>
-                    <li>@Html.ActionLink("Solicitudes", "Index", "Solicitud")</li>
-                    <li>@Html.ActionLink("Cuenta", "Index", "Account")</li>
-
-                <li><a href="#">Link</a></li>
+                <li>@Html.ActionLink("Equipo", "Index", "Equipo")</li>
+                <li>@Html.ActionLink("Usuario", "Index", "Usuario")</li>
+                <li>@Html.ActionLink("Solicitudes", "Index", "Solicitud")</li>
+                <li>@Html.ActionLink("Cuenta", "Index", "Account")</li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                         @if (WebSecurity.IsAuthenticated)
                         { 
                             @(WebSecurity.CurrentUserName)
                         }
-                        else 
+                        else
                         {
                             @("Invitado") 
-                        } 
+                        }
                         <b class="caret"></b>
                     </a>
                     <ul class="dropdown-menu">
                         @if (WebSecurity.IsAuthenticated)
                         { 
-                            <li>@Html.ActionLink("Cerrar Sesión", "LogOff", "Account")</li>
+                            <li>@Html.ActionLink(
+                                    "Cerrar Sesión", "LogOff", "Account",
+                                    new { href = "javascript:document.getElementById('logoutForm').submit()" })
+                            </li>
+                            using (Html.BeginForm("Logoff", "Account", FormMethod.Post, new { id = "logoutForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                            }
                         }
-                        else 
+                        else
                         {
                             <li>@Html.ActionLink("Iniciar Sesión", "Login", "Account", new { returnUrl = Request.RawUrl }, null)</li>
                         }

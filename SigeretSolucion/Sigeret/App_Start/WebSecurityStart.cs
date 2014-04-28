@@ -27,8 +27,8 @@ namespace Sigeret.App_Start
                 WebSecurity.InitializeDatabaseConnection
                     (
                      "SigeretContext",
-                     "Users",
-                     "ID",
+                     "UserProfile",
+                     "UserId",
                      "username",
                      autoCreateTables: true
                     );
