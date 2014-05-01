@@ -7,10 +7,8 @@ using System.Web.Mvc;
 
 namespace Sigeret.Controllers
 {
-    public class UsuarioController : Controller
+    public class UsuarioController : BaseController
     {
-
-        SigeretContext db = new SigeretContext();
 
         //
         // GET: /Usuario/

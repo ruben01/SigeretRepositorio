@@ -14,23 +14,21 @@ using System.Drawing;
 using System.IO;
 using System.Data.Entity;
 using System.Data;
+using Sigeret.Properties;
 
 namespace Sigeret.Controllers
 {
     [Authorize]
     //[InitializeSimpleMembership]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
-        SigeretContext db = new SigeretContext();        
 
         public ActionResult Index()
         {
-            
+
             return View();
         }
-        
-        
-        
+
         //
         // GET: /Account/Login
 
@@ -50,13 +48,34 @@ namespace Sigeret.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Login(LoginModel model, string returnUrl)
         {
-            if (ModelState.IsValid && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
+            if (ModelState.IsValid
+                 && !WebSecurity.IsAccountLockedOut(model.UserName, 3, 180)
+                 && WebSecurity.Login(model.UserName, model.Password, persistCookie: model.RememberMe))
             {
+                Session["attempts"] = 0;
+
                 return RedirectToLocal(returnUrl);
             }
 
-            // Si llegamos a este punto, es que se ha producido un error y volvemos a mostrar el formulario
-            ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
+            Session["attempts"] = (Session["attempts"] == null) ? 1 : (int)Session["attempts"] + 1;
+
+            if ((int)Session["attempts"] < Settings.Default.MaxLoginAttempts)
+            {
+                ModelState.AddModelError(
+                        "",
+                        string.Format("usted ha fallado {0} de {1} veces al digitar su contraseña.", (int)Session["attempts"], Settings.Default.MaxLoginAttempts)
+                    );
+            }
+            else
+            {
+                ModelState.AddModelError("", "Usted ha sobrepasado la cantidad máxima de intentos fallidos. Intente de nuevo más tarde.");
+            }
+
+            if (!WebSecurity.IsAccountLockedOut(model.UserName, 3, 180))
+            {
+                ModelState.AddModelError("", "El nombre de usuario o la contraseña especificados son incorrectos.");
+            }
+
             return View(model);
         }
 
@@ -78,7 +97,7 @@ namespace Sigeret.Controllers
         [AllowAnonymous]
         public ActionResult Register()
         {
-            
+
 
             return View();
         }
@@ -96,7 +115,7 @@ namespace Sigeret.Controllers
                 // Intento de registrar al usuario
                 try
                 {
-                   
+
                     WebSecurity.CreateUserAndAccount(
                         model.UserName, model.Password,
                         propertyValues: new { Nombre = model.Nombre, Apellido = model.Apellido, Cedula = model.Cedula, Matricula = model.Matricula });

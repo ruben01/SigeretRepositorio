@@ -9,9 +9,8 @@ using SIGERET.CustomCode;
 
 namespace Sigeret.Controllers
 {
-    public class SolicitudController : Controller
+    public class SolicitudController : BaseController
     {
-        SigeretContext db = new SigeretContext();
 
         //
         // GET: /Solicitud/

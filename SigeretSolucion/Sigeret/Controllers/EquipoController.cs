@@ -7,10 +7,8 @@ using System.Web.Mvc;
 
 namespace Sigeret.Controllers
 {
-    public class EquipoController : Controller
+    public class EquipoController : BaseController
     {
-        //Utilizar Singleton
-        SigeretContext db = new SigeretContext();
 
         //
         // GET: /Equipo/

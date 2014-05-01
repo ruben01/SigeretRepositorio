@@ -9,9 +9,8 @@ using WebMatrix.WebData;
 
 namespace Sigeret.Controllers
 {
-    public class ContactoController : Controller
+    public class ContactoController : BaseController
     {
-        SigeretContext db = new SigeretContext();
 
         //
         // GET: /Contacto/

@@ -1,0 +1,22 @@
+@{
+    ViewBag.Title = "No tiene permisos suficientes";
+}
+
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2></h2>
+</hgroup>
+
+<div class="well">
+    <div class="col-lg-12">
+        <fieldset>
+            <legend>No tiene  permisos</legend>
+            <ul>
+                <li>
+                    <h1>Usted no tiene permisos suficientes para acceder a esta pagina. Contacte a su adminstrador para solicitar acceso.</h1>
+
+                    <a href="javascript:document.getElementById('logoutForm').submit()">Cierre Sesi&oacute;n </a>&nbsp; e inicie sesi&oacute;n con una cuenta con el nivel de permisos adecuado.
+            </ul>
+        </fieldset>
+    </div>
+</div>
