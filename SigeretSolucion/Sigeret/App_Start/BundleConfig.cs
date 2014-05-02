@@ -17,7 +17,7 @@ namespace Sigeret
 
             // Agregando referencia de Boostrap para el Layaout de la aplicación -- Saúl H. S.
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
-                        "~/Scripts/bootstrap.js"));
+                        "~/Scripts/bootstrap*", "~/Scripts/bootstrapmodal/bootstrap*"));
 
             bundles.Add(new ScriptBundle("~/bundles/jqueryui").Include(
                         "~/Scripts/jquery-ui-{version}.js"));
@@ -46,6 +46,7 @@ namespace Sigeret
 
             // Adicionando referencia para los estilos. -- Saúl H. S.
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));
+            bundles.Add(new StyleBundle("~/Content/bootstrapmodal").Include("~/Content/bootstrap-modal-bs3patch.css", "~/Content/bootstrap-modal.css"));
 
             bundles.Add(new ScriptBundle("~/bundles/chosen").Include("~/Scripts/chosen*"));
 

@@ -1,44 +1,15 @@
 ﻿/*
 
-    CODIGO CUSTOMIZADO PARA EL SITE --- Saúl H. S.
+	CODIGO CUSTOMIZADO PARA EL SITE --- Saúl H. S.
 
 */
 
 /* 
-	Carlos Gonzalez.
+	Saúl H. Sánchez.
 	Estilos css customizados globales para el site.
 */
 
 /* Global Styles */
-
-/**Fonts*/
-@font-face {
-	font-weight: 400;
-	font-style: normal;
-	font-family: 'Lora';
-	src: url(../Content/themes/readable/fonts/5-AYViExptypIdFoLKAxTA.woff) format('woff');
-}
-
-@font-face {
-	font-weight: 700;
-	font-style: normal;
-	font-family: 'Lora';
-	src: url(../Content/themes/readable/fonts/XpaepWHcooQHSRnzoohUng.woff) format('woff');
-}
-
-@font-face {
-	font-weight: 400;
-	font-style: italic;
-	font-family: 'Lora';
-	src: url(../Content/themes/readable/fonts/wXeMvRh7Gui36p_I04Ex6g.woff) format('woff');
-}
-
-@font-face {
-	font-weight: 700;
-	font-style: italic;
-	font-family: 'Lora';
-	src: url(../Content/themes/readable/fonts/_IxjUs2lbQSu0MyFEAfa7T8E0i7KZn-EPnyo3HZu7kw.woff) format('woff');
-}
 
 html, body {
 	height: 100%;
@@ -46,6 +17,7 @@ html, body {
 
 body {
 	padding-top: 70px; /* body padding for fixed top nav */
+	background: url(/Images/cream_dust.png) repeat 0 0;
 }
 
 .img-home-portfolio,
@@ -82,7 +54,7 @@ a.btn {
 	line-height: 22px;
 }
 
-/**CUSTOM CLASSES. Carlos González **/
+/**CUSTOM CLASSES. Saúl H. Sánchez **/
 .fl {
 	float: left !important;
 }
@@ -149,18 +121,18 @@ a.btn {
 }
 
 .mt10{
-    margin-top: 10px;
+	margin-top: 10px;
 }
 
 .mb10{
-    margin-bottom: 10px !important;
+	margin-bottom: 10px !important;
 }
 
 .mt20{
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
-/** anchor button styles. Carlos González **/
+/** anchor button styles. Saúl H. Sánchez **/
 a.button_link {
 	display: block;
 	padding: 2px 0px 2px 24px;
@@ -503,7 +475,7 @@ label.permissions {
 
 /*Tablas*/
 .table th {
-	background: none repeat scroll 0 0 #717171 !important;
+	background: none repeat scroll 0 0 #000 !important;
 	color: #FFFFFF;
 	font-family: lora,arial;
 }

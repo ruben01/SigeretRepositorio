@@ -9,61 +9,62 @@
     <h2></h2>
 </hgroup>
 
-<div class="well">
+<div class="row">
     <div class="col-lg-12">
-        @using (Html.BeginForm())
-        {
-            <fieldset>
-                <legend>Se ha producido un error al procesar su solicitud</legend>
-                <h4 class="section-subtitle">Informaci&oacute;n acerca del error</h4>
-                <div class="row">
-                    <div class="form-group col-lg-6">
-                    </div>
-                </div>
-                @if (WebSecurity.IsAuthenticated)
-                {
-                    <div class="row">
+        <div class="well">
 
-                        <div class="form-group panel panel-default col-lg-12">
-                            <div class="panel-heading">
-                                <h4 class="panel-title">
-                                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#stackTrace">
-                                        Ver detalles acerca del error
-                                    </a>
-                                </h4>
-                            </div>
-                            <div id="stackTrace" class="panel-collapse collapse">
-                                <div class="panel-body center">
-                                    <p class="center col-lg-12">@Model.Exception.Message</p>
-                                    <a href="#errorTrace" class="btn btn-primary" data-toggle="modal">Ver Detalles avanzados de error</a>
+            @using (Html.BeginForm())
+            {
+                <fieldset>
+                    <legend>Se ha producido un error al procesar su solicitud</legend>
+                    <h4 class="section-subtitle">Informaci&oacute;n acerca del error</h4>
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                        </div>
+                    </div>
+                    @if (WebSecurity.IsAuthenticated)
+                    {
+                        <div class="row">
+
+                            <div class="form-group panel panel-default col-lg-12">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#stackTrace">Ver detalles acerca del error
+                                        </a>
+                                    </h4>
+                                </div>
+                                <div id="stackTrace" class="panel-collapse collapse">
+                                    <div class="panel-body center">
+                                        <p class="center col-lg-12">@Model.Exception.Message</p>
+                                        <a href="#errorTrace" class="btn btn-primary" data-toggle="modal">Ver Detalles avanzados de error</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                }
+                    }
 
-                <div class="modal fade dn" id="errorTrace" data-width="760">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                        <h4 class="modal-title">Detalles de error</h4>
-                    </div>
-                    <div class="modal-body psBody">
-                        <div class="col-lg-12">
-                            <p class="justify">
-                                @Model.Exception.StackTrace.ToString()
-                            </p>
+                    <div class="modal fade dn" id="errorTrace" data-width="760">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">Detalles de error</h4>
                         </div>
+                        <div class="modal-body psBody">
+                            <div class="col-lg-12">
+                                <p class="justify">
+                                    @Model.Exception.StackTrace.ToString()
+                                </p>
+                            </div>
 
+                        </div>
+                        <div class="modal-footer">
+                            <a href="#" data-dismiss="modal" class="btn btn-default ">Cerrar</a>
+                        </div>
                     </div>
-                    <div class="modal-footer">
-                        <a href="#" data-dismiss="modal" class="btn btn-default ">Cerrar</a>
+                    <div class="row form-group col-lg-4 pr0">
+                        <input type="button" class="btn btnform btn-primary col-lg-5 ml2 " onclick="history.go(-1);" value="Regresar" />
                     </div>
-                </div>
-                <div class="row form-group col-lg-4 pr0">
-                    <input type="button" class="btn btnform btn-primary col-lg-5 ml2 " onclick="history.go(-1);" value="Regresar" />
-                </div>
-            </fieldset>
-        }
+                </fieldset>
+            }
+        </div>
     </div>
 </div>
-

@@ -34,7 +34,8 @@
                     </a>
                     <ul class="dropdown-menu">
                         @if (WebSecurity.IsAuthenticated)
-                        { 
+                        {
+                            <li>@Html.ActionLink("Contactos", "Index", "Contacto")</li> 
                             <li>@Html.ActionLink(
                                     "Cerrar Sesión", "LogOff", "Account",
                                     new { href = "javascript:document.getElementById('logoutForm').submit()" })
