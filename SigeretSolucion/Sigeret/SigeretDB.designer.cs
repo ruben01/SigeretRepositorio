@@ -2118,7 +2118,7 @@ namespace Sigeret
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoraInicio", DbType="Time NOT NULL")]
         [DisplayName("Hora Inicio")]
-        [DisplayFormat(DataFormatString = "{0:h\\:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Time)]
         [ValidarHora(TipoValidacion.ValidarRango, "Hora fuera del Horario laboral 7:00am-10:00pm")]    
 		public System.TimeSpan HoraInicio
@@ -2142,7 +2142,7 @@ namespace Sigeret
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_HoraFin", DbType="Time NOT NULL")]
         [DisplayName("Hora Final")]
-        [DisplayFormat(DataFormatString = "{0:h\\:mm}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:hh\\:mm}", ApplyFormatInEditMode = true)]
         [DataType(DataType.Time)]
         [ValidarHora(TipoValidacion.Comparar, "La hora Final debe ser mayor a la inicial", compararCon: "HoraInicio")]
         [ValidarHora(TipoValidacion.ValidarRango, "Hora fuera del Horario laboral 7:00am-10:00pm")]  
@@ -2257,9 +2257,7 @@ namespace Sigeret
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="Date NOT NULL")]
-        
-        [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [validarFecha]
 		public System.DateTime Fecha
 		{

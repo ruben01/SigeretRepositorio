@@ -319,6 +319,10 @@ namespace Sigeret.Controllers
 
         public ActionResult Editar(int id)
         {
+
+         //almacena la cantidad y el modelo del equipo seleccionado
+            List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>();
+
             var Lugar = from s in sigeretDb.Solicitud
                         join aula in sigeretDb.AulaEdificio on s.IdLugar equals aula.Id
                           join edificio in sigeretDb.Lugar on aula.IdLugar equals edificio.Id
@@ -347,27 +351,58 @@ namespace Sigeret.Controllers
             Solicitud editar = sigeretDb.Solicitud.SingleOrDefault(x => x.Id == id);
 
             //seleccionando los equipos disponibles
-            var modelosDisponibles = from e in sigeretDb.Equipo
-                                     where e.IdEstatusEquipo == 1
-                                     group e by e.IdModelo into equipo
+            var modelosDisponibles = from mE in sigeretDb.ModeloEquipo
+                                        join equipo in sigeretDb.Equipo on mE.Id equals equipo.IdModelo
+                                        join solEquipo in sigeretDb.SolicitudEquipo on equipo.Id equals solEquipo.idEquipo
+                                        join solicitud in sigeretDb.Solicitud on solEquipo.IdSolicitud equals solicitud.Id
+                                                                             
+                                     where solicitud.Id==id || equipo.IdEstatusEquipo==1
+                                     group mE by mE.Id into equipo
                                      select equipo;
+
+
+
 
             List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
 
+            
 
             foreach (var modelos in modelosDisponibles)
             {
-
-
-
+                
                 equiposDisponibles.Add(sigeretDb.ModeloEquipo.SingleOrDefault(e => e.Id == modelos.Key));
-
-
+                
             }
 
+
+
+
+            //consultando para obtener la cantidad de equipos seleccionados por modelos
+            var cantidadXModelo= from se in sigeretDb.SolicitudEquipo 
+                                            join solEquipo in sigeretDb.Solicitud on se.IdSolicitud equals solEquipo.Id
+                                            join equipo in sigeretDb.Equipo on se.idEquipo equals equipo.Id
+                                            join modelo in sigeretDb.ModeloEquipo on equipo.IdModelo equals modelo.Id
+
+                                            where solEquipo.Id==id
+
+                                            group equipo by equipo.IdModelo into modelosSeleccionados
+
+                                            select modelosSeleccionados;
+            foreach (var modelo in cantidadXModelo)
+            {
+
+                
+                
+               cantidadSel.Add(new Tuple<string, string>(modelo.Key.ToString(), modelo.Count().ToString()));
+            }
+                                           
+
+                                            
+
+
+
             ViewBag.ModeloEquipo = equiposDisponibles;
-            ViewBag.check = new List<String>();
-            ViewBag.cantidad = new List<Tuple<String, String>>();
+            ViewBag.cantidadSel = cantidadSel;
             
 
             return View(editar);
@@ -380,6 +415,13 @@ namespace Sigeret.Controllers
         {
             try
             {
+                //almacena la cantidad y el modelo del equipo seleccionado
+                List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>();
+
+                IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
+
+                bool contieneEquipo = false;
+
                 var solicitudBD = sigeretDb.Solicitud.SingleOrDefault(s => s.Id == id);
 
                 solicitudBD.Descripcion = editada.Descripcion;
@@ -391,34 +433,209 @@ namespace Sigeret.Controllers
 
                     ModelState.AddModelError("IdAula", "Debe Seleccionar el Salon");
 
+                    salonList = (from a in sigeretDb.AulaEdificio where a.IdLugar == int.Parse(form["edificioId"]) select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
+                    ViewBag.IdAula = new SelectList(salonList, "Value", "Text");
                     
                 }
                 else
                 {
 
                     solicitudBD.IdLugar = Int32.Parse(form["IdAula"]);
-                }
+                    salonList = (from a in sigeretDb.AulaEdificio where a.IdLugar == int.Parse(form["edificioId"]) select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
+                    ViewBag.IdAula = new SelectList(salonList, "Value", "Text",form["IdAula"]);
 
-                if (ModelState.IsValid)
+
+                }
+                //lista para almacenar los equipos seleccionados en la solicitud
+                List<SolicitudEquipo> listaEquiposSelecionados = new List<SolicitudEquipo>();
+
+                //lista de equipos ya preseleccionados cuando se creo la solicitud
+                List<SolicitudEquipo>listaEquiposPreseleccionados = new List<SolicitudEquipo>();
+
+                listaEquiposPreseleccionados=sigeretDb.SolicitudEquipo.Where(e=>e.IdSolicitud==id).ToList();
+
+                //Verificando si hay equipos seleccionado en la solicitud
+                for (int i = 1; i < form.Count; i++)
                 {
+                    //Verificando si hay modelos de equipos eliminados
+                    if (form["hChk" + i] != null)
+                    {
+                        if (form["chk"+i] == null)
+                        {
+                            //eliminamos los equipos con el modelo especifico
+                            List<SolicitudEquipo> equiposEliminadosXmodelo = new List<SolicitudEquipo>();
+                            equiposEliminadosXmodelo = sigeretDb.SolicitudEquipo.Where(e => e.IdSolicitud == id && e.Equipo.IdModelo == Int32.Parse(form["hChk" + i])).ToList();
 
-                    sigeretDb.SubmitChanges();
-                    return RedirectToAction("Detalles", new { Id = editada.Id });
+                            foreach (var equipo in equiposEliminadosXmodelo)
+                            {
+                                sigeretDb.Equipo.SingleOrDefault(e => e.Id == equipo.idEquipo).IdEstatusEquipo = 1;
+                            }
+
+                            sigeretDb.SolicitudEquipo.DeleteAllOnSubmit(equiposEliminadosXmodelo);
+                        }
+                    }
+
+                    if (form["chk" + i] != null)
+                    {
+                        //agregando los check seleccionado a la lista para mantener el modelo en caso de error
+
+                        cantidadSel.Add(new Tuple<string, string>(i.ToString(), form["cant" + i]));
+
+                        contieneEquipo = true;
+
+
+                        //Equipos disponibles por modelos
+                        var equiposDispXmodelos = from e in sigeretDb.Equipo
+                                                  join solicitudEquipo in sigeretDb.SolicitudEquipo
+                                                  on e.Id equals solicitudEquipo.idEquipo
+                                                  join solicitud in sigeretDb.Solicitud
+                                                  on solicitudEquipo.IdSolicitud equals solicitud.Id
+                                                  where solicitud.Id == id && e.IdEstatusEquipo == 1//ojo aquiiiiiiiiiiiiiiiiiiii******/*/*/******
+                                                        || e.IdModelo == Int32.Parse(form["chk" + i]) && solicitud.Id == id
+
+                                                  select e;
+                        //Equipos x modelo previamente seleccionados al momento de crear la solicitud
+
+                        var equiposXmodelosPrevios = from e in sigeretDb.Equipo
+                                                     join solicitudEquipo in sigeretDb.SolicitudEquipo
+                                                     on e.Id equals solicitudEquipo.idEquipo
+                                                     where e.IdModelo == Int32.Parse(form["chk" + i]) && solicitudEquipo.IdSolicitud == id
+                                                     select e;
+
+                        
+                            String idModelo = form["chk" + i];
+                            String cant = form["cant" + i];
+                            int cants = equiposXmodelosPrevios.Count();
+                            int cantdisponible = equiposDispXmodelos.Count();
+                            //verificamos si la cantidad selecionada al momento de crear la solicitud
+                            //es mayor que la cantidad seleccionada al momento de editar la solicitud
+                            //para proceder a reducir los equipos previamente seleccionados
+                            if (equiposXmodelosPrevios.Count() > Int32.Parse(form["cant" + i]))
+                            {
+                                List<SolicitudEquipo> equiposAEliminar = new List<SolicitudEquipo>();
+
+                                int cantidadEliminar = equiposXmodelosPrevios.Count() - Int32.Parse(form["cant" + i]);
+
+                                foreach (var equipo in equiposXmodelosPrevios)
+                                {
+
+                                    if (cantidadEliminar > 0)
+                                    {
+                                        //ojojojojojojojojojooojoooo
+                                        equiposAEliminar.Add(sigeretDb.SolicitudEquipo.SingleOrDefault(e => e.idEquipo == equipo.Id && e.IdSolicitud==id));
+                                        sigeretDb.Equipo.SingleOrDefault(e => e.Id == equipo.Id).IdEstatusEquipo = 1;
+                                        cantidadEliminar--;
+                                    }
+                                }
+
+
+                                sigeretDb.SolicitudEquipo.DeleteAllOnSubmit(equiposAEliminar);
+                            }
+                            else if (equiposXmodelosPrevios.Count() < Int32.Parse(form["cant" + i]) && equiposDispXmodelos.Count() >= Int32.Parse(form["cant" + i]) - equiposXmodelosPrevios.Count())
+                            {
+                                //Seleccionamos lod equipos disponibles para agregar a la solicitud
+                                var equipoSelecionado = from e in sigeretDb.Equipo
+                                                        where (e.IdModelo == i && e.IdEstatusEquipo == 1)
+                                                        select e;
+
+                                int cantidadSeleccionada = int.Parse(form["cant" + i]) - equiposXmodelosPrevios.Count();
+
+                                //agregando los nuevos equipos
+                                foreach (var item in equipoSelecionado)
+                                {
+
+
+
+                                    if (cantidadSeleccionada > 0)
+                                    {
+                                        //Instancia de equipo para almacenar los nuevos equipos
+                                        SolicitudEquipo nuevoEquipo = new SolicitudEquipo();
+
+                                        nuevoEquipo.idEquipo = item.Id;
+                                        nuevoEquipo.IdSolicitud = id;
+                                        //agregando el equipo seleccionado a la lista de equipos seleccionados
+                                        listaEquiposSelecionados.Add(nuevoEquipo);
+
+                                        //Actualizar estatus equipo selecionado
+
+                                        sigeretDb.Equipo.SingleOrDefault(e => e.Id == item.Id).IdEstatusEquipo = 5;
+                                        cantidadSeleccionada--;
+                                    }
+
+
+
+                                }
+                                sigeretDb.SolicitudEquipo.InsertAllOnSubmit(listaEquiposSelecionados);
+
+
+
+                            }
+                            else if(equiposDispXmodelos.Count()<Int32.Parse(form["cant"+i]))
+                            {
+                                //Mostramos un mensaje diciendo que la cantidad del equipo seleccionado no esta disponible
+                                ModelState.AddModelError("", "Cantidad de " + sigeretDb.ModeloEquipo.SingleOrDefault(e => e.Id == i).Nombre + " no disponible");
+
+                            }
+                            else
+                            {
+
+                            }
+
+                        
+
+                    }
                 }
-                else
+
+                if (!contieneEquipo)
                 {
-
-
-                    var LugarSeleccionado = sigeretDb.Lugar.SingleOrDefault(l => l.Id == Int32.Parse( form["edificioId"]));
-                    ViewBag.edificioId = new SelectList(sigeretDb.Lugar, "Id", "Edificio", LugarSeleccionado.Id);
-
-                                       
-                    ViewBag.IdAula = new SelectList(sigeretDb.AulaEdificio.Where(x => x.IdLugar ==Int32.Parse(form["edificioId"])), "Id", "Aula");
-
-
-
-                    return View(editada);
+                    ViewBag.Seleccionar = "Debe seleccionar al menos un equipo";
+                    ModelState.AddModelError("", "");
                 }
+
+        if (ModelState.IsValid)
+        {
+
+            sigeretDb.SubmitChanges();
+            return RedirectToAction("Detalles", new { Id = editada.Id });
+        }
+        else
+        {
+
+
+            ViewBag.edificioId = new SelectList(sigeretDb.Lugar, "Id", "Edificio", form["edificioId"]);
+
+
+            //seleccionando los equipos disponibles
+            var modelosDisponibles = from mE in sigeretDb.ModeloEquipo
+                                     join equipo in sigeretDb.Equipo on mE.Id equals equipo.IdModelo
+                                     join solEquipo in sigeretDb.SolicitudEquipo on equipo.Id equals solEquipo.idEquipo
+                                     join solicitud in sigeretDb.Solicitud on solEquipo.IdSolicitud equals solicitud.Id
+
+                                     where solicitud.Id == id || equipo.IdEstatusEquipo == 1
+                                     group mE by mE.Id into equipo
+                                     select equipo;
+
+
+
+
+            List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
+
+
+
+            foreach (var modelos in modelosDisponibles)
+            {
+
+                equiposDisponibles.Add(sigeretDb.ModeloEquipo.SingleOrDefault(e => e.Id == modelos.Key));
+
+            }
+            
+
+            ViewBag.ModeloEquipo = equiposDisponibles;
+            ViewBag.cantidadSel = cantidadSel;
+            
+
+            return View(editada);
+        }
 
                 
             }

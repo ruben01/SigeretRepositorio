@@ -6,11 +6,16 @@
 
 <script src="~/Scripts/jquery-1.8.2.min.js"></script>
 <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
+
 <h2>Editar Solicitud</h2>
 
 @using (Html.BeginForm()) {
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
+    <div id="ModelMensaje" style="color:red; font-weight:bold">
+        <br />
+        @Html.ValidationSummary(true)
+    </div>
+
 
     <fieldset>
         <legend>Solicitud</legend>
@@ -62,6 +67,14 @@
 
 
     </fieldset>
+     
+        <div id="ModelMensaje" style="color:red; font-size:x-large; font-weight:bold">
+         
+            @ViewBag.Seleccionar
+            <br />
+            
+        </div>
+ 
     
     <fieldset>
         <legend>Editar Equipos Seleccionados</legend>
@@ -87,16 +100,15 @@
             </tr>
 
             @{
-    List<String> check = new List<string>();
-    check = ViewBag.check;
 
     List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>();
-    cantidadSel = ViewBag.cantidad;
+    cantidadSel = ViewBag.cantidadSel;
             }
 
             @foreach (var item in ViewBag.ModeloEquipo)
             {
                 var checkBoxId = "chk" + @item.Id;
+                var hiddenCheckBoxId = "hChk" + @item.Id;
                 var checkBoxValue = @item.Id;
                 var cantidad = "cant" + @item.Id;
                 var td = "td" + @item.Id;
@@ -104,38 +116,37 @@
 
                     <td id="@td">
 
-                        @if (check.Count == 0)
+
+                     @{       
+
+                         var a=0;
+           
+                        foreach (var modelo in cantidadSel)
                         {
-
-                            <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
-
-                        }
-                        else
-                        {
-
-                            var a = 0;
-                            foreach (var ck in check)
-                            {
-
-
-
-                                if (checkBoxId == ck)
+                            
+                            if (item.Id== Int32.Parse( modelo.Item1))
                                 {
 
-                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
+                                <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
+                                <input type="checkbox" id="@hiddenCheckBoxId" name="@hiddenCheckBoxId" style="display:none;" checked="checked" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
                                     a = 1;
                                 }
-
-                                if (a != 1)
-                                {
-
-                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
-
-
-                                }
-                            }
-
                         }
+
+
+                        if (a == 0)
+                        {
+
+
+                            <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
+                            a = 1;
+
+                            
+                        }
+                    
+                    }
+
+                        
                     </td>
                     <td>
 
@@ -150,31 +161,39 @@
                         }
                         else
                         {
-
-                            var a = 0;
+                            var b=0;
+                            
                             foreach (var cant in cantidadSel)
                             {
-
-                                if (cantidad == cant.Item1)
+                               
+                                if (item.Id == Int32.Parse(cant.Item1))
                                 {
 
-                                    a = 1;
+                                   
                                     <div class="editor-field">
 
-                                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width: 30px; text-align: center; border-color: red; border:1em;" value="@cant.Item2" />
+                                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width: 30px; text-align: center;" value="@cant.Item2" />
 
                                     </div>
+                                    b = 1;
+                                   
                                 }
+                               
                             }
 
-                            if (a == 0)
+
+                            if (b == 0)
                             {
-                                <div class="editor-field">
+                                
+                            <div class="editor-field">
 
-                                    <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;" value="1" />
+                                <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;" value="1" />
 
-                                </div>
+                            </div>
                             }
+
+
+                            
                         }
 
 
