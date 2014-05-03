@@ -247,6 +247,7 @@
     <Compile Include="Models\UsuarioNipSm.cs" />
     <Compile Include="Models\validarFecha.cs" />
     <Compile Include="Models\ValidarHora.cs" />
+    <Compile Include="Models\ViewModels\ContactoViewModel.cs" />
     <Compile Include="Models\webpages_Membership.cs" />
     <Compile Include="Models\webpages_OAuthMembership.cs" />
     <Compile Include="Models\webpages_Roles.cs" />
@@ -458,6 +459,7 @@
     <Content Include="Views\Shared\_NavBar.cshtml" />
     <Content Include="Views\CustomErrors\NotFound.cshtml" />
     <Content Include="Views\Unauthorize\ErrorUnauthorized.cshtml" />
+    <Content Include="Views\Contacto\PartialEditarContacto.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

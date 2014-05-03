@@ -1,0 +1,39 @@
+﻿@model Sigeret.Models.ViewModels.ContactoViewModel
+
+
+
+<div class="modal fade dn" id="editarContactoModal" data-focus-on="input:first" data-width="760">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h4 class="modal-title">Editar datos de contacto</h4>
+    </div>
+    <form class="standard-form editContactFrm" method="post" action="@Url.Action("EditarContacto", "Contacto")" >
+        <div class="col-lg-12">
+            <fieldset>
+                <legend></legend>
+                <div class="modal-body">
+                    @Html.HiddenFor(model => model.Id)
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            @Html.CLabelFor(model => model.IdTipoContacto)
+                            @Html.CDropDownListFor(model => model.IdTipoContacto, null)
+                            @Html.CValidationMessageFor(model => model.IdTipoContacto)
+                        </div>
+                        <div class="form-group col-lg-6">
+                            @Html.CLabelFor(model => model.Descripcion)
+                            @Html.CTextBoxFor(model => model.Descripcion)
+                            @Html.CValidationMessageFor(model => model.Descripcion)
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+        </div>
+        <div class="modal-footer">
+            <a href="#" data-dismiss="modal" class="btn btn-default">Cancelar</a>
+            <input type="submit" class="btn btn-primary save" value="Guardar" />
+        </div>
+    </form>
+</div>
+
+

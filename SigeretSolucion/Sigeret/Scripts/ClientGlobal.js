@@ -34,6 +34,15 @@ $.validator.setDefaults({
     onsubmit: true //activar validacion en cada submit de formulario
 });
 
+function fnValidateDynamicContent(form) {
+    form.removeData("validator");
+    form.removeData("unobtrusiveValidation");
+    $.validator.unobtrusive.parse(form);
+    // This line is important and added for client side validation to trigger, 
+    // without this it didn't fire client side errors.
+    form.validate();
+}
+
 $(document).ready(function () {
     //Inicializacion de mascarillas usando el plugin Jquery Input mask -- Saúl H. S.
     var telefono = '(999) 999-9999'; //telefono

@@ -18,7 +18,7 @@
                     </p>
                 </div>
                 <div class="form-group scroll form_table col-lg-12 pl0">
-                    <table class="table table-striped table-bordered table-hover">
+                    <table class="table tblContacts table-striped table-bordered table-hover">
                         <tr>
                             <th>
                                 @Html.DisplayName("Contacto")
@@ -41,7 +41,7 @@
                                         @Html.DisplayFor(modelItem => item.TipoContacto.Descripcion)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
+                                        @Html.ActionLink("Editar", "Editar", new { id = item.Id }, new { @class = "editContact", data_url = Url.Action("EditarContacto", new { id = item.Id }) }) |
                                         @Html.ActionLink("Eliminar", "Eliminar", new { id = item.Id })
                                     </td>
                                 </tr>
@@ -50,6 +50,29 @@
                     </table>
                 </div>
             </fieldset>
+
+            <div class="modalForm">
+            </div>
+
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('.tblContacts').on('click', '.editContact', function (evt) {
+                evt.preventDefault();
+                var me = $(this);
+                $('.modalForm').html('');
+                $.get(
+                    me.data('url'),
+                    function (data) {
+                        $('.modalForm').html(data);
+                        $('#editarContactoModal').modal(); fnValidateDynamicContent($('.editContactFrm'));
+                    }
+                );
+            });
+        });
+    </script>
+}

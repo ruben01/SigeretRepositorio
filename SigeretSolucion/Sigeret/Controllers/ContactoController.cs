@@ -1,4 +1,5 @@
 ﻿using Sigeret.Models;
+using SIGERET.CustomCode;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,6 +7,7 @@ using System.Security.Principal;
 using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
+using Sigeret.Models.ViewModels;
 
 namespace Sigeret.Controllers
 {
@@ -89,6 +91,31 @@ namespace Sigeret.Controllers
             ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id", "Descripcion", contacto.IdTipoContacto);
 
             return View(contacto);
+        }
+
+        public ActionResult EditarContacto(int id)
+        {
+            var contacto = db.Contactoes.Find(id);
+            var model = GlobalHelpers.Transfer<Contacto, ContactoViewModel>(contacto);
+            ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id", "Descripcion", contacto.IdTipoContacto);
+
+            return PartialView("PartialEditarContacto", model);
+        }
+
+        [HttpPost]
+        public ActionResult EditarContacto(ContactoViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var contacto = db.Contactoes.Find(model.Id);
+                GlobalHelpers.Transfer<ContactoViewModel, Contacto>(model, contacto, "IdUserProfile");
+                db.Entry(contacto).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+
+                return RedirectToAction("MisContactos");
+            }
+
+            return new EmptyResult();
         }
 
         //
