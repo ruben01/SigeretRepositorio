@@ -19,5 +19,11 @@ namespace Sigeret.Controllers
 
             return View("NotFound");
         }
+
+        public ActionResult ExceptionError(Exception e)
+        {
+
+            return View(e.ToString());
+        }
     }
 }
