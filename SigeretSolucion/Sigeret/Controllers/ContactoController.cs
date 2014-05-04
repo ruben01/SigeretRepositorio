@@ -132,7 +132,7 @@ namespace Sigeret.Controllers
             db.Contactoes.Remove(contacto);
             db.SaveChanges();
             ViewBag.Exito = true;
-            var contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId);//.ToList();
+            var contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId).ToList();
             return PartialView("PartialContactosTable", contactos);
 
         }
