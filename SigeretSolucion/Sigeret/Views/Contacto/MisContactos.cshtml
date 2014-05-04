@@ -17,37 +17,8 @@
                         @Html.ActionLink("Nuevo", "NuevoContacto", null, new { @class = "btn btn-primary  fr mb10" })
                     </p>
                 </div>
-                <div class="form-group scroll form_table col-lg-12 pl0">
-                    <table class="table tblContacts table-striped table-bordered table-hover">
-                        <tr>
-                            <th>
-                                @Html.DisplayName("Contacto")
-                            </th>
-
-                            <th>
-                                @Html.DisplayName("Tipo")
-                            </th>
-                            <th>Opciones</th>
-                        </tr>
-                        <tbody>
-                            @foreach (var item in Model)
-                            {
-                                <tr>
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.Descripcion)
-                                    </td>
-
-                                    <td>
-                                        @Html.DisplayFor(modelItem => item.TipoContacto.Descripcion)
-                                    </td>
-                                    <td>
-                                        @Html.ActionLink("Editar", "Editar", new { id = item.Id }, new { @class = "editContact", data_url = Url.Action("EditarContacto", new { id = item.Id }) }) |
-                                        @Html.ActionLink("Eliminar", "Eliminar", new { id = item.Id })
-                                    </td>
-                                </tr>
-                            }
-                        </tbody>
-                    </table>
+                <div id="misContactos" class="form-group scroll form_table misContactos col-lg-12 pl0">
+                    @Html.Partial("PartialContactosTable", Model)
                 </div>
             </fieldset>
 
@@ -61,7 +32,7 @@
 @section Scripts{
     <script>
         $(document).ready(function () {
-            $('.tblContacts').on('click', '.editContact', function (evt) {
+            $(document).on('click', '.editContact', function (evt) {
                 evt.preventDefault();
                 var me = $(this);
                 $('.modalForm').html('');
@@ -70,6 +41,56 @@
                     function (data) {
                         $('.modalForm').html(data);
                         $('#editarContactoModal').modal(); fnValidateDynamicContent($('.editContactFrm'));
+                    }
+                );
+            });
+
+            $(document).on('click', '.deleteContact', function (evt) {
+                evt.preventDefault();
+                var me = $(this);
+
+                if (
+                    confirm('¿Esta seguro de eliminar este contacto?')) {
+                    $.post(
+                        me.attr('href'),
+                        function (data) {
+                            $('.misContactos').html(data);
+                            setTimeout(function () {
+
+                                if ($('#exitoso').val() == "True") {
+                                    alert('Contacto eliminado correctamente');
+                                }
+                                else {
+                                    alert('Error al eliminar el contacto');
+                                    alert(data);
+                                }
+
+                            }, 500); // 1/2 segundo para mostrar respuesta.
+                        }
+                    );
+                }
+
+            });
+
+            $(document).on('click', '.contactEditSave', function () {
+                var form = $('.editContactFrm');
+                var me = $(this);
+                $('#editarContactoModal').modal('hide');
+                $.post(
+                    form.attr('action'),
+                    form.serialize(),
+                    function (data) {
+                        $('.misContactos').html(data);
+                        setTimeout(function () {
+
+                            if ($('#exitoso').val() == "True") {
+                                alert('Datos de contacto actualizados correctamente');
+                            }
+                            else {
+                                alert('Error al actualizar los datos del contacto');
+                            }
+
+                        }, 500); // 1/2 segundo para mostrar respuesta.
                     }
                 );
             });

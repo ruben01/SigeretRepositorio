@@ -28,7 +28,7 @@ namespace Sigeret.Controllers
 
         public ActionResult NuevoContacto()
         {
-            ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id","Descripcion");
+            ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id", "Descripcion");
 
             return View();
         }
@@ -66,7 +66,7 @@ namespace Sigeret.Controllers
         public ActionResult Editar(int Id)
         {
             var contacto = db.Contactoes.FirstOrDefault(c => c.Id == Id);
-            ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id", "Descripcion", contacto.IdTipoContacto );
+            ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id", "Descripcion", contacto.IdTipoContacto);
 
             return View(contacto);
         }
@@ -77,9 +77,10 @@ namespace Sigeret.Controllers
         [HttpPost]
         public ActionResult Editar(int Id, Contacto contacto)
         {
-            if(ModelState.IsValid){
+            if (ModelState.IsValid)
+            {
                 var contactoBd = db.Contactoes.FirstOrDefault(c => c.Id == Id);
-                
+
                 contactoBd.IdTipoContacto = contacto.IdTipoContacto;
                 contactoBd.Descripcion = contacto.Descripcion;
 
@@ -105,6 +106,7 @@ namespace Sigeret.Controllers
         [HttpPost]
         public ActionResult EditarContacto(ContactoViewModel model)
         {
+            var contactos = Enumerable.Empty<Contacto>();
             if (ModelState.IsValid)
             {
                 var contacto = db.Contactoes.Find(model.Id);
@@ -112,12 +114,28 @@ namespace Sigeret.Controllers
                 db.Entry(contacto).State = System.Data.EntityState.Modified;
                 db.SaveChanges();
 
-                return RedirectToAction("MisContactos");
+                ViewBag.Exito = true;
+                contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId).ToList();
+                return PartialView("PartialContactosTable", contactos);
             }
 
-            return new EmptyResult();
+            ViewBag.Exito = false;
+            contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId).ToList();
+            return PartialView("PartialContactosTable", contactos);
         }
 
+
+        [HttpPost]
+        public ActionResult Eliminar(int id)
+        {
+            var contacto = db.Contactoes.Find(id);
+            db.Contactoes.Remove(contacto);
+            db.SaveChanges();
+            ViewBag.Exito = true;
+            var contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId);//.ToList();
+            return PartialView("PartialContactosTable", contactos);
+
+        }
         //
         // GET: /Contacto/Delete/5
 

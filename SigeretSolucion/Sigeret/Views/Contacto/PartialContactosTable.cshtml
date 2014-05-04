@@ -1,0 +1,33 @@
+﻿@model IEnumerable<Sigeret.Models.Contacto>
+
+@Html.Hidden("exitoso", (ViewBag.Exito == null) ? true : (bool)ViewBag.Exito)
+<table class="table tblContacts table-striped table-bordered table-hover">
+    <tr>
+        <th>
+            @Html.DisplayName("Contacto")
+        </th>
+
+        <th>
+            @Html.DisplayName("Tipo")
+        </th>
+        <th>Opciones</th>
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Descripcion)
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.TipoContacto.Descripcion)
+                </td>
+                <td>
+                    @Html.ActionLink("Editar", "Editar", new { id = item.Id }, new { @class = "editContact", data_url = Url.Action("EditarContacto", new { id = item.Id }) }) |
+                    @Html.ActionLink("Eliminar", "Eliminar", "Contacto", new { id = item.Id }, new { @class = "deleteContact" })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
