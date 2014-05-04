@@ -39,15 +39,34 @@ namespace Sigeret.Controllers
         protected override void OnException(ExceptionContext filterContext)
         {
             // Custom error page display
-            filterContext.ExceptionHandled = true;
-            this.View(
-                "Error",
-                new HandleErrorInfo(
-                    filterContext.Exception,
-                    RouteData.GetRequiredString("controller"),
-                    RouteData.GetRequiredString("action")
-                )
-            ).ExecuteResult(this.ControllerContext);
+            dynamic returnData;
+            if (filterContext.HttpContext.Request.IsAjaxRequest())
+            {
+                if (!filterContext.HttpContext.IsCustomErrorEnabled)
+                {
+                    returnData = filterContext.Exception.Message + filterContext.Exception.StackTrace;
+                }
+                else
+                {
+                    returnData = "Ha ocurrido un error al procesar la solicitud";
+                }
+
+                // TODO: Decide what to do if ajax
+                filterContext.HttpContext.Response.StatusCode = 401;
+                Json(new[] { returnData, false }, JsonRequestBehavior.AllowGet).ExecuteResult(this.ControllerContext);
+            }
+            else
+            {
+                filterContext.ExceptionHandled = true;
+                this.View(
+                    "Error",
+                    new HandleErrorInfo(
+                        filterContext.Exception,
+                        RouteData.GetRequiredString("controller"),
+                        RouteData.GetRequiredString("action")
+                    )
+                ).ExecuteResult(this.ControllerContext);
+            }
         }
 
         protected override void HandleUnknownAction(string actionName)
@@ -72,3 +91,5 @@ namespace Sigeret.Controllers
         }
     }
 }
+
+

@@ -19,5 +19,10 @@ namespace Sigeret.Controllers
 
             return View("NotFound");
         }
+
+        public ActionResult Error()
+        {
+            return View("Error");
+        }
     }
 }
