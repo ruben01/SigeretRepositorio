@@ -20,16 +20,13 @@ namespace Sigeret.Controllers
             return View("NotFound");
         }
 
-<<<<<<< HEAD
+
         public ActionResult ExceptionError(Exception e)
         {
 
             return View(e.ToString());
-=======
-        public ActionResult Error()
-        {
-            return View("Error");
->>>>>>> 98803ef7f2dcfec01769e714d4b33dbb228c1be6
+
+
         }
     }
 }
