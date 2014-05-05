@@ -76,7 +76,7 @@
                 @ViewBag.Seleccionar
             </div>
            
-
+if(ViewBag.Mensaje!="Seleccionar fecha"){
             <table>
                 <tr>
                     <th>
@@ -106,12 +106,12 @@
                 }
 
                 @foreach (var item in ViewBag.ModeloEquipo)
-            {
-                var checkBoxId = "chk"+@item.Id;
-                var checkBoxValue = @item.Id;
-                var cantidad = "cant" + @item.Id;
-                var td = "td" + @item.Id;
-                <tr>
+                {
+                    var checkBoxId = "chk"+@item.Id;
+                    var checkBoxValue = @item.Id;
+                    var cantidad = "cant" + @item.Id;
+                    var td = "td" + @item.Id;
+                    <tr>
 
                         <td id="@td">
 
@@ -124,61 +124,61 @@
                             {
 
                                 var a = 0;
-                                    foreach (var ck in check) {
-                                        
+                                    foreach (var ck in check) {                                       
                                        
 
-                                        if (checkBoxId == ck) { 
+                                                if (checkBoxId == ck) { 
                             
-                                            <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>
-                                            a = 1;
-                                        }
+                                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>
+                                                    a = 1;
+                                                }
 
-                                        if (a != 1)
-                                        {
+                                                if (a != 1)
+                                                {
                                             
-                                         <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>       
+                                                 <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>       
                                          
                                                                                  
-                                        }
+                                                }
                                     }
                                     
                                  }
                         </td>
                     <td>
 
-@if(cantidadSel.Count==0 ){
+        @if(cantidadSel.Count==0 ){
     
-                        <div class="editor-field">
+                                <div class="editor-field">
 
-                            <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;"  value="1" />
+                                    <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;"  value="1" />
 
-                        </div>
-}else{
+                                </div>
+        }else{
     
-    var a=0;
-        foreach (var cant in cantidadSel) {
+            var a=0;
+    
+                foreach (var cant in cantidadSel) {
 
-            if (cantidad == cant.Item1) { 
+                        if (cantidad == cant.Item1) { 
             
-            a=1;
-                        <div class="editor-field">
+                        a=1;
+                                    <div class="editor-field">
 
-                            <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width: 30px; text-align: center; border-color: red; border:1em;"  value="@cant.Item2" />
+                                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width: 30px; text-align: center; border-color: red; border:1em;"  value="@cant.Item2" />
 
-                        </div>
-            }
+                                    </div>
+                        }
+                }
+
+                if (a == 0)
+                {
+                    <div class="editor-field">
+            
+                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;"  value="1" />
+
+                    </div>
+                }
         }
-
-    if (a == 0)
-    {
-        <div class="editor-field">
-            
-            <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;"  value="1" />
-
-        </div>
-    }
-}
 
 
                     </td>
@@ -192,9 +192,18 @@
 
 
                     </tr>
-            }
+      }
 
             </table>
+        
+  }else{
+    
+             <div id="ModelMensaje" style="color:red; font-size:x-large; font-weight:bold">
+                <br />
+                    Debe indicar la fecha y hora para ver los equipos disponibles
+            </div>
+           
+  }
 
             <p>
                 <input type="submit" value="Crear" />

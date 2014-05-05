@@ -53,6 +53,21 @@ namespace Sigeret.Controllers
 
         public ActionResult Nueva()
         {
+
+
+            ViewBag.Edificio = getEdificio();
+            ViewBag.Salon = new List<SelectListItem> { };
+           
+            ViewBag.check = new List<String>();
+            ViewBag.cantidad = new List<Tuple<String, String>>();
+            ViewBag.Lugars = new List<Tuple<string, string>>();
+            ViewBag.Mensaje = "Seleccionar fecha";
+            return View();
+        }
+
+        //Consultando los equipos disponibles
+        public ActionResult EquiposDisponibles(DateTime fecha, TimeSpan hora)
+        {
             //seleccionando los equipos disponibles
             var disponibles = db.Equipoes.Where(e => e.IdEstatusEquipo == 1)
                 .GroupBy(e => e.IdModelo).ToList();
@@ -65,13 +80,7 @@ namespace Sigeret.Controllers
                 equiposDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == modelos.Key));
             }
 
-            ViewBag.Edificio = getEdificio();
-            ViewBag.Salon = new List<SelectListItem> { };
             ViewBag.ModeloEquipo = equiposDisponibles;
-            ViewBag.check = new List<String>();
-            ViewBag.cantidad = new List<Tuple<String, String>>();
-            ViewBag.Lugars = new List<Tuple<string, string>>();
-
             return View();
         }
 
