@@ -296,7 +296,7 @@ namespace Sigeret.Controllers
 
             List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
 
-            try { 
+     
                
             foreach (var modelos in modelosDisponibles)
             {
@@ -304,12 +304,7 @@ namespace Sigeret.Controllers
                 equiposDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == modelos.Key));
 
             }
-            }
-            catch (Exception e)
-            {
-
-                return RedirectToAction("CustomErrrors", "ExeptionError", e);
-            }
+            
 
 
 
