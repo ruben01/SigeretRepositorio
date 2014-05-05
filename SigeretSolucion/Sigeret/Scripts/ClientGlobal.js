@@ -43,6 +43,17 @@ function fnValidateDynamicContent(form) {
     form.validate();
 }
 
+function fnClearForm(elementClass, isForm) {
+    if (isForm) {
+        $(elementClass)[0].reset();
+    }
+    else {
+        $(elementClass + " :input").each(function () {
+            $(this).val('');
+        });
+    }
+}
+
 $(document).ready(function () {
     //Inicializacion de mascarillas usando el plugin Jquery Input mask -- Saúl H. S.
     var telefono = '(999) 999-9999'; //telefono
