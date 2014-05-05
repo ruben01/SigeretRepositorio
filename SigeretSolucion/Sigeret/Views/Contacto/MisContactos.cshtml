@@ -71,6 +71,7 @@
                         function (data) {
                             //$('.misContactos').html(data);
                             fnUpdateContacts();
+                            fnClearForm('.addContactFrm', true);
                             setTimeout(function () {
 
                                 if ($('#exitoso').val() == "True") {
