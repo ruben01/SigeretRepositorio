@@ -19,7 +19,9 @@ namespace Sigeret.Controllers
 
         public ActionResult Index()
         {
-            return View();
+            var contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId);
+
+            return View("MisContactos", contactos.ToList());
         }
 
 
@@ -94,6 +96,31 @@ namespace Sigeret.Controllers
             return View(contacto);
         }
 
+        public ActionResult DatosContactos()
+        {
+            var contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId).ToList();
+            return PartialView("PartialContactosTable", contactos);
+        }
+
+        [HttpPost]
+        public ActionResult AgregarContacto(ContactoViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var contacto = new Contacto();
+                GlobalHelpers.Transfer<ContactoViewModel, Contacto>(model, contacto);
+                contacto.IdUserProfile = WebSecurity.CurrentUserId;
+                db.Contactoes.Add(contacto);
+                db.SaveChanges();
+
+                ViewBag.Exito = true;
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            ViewBag.Exito = false;
+            return Json(false, JsonRequestBehavior.AllowGet);
+        }
+
         public ActionResult EditarContacto(int id)
         {
             var contacto = db.Contactoes.Find(id);
@@ -103,10 +130,16 @@ namespace Sigeret.Controllers
             return PartialView("PartialEditarContacto", model);
         }
 
+        public ActionResult AgregarContactoModal()
+        {
+            ViewBag.IdTipoContacto = new SelectList(db.TipoContactoes, "Id", "Descripcion");
+
+            return PartialView("PartialContactosModal", null);
+        }
+
         [HttpPost]
         public ActionResult EditarContacto(ContactoViewModel model)
         {
-            var contactos = Enumerable.Empty<Contacto>();
             if (ModelState.IsValid)
             {
                 var contacto = db.Contactoes.Find(model.Id);
@@ -115,13 +148,11 @@ namespace Sigeret.Controllers
                 db.SaveChanges();
 
                 ViewBag.Exito = true;
-                contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId).ToList();
-                return PartialView("PartialContactosTable", contactos);
+                return Json(true, JsonRequestBehavior.AllowGet);
             }
 
             ViewBag.Exito = false;
-            contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId).ToList();
-            return PartialView("PartialContactosTable", contactos);
+            return Json(false, JsonRequestBehavior.AllowGet);
         }
 
 
@@ -132,9 +163,8 @@ namespace Sigeret.Controllers
             db.Contactoes.Remove(contacto);
             db.SaveChanges();
             ViewBag.Exito = true;
-            var contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId);//.ToList();
-            return PartialView("PartialContactosTable", contactos);
 
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
         //
         // GET: /Contacto/Delete/5

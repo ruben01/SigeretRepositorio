@@ -53,7 +53,7 @@ namespace Sigeret.Controllers
 
                 // TODO: Decide what to do if ajax
                 filterContext.HttpContext.Response.StatusCode = 401;
-                Json(new[] { returnData, false }, JsonRequestBehavior.AllowGet).ExecuteResult(this.ControllerContext);
+                Json(returnData, JsonRequestBehavior.AllowGet).ExecuteResult(this.ControllerContext);
             }
             else
             {
