@@ -297,3 +297,4 @@ C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Siger
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\zh-Hant\System.Spatial.resources.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.pdb
+C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.csprojResolveAssemblyReference.cache

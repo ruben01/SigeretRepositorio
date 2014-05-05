@@ -34,6 +34,16 @@ $.validator.setDefaults({
     onsubmit: true //activar validacion en cada submit de formulario
 });
 
+//Inicialización por defecto para los elementos chosen single. -- Saúl H. S.
+$(".chosen").chosen({ width: '100%', allow_single_deselect: true });
+$(".chosen").attr('data-placeholder', 'Seleccione una opción');
+$(".chosen").chosen().change();
+$(".chosen").trigger('chosen:updated');
+$(".chosen-multiple").chosen({ width: '100%' });
+$(".chosen-multiple").attr('data-placeholder', 'Seleccione una opción');
+$(".chosen-multiple").chosen().change();
+$(".chosen-multiple").trigger('chosen:updated');
+
 function fnValidateDynamicContent(form) {
     form.removeData("validator");
     form.removeData("unobtrusiveValidation");
@@ -79,5 +89,21 @@ $(document).ready(function () {
     //Activación de popovers -- Saúl H. S.
     $(document.body).popover({
         selector: '[data-toggle="popover"]'
+    });
+
+    //datepickers, configuración -- Saúl H. S.
+    $('.fechaFutura').datepicker({
+        dateFormat: 'yy/mm/dd',
+        changeMonth: true,
+        changeYear: true,
+        minDate: 1
+    });
+
+    $('.CtimePicker').timepicker({
+        hourMin: 8,
+        hourMax: 22,
+        timeFormat: "HH:mm:ss",
+        addSliderAccess: true,
+        sliderAccessArgs: { touchonly: false }
     });
 });

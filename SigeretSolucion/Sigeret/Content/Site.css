@@ -132,6 +132,10 @@ a.btn {
 	margin-top: 20px;
 }
 
+.pt20{
+    padding-top: 20px;
+}
+
 /** anchor button styles. Saúl H. Sánchez **/
 a.button_link {
 	display: block;
