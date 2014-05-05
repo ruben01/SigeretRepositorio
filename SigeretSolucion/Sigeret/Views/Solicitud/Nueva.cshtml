@@ -2,265 +2,213 @@
 
 @{
     ViewBag.Title = "Solicitud";
+    List<String> check = new List<string>();
+    check = ViewBag.check;
+
+    List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>();
+    cantidadSel = ViewBag.cantidad;
 }
 
 
-<script src="~/Scripts/jquery-1.8.2.min.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
-
-    <h2>Nueva Solicitud</h2>
-
-    @using (Html.BeginForm()) {
-    @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true)
-
-        <div class="editor-label">
-            @Html.LabelFor(model => model.Fecha)
-        </div>
-        <div class="editor-field">
-            @Html.EditorFor(model => model.Fecha, new { type = "date" })
-            @Html.ValidationMessageFor(model => model.Fecha)
-        </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model=>model.HoraInicio)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.HoraInicio)
-                @Html.ValidationMessageFor(model => model.HoraInicio)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model=>model.HoraFin)
-            </div>
-            <div class="editor-field">
-                @Html.EditorFor(model => model.HoraFin)
-                @Html.ValidationMessageFor(model => model.HoraFin)
-            </div>
-
-            <div class="editor-label">
-                @Html.LabelFor(model=>model.Descripcion)
-            </div>
-            <div class="editor-field">
-                @Html.TextAreaFor(model => model.Descripcion)
-                @Html.ValidationMessageFor(model => model.Descripcion)
-            </div>
-
-            <div class="editor-label">
-                @Html.Label("Edificio")
-            </div>
-            <div class="editor-field">
-
-                @Html.DropDownList("edificioId", (SelectList)ViewBag.Edificio, "--Seleccione Edificio--")
-
-                @Html.ValidationMessage("edificioId")
-
-            </div>
-
-            <div class="editor-label">
-                @Html.Label("Salon")
-                
-            </div>
-            <div class="editor-field">
-
-                @Html.DropDownList("salonId", (IEnumerable<SelectListItem>)ViewBag.Salon, "--Seleccione Salon--")
-                @Html.ValidationMessage("salonId")
-
-                
-
-            </div>
-
-            <div id="ModelMensaje" style="color:red; font-size:x-large; font-weight:bold">
-                <br />
-                @ViewBag.Seleccionar
-            </div>
-           
-
-            <table>
-                <tr>
-                    <th>
-
-                    </th>
-                    <th>
-                        @Html.DisplayName("Cantidad")
-                    </th>
-                    <th>
-                        @Html.DisplayName("Nombre")
-                    </th>
-                    <th>
-                        @Html.DisplayName("Descripción")
-
-                    </th>
-
-
-                    <th></th>
-                </tr>
-
-                @{
-                    List<String> check = new List<string>();
-                    check = ViewBag.check;
-
-                    List<Tuple<String,String>> cantidadSel = new List<Tuple<string,string>>();
-                    cantidadSel = ViewBag.cantidad;
-                }
-
-                @foreach (var item in ViewBag.ModeloEquipo)
+<div class="row">
+    <div class="col-lg-12">
+        <hgroup class="title">
+            <h2>Nueva Solicitud</h2>
+        </hgroup>
+        <div class="well">
+            @using (Html.BeginForm())
             {
-                var checkBoxId = "chk"+@item.Id;
-                var checkBoxValue = @item.Id;
-                var cantidad = "cant" + @item.Id;
-                var td = "td" + @item.Id;
-                <tr>
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+                <fieldset class="employe">
+                    <legend>Datos del nuevo Equipo a registrar</legend>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            @Html.CLabelFor(model => model.Fecha)
+                            <div class="input-group">
+                                @Html.CTextBoxFor(model => model.Fecha, new { @class = "fechaFutura", Value = "" })
+                                <label for="Fecha" class="input-group-addon btn">
+                                    <i class="glyphicon glyphicon-calendar"></i>
+                                </label>
+                            </div>
+                            @Html.CValidationMessageFor(model => model.Fecha)
+                        </div>
+                        <div class="form-group col-lg-4">
+                            @Html.CLabelFor(model => model.HoraInicio)
+                            <div class="input-group">
+                                @Html.CTextBoxFor(model => model.HoraInicio, new { @class = "CtimePicker" })
+                                <label for="HoraInicio" class="input-group-addon btn">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </label>
+                            </div>
+                            @Html.CValidationMessageFor(model => model.HoraFin)
+                        </div>
+                        <div class="form-group col-lg-4">
+                            @Html.CLabelFor(model => model.HoraFin)
+                            <div class="input-group">
+                                @Html.CTextBoxFor(model => model.HoraFin, new { @class = "CtimePicker" })
+                                <label for="HoraFin" class="input-group-addon btn">
+                                    <i class="glyphicon glyphicon-time"></i>
+                                </label>
+                            </div>
+                            @Html.CValidationMessageFor(model => model.HoraInicio)
+                        </div>
+                    </div>
 
-                        <td id="@td">
+                    <div class="row">
+                        <div class="form-group col-lg-12">
+                            @Html.CLabelFor(model => model.Descripcion)
+                            @Html.CTextAreaFor(model => model.Descripcion)
+                            @Html.CValidationMessageFor(model => model.Descripcion)
+                        </div>
+                    </div>
 
-                            @if(check.Count==0 ){ 
-                               
-                                 <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>   
-                               
-                            }
-                            else
-                            {
+                    <div class="row">
+                        <div class="form-group col-lg-6">
+                            @Html.Label("Edificio", new { @class = "control-label" })
+                            @Html.CDropDownList("edificioId", (SelectList)ViewBag.Edificio, "--Seleccione Edificio--", new { @class = "chosen" })
+                        </div>
+                        <div class="form-group col-lg-6">
+                            @Html.Label("Salon", new { @class = "control-label" })
+                            @Html.CDropDownList("salonId", (IEnumerable<SelectListItem>)ViewBag.Salon, "--Seleccione Salon--", new { @class = "chosen" })
+                        </div>
+                    </div>
 
-                                var a = 0;
-                                    foreach (var ck in check) {
-                                        
-                                       
+                    <div id="ModelMensaje" style="color: red; font-size: x-large; font-weight: bold">
+                        <br />
+                        @ViewBag.Seleccionar
+                    </div>
 
-                                        if (checkBoxId == ck) { 
-                            
+                    <div class="row">
+                        <div class="form-group col-lg-2">
+                            @Html.Label("Cantidad")
+                        </div>
+                        <div class="form-group col-lg-4">
+                            @Html.Label("Nombre")
+                        </div>
+                        <div class="form-group col-lg-6">
+                            @Html.Label("Descripción")
+                        </div>
+                    </div>
+
+                    @foreach (var item in ViewBag.ModeloEquipo)
+                    {
+                        var checkBoxId = "chk" + @item.Id;
+                        var checkBoxValue = @item.Id;
+                        var cantidad = "cant" + @item.Id;
+                        var td = "td" + @item.Id;
+                        <div class="row">
+                            <div class="form-group col-lg-2">
+                                <div class="input-group col-lg-8">
+                                    <span class="input-group-addon">
+                                        @if (check.Count == 0)
+                                        {                                
+                                            <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>                                 
+                                        }
+                                        else
+                                        {
+
+                                            var a = 0;
+                                            foreach (var ck in check)
+                                            {
+
+
+
+                                                if (checkBoxId == ck)
+                                                {                             
                                             <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>
-                                            a = 1;
+                                                    a = 1;
+                                                }
+
+                                                if (a != 1)
+                                                {                                            
+                                            <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>                                                     
+                                                }
+                                            }
+
+                                        }
+                                    </span>
+
+                                    @if (cantidadSel.Count == 0)
+                                    {
+                                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass form-control col-lg-2"  value="1" />
+                                    }
+                                    else
+                                    {
+
+                                        var a = 0;
+                                        foreach (var cant in cantidadSel)
+                                        {
+
+                                            if (cantidad == cant.Item1)
+                                            {
+
+                                                a = 1;
+                                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="border-color: red; border:1em;"  value="@cant.Item2" />
+                                            }
                                         }
 
-                                        if (a != 1)
+                                        if (a == 0)
                                         {
-                                            
-                                         <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()"/>       
-                                         
-                                                                                 
+                                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;"  value="1" />
                                         }
                                     }
-                                    
-                                 }
-                        </td>
-                    <td>
-
-@if(cantidadSel.Count==0 ){
-    
-                        <div class="editor-field">
-
-                            <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;"  value="1" />
-
+                                </div>
+                            </div>
+                            <div class="form-group col-lg-4">
+                                @item.Nombre
+                            </div>
+                            <div class="form-group col-lg-6">
+                                @item.Descripcion
+                            </div>
                         </div>
-}else{
-    
-    var a=0;
-        foreach (var cant in cantidadSel) {
+                    }
 
-            if (cantidad == cant.Item1) { 
-            
-            a=1;
-                        <div class="editor-field">
-
-                            <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width: 30px; text-align: center; border-color: red; border:1em;"  value="@cant.Item2" />
-
-                        </div>
+                    <div class="row form-group col-lg-12 pt20">
+                        <input type="submit" class="btn btn-primary" value="Crear" />
+                        @Html.ActionLink("Retroceder", "Index", null, new { @class = "btn btn-default" })
+                    </div>
+                </fieldset>
             }
-        }
-
-    if (a == 0)
-    {
-        <div class="editor-field">
-            
-            <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;"  value="1" />
-
         </div>
-    }
-}
-
-
-                    </td>
-                        <td>
-                           
-                            @item.Nombre
-                        </td>
-                        <td>
-                            @item.Descripcion
-                        </td>
-
-
-                    </tr>
-            }
-
-            </table>
-
-            <p>
-                <input type="submit" value="Crear" />
-            </p>
-       
-}
-
-
-  
-
- 
-
-    <div>
-        @Html.ActionLink("Retroceder", "Index")
     </div>
+</div>
 
-    @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section Scripts{
+    <script>
 
-    }
+        $("#edificioId").change(function () {
 
+            $.ajax({
+                type: "POST",
+                url: '@Url.Action("getSalonJson", "Solicitud")',
+                data: { salonId: $("#edificioId > option:selected").attr("value") },
+                success: function (data) {
+                    var items = [];
+                    items.push("<option>--Seleccione Salon--</option>");
+                    $.each(data, function () {
+                        items.push("<option value=" + this.Value + ">" + this.Text + "</option>");
+                    });
+                    $("#salonId").html(items.join(' '));
+                }
+            })
+        });
 
-
-
-<script>
-
-    $("#edificioId").change(function () {
-        
-        $.ajax({
-            type: "POST",
-            url: '@Url.Action("getSalonJson", "Solicitud")',
-            data: { salonId: $("#edificioId > option:selected").attr("value") },
-            success: function (data) {
-                var items = [];
-                items.push("<option>--Seleccione Salon--</option>");
-                $.each(data, function () {
-                    items.push("<option value=" + this.Value + ">" + this.Text + "</option>");
-                });
-                $("#salonId").html(items.join(' '));
-
-                
-            }
-        })
-    });
-
- 
-
-
-    function habilitarCantidad() {
-        $("input:text").prop("disabled", false);
-    }
-    function OnBegin() {
-        $("#divMsg").append("<h3>Beginning Ajax request.</h3>");
-    }
-    function OnComplete() {
-        $("#divMsg").append("<h3>Completing Ajax request.</h3>");
-    }
-    function OnSuccess() {
-        $("#divMsg").append("<h3>Ajax request successful.</h3>");
-    }
-    function OnFailure() {
-        $("#divMsg").append("<h3>Ajax request failed.</h3>");
-    }
-
-
-
-
-    
-</script>
+        function habilitarCantidad() {
+            $("input:text").prop("disabled", false);
+        }
+        function OnBegin() {
+            $("#divMsg").append("<h3>Beginning Ajax request.</h3>");
+        }
+        function OnComplete() {
+            $("#divMsg").append("<h3>Completing Ajax request.</h3>");
+        }
+        function OnSuccess() {
+            $("#divMsg").append("<h3>Ajax request successful.</h3>");
+        }
+        function OnFailure() {
+            $("#divMsg").append("<h3>Ajax request failed.</h3>");
+        }
+    </script>
+}
