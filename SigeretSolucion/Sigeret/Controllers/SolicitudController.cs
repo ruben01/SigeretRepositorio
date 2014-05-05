@@ -88,6 +88,8 @@ namespace Sigeret.Controllers
                 IEnumerable<SelectListItem> edificioList = new List<SelectListItem>();
                 IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
 
+                int edificioId = int.Parse(form["edificioId"]);
+
                 //Seleccionando los id de las Solicitudses anteriores para obtener la ultima
                 var SolicitudsId = db.Solicituds.Select(s => s.Id).ToList();
 
@@ -115,7 +117,7 @@ namespace Sigeret.Controllers
                     if (form["edificioId"] != null && form["edificioId"] != "")
                     {
                         salonList = db.AulaEdificios
-                            .Where(a => a.IdLugar == int.Parse(form["edificioId"])).ToList()
+                            .Where(a => a.IdLugar == edificioId).ToList()
                             .ToSelectListItems(a => a.Aula, a => a.Id.ToString());
                         ViewBag.Salon = new SelectList(salonList, "Value", "Text");
                     }
@@ -126,7 +128,7 @@ namespace Sigeret.Controllers
                 }
                 else
                 {
-                    salonList = db.AulaEdificios.Where(a => a.IdLugar == int.Parse(form["edificioId"]))
+                    salonList = db.AulaEdificios.Where(a => a.IdLugar == edificioId)
                         .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString());
                     ViewBag.Salon = new SelectList(salonList, "Value", "Text", form["salonId"]);
 
@@ -257,8 +259,7 @@ namespace Sigeret.Controllers
 
             var aulaEdificio = from s in db.Solicituds
                         join aula in db.AulaEdificios on s.IdLugar equals aula.Id
-                        join edificio in db.Lugars on aula.IdLugar equals edificio.Id
-                        where s.Id == id
+                               where s.Id == id
                         select s.AulaEdificio;
 
             int aulaId = 0;
@@ -271,14 +272,12 @@ namespace Sigeret.Controllers
 
             }
 
+            
+           ViewBag.edificioId = new SelectList(db.Lugars, "Id", "Edificio", edificioId);
 
 
-            var LugarsSeleccionado = db.Lugars.SingleOrDefault(l => l.Id == edificioId);
-            ViewBag.edificioId = new SelectList(db.Lugars, "Id", "Edificio", LugarsSeleccionado.Id);
-
-
-            var AulaSeleccionada = db.AulaEdificios.SingleOrDefault(a => a.Id == aulaId);
-            ViewBag.IdAula = new SelectList(db.AulaEdificios.Where(x => x.IdLugar == edificioId), "Id", "Aula", AulaSeleccionada.Id);
+           
+            ViewBag.IdAula = new SelectList(db.AulaEdificios.Where(x => x.IdLugar == edificioId), "Id", "Aula",aulaId);
 
             Solicitud editar = db.Solicituds.SingleOrDefault(x => x.Id == id);
 
@@ -357,6 +356,7 @@ namespace Sigeret.Controllers
                 List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>();
 
                 IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
+                int edificioId = int.Parse(form["edificioId"]);
 
                 bool contieneEquipo = false;
 
@@ -372,7 +372,7 @@ namespace Sigeret.Controllers
 
                     ModelState.AddModelError("IdAula", "Debe Seleccionar el Salon");
 
-                    salonList = (from a in db.AulaEdificios where a.IdLugar == int.Parse(form["edificioId"]) select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
+                    salonList = (from a in db.AulaEdificios where a.IdLugar == edificioId select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
                     ViewBag.IdAula = new SelectList(salonList, "Value", "Text");
 
                 }
@@ -380,7 +380,7 @@ namespace Sigeret.Controllers
                 {
 
                     SolicitudsBD.IdLugar = Int32.Parse(form["IdAula"]);
-                    salonList = (from a in db.AulaEdificios where a.IdLugar == int.Parse(form["edificioId"]) select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
+                    salonList = (from a in db.AulaEdificios where a.IdLugar == edificioId select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
                     ViewBag.IdAula = new SelectList(salonList, "Value", "Text", form["IdAula"]);
 
 
@@ -417,44 +417,46 @@ namespace Sigeret.Controllers
 
                     if (form["chk" + i] != null)
                     {
+                        int idModelo = Int32.Parse( form["chk" + i]);
+                        int cantidad = Int32.Parse(form["cant" + i]);
                         //agregando los check seleccionado a la lista para mantener el modelo en caso de error
 
                         cantidadSel.Add(new Tuple<string, string>(i.ToString(), form["cant" + i]));
 
                         contieneEquipo = true;
 
+                        var ques = from e in db.Equipoes select e;
 
+                        int ke = ques.Count();
                         //Equipos disponibles por modelos
                         var equiposDispXmodelos = from e in db.Equipoes
-                                                  join SolicitudEquipo in db.SolicitudEquipoes
-                                                  on e.Id equals SolicitudEquipo.idEquipo
+                                                  join solicitudEquipo in db.SolicitudEquipoes
+                                                  on e.Id equals solicitudEquipo.idEquipo
                                                   join Solicituds in db.Solicituds
-                                                  on SolicitudEquipo.IdSolicitud equals Solicituds.Id
+                                                  on solicitudEquipo.IdSolicitud equals Solicituds.Id
                                                   where Solicituds.Id == id && e.IdEstatusEquipo == 1//ojo aquiiiiiiiiiiiiiiiiiiii******/*/*/******
-                                                        || e.IdModelo == Int32.Parse(form["chk" + i]) && Solicituds.Id == id
+                                                        || e.IdModelo == idModelo && Solicituds.Id == id
 
                                                   select e;
                         //Equipos x modelo previamente seleccionados al momento de crear la Solicituds
 
                         var equiposXmodelosPrevios = from e in db.Equipoes
-                                                     join SolicitudEquipo in db.SolicitudEquipoes
-                                                     on e.Id equals SolicitudEquipo.idEquipo
-                                                     where e.IdModelo == Int32.Parse(form["chk" + i]) && SolicitudEquipo.IdSolicitud == id
+                                                     join solicitudEquipo in db.SolicitudEquipoes
+                                                     on e.Id equals solicitudEquipo.idEquipo
+                                                     where e.IdModelo == idModelo && solicitudEquipo.IdSolicitud == id
                                                      select e;
 
 
-                        String idModelo = form["chk" + i];
-                        String cant = form["cant" + i];
-                        int cants = equiposXmodelosPrevios.Count();
-                        int cantdisponible = equiposDispXmodelos.Count();
+
+                       
                         //verificamos si la cantidad selecionada al momento de crear la Solicituds
                         //es mayor que la cantidad seleccionada al momento de editar la Solicituds
                         //para proceder a reducir los equipos previamente seleccionados
-                        if (equiposXmodelosPrevios.Count() > Int32.Parse(form["cant" + i]))
+                        if (equiposXmodelosPrevios.Count() > cantidad)
                         {
                             List<SolicitudEquipo> equiposAEliminar = new List<SolicitudEquipo>();
 
-                            int cantidadEliminar = equiposXmodelosPrevios.Count() - Int32.Parse(form["cant" + i]);
+                            int cantidadEliminar = equiposXmodelosPrevios.Count() - cantidad;
 
                             foreach (var equipo in equiposXmodelosPrevios)
                             {
@@ -473,7 +475,7 @@ namespace Sigeret.Controllers
                                 db.SolicitudEquipoes.Remove(equipoAEliminar);
                             }
                         }
-                        else if (equiposXmodelosPrevios.Count() < Int32.Parse(form["cant" + i]) && equiposDispXmodelos.Count() >= Int32.Parse(form["cant" + i]) - equiposXmodelosPrevios.Count())
+                        else if (equiposXmodelosPrevios.Count() < cantidad && equiposDispXmodelos.Count() >= cantidad - equiposXmodelosPrevios.Count())
                         {
                             //Seleccionamos lod equipos disponibles para agregar a la Solicituds
                             var equipoSelecionado = from e in db.Equipoes
@@ -585,9 +587,9 @@ namespace Sigeret.Controllers
 
 
             }
-            catch
+            catch(Exception e)
             {
-                return View();
+                return View(e);
             }
         }
 

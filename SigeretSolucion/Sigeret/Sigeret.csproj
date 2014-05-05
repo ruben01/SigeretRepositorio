@@ -236,6 +236,7 @@
     <Compile Include="Models\Mapping\webpages_RolesMap.cs" />
     <Compile Include="Models\MarcaEquipo.cs" />
     <Compile Include="Models\MatriculaUASD.cs" />
+    <Compile Include="Models\ModelMetadata\Solicitud.cs" />
     <Compile Include="Models\ModelMetadata\UserProfile.cs" />
     <Compile Include="Models\ModeloEquipo.cs" />
     <Compile Include="Models\SigeretContext.cs" />
