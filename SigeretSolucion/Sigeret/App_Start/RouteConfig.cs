@@ -23,6 +23,12 @@ namespace Sigeret
                 name: "ErrorHandler",
                 url: "CustomErrors/Error"
             );
+
+            routes.MapRoute(
+                "404-PageNotFound",
+                "{*url}",
+                new { controller = "CustomErrors", action = "NotFound" }
+            );
         }
     }
 }

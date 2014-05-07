@@ -1,4 +1,5 @@
 ﻿using Sigeret.App_Start;
+using Sigeret.Controllers;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,21 @@ namespace Sigeret
             BundleConfig.RegisterBundles(BundleTable.Bundles);
             AuthConfig.RegisterAuth();
             WebSecurityStart.Register();
+        }
+
+        protected void Application_EndRequest()
+        {
+            if (Context.Response.StatusCode == 404)
+            {
+                Response.Clear();
+
+                var rd = new RouteData();
+                rd.Values["controller"] = "CustomErrors";
+                rd.Values["action"] = "NotFound";
+
+                IController c = new CustomErrorsController();
+                c.Execute(new RequestContext(new HttpContextWrapper(Context), rd));
+            }
         }
     }
 }
