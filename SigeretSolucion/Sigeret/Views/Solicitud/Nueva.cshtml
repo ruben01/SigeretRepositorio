@@ -27,7 +27,7 @@
                         <div class="form-group col-lg-4">
                             @Html.CLabelFor(model => model.Fecha)
                             <div class="input-group">
-                                @Html.CTextBoxFor(model => model.Fecha, new { @class = "fechaFutura", Value = "" })
+                                @Html.CTextBoxFor(model => model.Fecha, new { @class = "fechaFutura", Value = "", id = "fecha" })
                                 <label for="Fecha" class="input-group-addon btn">
                                     <i class="glyphicon glyphicon-calendar"></i>
                                 </label>
@@ -37,7 +37,7 @@
                         <div class="form-group col-lg-4">
                             @Html.CLabelFor(model => model.HoraInicio)
                             <div class="input-group">
-                                @Html.CTextBoxFor(model => model.HoraInicio, new { @class = "CtimePicker" })
+                                @Html.CTextBoxFor(model => model.HoraInicio, new { @class = "CtimePicker", id = "horaInicio" })
                                 <label for="HoraInicio" class="input-group-addon btn">
                                     <i class="glyphicon glyphicon-time"></i>
                                 </label>
@@ -47,7 +47,7 @@
                         <div class="form-group col-lg-4">
                             @Html.CLabelFor(model => model.HoraFin)
                             <div class="input-group">
-                                @Html.CTextBoxFor(model => model.HoraFin, new { @class = "CtimePicker" })
+                                @Html.CTextBoxFor(model => model.HoraFin, new { @class = "CtimePicker", id = "horaFin" })
                                 <label for="HoraFin" class="input-group-addon btn">
                                     <i class="glyphicon glyphicon-time"></i>
                                 </label>
@@ -79,99 +79,10 @@
                         <br />
                         @ViewBag.Seleccionar
                     </div>
-@if (ViewBag.Mensaje != "Seleccionar fecha") { 
-                    <div class="row">
-                        <div class="form-group col-lg-2">
-                            @Html.Label("Cantidad")
-                        </div>
-                        <div class="form-group col-lg-4">
-                            @Html.Label("Nombre")
-                        </div>
-                        <div class="form-group col-lg-6">
-                            @Html.Label("Descripción")
-                        </div>
+
+                    <div id="PartialModeloEquipo">
+
                     </div>
-
-                    foreach (var item in ViewBag.ModeloEquipo)
-                    {
-                        var checkBoxId = "chk" + @item.Id;
-                        var checkBoxValue = @item.Id;
-                        var cantidad = "cant" + @item.Id;
-                        var td = "td" + @item.Id;
-                        <div class="row">
-                            <div class="form-group col-lg-2">
-                                <div class="input-group col-lg-8">
-                                    <span class="input-group-addon">
-                                        @if (check.Count == 0)
-                                        {
-                                            <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
-                                        }
-                                        else
-                                        {
-
-                                            var a = 0;
-                                            foreach (var ck in check)
-                                            {
-
-
-
-                                                if (checkBoxId == ck)
-                                                {
-                                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
-                                                    a = 1;
-                                                }
-
-                                                if (a != 1)
-                                                {
-                                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
-                                                }
-                                            }
-
-                                        }
-                                    </span>
-
-                                    @if (cantidadSel.Count == 0)
-                                    {
-                                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass form-control col-lg-2" value="1" />
-                                    }
-                                    else
-                                    {
-
-                                        var a = 0;
-                                        foreach (var cant in cantidadSel)
-                                        {
-
-                                            if (cantidad == cant.Item1)
-                                            {
-
-                                                a = 1;
-                                                <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="border-color: red; border:1em;" value="@cant.Item2" />
-                                            }
-                                        }
-
-                                        if (a == 0)
-                                        {
-                                            <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;" value="1" />
-                                        }
-                                    }
-                                </div>
-                            </div>
-                            <div class="form-group col-lg-4">
-                                @item.Nombre
-                            </div>
-                            <div class="form-group col-lg-6">
-                                @item.Descripcion
-                            </div>
-                        </div>
-                    }
-}
-else
-{
-     <div id="ModelMensaje" style="color: red; font-size: x-small; font-weight: bold">
-        <br />
-           Debe indicar la fecha y Hora para porder ver los equipos Disponibles             
-    </div>
-}
 
                     <div class="row form-group col-lg-12 pt20">
                         <input type="submit" class="btn btn-primary" value="Crear" />
@@ -201,6 +112,67 @@ else
                     $("#salonId").html(items.join(' '));
                 }
             })
+        });
+
+
+        $("#fecha").change(function () {
+
+            alert("ModelosDisponibles");
+            var fechaVar = document.getElementById('fecha');
+            var horaInicioVar = document.getElementById('horaInicio');
+            var horaFinVar = document.getElementById('horaFin');
+            if (fechaVar.value != "" && horaFinVar.value != "" && horaInicioVar.value != "") {
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("EquiposDisponibles", "Solicitud")',
+
+                        data: { fecha: fechaVar.value, horaInicio: horaInicioVar.value, horaFin: horaFinVar.value },
+                        success: function (data) {
+                            $('#PartialModeloEquipo').html(data);
+                        }
+                    })
+            }
+        });
+
+        $("#horaInicio").change(function () {
+
+            alert("ModelosDisponibles");
+            var fechaVar = document.getElementById('fecha');
+            var horaInicioVar = document.getElementById('horaInicio');
+            var horaFinVar = document.getElementById('horaFin');
+            if (fechaVar.value != "" && horaFinVar.value != "" && horaInicioVar.value != "") {
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("EquiposDisponibles", "Solicitud")',
+
+                    data: { fecha: fechaVar.value, horaInicio: horaInicioVar.value, horaFin: horaFinVar.value },
+                    success: function (data) {
+                        $('#PartialModeloEquipo').html(data);
+                    }
+                })
+            }
+        });
+
+        $("#horaFin").change(function () {
+
+            alert("ModelosDisponibles");
+            var fechaVar = document.getElementById('fecha');
+            var horaInicioVar = document.getElementById('horaInicio');
+            var horaFinVar = document.getElementById('horaFin');
+            if (fechaVar.value != "" && horaFinVar.value != "" && horaInicioVar.value != "") {
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("EquiposDisponibles", "Solicitud")',
+
+                    data: { fecha: fechaVar.value, horaInicio: horaInicioVar.value, horaFin: horaFinVar.value },
+                    success: function (data) {
+                        $('#PartialModeloEquipo').html(data);
+                    }
+                })
+            }
         });
 
         function habilitarCantidad() {
