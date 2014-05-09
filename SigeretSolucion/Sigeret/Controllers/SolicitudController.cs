@@ -69,11 +69,63 @@ namespace Sigeret.Controllers
         //[HttpPost]
         public ActionResult EquiposDisponibles(string fecha, string horaInicio, string horaFin)
         {
+
+            DateTime fechaObj = new DateTime();
+            fechaObj=DateTime.Parse(fecha);
+
+            fechaObj.ToString("yyyy-MM-dd");
+
+            TimeSpan horaInicioObj= new TimeSpan();;
+            
+
+            TimeSpan horaFinObj= new TimeSpan();
+            horaFinObj=TimeSpan.Parse(horaInicio);
+
+          
+
+
+
             ViewBag.check = new List<String>();
             ViewBag.cantidad = new List<Tuple<String, String>>();
             //seleccionando los equipos disponibles
-            var disponibles = db.Equipoes.Where(e => e.IdEstatusEquipo == 1)
-                .GroupBy(e => e.IdModelo).ToList();
+            var disponibles = from e in db.Equipoes
+                                    join solicitudEquipo in db.SolicitudEquipoes 
+                                        on e.Id equals solicitudEquipo.idEquipo 
+                                    join solicitud in db.Solicituds
+                                        on solicitudEquipo.IdSolicitud equals solicitud.Id
+                                    join modeloEquipo in db.ModeloEquipoes 
+                                        on e.IdModelo equals modeloEquipo.Id
+
+
+                              where e.IdEstatusEquipo == 5//||(e.IdEstatusEquipo == 1 && solicitud.Fecha == fechaObj && (solicitud.HoraInicio < horaInicioObj && horaInicioObj < solicitud.HoraFin) && (solicitud.HoraInicio < horaFinObj && horaFinObj < solicitud.HoraFin))
+                               //|| e.IdEstatusEquipo == 1 && solicitud.Fecha != fechaObj
+
+                                 group modeloEquipo by modeloEquipo.Id into equipo
+                                 
+                              select equipo;                
+                                        
+            /*		
+		            where (Equipo.IdEstatusEquipo=1 
+			
+
+			            And(
+		
+				            CONVERT(datetime,('2014-04-27' + ' ' + '18:40:00')) 
+				            not  between CONVERT(datetime,Solicitud.Fecha) + CONVERT(datetime, Solicitud.HoraInicio) and CONVERT(datetime,Solicitud.Fecha) + CONVERT(datetime, Solicitud.HoraFin)
+		
+				
+				            and( 
+				            CONVERT(datetime,('2014-04-27' + ' ' + '19:20:00')) 
+				            not  between CONVERT(datetime,Solicitud.Fecha) + CONVERT(datetime, Solicitud.HoraInicio) and CONVERT(datetime,Solicitud.Fecha) + CONVERT(datetime, Solicitud.HoraFin)
+		
+				            )
+			            )
+		            ) or Equipo.IdEstatusEquipo=5
+
+		            group by Equipo.Serie,ModeloEquipo.Nombre,ModeloEquipo.Modelo,ModeloEquipo.Descripcion
+
+                        */
+
 
             List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
 

@@ -9,6 +9,8 @@
     cantidadSel = ViewBag.cantidad;
 }
 
+<script src="~/Scripts/jquery-2.0.3.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 
 
 <div class="row">
@@ -94,7 +96,11 @@
     </div>
 </div>
 
+
 @section Scripts{
+
+  @Scripts.Render("~/bundles/jqueryval")
+
     <script>
 
         $("#edificioId").change(function () {
@@ -117,7 +123,7 @@
 
         $("#fecha").change(function () {
 
-            alert("ModelosDisponibles");
+            
             var fechaVar = document.getElementById('fecha');
             var horaInicioVar = document.getElementById('horaInicio');
             var horaFinVar = document.getElementById('horaFin');
@@ -137,7 +143,7 @@
 
         $("#horaInicio").change(function () {
 
-            alert("ModelosDisponibles");
+            
             var fechaVar = document.getElementById('fecha');
             var horaInicioVar = document.getElementById('horaInicio');
             var horaFinVar = document.getElementById('horaFin');
@@ -157,7 +163,7 @@
 
         $("#horaFin").change(function () {
 
-            alert("ModelosDisponibles");
+            
             var fechaVar = document.getElementById('fecha');
             var horaInicioVar = document.getElementById('horaInicio');
             var horaFinVar = document.getElementById('horaFin');
@@ -175,20 +181,6 @@
             }
         });
 
-        function habilitarCantidad() {
-            $("input:text").prop("disabled", false);
-        }
-        function OnBegin() {
-            $("#divMsg").append("<h3>Beginning Ajax request.</h3>");
-        }
-        function OnComplete() {
-            $("#divMsg").append("<h3>Completing Ajax request.</h3>");
-        }
-        function OnSuccess() {
-            $("#divMsg").append("<h3>Ajax request successful.</h3>");
-        }
-        function OnFailure() {
-            $("#divMsg").append("<h3>Ajax request failed.</h3>");
-        }
+
     </script>
 }
