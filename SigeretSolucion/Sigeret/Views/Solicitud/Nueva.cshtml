@@ -1,4 +1,4 @@
-﻿@model Sigeret.Models.Solicitud
+﻿@model Sigeret.Models.ViewModels.SolicitudViewModel
 
 @{
     ViewBag.Title = "Solicitud";
@@ -8,10 +8,6 @@
     List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>();
     cantidadSel = ViewBag.cantidad;
 }
-
-<script src="~/Scripts/jquery-2.0.3.min.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-
 
 <div class="row">
     <div class="col-lg-12">
@@ -68,14 +64,14 @@
 
                     <div class="row">
                         <div class="form-group col-lg-6">
-                            @Html.Label("Edificio", new { @class = "control-label" })
-                            @Html.CDropDownList("edificioId", (SelectList)ViewBag.Edificio, "--Seleccione Edificio--", new { @class = "chosen" })
-                            @Html.ValidationMessage("edificioId")
+                            @Html.CLabelFor(model => model.EdificioId)
+                            @Html.CDropDownListFor(model => model.EdificioId, null, "--Seleccione Edificio--",  new { @class = "chosen" })
+                            @Html.CValidationMessageFor(model => model.EdificioId)
                         </div>
                         <div class="form-group col-lg-6">
-                            @Html.Label("Salon", new { @class = "control-label" })
-                            @Html.CDropDownList("salonId", (IEnumerable<SelectListItem>)ViewBag.Salon, "--Seleccione Salon--", new { @class = "chosen" })
-                            @Html.ValidationMessage("salonId")
+                            @Html.CLabelFor(model => model.SalonId)
+                            @Html.CDropDownListFor(model => model.SalonId, null,  "--Seleccione Salon--", new { @class = "chosen" })
+                            @Html.CValidationMessageFor(model => model.SalonId)
                         </div>
                     </div>
 
@@ -101,35 +97,38 @@
 
 @section Scripts{
 
-  @Scripts.Render("~/bundles/jqueryval")
-
     <script>
+        $(document).ready(function () {
+            $("#EdificioId").change(function () {
+                updateDropdown(
+                    { salonId: $("#EdificioId > option:selected").attr("value") },
+                    '@Url.Action("getSalonJson", "Solicitud")',
+                    $('#SalonId'),
+                    $('#SalonId').chosen()
+                );
+                @*$.ajax({
+                    type: "POST",
+                    url: '@Url.Action("getSalonJson", "Solicitud")',
+                    data: { salonId: $("#EdificioId > option:selected").attr("value") },
+                    success: function (data) {
+                        var items = [];
+                        items.push("<option>--Seleccione Salon--</option>");
+                        $.each(data, function () {
+                            items.push("<option value=" + this.Value + ">" + this.Text + "</option>");
+                        });
+                        $("#SalonId").html(items.join(' '));
+                    }
+                })*@
+            });
 
-        $("#edificioId").change(function () {
 
-            $.ajax({
-                type: "POST",
-                url: '@Url.Action("getSalonJson", "Solicitud")',
-                data: { salonId: $("#edificioId > option:selected").attr("value") },
-                success: function (data) {
-                    var items = [];
-                    items.push("<option>--Seleccione Salon--</option>");
-                    $.each(data, function () {
-                        items.push("<option value=" + this.Value + ">" + this.Text + "</option>");
-                    });
-                    $("#salonId").html(items.join(' '));
-                }
-            })
-        });
+            $("#fecha").change(function () {
 
 
-        $("#fecha").change(function () {
-
-            
-            var fechaVar = document.getElementById('fecha');
-            var horaInicioVar = document.getElementById('horaInicio');
-            var horaFinVar = document.getElementById('horaFin');
-            if (fechaVar.value != "" && horaFinVar.value != "" && horaInicioVar.value != "") {
+                var fechaVar = document.getElementById('fecha');
+                var horaInicioVar = document.getElementById('horaInicio');
+                var horaFinVar = document.getElementById('horaFin');
+                if (fechaVar.value != "" && horaFinVar.value != "" && horaInicioVar.value != "") {
 
                     $.ajax({
                         type: "POST",
@@ -140,49 +139,50 @@
                             $('#PartialModeloEquipo').html(data);
                         }
                     })
-            }
+                }
+            });
+
+            $("#horaInicio").change(function () {
+
+
+                var fechaVar = document.getElementById('fecha');
+                var horaInicioVar = document.getElementById('horaInicio');
+                var horaFinVar = document.getElementById('horaFin');
+                if (fechaVar.value != "" && horaFinVar.value != "" && horaInicioVar.value != "") {
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("EquiposDisponibles", "Solicitud")',
+
+                        data: { fecha: fechaVar.value, horaInicio: horaInicioVar.value, horaFin: horaFinVar.value },
+                        success: function (data) {
+                            $('#PartialModeloEquipo').html(data);
+                        }
+                    })
+                }
+            });
+
+            $("#horaFin").change(function () {
+
+
+                var fechaVar = document.getElementById('fecha');
+                var horaInicioVar = document.getElementById('horaInicio');
+                var horaFinVar = document.getElementById('horaFin');
+                if (fechaVar.value != "" && horaFinVar.value != "" && horaInicioVar.value != "") {
+
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("EquiposDisponibles", "Solicitud")',
+
+                        data: { fecha: fechaVar.value, horaInicio: horaInicioVar.value, horaFin: horaFinVar.value },
+                        success: function (data) {
+                            $('#PartialModeloEquipo').html(data);
+                        }
+                    })
+                }
+            });
+
         });
-
-        $("#horaInicio").change(function () {
-
-            
-            var fechaVar = document.getElementById('fecha');
-            var horaInicioVar = document.getElementById('horaInicio');
-            var horaFinVar = document.getElementById('horaFin');
-            if (fechaVar.value != "" && horaFinVar.value != "" && horaInicioVar.value != "") {
-
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("EquiposDisponibles", "Solicitud")',
-
-                    data: { fecha: fechaVar.value, horaInicio: horaInicioVar.value, horaFin: horaFinVar.value },
-                    success: function (data) {
-                        $('#PartialModeloEquipo').html(data);
-                    }
-                })
-            }
-        });
-
-        $("#horaFin").change(function () {
-
-            
-            var fechaVar = document.getElementById('fecha');
-            var horaInicioVar = document.getElementById('horaInicio');
-            var horaFinVar = document.getElementById('horaFin');
-            if (fechaVar.value != "" && horaFinVar.value != "" && horaInicioVar.value != "") {
-
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("EquiposDisponibles", "Solicitud")',
-
-                    data: { fecha: fechaVar.value, horaInicio: horaInicioVar.value, horaFin: horaFinVar.value },
-                    success: function (data) {
-                        $('#PartialModeloEquipo').html(data);
-                    }
-                })
-            }
-        });
-
 
     </script>
 }

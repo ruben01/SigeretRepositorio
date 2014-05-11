@@ -8,6 +8,7 @@ using WebMatrix.WebData;
 using SIGERET.CustomCode;
 using System.Data.SqlClient;
 using System.Data;
+using Sigeret.Models.ViewModels;
 
 
 namespace Sigeret.Controllers
@@ -57,8 +58,8 @@ namespace Sigeret.Controllers
         {
 
 
-            ViewBag.Edificio = getEdificio();
-            ViewBag.Salon = new List<SelectListItem> { };
+            ViewBag.EdificioID = getEdificio();
+            ViewBag.SalonID = new List<SelectListItem> { };
            
          //   ViewBag.check = new List<String>();
            // ViewBag.cantidad = new List<Tuple<String, String>>();
@@ -122,7 +123,7 @@ namespace Sigeret.Controllers
         // POST: /Solicituds/Create
 
         [HttpPost]
-        public ActionResult Nueva(Solicitud nuevaSolicituds, FormCollection form)
+        public ActionResult Nueva(SolicitudViewModel nuevaSolicituds, FormCollection form)
         {
             if (ModelState.IsValid)
             {
@@ -148,13 +149,13 @@ namespace Sigeret.Controllers
                 if (form["edificioId"] == null || form["edificioId"] == "")
                 {
                    
-                    ViewBag.Edificio = getEdificio();
+                    ViewBag.EdificioID = getEdificio();
                     ModelState.AddModelError("edificioId", " !Debe Seleccionar el Edificio!");
                 }
                 else
                 {
                     edificioList = db.Lugars.ToList().ToSelectListItems(e => e.Edificio, e => e.Id.ToString());
-                    ViewBag.Edificio = new SelectList(edificioList, "Value", "Text", form["edificioId"]);
+                    ViewBag.EdificioID = new SelectList(edificioList, "Value", "Text", form["edificioId"]);
                 }
 
                 //validando que el salon haya sido seleccionado
@@ -168,18 +169,18 @@ namespace Sigeret.Controllers
                         salonList = db.AulaEdificios
                             .Where(a => a.IdLugar == edificioId).ToList()
                             .ToSelectListItems(a => a.Aula, a => a.Id.ToString());
-                        ViewBag.Salon = new SelectList(salonList, "Value", "Text");
+                        ViewBag.SalonID = new SelectList(salonList, "Value", "Text");
                     }
                     else
                     {
-                        ViewBag.Salon = new List<SelectListItem> { };
+                        ViewBag.SalonID = new List<SelectListItem> { };
                     }
                 }
                 else
                 {
                     salonList = db.AulaEdificios.Where(a => a.IdLugar == edificioId)
                         .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString());
-                    ViewBag.Salon = new SelectList(salonList, "Value", "Text", form["salonId"]);
+                    ViewBag.SalonID = new SelectList(salonList, "Value", "Text", form["salonId"]);
 
                 }
 
@@ -248,7 +249,9 @@ namespace Sigeret.Controllers
                     nuevaSolicituds.IdEstatusSolicitud = 3;
                     nuevaSolicituds.IdUserProfile = WebSecurity.GetUserId(User.Identity.Name);
                     nuevaSolicituds.IdLugar = Int32.Parse(form["SalonId"]);
-                    db.Solicituds.Add(nuevaSolicituds);
+                    var solicitud = new Solicitud();
+                    GlobalHelpers.Transfer<SolicitudViewModel, Solicitud>(nuevaSolicituds, solicitud);
+                    db.Solicituds.Add(solicitud);
                     foreach (var item in listaEquiposSelecionados)
                     {
                         db.SolicitudEquipoes.Add(item);
@@ -675,11 +678,11 @@ namespace Sigeret.Controllers
             return Json(getEdificio(selectEdificioId));
         }
 
-        public SelectList getEdificio(string selectEdificioId = null)
+        public IEnumerable<SelectListItem> getEdificio(string selectEdificioId = null)
         {
             IEnumerable<SelectListItem> edificioList = db.Lugars.ToList().ToSelectListItems(l => l.Edificio, l => l.Id.ToString());
 
-            return new SelectList(edificioList, "Value", "Text", selectEdificioId);
+            return edificioList;
         }
 
         [HttpPost]
@@ -694,8 +697,9 @@ namespace Sigeret.Controllers
             if (!string.IsNullOrEmpty(salonId))
             {
                 int _salonId = int.Parse(salonId);
-                salonList = db.AulaEdificios.Where(a => a.IdLugar == _salonId).ToList().ToSelectListItems(e => e.Aula, e => e.Id.ToString()); 
+                salonList = db.Lugars.Find(_salonId).AulaEdificios.ToSelectListItems(e => e.Aula, e => e.Id.ToString());
             }
+
             return new SelectList(salonList, "Value", "Text", selectSalonId);
 
         }

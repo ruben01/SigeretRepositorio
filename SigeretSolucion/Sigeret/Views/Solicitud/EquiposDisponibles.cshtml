@@ -36,7 +36,7 @@
                     <span class="input-group-addon">
                         @if (check.Count == 0)
                         {
-                            <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
+                            <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="" />
                         }
                         else
                         {
@@ -49,13 +49,13 @@
 
                                 if (checkBoxId == ck)
                                 {
-                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
+                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="" />
                                     a = 1;
                                 }
 
                                 if (a != 1)
                                 {
-                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="habilitarCantidad()" />
+                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="" />
                                 }
                             }
 

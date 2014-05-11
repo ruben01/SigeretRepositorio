@@ -249,6 +249,7 @@
     <Compile Include="Models\validarFecha.cs" />
     <Compile Include="Models\ValidarHora.cs" />
     <Compile Include="Models\ViewModels\ContactoViewModel.cs" />
+    <Compile Include="Models\ViewModels\SolicitudViewModel.cs" />
     <Compile Include="Models\webpages_Membership.cs" />
     <Compile Include="Models\webpages_OAuthMembership.cs" />
     <Compile Include="Models\webpages_Roles.cs" />

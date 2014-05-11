@@ -121,7 +121,7 @@ namespace SIGERET.CustomCode
         public static MvcHtmlString CDropDownListFor<TModel, TProperty>(
             this HtmlHelper<TModel> html,
             Expression<Func<TModel, TProperty>> expression, 
-            IEnumerable<SelectListItem> selectList,
+            IEnumerable<SelectListItem> selectList = null,
             string optionLabel = null,
             object htmlAttributes = null)
         {

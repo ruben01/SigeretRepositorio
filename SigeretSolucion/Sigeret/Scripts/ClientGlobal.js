@@ -107,3 +107,35 @@ $(document).ready(function () {
         sliderAccessArgs: { touchonly: false }
     });
 });
+
+function updateDropdown(data, url, dropdownElement, chosenElement) {
+    var html = '<option value="" ></option>';
+    var select = "";
+    $.ajax({
+        url: url,
+        type: 'POST',
+        data: JSON.stringify(data),
+        dataType: 'json',
+        contentType: 'application/json',
+        success: function (data) {
+            if (data == undefined || data == "") {
+                dropdownElement.html(html);
+
+            }
+            else {
+                $.each(data, function (key, row) {
+                    //fill the dropdown
+                    select = (row.Selected) ? ' selected = "true" ' : "";
+                    html +=
+                        '<option value="' + row.Value + '"' + select + '>'
+                        + row.Text +
+                        '</option>';
+                });
+                dropdownElement.html(html);
+            }
+            if (chosenElement != null) {
+                chosenElement.trigger('chosen:updated');
+            }
+        }
+    });
+}
