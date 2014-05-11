@@ -70,10 +70,12 @@
                         <div class="form-group col-lg-6">
                             @Html.Label("Edificio", new { @class = "control-label" })
                             @Html.CDropDownList("edificioId", (SelectList)ViewBag.Edificio, "--Seleccione Edificio--", new { @class = "chosen" })
+                            @Html.ValidationMessage("edificioId")
                         </div>
                         <div class="form-group col-lg-6">
                             @Html.Label("Salon", new { @class = "control-label" })
                             @Html.CDropDownList("salonId", (IEnumerable<SelectListItem>)ViewBag.Salon, "--Seleccione Salon--", new { @class = "chosen" })
+                            @Html.ValidationMessage("salonId")
                         </div>
                     </div>
 

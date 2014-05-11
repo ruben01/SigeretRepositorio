@@ -130,8 +130,12 @@ namespace Sigeret.Controllers
                 List<Tuple<String, String>> cantidad = new List<Tuple<string, string>>();
                 IEnumerable<SelectListItem> edificioList = new List<SelectListItem>();
                 IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
+                int edificioId = 0;
 
-                int edificioId = int.Parse(form["edificioId"]);
+                if (form["edificioId"] != null && form["edificioId"] != "")
+                {
+                     edificioId = int.Parse(form["edificioId"]);
+                }
 
                 //Seleccionando los id de las Solicitudses anteriores para obtener la ultima
                 var SolicitudsId = db.Solicituds.Select(s => s.Id).ToList();
@@ -143,6 +147,7 @@ namespace Sigeret.Controllers
                 //validando que el edificio haya sido seleccionado
                 if (form["edificioId"] == null || form["edificioId"] == "")
                 {
+                   
                     ViewBag.Edificio = getEdificio();
                     ModelState.AddModelError("edificioId", " !Debe Seleccionar el Edificio!");
                 }
@@ -159,6 +164,7 @@ namespace Sigeret.Controllers
                     modelStateValido = false;
                     if (form["edificioId"] != null && form["edificioId"] != "")
                     {
+                    
                         salonList = db.AulaEdificios
                             .Where(a => a.IdLugar == edificioId).ToList()
                             .ToSelectListItems(a => a.Aula, a => a.Id.ToString());

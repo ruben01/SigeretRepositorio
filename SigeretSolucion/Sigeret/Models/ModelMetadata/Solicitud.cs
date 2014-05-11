@@ -37,7 +37,7 @@ namespace Sigeret.Models
         public int IdLugar { get; set; }
         public int IdEstatusSolicitud { get; set; }
 
-        [DataType(DataType.Date), DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        
         [validarFecha]
         public System.DateTime Fecha { get; set; }
 
