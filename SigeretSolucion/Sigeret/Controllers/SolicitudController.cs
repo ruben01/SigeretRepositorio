@@ -6,6 +6,8 @@ using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
 using SIGERET.CustomCode;
+using System.Data.SqlClient;
+using System.Data;
 
 
 namespace Sigeret.Controllers
@@ -70,73 +72,50 @@ namespace Sigeret.Controllers
         public ActionResult EquiposDisponibles(string fecha, string horaInicio, string horaFin)
         {
 
-            DateTime fechaObj = new DateTime();
+            DateTime fechaObj= new DateTime();
             fechaObj=DateTime.Parse(fecha);
 
-            fechaObj.ToString("yyyy-MM-dd");
+            //Almacena los equipos que estan disponibles para ser solicitado
+            List<Equipo>EquiposDisponibles=new List<Equipo>();
 
-            TimeSpan horaInicioObj= new TimeSpan();;
+            //Consultando los equipos que podrian estar disponible para la solicitud
+           EquiposDisponibles=db.Equipoes.Where(e=>e.IdEstatusEquipo==5 || e.IdEstatusEquipo==1).ToList();
+
+            //Consultando los equipos que no han sido solicitado para la fecha indicada para eliminarlos
+            //de la lista de equipos disponibles
+
+            var query= db.Database.SqlQuery<int>("EXEC EquiposDisponibles {0},{1},{2}", fecha, horaInicio, horaFin).ToList();
+
+            //Agregando los equipos a la lista de equipos disponibles
+
+            foreach (var item in query)
+            {
+
+                EquiposDisponibles.Remove(EquiposDisponibles.SingleOrDefault(e=>e.Id==item));
+                    
+            }
+
             
-
-            TimeSpan horaFinObj= new TimeSpan();
-            horaFinObj=TimeSpan.Parse(horaInicio);
-
-          
 
 
 
             ViewBag.check = new List<String>();
             ViewBag.cantidad = new List<Tuple<String, String>>();
-            //seleccionando los equipos disponibles
-            var disponibles = from e in db.Equipoes
-                                    join solicitudEquipo in db.SolicitudEquipoes 
-                                        on e.Id equals solicitudEquipo.idEquipo 
-                                    join solicitud in db.Solicituds
-                                        on solicitudEquipo.IdSolicitud equals solicitud.Id
-                                    join modeloEquipo in db.ModeloEquipoes 
-                                        on e.IdModelo equals modeloEquipo.Id
+
+        
 
 
-                              where e.IdEstatusEquipo == 5//||(e.IdEstatusEquipo == 1 && solicitud.Fecha == fechaObj && (solicitud.HoraInicio < horaInicioObj && horaInicioObj < solicitud.HoraFin) && (solicitud.HoraInicio < horaFinObj && horaFinObj < solicitud.HoraFin))
-                               //|| e.IdEstatusEquipo == 1 && solicitud.Fecha != fechaObj
+         
+           List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
 
-                                 group modeloEquipo by modeloEquipo.Id into equipo
-                                 
-                              select equipo;                
-                                        
-            /*		
-		            where (Equipo.IdEstatusEquipo=1 
-			
-
-			            And(
-		
-				            CONVERT(datetime,('2014-04-27' + ' ' + '18:40:00')) 
-				            not  between CONVERT(datetime,Solicitud.Fecha) + CONVERT(datetime, Solicitud.HoraInicio) and CONVERT(datetime,Solicitud.Fecha) + CONVERT(datetime, Solicitud.HoraFin)
-		
-				
-				            and( 
-				            CONVERT(datetime,('2014-04-27' + ' ' + '19:20:00')) 
-				            not  between CONVERT(datetime,Solicitud.Fecha) + CONVERT(datetime, Solicitud.HoraInicio) and CONVERT(datetime,Solicitud.Fecha) + CONVERT(datetime, Solicitud.HoraFin)
-		
-				            )
-			            )
-		            ) or Equipo.IdEstatusEquipo=5
-
-		            group by Equipo.Serie,ModeloEquipo.Nombre,ModeloEquipo.Modelo,ModeloEquipo.Descripcion
-
-                        */
-
-
-            List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
-
-
-            foreach (var modelos in disponibles)
+            foreach (var item in EquiposDisponibles.GroupBy(e=>e.IdModelo))
             {
-                equiposDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == modelos.Key));
+                 modelosDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == item.Key));
             }
+           
 
                        
-            return PartialView("PartialModeloEquipo",equiposDisponibles);
+            return PartialView("PartialModeloEquipo",modelosDisponibles);
         }
 
         //
