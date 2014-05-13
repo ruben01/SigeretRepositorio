@@ -65,7 +65,7 @@ namespace Sigeret.Controllers
 
         //Consultando los equipos disponibles
         //[HttpPost]
-        public ActionResult EquiposDisponibles(string fecha, string horaInicio, string horaFin)
+        public ActionResult EquiposDisponibles(string fecha, string horaInicio, string horaFin, List<String> checkPost, List<Tuple<String, String>> cantidadSelPost)
         {
 
             DateTime fechaObj= new DateTime();
@@ -90,9 +90,22 @@ namespace Sigeret.Controllers
                 EquiposDisponibles.Remove(EquiposDisponibles.SingleOrDefault(e=>e.Id==item));
                     
             }
+            //almacenamos los check seleccionados para mantener el estado de seleccionado en la vista despues del post
+            //en caso de que sean null los dos objetos que entran al metodo desde la vista nueva solicitud simplemente le asignamos memoria
+            //de lo contrario le asignamos lo que vienen de la vista que estos traen la informacion seleccionada
 
-            ViewBag.check = new List<String>();
-            ViewBag.cantidad = new List<Tuple<String, String>>();
+            ///ooooooooooooooooojjjjjjjjooooooooooo no estan funcioando en este momento
+            if(cantidadSelPost==null || checkPost==null){
+                   
+                    ViewBag.check = new List<String>();
+                    ViewBag.cantidad = new List<Tuple<String, String>>();
+            }else{
+
+                    ViewBag.check = checkPost;
+                    ViewBag.cantidad = cantidadSelPost;
+            }
+
+
            List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
 
             foreach (var item in EquiposDisponibles.GroupBy(e=>e.IdModelo))
@@ -111,10 +124,13 @@ namespace Sigeret.Controllers
         [HttpPost]
         public ActionResult Nueva(SolicitudViewModel nuevaSolicituds, FormCollection form)
         {
+            //almacenamos los check seleccionados para mantener el estado de seleccionado en la vista despues del post
+            List<String> check = new List<string>();
+            List<Tuple<String, String>> cantidad = new List<Tuple<string, string>>();
+
             if (ModelState.IsValid)
             {
-                List<String> check = new List<string>();
-                List<Tuple<String, String>> cantidad = new List<Tuple<string, string>>();
+
                 IEnumerable<SelectListItem> edificioList = new List<SelectListItem>();
                 IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
                 int edificioId = 0;
@@ -131,44 +147,6 @@ namespace Sigeret.Controllers
                 bool contieneEquipos = false;
                 bool modelStateValido = true;
 
-                //validando que el edificio haya sido seleccionado
-                if (form["edificioId"] == null || form["edificioId"] == "")
-                {
-                   
-                    ViewBag.EdificioID = getEdificio();
-                    ModelState.AddModelError("edificioId", " !Debe Seleccionar el Edificio!");
-                }
-                else
-                {
-                    edificioList = db.Lugars.ToList().ToSelectListItems(e => e.Edificio, e => e.Id.ToString());
-                    ViewBag.EdificioID = new SelectList(edificioList, "Value", "Text", form["edificioId"]);
-                }
-
-                //validando que el salon haya sido seleccionado
-                if (form["salonId"] == null || form["salonId"] == "" || form["salonId"] == "--Seleccione Salon--")
-                {
-                    ModelState.AddModelError("salonId", "  !Debe seleccionar el salon!");
-                    modelStateValido = false;
-                    if (form["edificioId"] != null && form["edificioId"] != "")
-                    {
-                    
-                        salonList = db.AulaEdificios
-                            .Where(a => a.IdLugar == edificioId).ToList()
-                            .ToSelectListItems(a => a.Aula, a => a.Id.ToString());
-                        ViewBag.SalonID = new SelectList(salonList, "Value", "Text");
-                    }
-                    else
-                    {
-                        ViewBag.SalonID = new List<SelectListItem> { };
-                    }
-                }
-                else
-                {
-                    salonList = db.AulaEdificios.Where(a => a.IdLugar == edificioId)
-                        .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString());
-                    ViewBag.SalonID = new SelectList(salonList, "Value", "Text", form["salonId"]);
-
-                }
 
                 //lista para almacenar los equipos seleccionados en la Solicituds
                 List<SolicitudEquipo> listaEquiposSelecionados = new List<SolicitudEquipo>();
@@ -183,9 +161,15 @@ namespace Sigeret.Controllers
                         check.Add("chk" + i);
                         cantidad.Add(new Tuple<string, string>("cant" + i, form["cant" + i]));
                         contieneEquipos = true;
-                        var equipoSelecionado = db.Equipoes
-                            .Where(e => e.IdModelo == i && e.IdEstatusEquipo == 1)
-                            .ToList();
+                        //             oooooooooooooojjjjjjjjjjjjoooooooooooooooo ojo ojo ojo ojo
+                        //
+                        //aqui hay que cambiar esta logica para seleccionar los equipos x modelo disponibles
+                        //hay que poner la logica que esta en el metodo equipos disponibles de este controlador.
+                        /////////////////////////////////////////////////////////////////////////
+                        var equipoSelecionado = db.Equipoes                                /////
+                            .Where(e => e.IdModelo == i && e.IdEstatusEquipo == 1)        /////
+                            .ToList();                                                   /////
+                       ///////////////////////////////////////////////////  /////////// /////
 
                         if (equipoSelecionado.Count() >= int.Parse(form["cant" + i]))
                         {
@@ -211,9 +195,6 @@ namespace Sigeret.Controllers
                                 {
                                     //agregando el equipo seleccionado a la lista de equipos seleccionados
                                     listaEquiposSelecionados.Add(nuevoEquipo);
-
-                                    //Actualizar estatus equipo selecionado
-                                    db.Equipoes.SingleOrDefault(e => e.Id == item.Id).IdEstatusEquipo = 5;
                                     cantidadSeleccionada--;
                                 }
                             }
@@ -228,51 +209,55 @@ namespace Sigeret.Controllers
                     }
                 }
 
-                var error = ModelState.Values.SelectMany(e => e.Errors);
-                if (modelStateValido && contieneEquipos && ModelState.IsValid)
-                {
-                    //Registrando la nueva Solicituds
-                    nuevaSolicituds.IdEstatusSolicitud = 3;
-                    nuevaSolicituds.IdUserProfile = WebSecurity.GetUserId(User.Identity.Name);
-                    nuevaSolicituds.IdLugar = Int32.Parse(form["SalonId"]);
-                    var solicitud = new Solicitud();
-                    GlobalHelpers.Transfer<SolicitudViewModel, Solicitud>(nuevaSolicituds, solicitud);
-                    db.Solicituds.Add(solicitud);
-                    foreach (var item in listaEquiposSelecionados)
+                    var error = ModelState.Values.SelectMany(e => e.Errors);
+                    if (modelStateValido && contieneEquipos)
                     {
-                        db.SolicitudEquipoes.Add(item);
+                        //Registrando la nueva Solicituds
+                        nuevaSolicituds.IdEstatusSolicitud = 3;
+                        nuevaSolicituds.IdUserProfile = WebSecurity.GetUserId(User.Identity.Name);
+                        nuevaSolicituds.IdLugar = Int32.Parse(form["SalonId"]);
+                        var solicitud = new Solicitud();
+                        GlobalHelpers.Transfer<SolicitudViewModel, Solicitud>(nuevaSolicituds, solicitud);
+                        db.Solicituds.Add(solicitud);
+                        foreach (var item in listaEquiposSelecionados)
+                        {
+                            db.SolicitudEquipoes.Add(item);
+                            //Actualizamos el estatus del equipo para que los equipos que nunca
+                            //se han solicitado su estatus se actualice a solicitado
+                            db.Equipoes.SingleOrDefault(e => e.Id == item.idEquipo).IdEstatusEquipo = 1;
+                        }
+                        db.SaveChanges();
                     }
-                    db.SaveChanges();
-                }
-                else
-                {
-                    //almacenar check activos por si hay error en el modelo
-                    ViewBag.check = check;
-                    ViewBag.cantidad = cantidad;
-
-                    if (contieneEquipos == false)
+                    else
                     {
-                        ViewBag.Seleccionar = "Debe seleccionar al menos un equipo!";
+                        //almacenar check activos por si hay error en el modelo
+                        ViewBag.check = check;
+                        ViewBag.cantidad = cantidad;
+
+                        ViewBag.EdificioId = getEdificio(nuevaSolicituds.EdificioId);
+                        var salonList2 = db.AulaEdificios.Where(a => a.IdLugar == nuevaSolicituds.EdificioId)
+                        .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString());
+                        ViewBag.SalonID = new SelectList(salonList2, "Value", "Text", form["salonId"]);
+                  
+
+                        if (contieneEquipos == false)
+                        {
+                            ViewBag.Seleccionar = "Debe seleccionar al menos un equipo!";
+                        }
+
+                        return View(nuevaSolicituds);
                     }
 
-                    //seleccionando los equipos disponibles
-                    var modelosDisponibles = db.Equipoes.Where(e => e.IdEstatusEquipo == 1)
-                        .GroupBy(e => e.IdModelo).ToList();
+                    return RedirectToAction("Index");
 
-                    List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
-                    foreach (var modelos in modelosDisponibles)
-                    {
-                        equiposDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == modelos.Key));
-                    }
-                    ViewBag.ModeloEquipo = equiposDisponibles;
-
-                    return View(nuevaSolicituds);
-                }
-
-                return RedirectToAction("Index");
             }
             else
             {
+                //almacenar check activos por si hay error en el modelo
+                ViewBag.check = check;
+                ViewBag.cantidad = cantidad;
+
+
                 ViewBag.EdificioId = getEdificio(nuevaSolicituds.EdificioId);
                 var salonList = db.AulaEdificios.Where(a => a.IdLugar == nuevaSolicituds.EdificioId)
                         .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString());

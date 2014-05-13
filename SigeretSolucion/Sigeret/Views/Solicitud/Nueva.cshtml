@@ -98,18 +98,29 @@
 @section Scripts{
 
     <script>
+        
+
         $(document).ready(function () {
 
             var fechaVar = $('#Fecha').val();
-            var horaInicioVar = $('#HoraInicio').val();;
+            var horaInicioVar = $('#HoraInicio').val();
             var horaFinVar = $('#HoraFin').val();
+            //asignando el valor que tienen los viewvag despues del post para mentener el estado de los check y cantidad que han sido 
+            //seleccionado 0jojojoojooj no esta funcionando hasta el momento
+            var checkVar = '@ViewBag.check';
+            var cantSelVar = '@ViewBag.cantidad';
+           
+            
+           
             if (fechaVar != "" && horaFinVar != "" && horaInicioVar != "") {
+
+
 
                 $.ajax({
                     type: "POST",
                     url: '@Url.Action("EquiposDisponibles", "Solicitud")',
 
-                    data: { fecha: fechaVar, horaInicio: horaInicioVar, horaFin: horaFinVar },
+                    data: { fecha: fechaVar, horaInicio: horaInicioVar, horaFin: horaFinVar, checkPost: checkVar, cantidadSelPost: cantSelVar },
                     success: function (data) {
                         $('#PartialModeloEquipo').html(data);
                     }
