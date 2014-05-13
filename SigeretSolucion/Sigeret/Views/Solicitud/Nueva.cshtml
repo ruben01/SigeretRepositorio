@@ -40,7 +40,7 @@
                                     <i class="glyphicon glyphicon-time"></i>
                                 </label>
                             </div>
-                            @Html.CValidationMessageFor(model => model.HoraFin)
+                            @Html.CValidationMessageFor(model => model.HoraInicio)
                         </div>
                         <div class="form-group col-lg-4">
                             @Html.CLabelFor(model => model.HoraFin)
@@ -50,7 +50,7 @@
                                     <i class="glyphicon glyphicon-time"></i>
                                 </label>
                             </div>
-                            @Html.CValidationMessageFor(model => model.HoraInicio)
+                            @Html.CValidationMessageFor(model => model.HoraFin)
                         </div>
                     </div>
 
@@ -99,6 +99,26 @@
 
     <script>
         $(document).ready(function () {
+
+            var fechaVar = $('#Fecha').val();
+            var horaInicioVar = $('#HoraInicio').val();;
+            var horaFinVar = $('#HoraFin').val();
+            if (fechaVar != "" && horaFinVar != "" && horaInicioVar != "") {
+
+                $.ajax({
+                    type: "POST",
+                    url: '@Url.Action("EquiposDisponibles", "Solicitud")',
+
+                    data: { fecha: fechaVar, horaInicio: horaInicioVar, horaFin: horaFinVar },
+                    success: function (data) {
+                        $('#PartialModeloEquipo').html(data);
+                    }
+                })
+
+            }
+
+
+
             $("#EdificioId").change(function () {
                 updateDropdown(
                     { salonId: $("#EdificioId > option:selected").attr("value") },

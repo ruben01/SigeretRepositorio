@@ -56,11 +56,8 @@ namespace Sigeret.Controllers
 
         public ActionResult Nueva()
         {
-           ViewBag.EdificioID = getEdificio();
+            ViewBag.EdificioID = getEdificio();
             ViewBag.SalonID = new List<SelectListItem> { };
-           
-         //   ViewBag.check = new List<String>();
-           // ViewBag.cantidad = new List<Tuple<String, String>>();
             ViewBag.Lugars = new List<Tuple<string, string>>();
             ViewBag.Mensaje = "Seleccionar fecha";
             return View();
