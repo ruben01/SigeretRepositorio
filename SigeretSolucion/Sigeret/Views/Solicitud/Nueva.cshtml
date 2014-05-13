@@ -25,7 +25,7 @@
                         <div class="form-group col-lg-4">
                             @Html.CLabelFor(model => model.Fecha)
                             <div class="input-group">
-                                @Html.CTextBoxFor(model => model.Fecha, new { @class = "fechaFutura", Value = "" })
+                                @Html.CTextBoxFor(model => model.Fecha, new { @class = "fechaFutura", Value = (Model==null)? "" : Model.Fecha.ToString("yyyy/MM/dd") })
                                 <label for="Fecha" class="input-group-addon btn">
                                     <i class="glyphicon glyphicon-calendar"></i>
                                 </label>
