@@ -25,7 +25,7 @@
                         <div class="form-group col-lg-4">
                             @Html.CLabelFor(model => model.Fecha)
                             <div class="input-group">
-                                @Html.CTextBoxFor(model => model.Fecha, new { @class = "fechaFutura", Value = "", id = "fecha" })
+                                @Html.CTextBoxFor(model => model.Fecha, new { @class = "fechaFutura", Value = (Model == null) ? "" : Model.Fecha.ToString("yyyy/MM/dd"), id = "fecha" })
                                 <label for="Fecha" class="input-group-addon btn">
                                     <i class="glyphicon glyphicon-calendar"></i>
                                 </label>
@@ -65,7 +65,7 @@
                     <div class="row">
                         <div class="form-group col-lg-6">
                             @Html.CLabelFor(model => model.EdificioId)
-                            @Html.CDropDownListFor(model => model.EdificioId, null, "--Seleccione Edificio--",  new { @class = "chosen" })
+                            @Html.CDropDownListFor(model => model.EdificioId, null , "--Seleccione Edificio--",  new { @class = "chosen" })
                             @Html.CValidationMessageFor(model => model.EdificioId)
                         </div>
                         <div class="form-group col-lg-6">

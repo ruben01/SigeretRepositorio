@@ -56,9 +56,7 @@ namespace Sigeret.Controllers
 
         public ActionResult Nueva()
         {
-
-
-            ViewBag.EdificioID = getEdificio();
+           ViewBag.EdificioID = getEdificio();
             ViewBag.SalonID = new List<SelectListItem> { };
            
          //   ViewBag.check = new List<String>();
@@ -96,17 +94,8 @@ namespace Sigeret.Controllers
                     
             }
 
-            
-
-
-
             ViewBag.check = new List<String>();
             ViewBag.cantidad = new List<Tuple<String, String>>();
-
-        
-
-
-         
            List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
 
             foreach (var item in EquiposDisponibles.GroupBy(e=>e.IdModelo))
@@ -287,6 +276,10 @@ namespace Sigeret.Controllers
             }
             else
             {
+                ViewBag.EdificioId = getEdificio(nuevaSolicituds.EdificioId);
+                var salonList = db.AulaEdificios.Where(a => a.IdLugar == nuevaSolicituds.EdificioId)
+                        .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString());
+                ViewBag.SalonID = new SelectList(salonList, "Value", "Text", form["salonId"]);
                 return View(nuevaSolicituds);
             }
         }
@@ -675,12 +668,12 @@ namespace Sigeret.Controllers
 
         public JsonResult getLugarsJson(string selectEdificioId = null)
         {
-            return Json(getEdificio(selectEdificioId));
+            return Json(getEdificio(int.Parse(selectEdificioId)));
         }
 
-        public IEnumerable<SelectListItem> getEdificio(string selectEdificioId = null)
+        public IEnumerable<SelectListItem> getEdificio(Nullable<int> selectEdificioId = null)
         {
-            IEnumerable<SelectListItem> edificioList = db.Lugars.ToList().ToSelectListItems(l => l.Edificio, l => l.Id.ToString());
+            IEnumerable<SelectListItem> edificioList = db.Lugars.ToList().ToSelectListItems(l => l.Edificio, l => l.Id.ToString(), l => l.Id == selectEdificioId);
 
             return edificioList;
         }
@@ -704,15 +697,15 @@ namespace Sigeret.Controllers
 
         }
 
-        //NO funciona hasta ahora OJOOOOO
-        //State management during postback bind again
-        [HttpPost]
-        public ActionResult postyourad(FormCollection value)
-        {
-            ViewBag.edificioList = getEdificio(value["edificioId"]);
-            ViewBag.salonList = getSalon(value["edificioId"], value["salonId"]);
+        ////NO funciona hasta ahora OJOOOOO
+        ////State management during postback bind again
+        //[HttpPost]
+        //public ActionResult postyourad(FormCollection value)
+        //{
+        //    ViewBag.edificioList = getEdificio(value["edificioId"]);
+        //    ViewBag.salonList = getSalon(value["edificioId"], value["salonId"]);
 
-            return View();
-        }
+        //    return View();
+        //}
     }
 }
