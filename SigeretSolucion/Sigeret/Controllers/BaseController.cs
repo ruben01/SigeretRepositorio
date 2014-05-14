@@ -15,7 +15,7 @@ namespace Sigeret.Controllers
     /// Clase controlador base utilizada para establecer objetos y métodos comunes
     /// a ser utilizados en todos los controladores de la aplicación.
     /// </summary>
-    [Authorize]
+   // [Authorize]
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class BaseController : Controller
     {
