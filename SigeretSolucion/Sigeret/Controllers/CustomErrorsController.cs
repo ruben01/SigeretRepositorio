@@ -25,7 +25,7 @@ namespace Sigeret.Controllers
         public ActionResult ExceptionError(Exception e)
         {
 
-            return View(e.ToString());
+            return View(e.InnerException.ToString());
 
 
         }
