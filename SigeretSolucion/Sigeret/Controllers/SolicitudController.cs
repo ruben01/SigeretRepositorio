@@ -678,16 +678,13 @@ namespace Sigeret.Controllers
             return new SelectList(salonList, "Value", "Text", selectSalonId);
 
         }
+        //Metodo que recibe las solicitudes por mensajes de texto implementando la api de Twilio 
+        public ActionResult nuevaSolicitudSms()
+        {
 
-        ////NO funciona hasta ahora OJOOOOO
-        ////State management during postback bind again
-        //[HttpPost]
-        //public ActionResult postyourad(FormCollection value)
-        //{
-        //    ViewBag.edificioList = getEdificio(value["edificioId"]);
-        //    ViewBag.salonList = getSalon(value["edificioId"], value["salonId"]);
 
-        //    return View();
-        //}
+            return View();
+        }
+
     }
 }

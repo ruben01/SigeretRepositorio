@@ -40,6 +40,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="RestSharp">
+      <HintPath>..\packages\RestSharp.104.4.0\lib\net4\RestSharp.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Data.Entity" />
@@ -116,6 +119,15 @@
     <Reference Include="System.Web.WebPages.Razor, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
       <HintPath>..\packages\Microsoft.AspNet.WebPages.2.0.30506.0\lib\net40\System.Web.WebPages.Razor.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Api">
+      <HintPath>..\packages\Twilio.3.6.11\lib\3.5\Twilio.Api.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Mvc">
+      <HintPath>..\packages\Twilio.Mvc.3.1.12\lib\3.5\Twilio.Mvc.dll</HintPath>
+    </Reference>
+    <Reference Include="Twilio.Twiml">
+      <HintPath>..\packages\Twilio.TwiML.3.3.3\lib\3.5\Twilio.Twiml.dll</HintPath>
     </Reference>
     <Reference Include="WebMatrix.Data, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <Private>True</Private>
@@ -471,6 +483,7 @@
     <Content Include="Views\Contacto\PartialContactosModal.cshtml" />
     <Content Include="Views\Solicitud\EquiposDisponibles.cshtml" />
     <Content Include="Views\Solicitud\PartialModeloEquipo.cshtml" />
+    <Content Include="Views\Solicitud\nuevaSolicitudSms.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

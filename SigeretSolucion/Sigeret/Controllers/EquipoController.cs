@@ -38,16 +38,9 @@ namespace Sigeret.Controllers
 
         public ActionResult ReporteEquipos()
         {
-            try
-            {
 
+            return View(db.Equipoes.ToList());
 
-                return View(db.Equipoes.ToList());
-            }
-            catch (Exception e)
-            {
-                return RedirectToAction("ExceptionError", "CustomErrorsController", e);
-            }
         }
 
         public ActionResult Detalles(int Id)
