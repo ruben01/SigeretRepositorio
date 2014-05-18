@@ -215,6 +215,7 @@ C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Siger
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Microsoft.Web.Mvc.FixedDisplayModes.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Microsoft.Web.WebPages.OAuth.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Newtonsoft.Json.dll
+C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\RestSharp.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\System.Net.Http.Formatting.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\System.Spatial.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\System.Web.Helpers.dll
@@ -227,9 +228,13 @@ C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Siger
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\System.Web.WebPages.Deployment.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\System.Web.WebPages.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\System.Web.WebPages.Razor.dll
+C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Api.dll
+C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Mvc.dll
+C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Twiml.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\WebGrease.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\WebMatrix.Data.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\WebMatrix.WebData.dll
+C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\RestSharp.xml
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\EntityFramework.xml
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Newtonsoft.Json.xml
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\System.Net.Http.Formatting.xml
@@ -241,6 +246,9 @@ C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Siger
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\System.Web.WebPages.xml
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\System.Web.WebPages.Deployment.xml
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\System.Web.WebPages.Razor.xml
+C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Api.xml
+C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Mvc.xml
+C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Twiml.xml
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\WebMatrix.Data.xml
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Microsoft.Web.WebPages.OAuth.xml
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\WebMatrix.WebData.xml
