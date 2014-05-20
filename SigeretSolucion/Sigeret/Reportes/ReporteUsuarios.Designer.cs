@@ -16,9 +16,8 @@ namespace Sigeret.Reportes
             Telerik.Reporting.Drawing.StyleRule styleRule2 = new Telerik.Reporting.Drawing.StyleRule();
             Telerik.Reporting.Drawing.StyleRule styleRule3 = new Telerik.Reporting.Drawing.StyleRule();
             Telerik.Reporting.Drawing.StyleRule styleRule4 = new Telerik.Reporting.Drawing.StyleRule();
-            this.SQL_DS_ReporteUsuarios = new Telerik.Reporting.SqlDataSource();
-            this.labelsGroupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.labelsGroupFooterSection = new Telerik.Reporting.GroupFooterSection();
+            this.labelsGroupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.userNameCaptionTextBox = new Telerik.Reporting.TextBox();
             this.apellidoCaptionTextBox = new Telerik.Reporting.TextBox();
             this.nombreCaptionTextBox = new Telerik.Reporting.TextBox();
@@ -26,9 +25,10 @@ namespace Sigeret.Reportes
             this.matriculaCaptionTextBox = new Telerik.Reporting.TextBox();
             this.textBox1 = new Telerik.Reporting.TextBox();
             this.contactoCaptionTextBox = new Telerik.Reporting.TextBox();
-            this.userNameGroupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.userNameGroupFooterSection = new Telerik.Reporting.GroupFooterSection();
+            this.userNameGroupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.userNameDataTextBox = new Telerik.Reporting.TextBox();
+            this.SQL_DS_ReporteUsuarios = new Telerik.Reporting.SqlDataSource();
             this.pageHeader = new Telerik.Reporting.PageHeaderSection();
             this.reportNameTextBox = new Telerik.Reporting.TextBox();
             this.pageFooter = new Telerik.Reporting.PageFooterSection();
@@ -39,18 +39,18 @@ namespace Sigeret.Reportes
             this.reportFooter = new Telerik.Reporting.ReportFooterSection();
             this.detail = new Telerik.Reporting.DetailSection();
             this.apellidoDataTextBox = new Telerik.Reporting.TextBox();
-            this.nombreDataTextBox = new Telerik.Reporting.TextBox();
             this.cedulaDataTextBox = new Telerik.Reporting.TextBox();
             this.matriculaDataTextBox = new Telerik.Reporting.TextBox();
             this.textBox2 = new Telerik.Reporting.TextBox();
             this.contactoDataTextBox = new Telerik.Reporting.TextBox();
+            this.nombreDataTextBox = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
-            // SQL_DS_ReporteUsuarios
+            // labelsGroupFooterSection
             // 
-            this.SQL_DS_ReporteUsuarios.ConnectionString = "SigeretContext";
-            this.SQL_DS_ReporteUsuarios.Name = "SQL_DS_ReporteUsuarios";
-            this.SQL_DS_ReporteUsuarios.SelectCommand = resources.GetString("SQL_DS_ReporteUsuarios.SelectCommand");
+            this.labelsGroupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.71437495946884155D);
+            this.labelsGroupFooterSection.Name = "labelsGroupFooterSection";
+            this.labelsGroupFooterSection.Style.Visible = false;
             // 
             // labelsGroupHeaderSection
             // 
@@ -65,12 +65,6 @@ namespace Sigeret.Reportes
             this.contactoCaptionTextBox});
             this.labelsGroupHeaderSection.Name = "labelsGroupHeaderSection";
             this.labelsGroupHeaderSection.PrintOnEveryPage = true;
-            // 
-            // labelsGroupFooterSection
-            // 
-            this.labelsGroupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.71437495946884155D);
-            this.labelsGroupFooterSection.Name = "labelsGroupFooterSection";
-            this.labelsGroupFooterSection.Style.Visible = false;
             // 
             // userNameCaptionTextBox
             // 
@@ -135,17 +129,17 @@ namespace Sigeret.Reportes
             this.contactoCaptionTextBox.StyleName = "Caption";
             this.contactoCaptionTextBox.Value = "Contacto";
             // 
+            // userNameGroupFooterSection
+            // 
+            this.userNameGroupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.71437495946884155D);
+            this.userNameGroupFooterSection.Name = "userNameGroupFooterSection";
+            // 
             // userNameGroupHeaderSection
             // 
             this.userNameGroupHeaderSection.Height = Telerik.Reporting.Drawing.Unit.Cm(1.1058331727981567D);
             this.userNameGroupHeaderSection.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.userNameDataTextBox});
             this.userNameGroupHeaderSection.Name = "userNameGroupHeaderSection";
-            // 
-            // userNameGroupFooterSection
-            // 
-            this.userNameGroupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.71437495946884155D);
-            this.userNameGroupFooterSection.Name = "userNameGroupFooterSection";
             // 
             // userNameDataTextBox
             // 
@@ -155,6 +149,12 @@ namespace Sigeret.Reportes
             this.userNameDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.userNameDataTextBox.StyleName = "Data";
             this.userNameDataTextBox.Value = "=Fields.UserName";
+            // 
+            // SQL_DS_ReporteUsuarios
+            // 
+            this.SQL_DS_ReporteUsuarios.ConnectionString = "SigeretContext";
+            this.SQL_DS_ReporteUsuarios.Name = "SQL_DS_ReporteUsuarios";
+            this.SQL_DS_ReporteUsuarios.SelectCommand = resources.GetString("SQL_DS_ReporteUsuarios.SelectCommand");
             // 
             // pageHeader
             // 
@@ -237,15 +237,6 @@ namespace Sigeret.Reportes
             this.apellidoDataTextBox.StyleName = "Data";
             this.apellidoDataTextBox.Value = "=Fields.Apellido";
             // 
-            // nombreDataTextBox
-            // 
-            this.nombreDataTextBox.CanGrow = true;
-            this.nombreDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(4.5561308860778809D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
-            this.nombreDataTextBox.Name = "nombreDataTextBox";
-            this.nombreDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
-            this.nombreDataTextBox.StyleName = "Data";
-            this.nombreDataTextBox.Value = "=Fields.Nombre";
-            // 
             // cedulaDataTextBox
             // 
             this.cedulaDataTextBox.CanGrow = true;
@@ -282,6 +273,15 @@ namespace Sigeret.Reportes
             this.contactoDataTextBox.StyleName = "Data";
             this.contactoDataTextBox.Value = "=Fields.Contacto";
             // 
+            // nombreDataTextBox
+            // 
+            this.nombreDataTextBox.CanGrow = true;
+            this.nombreDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(4.5561308860778809D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
+            this.nombreDataTextBox.Name = "nombreDataTextBox";
+            this.nombreDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
+            this.nombreDataTextBox.StyleName = "Data";
+            this.nombreDataTextBox.Value = "=Fields.Nombre";
+            // 
             // ReporteUsuarios
             // 
             this.DataSource = this.SQL_DS_ReporteUsuarios;
@@ -308,7 +308,7 @@ namespace Sigeret.Reportes
             this.Name = "ReporteUsuarios";
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D), Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D), Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D), Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;
-            this.Style.BackgroundColor = System.Drawing.Color.White;
+            this.Style.BackgroundColor = System.Drawing.Color.WhiteSmoke;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
             new Telerik.Reporting.Drawing.StyleSelector("Title")});
             styleRule1.Style.Color = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(103)))), ((int)(((byte)(109)))));

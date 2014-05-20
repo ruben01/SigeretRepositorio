@@ -129,6 +129,7 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\Reporting Q1 2014\Bin\Telerik.ReportViewer.Mvc.dll</HintPath>
     </Reference>
+    <Reference Include="Telerik.ReportViewer.WebForms, Version=8.0.14.507, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL" />
     <Reference Include="Twilio.Api">
       <HintPath>..\packages\Twilio.3.6.11\lib\3.5\Twilio.Api.dll</HintPath>
     </Reference>
@@ -287,6 +288,12 @@
     <Compile Include="Reportes\ReporteUsuarios.Designer.cs">
       <DependentUpon>ReporteUsuarios.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reportes\ReporteUsuariosSolicitud.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\ReporteUsuariosSolicitud.Designer.cs">
+      <DependentUpon>ReporteUsuariosSolicitud.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Sigeret.mdf" />
@@ -421,6 +428,8 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Reporte\ReporteUsuarios.aspx" />
+    <Content Include="Views\Reporte\ReporteUsuarioSolicitud.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -501,6 +510,8 @@
     <Content Include="Views\Solicitud\PartialModeloEquipo.cshtml" />
     <Content Include="Views\Solicitud\nuevaSolicitudSms.cshtml" />
     <Content Include="Views\Reporte\Index.cshtml" />
+    <Content Include="Views\Reporte\ReporteUsuarios.cshtml" />
+    <Content Include="Views\Reporte\ReporteUsuarioSolicitud.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -512,6 +523,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Reportes\ReporteUsuarios.resx">
       <DependentUpon>ReporteUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\ReporteUsuariosSolicitud.resx">
+      <DependentUpon>ReporteUsuariosSolicitud.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

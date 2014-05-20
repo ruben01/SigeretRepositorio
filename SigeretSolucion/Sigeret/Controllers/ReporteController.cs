@@ -6,7 +6,7 @@ using System.Web.Mvc;
 
 namespace Sigeret.Controllers
 {
-    public class ReporteController : Controller
+    public class ReporteController : BaseController
     {
         //
         // GET: /Reporte/
@@ -16,5 +16,19 @@ namespace Sigeret.Controllers
             return View();
         }
 
+
+        // GET /Reporte/ReporteUsuario
+
+        public ActionResult ReporteUsuarios()
+        {
+            return View();
+        }
+
+        // GET /Reporte/ReporteUsuarioSolicitud
+
+        public ActionResult ReporteUsuarioSolicitud()
+        {
+            return View();
+        }
     }
 }
