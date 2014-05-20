@@ -30,5 +30,15 @@ namespace Sigeret.Controllers
         {
             return View();
         }
+
+        [HttpPost]
+        public ActionResult ReporteUsuarioSolicitud(Nullable<DateTime> fechaInicio, Nullable<DateTime> fechaFin)
+        {
+            ViewBag.IsPost = true;
+            ViewBag.FechaInicio = fechaInicio;
+            ViewBag.FechaFin = fechaFin;
+
+            return View();
+        }
     }
 }
