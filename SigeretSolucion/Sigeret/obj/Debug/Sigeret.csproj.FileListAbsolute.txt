@@ -306,3 +306,13 @@ C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Siger
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.csprojResolveAssemblyReference.cache
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.pdb
+C:\Users\SHS\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\RestSharp.dll
+C:\Users\SHS\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Api.dll
+C:\Users\SHS\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Mvc.dll
+C:\Users\SHS\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Twiml.dll
+C:\Users\SHS\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\RestSharp.xml
+C:\Users\SHS\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Api.xml
+C:\Users\SHS\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Mvc.xml
+C:\Users\SHS\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Twilio.Twiml.xml
+C:\Users\SHS\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.Reportes.ReporteUsuarios.resources
+C:\Users\SHS\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.csproj.GenerateResource.Cache
