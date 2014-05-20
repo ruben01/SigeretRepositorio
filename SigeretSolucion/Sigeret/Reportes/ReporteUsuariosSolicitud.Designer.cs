@@ -12,13 +12,14 @@ namespace Sigeret.Reportes
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ReporteUsuariosSolicitud));
             Telerik.Reporting.Group group1 = new Telerik.Reporting.Group();
             Telerik.Reporting.Group group2 = new Telerik.Reporting.Group();
+            Telerik.Reporting.ReportParameter reportParameter1 = new Telerik.Reporting.ReportParameter();
+            Telerik.Reporting.ReportParameter reportParameter2 = new Telerik.Reporting.ReportParameter();
             Telerik.Reporting.Drawing.StyleRule styleRule1 = new Telerik.Reporting.Drawing.StyleRule();
             Telerik.Reporting.Drawing.StyleRule styleRule2 = new Telerik.Reporting.Drawing.StyleRule();
             Telerik.Reporting.Drawing.StyleRule styleRule3 = new Telerik.Reporting.Drawing.StyleRule();
             Telerik.Reporting.Drawing.StyleRule styleRule4 = new Telerik.Reporting.Drawing.StyleRule();
-            this.SQL_DS_ReporteUsuariosSolicitudes = new Telerik.Reporting.SqlDataSource();
-            this.labelsGroupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.labelsGroupFooterSection = new Telerik.Reporting.GroupFooterSection();
+            this.labelsGroupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.usuarioCaptionTextBox = new Telerik.Reporting.TextBox();
             this.nombreCaptionTextBox = new Telerik.Reporting.TextBox();
             this.aulaCaptionTextBox = new Telerik.Reporting.TextBox();
@@ -27,9 +28,10 @@ namespace Sigeret.Reportes
             this.fechaCaptionTextBox = new Telerik.Reporting.TextBox();
             this.horaFinCaptionTextBox = new Telerik.Reporting.TextBox();
             this.horaInicioCaptionTextBox = new Telerik.Reporting.TextBox();
-            this.usuarioGroupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.usuarioGroupFooterSection = new Telerik.Reporting.GroupFooterSection();
+            this.usuarioGroupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.usuarioDataTextBox = new Telerik.Reporting.TextBox();
+            this.SQL_DS_ReporteUsuariosSolicitudes = new Telerik.Reporting.SqlDataSource();
             this.pageHeader = new Telerik.Reporting.PageHeaderSection();
             this.reportNameTextBox = new Telerik.Reporting.TextBox();
             this.pageFooter = new Telerik.Reporting.PageFooterSection();
@@ -48,11 +50,11 @@ namespace Sigeret.Reportes
             this.horaInicioDataTextBox = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
-            // SQL_DS_ReporteUsuariosSolicitudes
+            // labelsGroupFooterSection
             // 
-            this.SQL_DS_ReporteUsuariosSolicitudes.ConnectionString = "SigeretContext";
-            this.SQL_DS_ReporteUsuariosSolicitudes.Name = "SQL_DS_ReporteUsuariosSolicitudes";
-            this.SQL_DS_ReporteUsuariosSolicitudes.SelectCommand = resources.GetString("SQL_DS_ReporteUsuariosSolicitudes.SelectCommand");
+            this.labelsGroupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.71437495946884155D);
+            this.labelsGroupFooterSection.Name = "labelsGroupFooterSection";
+            this.labelsGroupFooterSection.Style.Visible = false;
             // 
             // labelsGroupHeaderSection
             // 
@@ -68,12 +70,6 @@ namespace Sigeret.Reportes
             this.horaInicioCaptionTextBox});
             this.labelsGroupHeaderSection.Name = "labelsGroupHeaderSection";
             this.labelsGroupHeaderSection.PrintOnEveryPage = true;
-            // 
-            // labelsGroupFooterSection
-            // 
-            this.labelsGroupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.71437495946884155D);
-            this.labelsGroupFooterSection.Name = "labelsGroupFooterSection";
-            this.labelsGroupFooterSection.Style.Visible = false;
             // 
             // usuarioCaptionTextBox
             // 
@@ -147,17 +143,17 @@ namespace Sigeret.Reportes
             this.horaInicioCaptionTextBox.StyleName = "Caption";
             this.horaInicioCaptionTextBox.Value = "Hora Inicio";
             // 
+            // usuarioGroupFooterSection
+            // 
+            this.usuarioGroupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.71437495946884155D);
+            this.usuarioGroupFooterSection.Name = "usuarioGroupFooterSection";
+            // 
             // usuarioGroupHeaderSection
             // 
             this.usuarioGroupHeaderSection.Height = Telerik.Reporting.Drawing.Unit.Cm(1.1058331727981567D);
             this.usuarioGroupHeaderSection.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.usuarioDataTextBox});
             this.usuarioGroupHeaderSection.Name = "usuarioGroupHeaderSection";
-            // 
-            // usuarioGroupFooterSection
-            // 
-            this.usuarioGroupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.71437495946884155D);
-            this.usuarioGroupFooterSection.Name = "usuarioGroupFooterSection";
             // 
             // usuarioDataTextBox
             // 
@@ -167,6 +163,15 @@ namespace Sigeret.Reportes
             this.usuarioDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9172395467758179D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.usuarioDataTextBox.StyleName = "Data";
             this.usuarioDataTextBox.Value = "=Fields.Usuario";
+            // 
+            // SQL_DS_ReporteUsuariosSolicitudes
+            // 
+            this.SQL_DS_ReporteUsuariosSolicitudes.ConnectionString = "SigeretContext";
+            this.SQL_DS_ReporteUsuariosSolicitudes.Name = "SQL_DS_ReporteUsuariosSolicitudes";
+            this.SQL_DS_ReporteUsuariosSolicitudes.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
+            new Telerik.Reporting.SqlDataSourceParameter("FechaInicio", System.Data.DbType.Date, "2014-01-01"),
+            new Telerik.Reporting.SqlDataSourceParameter("FechaFin", System.Data.DbType.Date, "2014-08-01")});
+            this.SQL_DS_ReporteUsuariosSolicitudes.SelectCommand = resources.GetString("SQL_DS_ReporteUsuariosSolicitudes.SelectCommand");
             // 
             // pageHeader
             // 
@@ -330,6 +335,14 @@ namespace Sigeret.Reportes
             this.Name = "ReporteUsuariosSolicitud";
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D), Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D), Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D), Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;
+            reportParameter1.Name = "FechaInicio";
+            reportParameter1.Type = Telerik.Reporting.ReportParameterType.DateTime;
+            reportParameter1.Value = "=Date(2014,01,01)";
+            reportParameter2.Name = "FechaFin";
+            reportParameter2.Type = Telerik.Reporting.ReportParameterType.DateTime;
+            reportParameter2.Value = "= Now()";
+            this.ReportParameters.Add(reportParameter1);
+            this.ReportParameters.Add(reportParameter2);
             this.Style.BackgroundColor = System.Drawing.Color.White;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
             new Telerik.Reporting.Drawing.StyleSelector("Title")});
