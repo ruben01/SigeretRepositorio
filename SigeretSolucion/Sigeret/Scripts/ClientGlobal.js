@@ -99,6 +99,12 @@ $(document).ready(function () {
         minDate: 1
     });
 
+    $('.fecha').datepicker({
+        dateFormat: 'yy/mm/dd',
+        changeMonth: true,
+        changeYear: true
+    });
+
     $('.CtimePicker').timepicker({
         hourMin: 8,
         hourMax: 22,
