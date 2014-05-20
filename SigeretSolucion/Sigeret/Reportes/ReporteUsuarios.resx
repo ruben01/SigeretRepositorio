@@ -117,6 +117,75 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="titleTextBox.Value" xml:space="preserve">
+    <value>Reporte de Usuarios Registrados</value>
+  </data>
+  <data name="contactoCaptionTextBox.Value" xml:space="preserve">
+    <value>Contacto</value>
+  </data>
+  <data name="contactoDataTextBox.Value" xml:space="preserve">
+    <value>=Fields.Contacto</value>
+  </data>
+  <data name="reportNameTextBox.Value" xml:space="preserve">
+    <value>Reportes SIGERET</value>
+  </data>
+  <data name="apellidoDataTextBox.Value" xml:space="preserve">
+    <value>=Fields.Apellido</value>
+  </data>
+  <data name="textBox2.Value" xml:space="preserve">
+    <value>=Fields.[Tipo Contacto]</value>
+  </data>
+  <data name="nombreCaptionTextBox.Value" xml:space="preserve">
+    <value>Nombre</value>
+  </data>
+  <data name="nombreDataTextBox.Value" xml:space="preserve">
+    <value>=Fields.Nombre</value>
+  </data>
+  <data name="matriculaCaptionTextBox.Value" xml:space="preserve">
+    <value>Matricula</value>
+  </data>
+  <data name="matriculaDataTextBox.Value" xml:space="preserve">
+    <value>=Fields.Matricula</value>
+  </data>
+  <data name="SQL_DS_ReporteUsuarios.SelectCommand" xml:space="preserve">
+    <value>-- Reporte de los Usuarios de la aplicación y sus datos -- 
+select UP.Nombre, UP.Apellido, UP.Cedula, UP.Matricula, UP.UserName, TC.Descripcion as "Tipo Contacto", C.Descripcion as "Contacto"
+	from UserProfile UP
+		left join Contacto C
+			on UP.UserId = C.IdUserProfile
+				left join TipoContacto TC
+					on C.IdTipoContacto = TC.Id</value>
+  </data>
+  <data name="cedulaDataTextBox.Value" xml:space="preserve">
+    <value>=Fields.Cedula</value>
+  </data>
+  <data name="cedulaCaptionTextBox.Value" xml:space="preserve">
+    <value>Cedula</value>
+  </data>
+  <data name="userNameCaptionTextBox.Value" xml:space="preserve">
+    <value>User Name</value>
+  </data>
+  <data name="textBox1.Value" xml:space="preserve">
+    <value>Tipo Contacto</value>
+  </data>
+  <data name="currentTimeTextBox.Value" xml:space="preserve">
+    <value>=NOW()</value>
+  </data>
+  <data name="pageInfoTextBox.Value" xml:space="preserve">
+    <value>=PageNumber</value>
+  </data>
+  <data name="apellidoCaptionTextBox.Value" xml:space="preserve">
+    <value>Apellido</value>
+  </data>
+  <data name="userNameDataTextBox.Value" xml:space="preserve">
+    <value>=Fields.UserName</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="$this.Language" type="System.Globalization.CultureInfo, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>es-DO</value>
+  </metadata>
   <metadata name="SQL_DS_ReporteUsuarios.DefaultValues" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
         AAEAAAD/////AQAAAAAAAAAMAgAAAFdUZWxlcmlrLlJlcG9ydGluZywgVmVyc2lvbj04LjAuMTQuNTA3
@@ -133,13 +202,4 @@
         Zy5TcWxEYXRhU291cmNlUGFyYW1ldGVyAgAAAAs=
 </value>
   </metadata>
-  <data name="SQL_DS_ReporteUsuarios.SelectCommand" xml:space="preserve">
-    <value>-- Reporte de los Usuarios de la aplicación y sus datos -- 
-select UP.Nombre, UP.Apellido, UP.Cedula, UP.Matricula, UP.UserName, TC.Descripcion as "Tipo Contacto", C.Descripcion as "Contacto"
-	from UserProfile UP
-		left join Contacto C
-			on UP.UserId = C.IdUserProfile
-				left join TipoContacto TC
-					on C.IdTipoContacto = TC.Id</value>
-  </data>
 </root>
