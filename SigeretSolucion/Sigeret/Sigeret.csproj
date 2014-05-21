@@ -435,6 +435,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Reporte\PartialReportViewer.aspx" />
     <Content Include="Views\Reporte\Partial_Usuarios.aspx" />
     <Content Include="Views\Reporte\Partial_Solicitudes.aspx" />
     <Content Include="Web.config">
@@ -519,6 +520,7 @@
     <Content Include="Views\Reporte\ReporteUsuarios.cshtml" />
     <Content Include="Views\Reporte\ReporteUsuarioSolicitud.cshtml" />
     <Content Include="Views\SolicitudSms\Index.cshtml" />
+    <Content Include="Views\Reporte\ReportsGeneric.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

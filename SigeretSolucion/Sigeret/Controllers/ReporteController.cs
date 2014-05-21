@@ -21,7 +21,10 @@ namespace Sigeret.Controllers
 
         public ActionResult ReporteUsuarios()
         {
-            return View();
+            ViewBag.ReportToRender = "ReporteUsuarios";
+            ViewBag.TitleReport = "Reporte de Usuarios Registrados en la Aplicación";
+
+            return View("ReportsGeneric");
         }
 
         // GET /Reporte/ReporteUsuarioSolicitud
