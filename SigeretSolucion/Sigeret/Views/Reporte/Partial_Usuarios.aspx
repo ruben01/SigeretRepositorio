@@ -13,7 +13,7 @@
     <form id="form1" runat="server">
     <div>
         
-        <telerik:ReportViewer ID="ReportViewer1" runat="server" Height="600px" Width="800px">
+        <telerik:ReportViewer ID="ReportViewer1" runat="server" Height="600px" Width="800px" Skin="WebBlue" ZoomMode="FullPage">
 <typereportsource typename="Sigeret.Reportes.ReporteUsuarios, Sigeret, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"></typereportsource>
 </telerik:ReportViewer>
         

@@ -295,6 +295,12 @@
     <Compile Include="Reportes\ReporteUsuariosSolicitud.Designer.cs">
       <DependentUpon>ReporteUsuariosSolicitud.cs</DependentUpon>
     </Compile>
+    <Compile Include="Reportes\Solicitudes.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Solicitudes.Designer.cs">
+      <DependentUpon>Solicitudes.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="App_Data\Sigeret.mdf" />
@@ -528,6 +534,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\ReporteUsuariosSolicitud.resx">
       <DependentUpon>ReporteUsuariosSolicitud.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Solicitudes.resx">
+      <DependentUpon>Solicitudes.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

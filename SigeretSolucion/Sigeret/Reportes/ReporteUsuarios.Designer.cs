@@ -73,7 +73,7 @@ namespace Sigeret.Reportes
             this.userNameCaptionTextBox.Name = "userNameCaptionTextBox";
             this.userNameCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.userNameCaptionTextBox.StyleName = "Caption";
-            this.userNameCaptionTextBox.Value = "User Name";
+            resources.ApplyResources(this.userNameCaptionTextBox, "userNameCaptionTextBox");
             // 
             // apellidoCaptionTextBox
             // 
@@ -82,7 +82,7 @@ namespace Sigeret.Reportes
             this.apellidoCaptionTextBox.Name = "apellidoCaptionTextBox";
             this.apellidoCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.apellidoCaptionTextBox.StyleName = "Caption";
-            this.apellidoCaptionTextBox.Value = "Apellido";
+            resources.ApplyResources(this.apellidoCaptionTextBox, "apellidoCaptionTextBox");
             // 
             // nombreCaptionTextBox
             // 
@@ -91,7 +91,7 @@ namespace Sigeret.Reportes
             this.nombreCaptionTextBox.Name = "nombreCaptionTextBox";
             this.nombreCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.nombreCaptionTextBox.StyleName = "Caption";
-            this.nombreCaptionTextBox.Value = "Nombre";
+            resources.ApplyResources(this.nombreCaptionTextBox, "nombreCaptionTextBox");
             // 
             // cedulaCaptionTextBox
             // 
@@ -100,7 +100,7 @@ namespace Sigeret.Reportes
             this.cedulaCaptionTextBox.Name = "cedulaCaptionTextBox";
             this.cedulaCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.cedulaCaptionTextBox.StyleName = "Caption";
-            this.cedulaCaptionTextBox.Value = "Cedula";
+            resources.ApplyResources(this.cedulaCaptionTextBox, "cedulaCaptionTextBox");
             // 
             // matriculaCaptionTextBox
             // 
@@ -109,7 +109,7 @@ namespace Sigeret.Reportes
             this.matriculaCaptionTextBox.Name = "matriculaCaptionTextBox";
             this.matriculaCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.matriculaCaptionTextBox.StyleName = "Caption";
-            this.matriculaCaptionTextBox.Value = "Matricula";
+            resources.ApplyResources(this.matriculaCaptionTextBox, "matriculaCaptionTextBox");
             // 
             // textBox1
             // 
@@ -118,7 +118,7 @@ namespace Sigeret.Reportes
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.textBox1.StyleName = "Caption";
-            this.textBox1.Value = "Tipo Contacto";
+            resources.ApplyResources(this.textBox1, "textBox1");
             // 
             // contactoCaptionTextBox
             // 
@@ -127,7 +127,7 @@ namespace Sigeret.Reportes
             this.contactoCaptionTextBox.Name = "contactoCaptionTextBox";
             this.contactoCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.contactoCaptionTextBox.StyleName = "Caption";
-            this.contactoCaptionTextBox.Value = "Contacto";
+            resources.ApplyResources(this.contactoCaptionTextBox, "contactoCaptionTextBox");
             // 
             // userNameGroupFooterSection
             // 
@@ -148,7 +148,7 @@ namespace Sigeret.Reportes
             this.userNameDataTextBox.Name = "userNameDataTextBox";
             this.userNameDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.userNameDataTextBox.StyleName = "Data";
-            this.userNameDataTextBox.Value = "=Fields.UserName";
+            resources.ApplyResources(this.userNameDataTextBox, "userNameDataTextBox");
             // 
             // SQL_DS_ReporteUsuarios
             // 
@@ -169,7 +169,7 @@ namespace Sigeret.Reportes
             this.reportNameTextBox.Name = "reportNameTextBox";
             this.reportNameTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(15.708333015441895D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.reportNameTextBox.StyleName = "PageInfo";
-            this.reportNameTextBox.Value = "Reportes SIGERET";
+            resources.ApplyResources(this.reportNameTextBox, "reportNameTextBox");
             // 
             // pageFooter
             // 
@@ -185,7 +185,7 @@ namespace Sigeret.Reportes
             this.currentTimeTextBox.Name = "currentTimeTextBox";
             this.currentTimeTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(7.8277082443237305D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.currentTimeTextBox.StyleName = "PageInfo";
-            this.currentTimeTextBox.Value = "=NOW()";
+            resources.ApplyResources(this.currentTimeTextBox, "currentTimeTextBox");
             // 
             // pageInfoTextBox
             // 
@@ -194,7 +194,7 @@ namespace Sigeret.Reportes
             this.pageInfoTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(7.8277082443237305D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.pageInfoTextBox.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Right;
             this.pageInfoTextBox.StyleName = "PageInfo";
-            this.pageInfoTextBox.Value = "=PageNumber";
+            resources.ApplyResources(this.pageInfoTextBox, "pageInfoTextBox");
             // 
             // reportHeader
             // 
@@ -205,11 +205,12 @@ namespace Sigeret.Reportes
             // 
             // titleTextBox
             // 
+            this.titleTextBox.Docking = Telerik.Reporting.DockingStyle.None;
             this.titleTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(0D), Telerik.Reporting.Drawing.Unit.Cm(0.0793749988079071D));
             this.titleTextBox.Name = "titleTextBox";
             this.titleTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(15.814167022705078D), Telerik.Reporting.Drawing.Unit.Cm(1.01479172706604D));
             this.titleTextBox.StyleName = "Title";
-            this.titleTextBox.Value = "Reporte de Usuarios Registrados";
+            resources.ApplyResources(this.titleTextBox, "titleTextBox");
             // 
             // reportFooter
             // 
@@ -235,7 +236,7 @@ namespace Sigeret.Reportes
             this.apellidoDataTextBox.Name = "apellidoDataTextBox";
             this.apellidoDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.apellidoDataTextBox.StyleName = "Data";
-            this.apellidoDataTextBox.Value = "=Fields.Apellido";
+            resources.ApplyResources(this.apellidoDataTextBox, "apellidoDataTextBox");
             // 
             // cedulaDataTextBox
             // 
@@ -244,7 +245,7 @@ namespace Sigeret.Reportes
             this.cedulaDataTextBox.Name = "cedulaDataTextBox";
             this.cedulaDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.cedulaDataTextBox.StyleName = "Data";
-            this.cedulaDataTextBox.Value = "=Fields.Cedula";
+            resources.ApplyResources(this.cedulaDataTextBox, "cedulaDataTextBox");
             // 
             // matriculaDataTextBox
             // 
@@ -253,7 +254,7 @@ namespace Sigeret.Reportes
             this.matriculaDataTextBox.Name = "matriculaDataTextBox";
             this.matriculaDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.matriculaDataTextBox.StyleName = "Data";
-            this.matriculaDataTextBox.Value = "=Fields.Matricula";
+            resources.ApplyResources(this.matriculaDataTextBox, "matriculaDataTextBox");
             // 
             // textBox2
             // 
@@ -262,7 +263,7 @@ namespace Sigeret.Reportes
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.textBox2.StyleName = "Data";
-            this.textBox2.Value = "=Fields.[Tipo Contacto]";
+            resources.ApplyResources(this.textBox2, "textBox2");
             // 
             // contactoDataTextBox
             // 
@@ -271,7 +272,7 @@ namespace Sigeret.Reportes
             this.contactoDataTextBox.Name = "contactoDataTextBox";
             this.contactoDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.contactoDataTextBox.StyleName = "Data";
-            this.contactoDataTextBox.Value = "=Fields.Contacto";
+            resources.ApplyResources(this.contactoDataTextBox, "contactoDataTextBox");
             // 
             // nombreDataTextBox
             // 
@@ -280,7 +281,7 @@ namespace Sigeret.Reportes
             this.nombreDataTextBox.Name = "nombreDataTextBox";
             this.nombreDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.1986904144287109D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.nombreDataTextBox.StyleName = "Data";
-            this.nombreDataTextBox.Value = "=Fields.Nombre";
+            resources.ApplyResources(this.nombreDataTextBox, "nombreDataTextBox");
             // 
             // ReporteUsuarios
             // 
@@ -306,9 +307,16 @@ namespace Sigeret.Reportes
             this.reportFooter,
             this.detail});
             this.Name = "ReporteUsuarios";
+            this.PageNumberingStyle = Telerik.Reporting.PageNumberingStyle.Continue;
+            this.PageSettings.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.PageSettings.Landscape = false;
             this.PageSettings.Margins = new Telerik.Reporting.Drawing.MarginsU(Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D), Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D), Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D), Telerik.Reporting.Drawing.Unit.Mm(25.399999618530273D));
             this.PageSettings.PaperKind = System.Drawing.Printing.PaperKind.A4;
             this.Style.BackgroundColor = System.Drawing.Color.WhiteSmoke;
+            this.Style.BorderStyle.Default = Telerik.Reporting.Drawing.BorderType.Solid;
+            this.Style.TextAlign = Telerik.Reporting.Drawing.HorizontalAlign.Center;
+            this.Style.VerticalAlign = Telerik.Reporting.Drawing.VerticalAlign.Top;
+            this.Style.Visible = true;
             styleRule1.Selectors.AddRange(new Telerik.Reporting.Drawing.ISelector[] {
             new Telerik.Reporting.Drawing.StyleSelector("Title")});
             styleRule1.Style.Color = System.Drawing.Color.FromArgb(((int)(((byte)(105)))), ((int)(((byte)(103)))), ((int)(((byte)(109)))));
