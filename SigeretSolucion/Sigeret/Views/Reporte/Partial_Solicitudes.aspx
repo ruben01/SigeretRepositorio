@@ -28,7 +28,7 @@
     <form id="form1" runat="server">
     <div>
         
-        <telerik:ReportViewer ID="ReportViewer1" runat="server" Height="600px" Width="800px" OnLoad="ReportViewer1_Load" ViewMode="PrintPreview" ZoomMode="FullPage">
+        <telerik:ReportViewer ID="ReportViewer1" runat="server" Height="600px" Width="100%" OnLoad="ReportViewer1_Load" ViewMode="PrintPreview" ZoomMode="FullPage">
 <typereportsource typename="Sigeret.Reportes.Solicitudes, Sigeret, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"></typereportsource>
 </telerik:ReportViewer>
         
