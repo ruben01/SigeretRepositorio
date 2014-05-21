@@ -1,0 +1,36 @@
+﻿@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+
+
+<html>
+
+<body>
+    <div>
+        @ViewBag.leng caracteres
+        @ViewBag.resp
+
+        @using (Html.BeginForm())
+        {
+            <strong>From:</strong>
+            <input type="text" name="sender" />
+
+            <strong>To:</strong>
+            <input type="text" name="reciver" />
+
+            <strong>Body:</strong>
+            <input type="text" name="body" />
+
+            <input type="submit" value="Enviar" />
+
+
+
+
+        }
+
+    </div>
+</body>
+</html>

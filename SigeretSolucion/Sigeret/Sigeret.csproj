@@ -215,6 +215,7 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
+    <Compile Include="Controllers\SolicitudSmsController.cs" />
     <Compile Include="Controllers\UnauthorizeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="CustomCode\DataHelpers.cs" />
@@ -508,10 +509,10 @@
     <Content Include="Views\Contacto\PartialContactosModal.cshtml" />
     <Content Include="Views\Solicitud\EquiposDisponibles.cshtml" />
     <Content Include="Views\Solicitud\PartialModeloEquipo.cshtml" />
-    <Content Include="Views\Solicitud\nuevaSolicitudSms.cshtml" />
     <Content Include="Views\Reporte\Index.cshtml" />
     <Content Include="Views\Reporte\ReporteUsuarios.cshtml" />
     <Content Include="Views\Reporte\ReporteUsuarioSolicitud.cshtml" />
+    <Content Include="Views\SolicitudSms\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
