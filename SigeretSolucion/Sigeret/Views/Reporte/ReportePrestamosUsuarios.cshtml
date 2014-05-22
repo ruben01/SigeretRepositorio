@@ -1,5 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Reporte de Solicitudes";
+    ViewBag.Title = "Reporte de Prestamos";
     bool showCustomReport = (ViewBag.IsPost != null) ? true : false;
 }
 
@@ -7,14 +7,14 @@
 <div class="row">
     <div class="col-lg-12">
         <hgroup class="title">
-            <h2>Solicitudes</h2>
+            <h2>Prestamos</h2>
         </hgroup>
         <div class="well">
             @using (Html.BeginForm())
             {
 
                 <fieldset class="employe">
-                    <legend>Reporte de Solicitudes Registradas</legend>
+                    <legend>Reporte de Prestamos Por Usuarios</legend>
 
                     <div class="row">
                         <div class="form-group col-lg-6">
@@ -49,13 +49,11 @@
 
         @if (!showCustomReport)
         { 
-            @Html.Partial("Partial_Solicitudes")
+            @Html.Partial("Partial_PrestamosUsuarios")
         }
         else 
         {
-            @Html.Partial("Partial_Solicitudes", null, ViewData) 
+            @Html.Partial("Partial_PrestamosUsuarios", null, ViewData) 
         }
     </div>
 </div>
-
-
