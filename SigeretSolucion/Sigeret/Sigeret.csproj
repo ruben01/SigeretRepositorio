@@ -283,6 +283,12 @@
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
+    <Compile Include="Reportes\PrestamosUsuarios.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\PrestamosUsuarios.Designer.cs">
+      <DependentUpon>PrestamosUsuarios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Reportes\ReporteUsuarios.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -300,6 +306,12 @@
     </Compile>
     <Compile Include="Reportes\Solicitudes.Designer.cs">
       <DependentUpon>Solicitudes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Reportes\Usuarios.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Reportes\Usuarios.Designer.cs">
+      <DependentUpon>Usuarios.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -435,6 +447,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Reporte\Partial_PrestamosUsuarios.aspx" />
     <Content Include="Views\Reporte\PartialReportViewer.aspx" />
     <Content Include="Views\Reporte\Partial_Usuarios.aspx" />
     <Content Include="Views\Reporte\Partial_Solicitudes.aspx" />
@@ -521,6 +534,7 @@
     <Content Include="Views\Reporte\ReporteUsuarioSolicitud.cshtml" />
     <Content Include="Views\SolicitudSms\Index.cshtml" />
     <Content Include="Views\Reporte\ReportsGeneric.cshtml" />
+    <Content Include="Views\Reporte\ReportePrestamosUsuarios.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
@@ -530,6 +544,9 @@
     <Content Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Reportes\PrestamosUsuarios.resx">
+      <DependentUpon>PrestamosUsuarios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Reportes\ReporteUsuarios.resx">
       <DependentUpon>ReporteUsuarios.cs</DependentUpon>
       <SubType>Designer</SubType>
@@ -539,6 +556,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Reportes\Solicitudes.resx">
       <DependentUpon>Solicitudes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Reportes\Usuarios.resx">
+      <DependentUpon>Usuarios.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

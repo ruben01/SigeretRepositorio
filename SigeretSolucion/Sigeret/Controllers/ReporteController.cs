@@ -21,10 +21,26 @@ namespace Sigeret.Controllers
 
         public ActionResult ReporteUsuarios()
         {
-            ViewBag.ReportToRender = "ReporteUsuarios";
+            ViewBag.ReportToRender = "Usuarios";
             ViewBag.TitleReport = "Reporte de Usuarios Registrados en la Aplicación";
 
             return View("ReportsGeneric");
+        }
+
+        public ActionResult ReportePrestamosUsuarios()
+        {
+
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult ReportePrestamosUsuarios(Nullable<DateTime> fechaInicio, Nullable<DateTime> fechaFin)
+        {
+            ViewBag.IsPost = true;
+            ViewBag.FechaInicio = fechaInicio;
+            ViewBag.FechaFin = fechaFin;
+
+            return View();
         }
 
         // GET /Reporte/ReporteUsuarioSolicitud

@@ -17,7 +17,6 @@
     }
 </script>
 
-
 <html>
 <head id="Head1" runat="server">
     <meta name="viewport" content="width=device-width" />
@@ -26,12 +25,9 @@
 <body>
     <form id="form1" runat="server">
         <div>
-
-            <telerik:ReportViewer ID="ReportViewer1" runat="server" Height="600px" Width="100%" Skin="WebBlue" ZoomMode="FullPage" OnLoad="ReportViewer1_Load">
-<typereportsource typename="Sigeret.Reportes.ReporteUsuarios, Sigeret, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"></typereportsource>
-            
+            <telerik:ReportViewer ID="ReportViewer1" runat="server" Height="600px" Width="100%" Skin="WebBlue" ZoomMode="FullPage"  ViewMode="PrintPreview" OnLoad="ReportViewer1_Load">
+                <typereportsource typename="Sigeret.Reportes.ReporteUsuarios, Sigeret, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"></typereportsource>           
             </telerik:ReportViewer>
-
         </div>
     </form>
 </body>
