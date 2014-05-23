@@ -9,8 +9,6 @@
     cantidadSel = ViewBag.cantidad;
 }
 
-
-
 @{
     <div class="row">
         <div class="form-group col-lg-2">
@@ -40,13 +38,9 @@
                         }
                         else
                         {
-
                             var a = 0;
                             foreach (var ck in check)
                             {
-
-
-
                                 if (checkBoxId == ck)
                                 {
                                     <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="" />
@@ -58,7 +52,6 @@
                                     <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="" />
                                 }
                             }
-
                         }
                     </span>
 
@@ -75,7 +68,6 @@
 
                             if (cantidad == cant.Item1)
                             {
-
                                 a = 1;
                                 <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="border-color: red; border:1em;" value="@cant.Item2" />
                             }
