@@ -39,7 +39,7 @@ namespace Sigeret.Models
 
         
         [validarFecha]
-        [DisplayFormat(DataFormatString = "{0:YYYY/MM/dd}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:yyyy/MM/dd}", ApplyFormatInEditMode = true)]
         public System.DateTime Fecha { get; set; }
 
         public virtual AulaEdificio AulaEdificio { get; set; }
