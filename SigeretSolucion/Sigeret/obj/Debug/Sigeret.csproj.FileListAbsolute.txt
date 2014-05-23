@@ -323,6 +323,7 @@ C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Siger
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.Reportes.Solicitudes.resources
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.Reportes.Usuarios.resources
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.Reportes.PrestamosUsuarios.resources
+<<<<<<< HEAD
 D:\GitHub Sigeret default\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Sigeret.dll.config
 D:\GitHub Sigeret default\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Sigeret.dll
 D:\GitHub Sigeret default\SigeretRepositorio\SigeretSolucion\Sigeret\bin\Sigeret.pdb
@@ -440,3 +441,5 @@ D:\GitHub Sigeret default\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\S
 D:\GitHub Sigeret default\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.csproj.GenerateResource.Cache
 D:\GitHub Sigeret default\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.dll
 D:\GitHub Sigeret default\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.pdb
+=======
+>>>>>>> e21fa3eb316bdbff445e16fe09d909d973417eb7
