@@ -367,7 +367,7 @@ namespace Sigeret.Controllers
                 {
                     SolicitudsBD.IdLugar = Int32.Parse(form["SalonId"]);
                     salonList = (from a in db.AulaEdificios where a.IdLugar == edificioId select a).AsEnumerable().Select(a => new SelectListItem() { Text = a.Aula, Value = a.Id.ToString() });
-                    ViewBag.IdAula = new SelectList(salonList, "Value", "Text", form["SalonId"]);
+                    ViewBag.SalonId = new SelectList(salonList, "Value", "Text", form["SalonId"]);
                 }
                 //lista para almacenar los equipos seleccionados en la Solicituds
                 List<SolicitudEquipo> listaEquiposSelecionados = new List<SolicitudEquipo>();
@@ -509,7 +509,7 @@ namespace Sigeret.Controllers
                 }
                 else
                 {
-                    ViewBag.edificioId = new SelectList(db.Lugars, "Id", "Edificio", form["edificioId"]);
+                    ViewBag.EdificioId = new SelectList(db.Lugars, "Id", "Edificio", form["edificioId"]);
 
                     //seleccionando los equipos disponibles
                     var modelosDisponibles = from mE in db.ModeloEquipoes
