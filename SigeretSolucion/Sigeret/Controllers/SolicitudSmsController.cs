@@ -35,7 +35,7 @@ namespace Sigeret.Controllers
             if (solicitud == "**")
             {
                 //enviamos la solicitud al metodo ProcesarSolicitud
-                respuesta = ProcesarSolicitud(body,From);
+                respuesta = ProcesarSolicitud(body, "5088863180");
 
             }else if(body.Length>3 && body.Substring(0,3)=="de*"){
 
@@ -111,6 +111,21 @@ namespace Sigeret.Controllers
         {
             try
             {
+                //Validando que el usuario este registrado para proceder con la solicitud
+                int codigoUsuario = 0;         
+
+                if (db.Contactoes.SingleOrDefault(c => c.Descripcion == telefono)!=null)
+                {
+                    codigoUsuario = db.Contactoes.SingleOrDefault(c => c.Descripcion == telefono).IdUserProfile;
+                    //Validando que el usurario solo pueda Registrar 5 solucitudes maximas por sms cada semestre
+                    ////OjojoJoJoJoJOOJOJOJOJOJOJOJO
+                    //OJOJOJOJOJJOO
+                    ////////////////////////////////////////////////////////////////
+                }
+                else
+                {
+                    return "Su numero No esta registrado como Contacto de algun usuario.\n Registrelo o cree una cuenta. ";
+                }
                 string fecha;
                 string horaInicio;
                 string horaFin;
@@ -134,6 +149,12 @@ namespace Sigeret.Controllers
                 horaFin = solicitud.Substring(19, 5);
                 nipSMS = solicitud.Substring(25,4);
                 equiposStr = solicitud.Substring(30, solicitud.Length - 30);
+
+                //validando que el nipsms enviado sea igual al que esta registrado y pertenece al usuario para confirmar la solicitud
+                if (db.UsuarioNipSms.SingleOrDefault(n => n.IdUserProfile==codigoUsuario).Nip!=nipSMS)
+                {
+                    return "NipSMS invalido. \nFavor vuelva a intentarlo.\nPuede Solicitarlo via web.";
+                }
                try
                 {
                     nuevaSolicitud.Fecha = DateTime.Parse(fecha);
