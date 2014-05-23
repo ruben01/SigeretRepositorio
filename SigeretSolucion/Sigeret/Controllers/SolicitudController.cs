@@ -140,18 +140,18 @@ namespace Sigeret.Controllers
                      edificioId = int.Parse(form["edificioId"]);
                 }
 
-                //Seleccionando los id de las Solicitudses anteriores para obtener la ultima
+                //Seleccionando los id de las Solicitudes anteriores para obtener la ultima
                 var SolicitudsId = db.Solicituds.Select(s => s.Id).ToList();
 
-                //variable para verificar que en la Solicituds se ha seleccionado al menos un equipo
+                //variable para verificar que en la Solicitud se ha seleccionado al menos un equipo
                 bool contieneEquipos = false;
                 bool modelStateValido = true;
 
 
-                //lista para almacenar los equipos seleccionados en la Solicituds
+                //lista para almacenar los equipos seleccionados en la Solicitud
                 List<SolicitudEquipo> listaEquiposSelecionados = new List<SolicitudEquipo>();
 
-                //Verificando si hay equipos seleccionado en la Solicituds
+                //Verificando si hay equipos seleccionado en la Solicitud
                 for (int i = 1; i < form.Count; i++)
                 {
 

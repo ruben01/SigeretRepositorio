@@ -34,7 +34,8 @@ namespace Sigeret.Controllers
 
             if (solicitud == "**")
             {
-                respuesta = ProcesarSolicitud(body);
+                //enviamos la solicitud al metodo ProcesarSolicitud
+                respuesta = ProcesarSolicitud(body,From);
 
             }else if(body.Length>3 && body.Substring(0,3)=="de*"){
 
@@ -46,12 +47,12 @@ namespace Sigeret.Controllers
                 switch (body)
                 {
                     case "ayuda":
-                        respuesta = "\n1 Nueva Solicitud(Formato)\n2 Equipos\n3 Formato Fecha\n4 Fomato Hora\n5 Confirmar Solicitud\n6 Cancelar Solicitud";
+                        respuesta = "\n1 Nueva Solicitud(Formato)\n2 Equipos\n3 Formato Fecha\n4 Fomato Hora\n5 NipSMS \n6 Cancelar Solicitud";
                         break;
 
                     case "1":
 
-                        respuesta = "\nFormato Solicitud:\n *fecha*horaInicio*horaFin*CodigoEquipo1*cantidad*CodigoEquipo2*cantidad*";
+                        respuesta = "\nFormato Solicitud:\n *fecha*horaInicio*horaFin*NipSMS*IdAula*CodigoEquipo1*cantidad*CodigoEquipo2*cantidad*";
                         break;
                     case "2":
 
@@ -66,7 +67,7 @@ namespace Sigeret.Controllers
                         respuesta = "\nFormato Hora\n24H Ejemplo \n07:00  \n20:00 \nhora fin mayor a la hora inicio";
                         break;
                     case "5":
-                        respuesta = "Confirmar Solicitud\ncs*codigoSolicitud \nEjmplo cs*001";//Codigo para confirmar la solicitud que sera entregado al usuario
+                        respuesta = "NipSms \nCodigo utilizado para confirmar la solicitud\n Esta disponible via web o personalmente.\nEnvia NSMS para mas detalles";//Codigo para confirmar la solicitud que sera entregado al usuario
                         //al crear su cuenta y luego cada vez q haga una solicitud cuando pase a entregar el equipo se le entregara este codigo personal
                         break;
                     case "6":
@@ -80,6 +81,11 @@ namespace Sigeret.Controllers
                     case "de":
 
                         respuesta = "Descripcion Equipo\nde*codigoEquipo para ver la descripcion\nEj: de*001";
+                        break;
+
+                    case "nsms":
+
+                        respuesta = "NipSMS\n Codigo de 4 digitos generado al momento de crear su cuenta.\nDebe proporcionarlo para una solicitud SMS.\nEj. 9999";
                         break;
                     default:
                         respuesta = "\nNo se Reconoce la Instruccion";
@@ -101,7 +107,7 @@ namespace Sigeret.Controllers
 
 
 
-        public string ProcesarSolicitud(string solicitud)
+        public string ProcesarSolicitud(string solicitud,string telefono)
         {
             try
             {
@@ -109,24 +115,64 @@ namespace Sigeret.Controllers
                 string horaInicio;
                 string horaFin;
                 string equiposStr;
+                string lugar = null;
+                string nipSMS = null;
+                List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
+                List<Equipo> equiposDisponibles = new List<Equipo>();
+                
+                //almacena la nueva Solicitud
+                Solicitud nuevaSolicitud = new Solicitud();
+
+                //Seleccionando los id de las Solicitudes anteriores para obtener la ultima
+                var SolicitudsId = db.Solicituds.Select(s => s.Id).ToList();
+                //Seleccionando los id de las Solicitudes sms anteriores para obtener la ultima
+                var SolicitudsSmsId = db.SolicitudSms.Select(s => s.Id).ToList();
 
 
                 fecha = solicitud.Substring(2, 10);
                 horaInicio = solicitud.Substring(13, 5);
                 horaFin = solicitud.Substring(19, 5);
-                equiposStr = solicitud.Substring(25, solicitud.Length - 25);
+                nipSMS = solicitud.Substring(25,4);
+                equiposStr = solicitud.Substring(30, solicitud.Length - 30);
+               try
+                {
+                    nuevaSolicitud.Fecha = DateTime.Parse(fecha);
+                    nuevaSolicitud.HoraInicio = TimeSpan.Parse(horaInicio);
+                    nuevaSolicitud.HoraFin = TimeSpan.Parse(horaFin);
+                    nuevaSolicitud.Descripcion = "Solicitud SMS";
+                }
+                catch 
+                {
+                    return "Error en el formato de la hora o la fecha";
+                }
+      
+
+                //Obteniendo los equipos disponibles a partir de la fecha horaInicio y horaFin de la solicitudSms
+                equiposDisponibles = EquiposDisponibles(fecha, horaInicio, horaInicio);
+
+                if (equiposDisponibles.Count == 0)
+                {
+                    return "No hay equipos disponibles para esta fecha";
+                }
 
 
                 List<Tuple<string, string>> equipos = new List<Tuple<string, string>>();
 
-                int cont = 0;
+                int cont = 50;
                 int indice = 0;
                 int indice2 = 0;
 
                 for (int i = 0; i < equiposStr.Length; i++)
                 {
-
-
+                    //sacando el id del salon para agregarlo a la solicitud
+                    if (equiposStr.ElementAt(i) == '*' && cont == 50)
+                    {
+                        lugar = equiposStr.Substring(0, i );
+                        equiposStr = equiposStr.Substring(i + 1, equiposStr.Length - i - 1);
+                        cont=0;
+                        i = 0;
+                    }
+                    //sacando los equipos y la cantidad para agregarlos a la solicitud
                     if (equiposStr.ElementAt(i) == '*' && cont == 0)
                     {
                         indice2 = i;
@@ -147,17 +193,60 @@ namespace Sigeret.Controllers
 
                 }
 
-                string eq = null;
-
+               
+                
+                
+                //Verificando si el modelo seleccionado esta disponible con relacion a los modelos disponibles por fecha y hora
                 foreach (var item in equipos)
                 {
-                    eq = eq + " ID:" + item.Item1.ToString() + " Cantidad:" + item.Item2.ToString() + "||";
-                }
+                    int cantidadXModelo=equiposDisponibles.Where(e => e.IdModelo ==Int32.Parse(item.Item1)).Count();
 
-                return eq;
+                    if (cantidadXModelo==0)
+                    {
+                        return "Equipo " + item.Item1 + " no esta disponible.\nSolicitud cancelada\n Vuelva a intentarlo";
+                    }
+                    else if(cantidadXModelo<Int32.Parse(item.Item2))
+                    {
+                        
+                        return "Cantidad Equipo " + item.Item1 + " solo hay "+cantidadXModelo+" disponible.\nSolicitud cancelada\n Vuelva a intentarlo";
+                    }
+                    else
+                    {
+                        int cantidad=Int32.Parse(item.Item2);
+
+                        foreach (var equipo in equiposDisponibles)
+                        {
+                            if (cantidad > 0 && equipo.IdModelo == Int32.Parse(item.Item2))
+                            {
+                                SolicitudEquipo nuevo=new SolicitudEquipo();
+
+                                if (SolicitudsId.Count() > 0)
+                                {
+                                    nuevo.IdSolicitud = SolicitudsId.Max() + 1;
+                                }
+                                else
+                                {
+                                    nuevo.IdSolicitud = 1;
+                                }
+
+                                nuevo.idEquipo = Int32.Parse(item.Item1);
+                                nuevaSolicitud.SolicitudEquipoes.Add(nuevo);
+                                cantidad--;
+                            }
+                        }
+                    }
+
+                }
+                
+                
+                
+
+                
+
+                return nipSMS;
 
             }
-            catch (Exception e)
+            catch 
             {
 
                 return "Error procesando su solicitud Revise el formato" + solicitud;
@@ -193,7 +282,7 @@ namespace Sigeret.Controllers
                     return respuesta;
                 }
             }
-            catch (Exception e)
+            catch 
             {
                 return "Problema al procesar el equipo !verifique Formato instruccion!";
             }
@@ -204,7 +293,7 @@ namespace Sigeret.Controllers
 
 
         //Consultando los equipos disponibles por modelos
-        public List<ModeloEquipo> EquiposDisponibles(string fecha, string horaInicio, string horaFin)
+        public List<Equipo> EquiposDisponibles(string fecha, string horaInicio, string horaFin)
         {
 
             DateTime fechaObj = new DateTime();
@@ -219,7 +308,7 @@ namespace Sigeret.Controllers
             //Consultando los equipos que no han sido solicitado para la fecha indicada para eliminarlos
             //de la lista de equipos disponibles
 
-            var query = db.Database.SqlQuery<int>("EXEC EquiposDisponibles {0},{1},{2}", fecha, horaInicio, horaFin).ToList();
+            var query = db.Database.SqlQuery<int>("EXEC EquiposDisponibles {0},{1},{2}", fechaObj, horaInicio, horaFin).ToList();
 
             //Agregando los equipos a la lista de equipos disponibles
 
@@ -232,16 +321,10 @@ namespace Sigeret.Controllers
             
 
 
-            List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
-
-            foreach (var item in EquiposDisponibles.GroupBy(e => e.IdModelo))
-            {
-                modelosDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == item.Key));
-            }
 
 
 
-            return  modelosDisponibles;
+            return  EquiposDisponibles;
         }
 
     }
