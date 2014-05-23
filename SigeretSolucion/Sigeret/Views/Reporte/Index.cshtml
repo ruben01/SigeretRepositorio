@@ -1,6 +1,5 @@
 ﻿@{
     ViewBag.Title = "Reporte";
-    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <h2><b>Reportes SIGERET</b></h2>
@@ -14,7 +13,7 @@
     <li><a href="/Reporte/ReporteRecursoSolicitud.cshtml">Reporte de Recursos según solicitudes realizadas</a></li>
 </ul>
 <ul>
-    <li><a href="/Reporte/ReportePretamos.cshtml">Reporte Usuarios agrupado por solicitudes</a></li>
+    <li>@Html.ActionLink("Reporte de Prestamos Agrupados por usuarios", "ReportePrestamosUsuarios", "Reporte")</li>
 </ul>
 <ul>
     <li>@Html.ActionLink("Reporte de Solicitudes agrupadas por Usuarios", "ReporteUsuarioSolicitud", "Reporte")</li>

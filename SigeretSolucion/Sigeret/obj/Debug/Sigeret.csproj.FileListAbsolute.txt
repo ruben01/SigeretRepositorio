@@ -321,3 +321,5 @@ C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Siger
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.dll
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.pdb
 C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.Reportes.Solicitudes.resources
+C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.Reportes.Usuarios.resources
+C:\Users\Administrador\Documents\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\obj\Debug\Sigeret.Reportes.PrestamosUsuarios.resources

@@ -9,7 +9,7 @@
     {
         if (ViewBag.IsPost != null)
         {
-            Sigeret.Reportes.Solicitudes rpt = new Sigeret.Reportes.Solicitudes();
+            Sigeret.Reportes.PrestamosUsuarios rpt = new Sigeret.Reportes.PrestamosUsuarios();
             rpt.ReportParameters["FechaInicio"].Value = Convert.ToDateTime(ViewBag.FechaInicio);
             rpt.ReportParameters["FechaFin"].Value = Convert.ToDateTime(ViewBag.FechaFin);
             ReportViewer1.ReportSource = rpt;
@@ -22,14 +22,14 @@
 <html>
 <head runat="server">
     <meta name="viewport" content="width=device-width" />
-    <title>ReporteUsuarioSolicitud</title>
+    <title>Prestamos Usuarios</title>
 </head>
 <body>
     <form id="form1" runat="server">
     <div>
         
         <telerik:ReportViewer ID="ReportViewer1" runat="server" Height="600px" Width="100%" OnLoad="ReportViewer1_Load" ViewMode="PrintPreview" ZoomMode="FullPage">
-<typereportsource typename="Sigeret.Reportes.Solicitudes, Sigeret, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"></typereportsource>
+<typereportsource typename="Sigeret.Reportes.PrestamosUsuarios, Sigeret, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null"></typereportsource>
 </telerik:ReportViewer>
         
     </div>
