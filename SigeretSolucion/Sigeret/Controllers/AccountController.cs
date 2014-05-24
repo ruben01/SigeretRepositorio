@@ -15,6 +15,7 @@ using System.IO;
 using System.Data.Entity;
 using System.Data;
 using Sigeret.Properties;
+using SIGERET.CustomCode;
 
 namespace Sigeret.Controllers
 {
@@ -443,6 +444,28 @@ namespace Sigeret.Controllers
             }
 
             return View(usuario);
+        }
+
+        public ActionResult ValidarCedula(string Cedula, int UserId = 0)
+        {
+            Cedula = Cedula.Replace("-", "");
+            var up = new UserProfile();
+            up.Cedula = Cedula;
+            up.UserId = UserId;
+            var valido = !db.UserProfiles.ToList()
+                .Contains(up, new GlobalHelpers.Compare<UserProfile>((l, r) => l.Cedula == r.Cedula && l.UserId != r.UserId));
+
+            return Json(valido, JsonRequestBehavior.AllowGet);
+        }
+        public ActionResult ValidarMatricula(string Matricula, int UserId = 0)
+        {
+            var up = new UserProfile();
+            up.Matricula = Matricula;
+            up.UserId = UserId;
+            var valido = !db.UserProfiles.ToList()
+                .Contains(up, new GlobalHelpers.Compare<UserProfile>((l, r) => l.Matricula == r.Matricula && l.UserId != r.UserId));
+
+            return Json(valido, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Detalles()
