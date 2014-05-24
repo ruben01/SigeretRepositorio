@@ -47,7 +47,7 @@ namespace Sigeret.Controllers
                 switch (body)
                 {
                     case "ayuda":
-                        respuesta = "\n1 Nueva Solicitud(Formato)\n2 Equipos\n3 Formato Fecha\n4 Fomato Hora\n5 NipSMS \n6 Cancelar Solicitud";
+                        respuesta = "\n1 Nueva Solicitud(Formato)\n2 Equipos\n3 Formato Fecha\n4 Fomato Hora\n5 NipSMS \n6 Cancelar Solicitud\n7 Lugares";
                         break;
 
                     case "1":
@@ -121,6 +121,8 @@ namespace Sigeret.Controllers
                     ////OjojoJoJoJoJOOJOJOJOJOJOJOJO
                     //OJOJOJOJOJJOO
                     ////////////////////////////////////////////////////////////////
+
+                    //falta validar la fecha y la hora tambn
                 }
                 else
                 {
@@ -130,13 +132,15 @@ namespace Sigeret.Controllers
                 string horaInicio;
                 string horaFin;
                 string equiposStr;
-                string lugar = null;
+                int lugar = 0;
                 string nipSMS = null;
                 List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
                 List<Equipo> equiposDisponibles = new List<Equipo>();
                 
                 //almacena la nueva Solicitud
                 Solicitud nuevaSolicitud = new Solicitud();
+                //almacena la nueva solicitud sms
+                SolicitudSm nuevaSolSms = new SolicitudSm();
 
                 //Seleccionando los id de las Solicitudes anteriores para obtener la ultima
                 var SolicitudsId = db.Solicituds.Select(s => s.Id).ToList();
@@ -155,6 +159,7 @@ namespace Sigeret.Controllers
                 {
                     return "NipSMS invalido. \nFavor vuelva a intentarlo.\nPuede Solicitarlo via web.";
                 }
+
                try
                 {
                     nuevaSolicitud.Fecha = DateTime.Parse(fecha);
@@ -188,10 +193,19 @@ namespace Sigeret.Controllers
                     //sacando el id del salon para agregarlo a la solicitud
                     if (equiposStr.ElementAt(i) == '*' && cont == 50)
                     {
-                        lugar = equiposStr.Substring(0, i );
+                        lugar =Int32.Parse( equiposStr.Substring(0, i ));
                         equiposStr = equiposStr.Substring(i + 1, equiposStr.Length - i - 1);
                         cont=0;
                         i = 0;
+                        
+                        //validando que el salon sea valido
+                        if (db.AulaEdificios.SingleOrDefault(a => a.Id ==lugar)!=null)
+                        {
+                            nuevaSolicitud.IdLugar = lugar;
+                        }else{
+
+                            return "Error con el codigo Lugar.\nVuelva a intentarlo.\nEnviar Lu para saber mas.";
+                        }
                     }
                     //sacando los equipos y la cantidad para agregarlos a la solicitud
                     if (equiposStr.ElementAt(i) == '*' && cont == 0)
@@ -249,7 +263,7 @@ namespace Sigeret.Controllers
                                 {
                                     nuevo.IdSolicitud = 1;
                                 }
-
+                                
                                 nuevo.idEquipo = Int32.Parse(item.Item1);
                                 nuevaSolicitud.SolicitudEquipoes.Add(nuevo);
                                 cantidad--;
@@ -258,13 +272,14 @@ namespace Sigeret.Controllers
                     }
 
                 }
-                
-                
+
+                nuevaSolSms.IdSolicitud = nuevaSolicitud.Id;
+                nuevaSolSms.IdContacto = db.Contactoes.SingleOrDefault(c => c.Descripcion == telefono).Id;
                 
 
                 
 
-                return nipSMS;
+                return "Solicitud Procesada.\nSu codigo:"+nuevaSolicitud.Id+"\n!Guardar Codigo!";
 
             }
             catch 
