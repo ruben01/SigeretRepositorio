@@ -15,6 +15,7 @@ namespace Sigeret.Models
         [Key]
         public int UserId { get; set; }
         [Required]
+        [System.Web.Mvc.Remote("ValidarUserName", "Account", AdditionalFields = "UserId")]
         public string UserName { get; set; }
         [Required]
         public string Apellido { get; set; }
