@@ -168,7 +168,7 @@ namespace Sigeret.Controllers
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
-                message == ManageMessageId.ChangePasswordSuccess ? "La contraseña se ha cambiado."
+                message == ManageMessageId.ChangePasswordSuccess ? "La contraseña se ha cambiado correctamente."
                 : message == ManageMessageId.SetPasswordSuccess ? "Su contraseña se ha establecido."
                 : message == ManageMessageId.RemoveLoginSuccess ? "El inicio de sesión externo se ha quitado."
                 : "";
