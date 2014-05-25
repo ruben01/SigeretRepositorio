@@ -1,6 +1,7 @@
 ﻿using Sigeret.Models;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Validation;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -46,46 +47,61 @@ namespace Sigeret.Controllers
 
                 switch (body)
                 {
+                        
                     case "ayuda":
-                        respuesta = "\n1 Nueva Solicitud(Formato)\n2 Equipos\n3 Formato Fecha\n4 Fomato Hora\n5 NipSMS \n6 Cancelar Solicitud\n7 Lugares";
+                        respuesta = "\n1 Nueva Solicitud\n2 Equipos\n3 NipSMS\n4 Salones\n5 Cancelar Solicitud";
+                        break;
+
+                    case "":
+                        respuesta = "\n1 Nueva Solicitud\n2 Equipos\n3 NipSMS\n4 Salones\n5 Cancelar Solicitud";
+                        break;
+
+                    case "menu":
+                        respuesta = "\n1 Nueva Solicitud\n2 Equipos\n3 NipSMS\n4 Salones\n5 Cancelar Solicitud";
                         break;
 
                     case "1":
-
-                        respuesta = "\nFormato Solicitud:\n *fecha*horaInicio*horaFin*NipSMS*IdAula*CodigoEquipo1*cantidad*CodigoEquipo2*cantidad*";
+                        respuesta = "Menu Solicitud\nfS Formato Nueva Solicitud\nFF Formato Fecha\nFHH Fomato Hora";
                         break;
+                                            
                     case "2":
-
                         respuesta = "Equipos\nCE Codigos Equipos\nDE Descripcion Equipo";
                         break;
+
                     case "3":
-
-                        respuesta = "\nFormato Fecha\nDia/Mes/año \nEjemplo 24/12/1999";
-                        break;
-                    case "4":
-
-                        respuesta = "\nFormato Hora\n24H Ejemplo \n07:00  \n20:00 \nhora fin mayor a la hora inicio";
-                        break;
-                    case "5":
                         respuesta = "NipSms \nCodigo utilizado para confirmar la solicitud\n Esta disponible via web o personalmente.\nEnvia NSMS para mas detalles";//Codigo para confirmar la solicitud que sera entregado al usuario
                         //al crear su cuenta y luego cada vez q haga una solicitud cuando pase a entregar el equipo se le entregara este codigo personal
                         break;
-                    case "6":
 
+                    case "4":
+                        respuesta = "En desarrollo";
+                        break;
+
+                    case "5":
                         respuesta = "\nCancelar Solicitud\n C*codigoSolicitud\nEjemplo C*2301 ";
                         break;
-                    case "ce":
 
+                    case "ce":
                         respuesta = getCodigoEquipos(null);//Funcion para devolver todos lo equipos disponibles por modelos
                         break;
-                    case "de":
 
+                    case "de":
                         respuesta = "Descripcion Equipo\nde*codigoEquipo para ver la descripcion\nEj: de*001";
                         break;
 
                     case "nsms":
-
                         respuesta = "NipSMS\n Codigo de 4 digitos generado al momento de crear su cuenta.\nDebe proporcionarlo para una solicitud SMS.\nEj. 9999";
+                        break;
+
+                    case "fs":
+                        respuesta = "\nFormato Solicitud:\n *fecha*horaInicio*horaFin*NipSMS*IdSalon*CodigoEquipo1*cantidad*CodigoEquipo2*cantidad*";
+                        break;
+
+                    case "ff":
+                        respuesta = "\nFormato Fecha\nDia/Mes/año \nEjemplo 24/12/1999";
+                        break;
+                    case "fhh":
+                        respuesta = "\nFormato Hora\n24H Ejemplo \n07:00  \n20:00 \nhora fin mayor a la hora inicio";
                         break;
                     default:
                         respuesta = "\nNo se Reconoce la Instruccion";
@@ -117,12 +133,26 @@ namespace Sigeret.Controllers
                 if (db.Contactoes.SingleOrDefault(c => c.Descripcion == telefono)!=null)
                 {
                     codigoUsuario = db.Contactoes.SingleOrDefault(c => c.Descripcion == telefono).IdUserProfile;
+                    
                     //Validando que el usurario solo pueda Registrar 5 solucitudes maximas por sms cada semestre
                     ////OjojoJoJoJoJOOJOJOJOJOJOJOJO
                     //OJOJOJOJOJJOO
                     ////////////////////////////////////////////////////////////////
 
-                    //falta validar la fecha y la hora tambn
+                    var solicitudesSMS = from s in db.SolicitudSms
+                                         join contacto in db.Contactoes on s.IdContacto equals contacto.Id
+                                         join sol in db.Solicituds on s.IdSolicitud equals sol.Id
+
+                                         where contacto.IdUserProfile == codigoUsuario && sol.Fecha >= sol.Fecha.AddMonths(-3) 
+                                         && sol.Fecha<=sol.Fecha.AddMonths(3)
+
+                                         select s.Id;
+
+                    if (solicitudesSMS.Count() > 5)
+                    {
+                        return "Usted ha excedido el maximo de solicitud sms por semestre.";
+                    }
+                    
                 }
                 else
                 {
@@ -166,6 +196,8 @@ namespace Sigeret.Controllers
                     nuevaSolicitud.HoraInicio = TimeSpan.Parse(horaInicio);
                     nuevaSolicitud.HoraFin = TimeSpan.Parse(horaFin);
                     nuevaSolicitud.Descripcion = "Solicitud SMS";
+                    nuevaSolicitud.IdUserProfile = codigoUsuario;
+                    nuevaSolicitud.IdEstatusSolicitud = 3;
                 }
                 catch 
                 {
@@ -264,7 +296,7 @@ namespace Sigeret.Controllers
                                     nuevo.IdSolicitud = 1;
                                 }
                                 
-                                nuevo.idEquipo = Int32.Parse(item.Item1);
+                                nuevo.idEquipo =equipo.Id;
                                 nuevaSolicitud.SolicitudEquipoes.Add(nuevo);
                                 cantidad--;
                             }
@@ -273,19 +305,26 @@ namespace Sigeret.Controllers
 
                 }
 
-                nuevaSolSms.IdSolicitud = nuevaSolicitud.Id;
+                nuevaSolSms.IdSolicitud = SolicitudsId.Max() + 1;
                 nuevaSolSms.IdContacto = db.Contactoes.SingleOrDefault(c => c.Descripcion == telefono).Id;
-                
 
-                
-
-                return "Solicitud Procesada.\nSu codigo:"+nuevaSolicitud.Id+"\n!Guardar Codigo!";
+                try
+                {
+                    db.Solicituds.Add(nuevaSolicitud);
+                    db.SolicitudSms.Add(nuevaSolSms);
+                    db.SaveChanges();
+                    return "Solicitud Procesada.\nSu codigo:" + nuevaSolSms.IdSolicitud + "\n!Gracias!\n!Favor guardar Codigo!";
+                }
+                catch (DbEntityValidationException e)
+                {
+                    return e.EntityValidationErrors.First().ValidationErrors.First().ErrorMessage;
+                }
 
             }
-            catch 
+            catch(Exception e)
             {
 
-                return "Error procesando su solicitud Revise el formato" + solicitud;
+                return "Error procesando su solicitud Revise el formato";
             }
 
         }

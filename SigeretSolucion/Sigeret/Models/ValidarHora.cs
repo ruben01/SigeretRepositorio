@@ -71,6 +71,11 @@ namespace Sigeret.Models
                                 string message = string.Format(error, validationContext.DisplayName);
                                 return new ValidationResult(message);
                             }
+                            else if (horaFin < horaInicio.Add(new TimeSpan(1,0,0)))
+                            {
+                                string message = string.Format(error, validationContext.DisplayName);
+                                return new ValidationResult("El tiempo mínimo entre las horas debe ser 1h");
+                            }
 
                         }
 
