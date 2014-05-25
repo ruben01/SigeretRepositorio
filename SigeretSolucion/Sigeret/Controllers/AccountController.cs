@@ -15,6 +15,7 @@ using System.IO;
 using System.Data.Entity;
 using System.Data;
 using Sigeret.Properties;
+using SIGERET.CustomCode;
 
 namespace Sigeret.Controllers
 {
@@ -418,7 +419,6 @@ namespace Sigeret.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 try
                 {
                     usuario.UserId = WebSecurity.GetUserId(User.Identity.Name);
@@ -443,6 +443,40 @@ namespace Sigeret.Controllers
             }
 
             return View(usuario);
+        }
+
+        public ActionResult ValidarCedula(string Cedula, int UserId = 0)
+        {
+            Cedula = Cedula.Replace("-", "");
+            var up = new UserProfile();
+            up.Cedula = Cedula;
+            up.UserId = UserId;
+            var valido = !db.UserProfiles.ToList()
+                .Contains(up, new GlobalHelpers.Compare<UserProfile>((l, r) => l.Cedula == r.Cedula && l.UserId != r.UserId));
+
+            return Json(valido, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ValidarMatricula(string Matricula, int UserId = 0)
+        {
+            var up = new UserProfile();
+            up.Matricula = Matricula;
+            up.UserId = UserId;
+            var valido = !db.UserProfiles.ToList()
+                .Contains(up, new GlobalHelpers.Compare<UserProfile>((l, r) => l.Matricula == r.Matricula && l.UserId != r.UserId));
+
+            return Json(valido, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult ValidarUserName(string UserName, int UserId = 0)
+        {
+            var up = new UserProfile();
+            up.UserName = UserName;
+            up.UserId = UserId;
+            var valido = !db.UserProfiles.ToList()
+                .Contains(up, new GlobalHelpers.Compare<UserProfile>((l, r) => l.UserName == r.UserName && l.UserName != r.UserName));
+
+            return Json(valido, JsonRequestBehavior.AllowGet);
         }
 
         public ActionResult Detalles()
