@@ -123,13 +123,16 @@
     </Reference>
     <Reference Include="Telerik.Reporting, Version=8.0.14.507, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\Reporting Q1 2014\Bin\Telerik.Reporting.dll</HintPath>
+      <HintPath>A. external references\Telerik.Reporting.dll</HintPath>
     </Reference>
     <Reference Include="Telerik.ReportViewer.Mvc, Version=8.0.14.507, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\Telerik\Reporting Q1 2014\Bin\Telerik.ReportViewer.Mvc.dll</HintPath>
+      <HintPath>A. external references\Telerik.ReportViewer.Mvc.dll</HintPath>
     </Reference>
-    <Reference Include="Telerik.ReportViewer.WebForms, Version=8.0.14.507, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL" />
+    <Reference Include="Telerik.ReportViewer.WebForms, Version=8.0.14.507, Culture=neutral, PublicKeyToken=a9d7983dfcc261be, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>A. external references\Telerik.ReportViewer.WebForms.dll</HintPath>
+    </Reference>
     <Reference Include="Twilio.Api">
       <HintPath>..\packages\Twilio.3.6.11\lib\3.5\Twilio.Api.dll</HintPath>
     </Reference>
@@ -564,6 +567,9 @@
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="A. external references\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
