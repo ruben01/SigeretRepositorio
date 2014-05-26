@@ -31,7 +31,7 @@ namespace Sigeret.Controllers
 
             return View();
         }
-        //
+  /*      //
         // GET: /SolicitudSms/
         public ActionResult Index()
         {
@@ -39,6 +39,7 @@ namespace Sigeret.Controllers
         }
         
         [HttpPost]
+   */
         public ActionResult Index(string body, string From)
         {
             string sender = "2766011354";
