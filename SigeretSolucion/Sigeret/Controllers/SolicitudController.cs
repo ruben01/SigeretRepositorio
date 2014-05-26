@@ -80,7 +80,7 @@ namespace Sigeret.Controllers
             //Consultando los equipos que no han sido solicitado para la fecha indicada para eliminarlos
             //de la lista de equipos disponibles
 
-            var query= db.Database.SqlQuery<int>("EXEC EquiposDisponibles {0},{1},{2}", fecha, horaInicio, horaFin).ToList();
+            var query= db.Database.SqlQuery<int>("EXEC EquiposNoDisponibles {0},{1},{2}", fecha, horaInicio, horaFin).ToList();
 
             //Agregando los equipos a la lista de equipos disponibles
 

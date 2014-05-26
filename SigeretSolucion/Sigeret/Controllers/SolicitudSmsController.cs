@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity.Validation;
+using System.Data.Objects;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -10,6 +11,24 @@ namespace Sigeret.Controllers
 {
     public class SolicitudSmsController : BaseController
     {
+        public ActionResult prueba(){
+
+            
+
+            return View();
+        }
+        [HttpPost]
+        public ActionResult prueba(string fecha,string horaInicio, string horaFin)
+        {
+            DateTime obj = new DateTime();
+            obj = DateTime.Parse(fecha);
+
+            fecha = obj.ToString("yyyy-MM-dd");
+
+            var query = db.Database.SqlQuery<int>("EXEC EquiposDisponibles {0},{1},{2}", fecha, horaInicio, horaFin).ToList();
+
+            return View();
+        }
         //
         // GET: /SolicitudSms/
         public ActionResult Index()
@@ -135,20 +154,17 @@ namespace Sigeret.Controllers
                     codigoUsuario = db.Contactoes.SingleOrDefault(c => c.Descripcion == telefono).IdUserProfile;
                     
                     //Validando que el usurario solo pueda Registrar 5 solucitudes maximas por sms cada semestre
-                    ////OjojoJoJoJoJOOJOJOJOJOJOJOJO
-                    //OJOJOJOJOJJOO
-                    ////////////////////////////////////////////////////////////////
 
                     var solicitudesSMS = from s in db.SolicitudSms
                                          join contacto in db.Contactoes on s.IdContacto equals contacto.Id
                                          join sol in db.Solicituds on s.IdSolicitud equals sol.Id
 
-                                         where contacto.IdUserProfile == codigoUsuario && sol.Fecha >= sol.Fecha.AddMonths(-3) 
-                                         && sol.Fecha<=sol.Fecha.AddMonths(3)
+                                         where contacto.IdUserProfile == codigoUsuario && sol.Fecha >= EntityFunctions.AddMonths(sol.Fecha, -3)
+                                         && sol.Fecha <= EntityFunctions.AddMonths(sol.Fecha, 3)
 
                                          select s.Id;
 
-                    if (solicitudesSMS.Count() > 5)
+                    if (solicitudesSMS.Count() > 8)
                     {
                         return "Usted ha excedido el maximo de solicitud sms por semestre.";
                     }
@@ -174,8 +190,7 @@ namespace Sigeret.Controllers
 
                 //Seleccionando los id de las Solicitudes anteriores para obtener la ultima
                 var SolicitudsId = db.Solicituds.Select(s => s.Id).ToList();
-                //Seleccionando los id de las Solicitudes sms anteriores para obtener la ultima
-                var SolicitudsSmsId = db.SolicitudSms.Select(s => s.Id).ToList();
+
 
 
                 fecha = solicitud.Substring(2, 10);
@@ -280,10 +295,11 @@ namespace Sigeret.Controllers
                     else
                     {
                         int cantidad=Int32.Parse(item.Item2);
+                        int cantidadXModelo2 = equiposDisponibles.Where(e => e.IdModelo == Int32.Parse(item.Item1)).Count();
 
                         foreach (var equipo in equiposDisponibles)
                         {
-                            if (cantidad > 0 && equipo.IdModelo == Int32.Parse(item.Item2))
+                            if (cantidad > 0 && equipo.IdModelo == Int32.Parse(item.Item1) && cantidad<=cantidadXModelo2)
                             {
                                 SolicitudEquipo nuevo=new SolicitudEquipo();
 
@@ -297,20 +313,28 @@ namespace Sigeret.Controllers
                                 }
                                 
                                 nuevo.idEquipo =equipo.Id;
+                                //Actualizamos el estatus del equipo para que se refleje su primer uso en caso de que no haya sido utilizado
+                                db.Equipoes.SingleOrDefault(e => e.Id == equipo.Id).IdEstatusEquipo = 1;
                                 nuevaSolicitud.SolicitudEquipoes.Add(nuevo);
+
                                 cantidad--;
                             }
+
                         }
                     }
 
                 }
 
-                nuevaSolSms.IdSolicitud = SolicitudsId.Max() + 1;
+                
                 nuevaSolSms.IdContacto = db.Contactoes.SingleOrDefault(c => c.Descripcion == telefono).Id;
+                
 
                 try
                 {
                     db.Solicituds.Add(nuevaSolicitud);
+                    db.SaveChanges();
+                    //Sacando el ultimo id registrado de la solicitud para asignarlo a la solicitudSms
+                    nuevaSolSms.IdSolicitud= db.Solicituds.Select(s=>s.Id).Max();
                     db.SolicitudSms.Add(nuevaSolSms);
                     db.SaveChanges();
                     return "Solicitud Procesada.\nSu codigo:" + nuevaSolSms.IdSolicitud + "\n!Gracias!\n!Favor guardar Codigo!";
@@ -373,6 +397,7 @@ namespace Sigeret.Controllers
 
             DateTime fechaObj = new DateTime();
             fechaObj = DateTime.Parse(fecha);
+            fecha = fechaObj.ToString("yyyy-MM-dd");
 
             //Almacena los equipos que estan disponibles para ser solicitado
             List<Equipo> EquiposDisponibles = new List<Equipo>();
@@ -383,7 +408,8 @@ namespace Sigeret.Controllers
             //Consultando los equipos que no han sido solicitado para la fecha indicada para eliminarlos
             //de la lista de equipos disponibles
 
-            var query = db.Database.SqlQuery<int>("EXEC EquiposDisponibles {0},{1},{2}", fechaObj, horaInicio, horaFin).ToList();
+
+            var query = db.Database.SqlQuery<int>("EXEC EquiposNoDisponibles {0},{1},{2}", fecha, horaInicio, horaFin);
 
             //Agregando los equipos a la lista de equipos disponibles
 
@@ -400,6 +426,13 @@ namespace Sigeret.Controllers
 
 
             return  EquiposDisponibles;
+        }
+
+
+        public DateTime formatoFecha(DateTime fecha, int meses)
+        {
+
+           return fecha.AddMonths(meses);
         }
 
     }

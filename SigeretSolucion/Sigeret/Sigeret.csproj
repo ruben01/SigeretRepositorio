@@ -535,6 +535,7 @@
     <Content Include="Views\SolicitudSms\Index.cshtml" />
     <Content Include="Views\Reporte\ReportsGeneric.cshtml" />
     <Content Include="Views\Reporte\ReportePrestamosUsuarios.cshtml" />
+    <Content Include="Views\SolicitudSms\prueba.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
