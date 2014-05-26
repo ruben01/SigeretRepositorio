@@ -10,6 +10,7 @@ using Twilio;
 
 namespace Sigeret.Controllers
 {
+    [AllowAnonymous]
     public class SolicitudSmsController : BaseController
     {
         public ActionResult prueba(){
@@ -36,7 +37,7 @@ namespace Sigeret.Controllers
         {
             return View();
         }
-
+        
         [HttpPost]
         public ActionResult Index(string body, string From)
         {
