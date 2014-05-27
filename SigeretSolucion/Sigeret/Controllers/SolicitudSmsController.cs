@@ -32,14 +32,14 @@ namespace Sigeret.Controllers
         }
          */
         //
-        // GET: /SolicitudSms/
+     /*   // GET: /SolicitudSms/
         public ActionResult Index()
         {
             return View();
         }
         
         [HttpPost]
-   
+   */
         public ActionResult Index(string body, string From)
         {
             string opcion ="";
