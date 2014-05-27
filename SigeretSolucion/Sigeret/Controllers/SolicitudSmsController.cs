@@ -13,9 +13,8 @@ namespace Sigeret.Controllers
     [AllowAnonymous]
     public class SolicitudSmsController : BaseController
     {
-        public ActionResult prueba(){
-
-            
+        /*
+        public ActionResult prueba(){        
 
             return View();
         }
@@ -31,7 +30,8 @@ namespace Sigeret.Controllers
 
             return View();
         }
-  /*      //
+         */
+        //
         // GET: /SolicitudSms/
         public ActionResult Index()
         {
@@ -39,9 +39,20 @@ namespace Sigeret.Controllers
         }
         
         [HttpPost]
-   */
+   
         public ActionResult Index(string body, string From)
         {
+            string opcion ="";
+
+            // get the session varible if it exists    
+            if (Session["opcion"] != null) { opcion =(String)Session["opcion"]; }
+
+            // increment it
+            opcion = opcion+body;
+
+            // save it
+            Session["opcion"] = opcion; 
+
             string sender = "2766011354";
             if (!string.IsNullOrEmpty(body))
             {
@@ -67,7 +78,7 @@ namespace Sigeret.Controllers
             else
             {
 
-                switch (body)
+                switch (opcion)
                 {
                         
                     case "ayuda":
@@ -83,15 +94,15 @@ namespace Sigeret.Controllers
                         break;
 
                     case "1":
-                        respuesta = "Menu Solicitud\nfS Formato Nueva Solicitud\nFF Formato Fecha\nFHH Fomato Hora";
+                        respuesta = "\nMenu Solicitud\n1 Formato Nueva Solicitud\n2 Formato Fecha\n3 Fomato Hora";
                         break;
                                             
                     case "2":
-                        respuesta = "Equipos\nCE Codigos Equipos\nDE Descripcion Equipo";
+                        respuesta = "\nEquipos\nCE Codigos Equipos\nDE Descripcion Equipo";
                         break;
 
                     case "3":
-                        respuesta = "NipSms \nCodigo utilizado para confirmar la solicitud\n Esta disponible via web o personalmente.\nEnvia NSMS para mas detalles";//Codigo para confirmar la solicitud que sera entregado al usuario
+                        respuesta = "\nNipSms \nCodigo utilizado para confirmar la solicitud\n Esta disponible via web o personalmente.\nEnvia NSMS para mas detalles";//Codigo para confirmar la solicitud que sera entregado al usuario
                         //al crear su cuenta y luego cada vez q haga una solicitud cuando pase a entregar el equipo se le entregara este codigo personal
                         break;
 
@@ -108,21 +119,21 @@ namespace Sigeret.Controllers
                         break;
 
                     case "de":
-                        respuesta = "Descripcion Equipo\nde*codigoEquipo para ver la descripcion\nEj: de*001";
+                        respuesta = "\nDescripcion Equipo\nde*codigoEquipo para ver la descripcion\nEj: de*001";
                         break;
 
                     case "nsms":
-                        respuesta = "NipSMS\n Codigo de 4 digitos generado al momento de crear su cuenta.\nDebe proporcionarlo para una solicitud SMS.\nEj. 9999";
+                        respuesta = "\nNipSMS\n Codigo de 4 digitos generado al momento de crear su cuenta.\nDebe proporcionarlo para una solicitud SMS.\nEj. 9999";
                         break;
 
-                    case "fs":
+                    case "11":
                         respuesta = "\nFormato Solicitud:\n *fecha*horaInicio*horaFin*NipSMS*IdSalon*CodigoEquipo1*cantidad*CodigoEquipo2*cantidad*";
                         break;
 
-                    case "ff":
+                    case "12":
                         respuesta = "\nFormato Fecha\nDia/Mes/año \nEjemplo 24/12/1999";
                         break;
-                    case "fhh":
+                    case "13":
                         respuesta = "\nFormato Hora\n24H Ejemplo \n07:00  \n20:00 \nhora fin mayor a la hora inicio";
                         break;
                     default:
@@ -132,13 +143,13 @@ namespace Sigeret.Controllers
                 }
             }
 
-              var twilio = new TwilioRestClient("AC7329769855ac2319f51129e29352294c","30b5abfcedeec6ec14586780e880fc88");
-              var sms = twilio.SendSmsMessage(sender,From,respuesta);
+             var twilio = new TwilioRestClient("AC7329769855ac2319f51129e29352294c","30b5abfcedeec6ec14586780e880fc88");
+             var sms = twilio.SendSmsMessage(sender,From,respuesta);
 
-            // return Content(sms.Sid);
-            ViewBag.resp = respuesta;
-            ViewBag.leng = respuesta.Length;
-            return View();
+            return Content(sms.Sid);
+         //   ViewBag.resp = respuesta+"Counter="+opcion;
+           // ViewBag.leng = respuesta.Length;
+           // return View();
         }
 
 
