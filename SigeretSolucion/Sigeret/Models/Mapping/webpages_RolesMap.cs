@@ -21,8 +21,8 @@ namespace Sigeret.Models.Mapping
             this.Property(t => t.RoleName).HasColumnName("RoleName");
 
             // Relationships
-            this.HasMany(t => t.UserProfiles1)
-                .WithMany(t => t.webpages_Roles1)
+            this.HasMany(t => t.UserProfiles)
+                .WithMany(t => t.webpages_Roles)
                 .Map(m =>
                     {
                         m.ToTable("webpages_UsersInRoles");

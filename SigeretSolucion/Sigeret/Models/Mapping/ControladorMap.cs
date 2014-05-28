@@ -11,9 +11,6 @@ namespace Sigeret.Models.Mapping
             this.HasKey(t => t.Id);
 
             // Properties
-            this.Property(t => t.Id)
-                .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
-
             this.Property(t => t.Descriptor)
                 .IsRequired()
                 .IsFixedLength()

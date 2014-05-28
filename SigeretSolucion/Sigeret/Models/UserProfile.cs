@@ -10,7 +10,7 @@ namespace Sigeret.Models
             this.Contactoes = new List<Contacto>();
             this.Solicituds = new List<Solicitud>();
             this.UsuarioNipSms = new List<UsuarioNipSm>();
-            this.webpages_Roles1 = new List<webpages_Roles>();
+            this.webpages_Roles = new List<webpages_Roles>();
         }
 
         public int UserId { get; set; }
@@ -21,12 +21,10 @@ namespace Sigeret.Models
         public byte[] Foto { get; set; }
         public string Matricula { get; set; }
         public int IdEstatusUsuario { get; set; }
-        public Nullable<int> RoleId { get; set; }
         public virtual ICollection<Contacto> Contactoes { get; set; }
         public virtual EstatusUsuario EstatusUsuario { get; set; }
         public virtual ICollection<Solicitud> Solicituds { get; set; }
-        public virtual webpages_Roles webpages_Roles { get; set; }
         public virtual ICollection<UsuarioNipSm> UsuarioNipSms { get; set; }
-        public virtual ICollection<webpages_Roles> webpages_Roles1 { get; set; }
+        public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }
 }

@@ -48,15 +48,17 @@ namespace Sigeret.App_Start
 
                 //Creacion y gestion de parametros para cuenta administrador
                 if (!WebSecurity.UserExists("SigeretAdmin"))
-                {
-                    SigeretContext db = new SigeretContext();
-                    var roleId = db.webpages_Roles.FirstOrDefault(r => r.RoleName == "Administrador").RoleId;
+                {                   
                     WebSecurity.CreateUserAndAccount(
                         "SigeretAdmin", "000000",
-                        propertyValues: new { Nombre = "Administrador", Apellido = "Sigeret", Cedula = "00000000000", Matricula = "7777777777", RoleId = roleId });
+                        propertyValues: new { Nombre = "Administrador", Apellido = "Sigeret", Cedula = "00000000000", Matricula = "7777777777" });
                 }
 
-                
+                if (!roles.GetRolesForUser("SigeretAdmin").Contains("Administrador"))
+                {
+                    roles.AddUsersToRoles(new[] { "SigeretAdmin" }, new[] { "Administrador" });
+                }
+
                 using (SigeretContext db = new SigeretContext())
                 {
                     //Almacenando datos de los controladores y la acciones en la bd, para el modulo de permisos.

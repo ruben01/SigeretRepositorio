@@ -41,15 +41,11 @@ namespace Sigeret.Models.Mapping
             this.Property(t => t.Foto).HasColumnName("Foto");
             this.Property(t => t.Matricula).HasColumnName("Matricula");
             this.Property(t => t.IdEstatusUsuario).HasColumnName("IdEstatusUsuario");
-            this.Property(t => t.RoleId).HasColumnName("RoleId");
 
             // Relationships
             this.HasRequired(t => t.EstatusUsuario)
                 .WithMany(t => t.UserProfiles)
                 .HasForeignKey(d => d.IdEstatusUsuario);
-            this.HasOptional(t => t.webpages_Roles)
-                .WithMany(t => t.UserProfiles)
-                .HasForeignKey(d => d.RoleId);
 
         }
     }

@@ -87,7 +87,7 @@ namespace Sigeret.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        [Vista("Cerrar Sesion", "AAA02")]
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
@@ -102,7 +102,8 @@ namespace Sigeret.Controllers
         [Vista("Registrar Usuario", "AAA03")]
         public ActionResult Register()
         {
-
+            ViewBag.RoleId = db.webpages_Roles.ToList()
+                .ToSelectListItems(r => r.RoleName, r => r.RoleId.ToString());
 
             return View();
         }

@@ -221,9 +221,11 @@
     <Compile Include="Controllers\SolicitudSmsController.cs" />
     <Compile Include="Controllers\UnauthorizeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="CustomCode\CustomAuthorize.cs" />
     <Compile Include="CustomCode\DataHelpers.cs" />
     <Compile Include="CustomCode\GlobalHelpers.cs" />
     <Compile Include="CustomCode\HtmlHelpers.cs" />
+    <Compile Include="CustomCode\MenuAuthorize.cs" />
     <Compile Include="CustomCode\ViewBase.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
     <Compile Include="Filters\ControladorAttribute.cs" />

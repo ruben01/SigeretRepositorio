@@ -57,7 +57,7 @@ namespace Sigeret.Controllers
             return View(nuevoContacto);
         }
 
-        [Vista("Mis Contactos", "ABA02")]
+        [Vista("Mis Contactos", "ABA03")]
         public ActionResult MisContactos()
         {
             var contactos = db.Contactoes.Where(c => c.IdUserProfile == WebSecurity.CurrentUserId);
@@ -67,7 +67,7 @@ namespace Sigeret.Controllers
 
         //
         // GET: /Contacto/Edit/5
-        [Vista("Editar Contacto", "ABA03")]
+        [Vista("Editar Contacto", "ABA04")]
         public ActionResult Editar(int Id)
         {
             var contacto = db.Contactoes.FirstOrDefault(c => c.Id == Id);
@@ -106,7 +106,7 @@ namespace Sigeret.Controllers
         }
 
         [HttpPost]
-        [Vista("Agregar Contacto", "ABA04")]
+        [Vista("Agregar Contacto", "ABA05")]
         public ActionResult AgregarContacto(ContactoViewModel model)
         {
             if (ModelState.IsValid)
@@ -125,7 +125,7 @@ namespace Sigeret.Controllers
             return Json(false, JsonRequestBehavior.AllowGet);
         }
 
-        [Vista("Editar Contacto", "ABA05")]
+        [Vista("Editar Contacto", "ABA06")]
         public ActionResult EditarContacto(int id)
         {
             var contacto = db.Contactoes.Find(id);
@@ -162,7 +162,7 @@ namespace Sigeret.Controllers
 
 
         [HttpPost]
-        [Vista("Eliminar Contacto", "ABA06")]
+        [Vista("Eliminar Contacto", "ABA07")]
         public ActionResult Eliminar(int id)
         {
             var contacto = db.Contactoes.Find(id);
