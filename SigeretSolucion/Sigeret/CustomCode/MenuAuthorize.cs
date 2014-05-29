@@ -22,7 +22,6 @@ namespace Sigeret.CustomCode
             {
                 if (WebSecurity.IsAuthenticated)
                 {
-                    db = new SigeretContext();
                     var user = db.UserProfiles.FirstOrDefault(usr => usr.UserId == WebSecurity.CurrentUserId);
 
                     foreach (webpages_Roles role in user.webpages_Roles)
@@ -67,6 +66,23 @@ namespace Sigeret.CustomCode
         {
             if (Menu.Where(d => d.Key == (ControllerName + "-" + actionName) && d.Value == actionName).Count() > 0)
                 return true;
+            return false;
+        }
+
+        public bool HasPermission(string actionName, string ControllerName, String ActionDescriptor)
+        {
+            if (Menu.Where(d => d.Key == (ControllerName + "-" + actionName) && d.Value == actionName).Count() > 0)
+                return true;
+            else
+            {
+                var Action = db.Accions.FirstOrDefault(a => a.Descriptor == ActionDescriptor);
+                if (Action != null)
+                {
+                    if (Menu.Where(d => d.Key == (Action.Controlador.Name + "-" + Action.Name) && d.Value == Action.Name).Count() > 0)
+                        return true;
+                }
+            }
+
             return false;
         }
     }
