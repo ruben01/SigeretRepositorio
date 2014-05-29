@@ -1,4 +1,5 @@
-﻿using Sigeret.Models;
+﻿using Sigeret.CustomCode;
+using Sigeret.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace Sigeret.Controllers
     /// a ser utilizados en todos los controladores de la aplicación.
     /// </summary>
     [Authorize]
+    [CustomAuthorize]
     [OutputCache(NoStore = true, Duration = 0, VaryByParam = "*")]
     public class BaseController : Controller
     {

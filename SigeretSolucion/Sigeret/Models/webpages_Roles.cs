@@ -7,11 +7,13 @@ namespace Sigeret.Models
     {
         public webpages_Roles()
         {
+            this.Accions = new List<Accion>();
             this.UserProfiles = new List<UserProfile>();
         }
 
         public int RoleId { get; set; }
         public string RoleName { get; set; }
+        public virtual ICollection<Accion> Accions { get; set; }
         public virtual ICollection<UserProfile> UserProfiles { get; set; }
     }
 }

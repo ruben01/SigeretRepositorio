@@ -5,20 +5,20 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
-using SIGERET.CustomCode;
+using Sigeret.CustomCode;
 using System.Data.SqlClient;
 using System.Data;
 using Sigeret.Models.ViewModels;
 
-
 namespace Sigeret.Controllers
 {
+    [EsController("Solicitudes", "AE00")]
     public class SolicitudController : BaseController
     {
 
         //
         // GET: /Solicituds/
-
+        [Vista("Pagina Principal", "AEA01")]
         public ActionResult Index()
         {
             return View();
@@ -26,11 +26,9 @@ namespace Sigeret.Controllers
 
         //
         // GET: /Solicituds/Details/5
-
+        [Vista("Ver Detalles", "AEA02")]
         public ActionResult Detalles(int id)
         {
-
-
             List<Equipo> equiposSeleccionados = new List<Equipo>();
 
             var solicitados = db.SolicitudEquipoes.Where(se => se.IdSolicitud == id)
@@ -53,7 +51,7 @@ namespace Sigeret.Controllers
 
         //
         // GET: /Solicituds/Create
-
+        [Vista("Nueva Solicitud", "AEA03")]
         public ActionResult Nueva()
         {
             ViewBag.EdificioID = getEdificio();
@@ -270,6 +268,7 @@ namespace Sigeret.Controllers
         /// ReporteSolicitudses Adm
         /// </summary>
         /// <returns></returns>
+        [Vista("Ver Detalles (Adm)", "AEA04")]
         public ActionResult ReporteSolicitudesAdm()
         {
             return View(db.Solicituds.ToList());
@@ -277,7 +276,7 @@ namespace Sigeret.Controllers
 
         //
         // GET: /Solicituds/Edit/5
-
+        [Vista("Editar Solicitud", "AEA05")]
         public ActionResult Editar(int id)
         {
             //almacena la cantidad y el modelo del equipo seleccionado
@@ -542,7 +541,7 @@ namespace Sigeret.Controllers
 
         //
         // GET: /Solicituds/Delete/5
-
+        //[Vista("Eliminar Solicitud", "AEA06")]
         public ActionResult Delete(int id)
         {
             return View();

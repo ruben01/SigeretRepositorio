@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace SIGERET.CustomCode
+namespace Sigeret.CustomCode
 {
     public static class HtmlHelpers
     {
@@ -155,9 +155,6 @@ namespace SIGERET.CustomCode
 
             return html.DropDownList(name, selectList, (optionLabel == null) ? string.Empty : optionLabel, attributes);
         }
-        //public static MvcHtmlString ListBox(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, object htmlAttributes);
-        //public static MvcHtmlString ListBoxFor<TModel, TProperty>(this HtmlHelper<TModel> htmlHelper, Expression<Func<TModel, TProperty>> expression, IEnumerable<SelectListItem> selectList, object htmlAttributes);
-        //public static MvcHtmlString DropDownList(this HtmlHelper htmlHelper, string name, IEnumerable<SelectListItem> selectList, object htmlAttributes);
 
         private static void addCustomClass(
             object htmlAttributes,
@@ -171,6 +168,45 @@ namespace SIGERET.CustomCode
                 cssClass = "";
             }
             attributes["class"] = cssClass + " " + Customclass;    
+        }
+
+        public static MvcHtmlString AuthorizeActionLink
+            (
+             this HtmlHelper htmlHelper,
+             MenuAuthorize menuAuthorize,
+             string linkText,
+             string actionName,
+             string controllerName,
+             object routeValues = null,
+             object htmlAttributes = null
+            )
+        {
+            if (menuAuthorize.HasPermission(actionName, controllerName))
+            {
+                return htmlHelper.ActionLink(linkText, actionName, controllerName, routeValues, htmlAttributes);
+            }
+
+            return MvcHtmlString.Create("");
+        }
+
+        public static MvcHtmlString AuthorizeActionLink
+            (
+             this HtmlHelper htmlHelper,
+             MenuAuthorize menuAuthorize,
+             string linkText,
+             string actionName,
+             string controllerName,
+             string actionDescriptor,
+             object routeValues = null,
+             object htmlAttributes = null
+            )
+        {
+            if (menuAuthorize.HasPermission(actionName, controllerName, actionDescriptor))
+            {
+                return htmlHelper.ActionLink(linkText, actionName, controllerName, routeValues, htmlAttributes);
+            }
+
+            return MvcHtmlString.Create("");
         }
 
     }

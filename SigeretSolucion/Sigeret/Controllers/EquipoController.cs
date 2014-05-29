@@ -1,4 +1,5 @@
-﻿using Sigeret.Models;
+﻿using Sigeret.CustomCode;
+using Sigeret.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,17 +8,19 @@ using System.Web.Mvc;
 
 namespace Sigeret.Controllers
 {
+    [EsController("Equipos", "AC00")]
     public class EquipoController : BaseController
     {
 
         //
         // GET: /Equipo/
-
+        [Vista("Pagina Principal", "ACA01")]
         public ActionResult Index()
         {
             return View();
         }
 
+        [Vista("Nuevo Equipo", "ACA02")]
         public ActionResult NuevoEquipo()
         {
             return View();
@@ -36,6 +39,7 @@ namespace Sigeret.Controllers
             return View(equipo);
         }
 
+        [Vista("Listar Equipos", "ACA03")]
         public ActionResult ReporteEquipos()
         {
 
@@ -43,12 +47,14 @@ namespace Sigeret.Controllers
 
         }
 
+        [Vista("Ver Detalles", "ACA04")]
         public ActionResult Detalles(int Id)
         {
 
             return View(db.Equipoes.Find(Id));
         }
 
+        [Vista("Editar Equipo", "ACA05")]
         public ActionResult Editar(int Id)
         {
             return View(db.Equipoes.Find(Id));

@@ -1,0 +1,34 @@
+﻿@model PermisosViewModelPartial
+
+@{
+    double maxRecords = Model.Controladores.Count;
+    double firstDiv = Math.Round((maxRecords / 3.0));
+    int i = (int)firstDiv;
+    int lower = Model.Controladores.FirstOrDefault().Accions.Select(a => a.Id).Min();
+}
+
+<div class="panel-group" id="accordion">
+    @foreach (Controlador item in Model.Controladores)
+    {
+        <div class="panel panel-default col-lg-12">
+            <div class="panel-heading">
+                <h4 class="panel-title">
+                    <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#@item.Id">
+                        @(item.Name)
+                    </a>
+                </h4>
+            </div>
+            <div id="@item.Id" class="panel-collapse collapse" >
+                <div class="panel-body">
+                    @foreach (Accion action in item.Accions)
+                    {
+                        <label class="permissions">
+                            <input type="checkbox" name="actions" value="@action.Id" @((Model.AccionesSeleccionadas.Contains(action.Id) ? "checked" : ""))/>
+                            @(action.Name)
+                        </label>
+                    }
+                </div>
+            </div>
+        </div>
+    }
+</div>

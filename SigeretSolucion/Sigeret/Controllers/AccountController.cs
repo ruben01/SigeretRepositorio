@@ -15,15 +15,15 @@ using System.IO;
 using System.Data.Entity;
 using System.Data;
 using Sigeret.Properties;
-using SIGERET.CustomCode;
+using Sigeret.CustomCode;
 
 namespace Sigeret.Controllers
 {
     [Authorize]
-    //[InitializeSimpleMembership]
+    [EsController("Cuentas","AA00")]
     public class AccountController : BaseController
     {
-
+        [Vista("Pagina Principal", "AAA00")]
         public ActionResult Index()
         {
 
@@ -34,6 +34,7 @@ namespace Sigeret.Controllers
         // GET: /Account/Login
 
         [AllowAnonymous]
+        [Vista("Iniciar Sesion", "AAA01")]
         public ActionResult Login(string returnUrl)
         {
             ViewBag.ReturnUrl = returnUrl;
@@ -85,6 +86,7 @@ namespace Sigeret.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult LogOff()
         {
             WebSecurity.Logout();
@@ -96,9 +98,11 @@ namespace Sigeret.Controllers
         // GET: /Account/Register
 
         [AllowAnonymous]
+        [Vista("Registrar Usuario", "AAA03")]
         public ActionResult Register()
         {
-
+            ViewBag.RoleId = db.webpages_Roles.ToList()
+                .ToSelectListItems(r => r.RoleName, r => r.RoleId.ToString());
 
             return View();
         }
@@ -164,7 +168,7 @@ namespace Sigeret.Controllers
 
         //
         // GET: /Account/Manage
-
+        [Vista("Gestionar Cuenta", "AAA04")]
         public ActionResult Manage(ManageMessageId? message)
         {
             ViewBag.StatusMessage =
@@ -415,6 +419,7 @@ namespace Sigeret.Controllers
         }
 
         [HttpPost]
+        [Vista("Editar Cuenta", "AAA05")]
         public ActionResult Editar(UserProfile usuario)
         {
             if (ModelState.IsValid)

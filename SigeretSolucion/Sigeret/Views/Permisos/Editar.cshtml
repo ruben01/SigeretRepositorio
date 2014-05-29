@@ -1,0 +1,71 @@
+﻿@model PermisosViewModel
+
+@{
+    ViewBag.Title = "Editar";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <hgroup class="title">
+            <h1><@ViewBag.Title.</h1>
+            <h2></h2>
+        </hgroup>
+        <div class="well">
+            @using (Html.BeginForm())
+            {
+                @Html.ValidationSummary(true)
+                @Html.AntiForgeryToken()
+                <fieldset>
+                    <legend>Editar permisos para los Roles</legend>
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            @Html.CLabelFor(m => m.RoleId)
+                            @Html.CDropDownListFor(m => m.RoleId, null, null, new { @class = "rolPermisos" })
+                            @Html.CValidationMessageFor(m => m.RoleId)
+                        </div>
+                    </div>
+                    @Html.Hidden("permisosRolUrl", Url.Action("ObtenerPermisosRol", "Permisos"))
+                    <div class="row">
+                        <div class="form-group col-lg-12">
+                            <div class="partial">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="form-group col-lg-12">
+                            <input type="submit" class="btn btn-primary" value="Guardar" />
+                            @Html.ActionLink("Cancelar", "Index", "Home", null, new { @class = "btn btn-default" })
+                        </div>
+                    </div>
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        $(document).ready(function () {
+            $('.rolPermisos').on('change', function () {
+                if ($('.rolPermisos option:selected').val() != "") {
+                    $.post(
+                        $('#permisosRolUrl').val(),
+                        { id: $('#RoleId option:selected').val() },
+                        function (data) {
+                            $(".partial").html("");
+                            $(data).appendTo('.partial');
+                        }
+                    );
+                }
+                else {
+                    $(".partial").html("");
+                }
+            });
+
+            if ($('.rolPermisos option').length > 0) {
+                $('.rolPermisos').trigger("change");
+            }
+        });
+    </script>
+}

@@ -216,33 +216,42 @@
     <Compile Include="Controllers\CustomErrorsController.cs" />
     <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PermisosController.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
     <Compile Include="Controllers\SolicitudSmsController.cs" />
     <Compile Include="Controllers\UnauthorizeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="CustomCode\CustomAuthorize.cs" />
     <Compile Include="CustomCode\DataHelpers.cs" />
     <Compile Include="CustomCode\GlobalHelpers.cs" />
     <Compile Include="CustomCode\HtmlHelpers.cs" />
+    <Compile Include="CustomCode\MenuAuthorize.cs" />
     <Compile Include="CustomCode\ViewBase.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
+    <Compile Include="Filters\ControladorAttribute.cs" />
+    <Compile Include="Filters\VistaAttribute.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\Accion.cs" />
     <Compile Include="Models\AccountModels.cs" />
     <Compile Include="Models\AgregarEquipo.cs" />
     <Compile Include="Models\AulaEdificio.cs" />
     <Compile Include="Models\CedulaUASD.cs" />
     <Compile Include="Models\Contacto.cs" />
+    <Compile Include="Models\Controlador.cs" />
     <Compile Include="Models\Equipo.cs" />
     <Compile Include="Models\EstatusEquipo.cs" />
     <Compile Include="Models\EstatusMatricula.cs" />
     <Compile Include="Models\EstatusSolicitud.cs" />
     <Compile Include="Models\EstatusUsuario.cs" />
     <Compile Include="Models\Lugar.cs" />
+    <Compile Include="Models\Mapping\AccionMap.cs" />
     <Compile Include="Models\Mapping\AulaEdificioMap.cs" />
     <Compile Include="Models\Mapping\CedulaUASDMap.cs" />
     <Compile Include="Models\Mapping\ContactoMap.cs" />
+    <Compile Include="Models\Mapping\ControladorMap.cs" />
     <Compile Include="Models\Mapping\EquipoMap.cs" />
     <Compile Include="Models\Mapping\EstatusEquipoMap.cs" />
     <Compile Include="Models\Mapping\EstatusMatriculaMap.cs" />
@@ -256,6 +265,7 @@
     <Compile Include="Models\Mapping\SolicitudMap.cs" />
     <Compile Include="Models\Mapping\SolicitudSmMap.cs" />
     <Compile Include="Models\Mapping\TipoContactoMap.cs" />
+    <Compile Include="Models\Mapping\UserMap.cs" />
     <Compile Include="Models\Mapping\UserProfileMap.cs" />
     <Compile Include="Models\Mapping\UsuarioNipSmMap.cs" />
     <Compile Include="Models\Mapping\webpages_MembershipMap.cs" />
@@ -271,11 +281,13 @@
     <Compile Include="Models\SolicitudEquipo.cs" />
     <Compile Include="Models\SolicitudSm.cs" />
     <Compile Include="Models\TipoContacto.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\UsuarioNipSm.cs" />
     <Compile Include="Models\validarFecha.cs" />
     <Compile Include="Models\ValidarHora.cs" />
     <Compile Include="Models\ViewModels\ContactoViewModel.cs" />
+    <Compile Include="Models\ViewModels\PermisosViewModel.cs" />
     <Compile Include="Models\ViewModels\SolicitudViewModel.cs" />
     <Compile Include="Models\webpages_Membership.cs" />
     <Compile Include="Models\webpages_OAuthMembership.cs" />
@@ -539,6 +551,8 @@
     <Content Include="Views\Reporte\ReportsGeneric.cshtml" />
     <Content Include="Views\Reporte\ReportePrestamosUsuarios.cshtml" />
     <Content Include="Views\SolicitudSms\prueba.cshtml" />
+    <Content Include="Views\Permisos\Editar.cshtml" />
+    <Content Include="Views\Permisos\_AutorizacionesRolPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

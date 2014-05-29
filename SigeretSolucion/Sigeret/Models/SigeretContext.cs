@@ -16,9 +16,11 @@ namespace Sigeret.Models
         {
         }
 
+        public DbSet<Accion> Accions { get; set; }
         public DbSet<AulaEdificio> AulaEdificios { get; set; }
         public DbSet<CedulaUASD> CedulaUASDs { get; set; }
         public DbSet<Contacto> Contactoes { get; set; }
+        public DbSet<Controlador> Controladors { get; set; }
         public DbSet<Equipo> Equipoes { get; set; }
         public DbSet<EstatusEquipo> EstatusEquipoes { get; set; }
         public DbSet<EstatusMatricula> EstatusMatriculas { get; set; }
@@ -33,6 +35,7 @@ namespace Sigeret.Models
         public DbSet<SolicitudSm> SolicitudSms { get; set; }
         public DbSet<TipoContacto> TipoContactoes { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
+        public DbSet<User> Users { get; set; }
         public DbSet<UsuarioNipSm> UsuarioNipSms { get; set; }
         public DbSet<webpages_Membership> webpages_Membership { get; set; }
         public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
@@ -40,9 +43,11 @@ namespace Sigeret.Models
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Configurations.Add(new AccionMap());
             modelBuilder.Configurations.Add(new AulaEdificioMap());
             modelBuilder.Configurations.Add(new CedulaUASDMap());
             modelBuilder.Configurations.Add(new ContactoMap());
+            modelBuilder.Configurations.Add(new ControladorMap());
             modelBuilder.Configurations.Add(new EquipoMap());
             modelBuilder.Configurations.Add(new EstatusEquipoMap());
             modelBuilder.Configurations.Add(new EstatusMatriculaMap());
@@ -57,6 +62,7 @@ namespace Sigeret.Models
             modelBuilder.Configurations.Add(new SolicitudSmMap());
             modelBuilder.Configurations.Add(new TipoContactoMap());
             modelBuilder.Configurations.Add(new UserProfileMap());
+            modelBuilder.Configurations.Add(new UserMap());
             modelBuilder.Configurations.Add(new UsuarioNipSmMap());
             modelBuilder.Configurations.Add(new webpages_MembershipMap());
             modelBuilder.Configurations.Add(new webpages_OAuthMembershipMap());

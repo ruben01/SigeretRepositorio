@@ -121,6 +121,10 @@ namespace Sigeret.Models
         [Required]
         [EmailAddress(ErrorMessage="Introduzca una dirección de correo válida")]
         public string Correo { get; set; }
+
+        [Required]
+        [Display(Name = "Rol de Usuario")]
+        public int RoleId { get; set; }
     }
      
 

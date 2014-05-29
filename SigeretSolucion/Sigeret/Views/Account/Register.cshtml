@@ -72,6 +72,11 @@
                             @Html.CTextBoxFor(model => model.Correo, new{ placeholder="juanperez@ejemplo.com" })
                             @Html.CValidationMessageFor(model => model.Correo)
                         </div>
+                        <div class="form-group col-lg-4">
+                            @Html.CLabelFor(model => model.RoleId)
+                            @Html.CDropDownListFor(model => model.RoleId, null, "..Seleccione el Rol", new { @class = "chosen" })
+                            @Html.CValidationMessageFor(model => model.RoleId)
+                        </div>
                     </div>
 
                     <div class="row form-group col-lg-12">
