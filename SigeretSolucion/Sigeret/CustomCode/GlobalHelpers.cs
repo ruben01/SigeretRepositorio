@@ -9,7 +9,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
 
-namespace SIGERET.CustomCode
+namespace Sigeret.CustomCode
 {
     public class GlobalHelpers
     {

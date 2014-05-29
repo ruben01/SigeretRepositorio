@@ -15,7 +15,6 @@ using System.IO;
 using System.Data.Entity;
 using System.Data;
 using Sigeret.Properties;
-using SIGERET.CustomCode;
 using Sigeret.CustomCode;
 
 namespace Sigeret.Controllers

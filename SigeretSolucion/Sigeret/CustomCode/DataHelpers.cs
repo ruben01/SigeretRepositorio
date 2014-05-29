@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
 
-namespace SIGERET.CustomCode
+namespace Sigeret.CustomCode
 {
     public static class DataHelpers
     {

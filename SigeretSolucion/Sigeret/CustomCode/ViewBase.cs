@@ -5,7 +5,7 @@ using System.Web.Mvc;
 using System.Web.Security;
 using WebMatrix.WebData;
 
-namespace SIGERET.CustomCode
+namespace Sigeret.CustomCode
 {
     /// <summary>
     /// Clase base utilizada para encapsular genéricamente métodos y propiedades

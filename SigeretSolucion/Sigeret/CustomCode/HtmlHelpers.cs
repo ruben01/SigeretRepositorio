@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Html;
 
-namespace SIGERET.CustomCode
+namespace Sigeret.CustomCode
 {
     public static class HtmlHelpers
     {

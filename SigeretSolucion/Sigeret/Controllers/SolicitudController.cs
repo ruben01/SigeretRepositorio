@@ -5,12 +5,10 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using WebMatrix.WebData;
-using SIGERET.CustomCode;
+using Sigeret.CustomCode;
 using System.Data.SqlClient;
 using System.Data;
 using Sigeret.Models.ViewModels;
-using Sigeret.CustomCode;
-
 
 namespace Sigeret.Controllers
 {

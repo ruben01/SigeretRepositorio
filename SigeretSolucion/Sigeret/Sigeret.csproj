@@ -216,6 +216,7 @@
     <Compile Include="Controllers\CustomErrorsController.cs" />
     <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\PermisosController.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
     <Compile Include="Controllers\SolicitudSmsController.cs" />
@@ -286,6 +287,7 @@
     <Compile Include="Models\validarFecha.cs" />
     <Compile Include="Models\ValidarHora.cs" />
     <Compile Include="Models\ViewModels\ContactoViewModel.cs" />
+    <Compile Include="Models\ViewModels\PermisosViewModel.cs" />
     <Compile Include="Models\ViewModels\SolicitudViewModel.cs" />
     <Compile Include="Models\webpages_Membership.cs" />
     <Compile Include="Models\webpages_OAuthMembership.cs" />
@@ -549,6 +551,8 @@
     <Content Include="Views\Reporte\ReportsGeneric.cshtml" />
     <Content Include="Views\Reporte\ReportePrestamosUsuarios.cshtml" />
     <Content Include="Views\SolicitudSms\prueba.cshtml" />
+    <Content Include="Views\Permisos\Editar.cshtml" />
+    <Content Include="Views\Permisos\_AutorizacionesRolPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
