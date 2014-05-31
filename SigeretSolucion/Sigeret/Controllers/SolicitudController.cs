@@ -61,8 +61,7 @@ namespace Sigeret.Controllers
             return View();
         }
 
-        //Consultando los equipos disponibles
-        //[HttpPost]
+        //Consultando los equipos disponibles para mostrarlos a traves de ajax
         public ActionResult EquiposDisponibles(string fecha, string horaInicio, string horaFin, List<String> checkPost, List<Tuple<String, String>> cantidadSelPost)
         {
 
@@ -131,19 +130,20 @@ namespace Sigeret.Controllers
 
                 IEnumerable<SelectListItem> edificioList = new List<SelectListItem>();
                 IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
-                int edificioId = 0;
+           /*     int edificioId = 0;
 
                 if (form["edificioId"] != null && form["edificioId"] != "")
                 {
                      edificioId = int.Parse(form["edificioId"]);
                 }
+            */
 
                 //Seleccionando los id de las Solicitudes anteriores para obtener la ultima
                 var SolicitudsId = db.Solicituds.Select(s => s.Id).ToList();
 
                 //variable para verificar que en la Solicitud se ha seleccionado al menos un equipo
                 bool contieneEquipos = false;
-                bool modelStateValido = true;
+               // bool modelStateValido = true;
 
 
                 //lista para almacenar los equipos seleccionados en la Solicitud
@@ -164,36 +164,37 @@ namespace Sigeret.Controllers
                         //aqui hay que cambiar esta logica para seleccionar los equipos x modelo disponibles
                         //hay que poner la logica que esta en el metodo equipos disponibles de este controlador.
                         /////////////////////////////////////////////////////////////////////////
-                        var equipoSelecionado = db.Equipoes                                /////
-                            .Where(e => e.IdModelo == i && e.IdEstatusEquipo == 1)        /////
-                            .ToList();                                                   /////
+                        var equiposDisponibles =totalEquiposDisponibles(nuevaSolicituds.Fecha.ToString(), nuevaSolicituds.HoraInicio.ToString(), nuevaSolicituds.HoraFin.ToString());
                        ///////////////////////////////////////////////////  /////////// /////
 
-                        if (equipoSelecionado.Count() >= int.Parse(form["cant" + i]))
+                        if (equiposDisponibles.Where(e => e.IdModelo == Int32.Parse(form["chk" + i])).Count() >= int.Parse(form["cant" + i]))
                         {
                             int cantidadSeleccionada = int.Parse(form["cant" + i]);
                             //buscando en la lista de equipos los equipos que estan disponibles
-                            foreach (var item in equipoSelecionado)
+                            foreach (var item in equiposDisponibles)
                             {
-                                //Instancia de equipo para almacenar los nuevos equipos
-                                SolicitudEquipo nuevoEquipo = new SolicitudEquipo();
-                                nuevoEquipo.idEquipo = item.Id;
+                                if (item.IdModelo == Int32.Parse(form["chk" + i]))
+                                {
+                                    //Instancia de equipo para almacenar los nuevos equipos
+                                    SolicitudEquipo nuevoEquipo = new SolicitudEquipo();
+                                    nuevoEquipo.idEquipo = item.Id;
 
-                                //Verificando si hay Solicitudses Registrada
-                                if (SolicitudsId.Count() > 0)
-                                {
-                                    nuevoEquipo.IdSolicitud = SolicitudsId.Max() + 1;
-                                }
-                                else
-                                {
-                                    nuevoEquipo.IdSolicitud = 1;
-                                }
+                                    //Verificando si hay Solicitudses Registrada
+                                    if (SolicitudsId.Count() > 0)
+                                    {
+                                        nuevoEquipo.IdSolicitud = SolicitudsId.Max() + 1;
+                                    }
+                                    else
+                                    {
+                                        nuevoEquipo.IdSolicitud = 1;
+                                    }
 
-                                if (cantidadSeleccionada > 0)
-                                {
-                                    //agregando el equipo seleccionado a la lista de equipos seleccionados
-                                    listaEquiposSelecionados.Add(nuevoEquipo);
-                                    cantidadSeleccionada--;
+                                    if (cantidadSeleccionada > 0)
+                                    {
+                                        //agregando el equipo seleccionado a la lista de equipos seleccionados
+                                        listaEquiposSelecionados.Add(nuevoEquipo);
+                                        cantidadSeleccionada--;
+                                    }
                                 }
                             }
                         }
@@ -201,19 +202,19 @@ namespace Sigeret.Controllers
                         {
                             //Mostramos un mensaje diciendo que la cantidad del equipo seleccionado no esta disponible
                             ViewBag.Seleccionar = "Cantidad " + db.ModeloEquipoes.FirstOrDefault(e => e.Id == i).Nombre + " No disponible!";
-                            modelStateValido = false;
+                           // modelStateValido = false;
                             break;
                         }
                     }
                 }
 
                     var error = ModelState.Values.SelectMany(e => e.Errors);
-                    if (modelStateValido && contieneEquipos)
+                    if (contieneEquipos)
                     {
                         //Registrando la nueva Solicituds
                         nuevaSolicituds.IdEstatusSolicitud = 3;
                         nuevaSolicituds.IdUserProfile = WebSecurity.GetUserId(User.Identity.Name);
-                        nuevaSolicituds.IdLugar = Int32.Parse(form["SalonId"]);
+                        nuevaSolicituds.IdLugar = nuevaSolicituds.SalonId;
                         var solicitud = new Solicitud();
                         GlobalHelpers.Transfer<SolicitudViewModel, Solicitud>(nuevaSolicituds, solicitud);
                         db.Solicituds.Add(solicitud);
@@ -259,7 +260,7 @@ namespace Sigeret.Controllers
                 ViewBag.EdificioId = getEdificio(nuevaSolicituds.EdificioId);
                 var salonList = db.AulaEdificios.Where(a => a.IdLugar == nuevaSolicituds.EdificioId)
                         .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString());
-                ViewBag.SalonID = new SelectList(salonList, "Value", "Text", form["salonId"]);
+                ViewBag.SalonID = new SelectList(salonList, "Value", "Text", nuevaSolicituds.SalonId);
                 return View(nuevaSolicituds);
             }
         }
@@ -606,6 +607,39 @@ namespace Sigeret.Controllers
 
             return View();
         }
+
+        //Consultando los equipos disponibles
+        public List<Equipo> totalEquiposDisponibles(string fecha, string horaInicio, string horaFin)
+        {
+
+            DateTime fechaObj = new DateTime();
+            fechaObj = DateTime.Parse(fecha);
+            fecha = fechaObj.ToString("yyyy-MM-dd");
+
+            //Almacena los equipos que estan disponibles para ser solicitado
+            List<Equipo> EquiposDisponibles = new List<Equipo>();
+
+            //Consultando los equipos que podrian estar disponible para la solicitud
+            EquiposDisponibles = db.Equipoes.Where(e => e.IdEstatusEquipo == 5 || e.IdEstatusEquipo == 1).ToList();
+
+            //Consultando los equipos que no han sido solicitado para la fecha indicada para eliminarlos
+            //de la lista de equipos disponibles
+
+
+            var query = db.Database.SqlQuery<int>("EXEC EquiposNoDisponibles {0},{1},{2}", fecha, horaInicio, horaFin);
+
+            //Eliminando los equipos no disponibles de la lista de equipos disponibles
+
+            foreach (var item in query)
+            {
+
+                EquiposDisponibles.Remove(EquiposDisponibles.SingleOrDefault(e => e.Id == item));
+
+            }
+
+            return EquiposDisponibles;
+        }
+
 
     }
 }

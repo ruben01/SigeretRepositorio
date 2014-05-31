@@ -13,25 +13,7 @@ namespace Sigeret.Controllers
     [AllowAnonymous]
     public class SolicitudSmsController : BaseController
     {
-
-        /*
-        public ActionResult prueba(){        
-
-            return View();
-        }
-        [HttpPost]
-        public ActionResult prueba(string fecha,string horaInicio, string horaFin)
-        {
-            DateTime obj = new DateTime();
-            obj = DateTime.Parse(fecha);
-
-            fecha = obj.ToString("yyyy-MM-dd");
-
-            var query = db.Database.SqlQuery<int>("EXEC EquiposDisponibles {0},{1},{2}", fecha, horaInicio, horaFin).ToList();
-
-            return View();
-        }
-         */
+               
         //
         // GET: /SolicitudSms/
         public ActionResult Index()
