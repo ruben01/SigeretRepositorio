@@ -9,6 +9,7 @@ using Sigeret.CustomCode;
 using System.Data.SqlClient;
 using System.Data;
 using Sigeret.Models.ViewModels;
+using System.Data.Objects;
 
 namespace Sigeret.Controllers
 {
@@ -280,6 +281,15 @@ namespace Sigeret.Controllers
         [Vista("Editar Solicitud", "AEA05")]
         public ActionResult Editar(int id)
         {
+
+            Solicitud editar = db.Solicituds.SingleOrDefault(x => x.Id == id);
+
+            //Validando que las solicitudes con fechas anterior a la fecha actual no puedan ser editadas
+            if (editar.Fecha < DateTime.Now)
+            {
+                return RedirectToAction("Detalles",new{ id = id});
+            }
+
             //almacena la cantidad y el modelo del equipo seleccionado
             List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>();
 
@@ -300,21 +310,16 @@ namespace Sigeret.Controllers
             ViewBag.EdificioId = new SelectList(db.Lugars, "Id", "Edificio", edificioId);
             ViewBag.SalonId = new SelectList(db.AulaEdificios.Where(x => x.IdLugar == edificioId), "Id", "Aula", aulaId);
 
-            Solicitud editar = db.Solicituds.SingleOrDefault(x => x.Id == id);
+            
 
             //seleccionando los equipos disponibles
-            var modelosDisponibles = from mE in db.ModeloEquipoes
-                                         join equipo in db.Equipoes on mE.Id equals equipo.IdModelo
-                                         join solEquipo in db.SolicitudEquipoes on equipo.Id equals solEquipo.idEquipo
-                                         join Solicituds in db.Solicituds on solEquipo.IdSolicitud equals Solicituds.Id
-                                     where Solicituds.Id == id || equipo.IdEstatusEquipo == 1
-                                     group mE by mE.Id into equipo
-                                     select equipo;
+           List<Equipo>equiposDisponibles = totalEquiposDisponibles(editar.Fecha.ToString(),editar.HoraInicio.ToString(),editar.HoraFin.ToString());
 
-            List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
-            foreach (var modelos in modelosDisponibles)
+            List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
+
+            foreach (var modelo in equiposDisponibles.GroupBy(e => e.IdModelo))
             {
-                equiposDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == modelos.Key));
+                modelosDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(m => m.Id == modelo.Key));
             }
 
             //consultando para obtener la cantidad de equipos seleccionados por modelos
@@ -331,7 +336,7 @@ namespace Sigeret.Controllers
                 cantidadSel.Add(new Tuple<string, string>(modelo.Key.ToString(), modelo.Count().ToString()));
             }
 
-            ViewBag.ModeloEquipo = equiposDisponibles;
+            ViewBag.ModeloEquipo = modelosDisponibles;
             ViewBag.cantidadSel = cantidadSel;
             SolicitudViewModel model = GlobalHelpers.Transfer<Solicitud, SolicitudViewModel>(editar, null);
 
@@ -373,9 +378,10 @@ namespace Sigeret.Controllers
                     {
                         if (form["chk" + i] == null)
                         {
+                            int hChk = Int32.Parse(form["hChk" + i]);
                             //eliminamos los equipos con el modelo especifico
                             List<SolicitudEquipo> equiposEliminadosXmodelo = new List<SolicitudEquipo>();
-                            equiposEliminadosXmodelo = db.SolicitudEquipoes.Where(e => e.IdSolicitud == id && e.Equipo.IdModelo == Int32.Parse(form["hChk" + i])).ToList();
+                            equiposEliminadosXmodelo = db.SolicitudEquipoes.Where(e => e.IdSolicitud == id && e.Equipo.IdModelo == hChk).ToList();
 
                             foreach (var equipo in equiposEliminadosXmodelo)
                             {
@@ -468,8 +474,20 @@ namespace Sigeret.Controllers
 
                 if (!contieneEquipo)
                 {
-                    ViewBag.Seleccionar = "Debe seleccionar al menos un equipo";
-                    ModelState.AddModelError("", "");
+                    //consultando para obtener la cantidad de equipos seleccionados por modelos
+                    var cantidadXModelo = from se in db.SolicitudEquipoes
+                                          join solEquipo in db.Solicituds on se.IdSolicitud equals solEquipo.Id
+                                          join equipo in db.Equipoes on se.idEquipo equals equipo.Id
+                                          join modelo in db.ModeloEquipoes on equipo.IdModelo equals modelo.Id
+                                          where solEquipo.Id == id
+                                          group equipo by equipo.IdModelo into modelosSeleccionados
+                                          select modelosSeleccionados;
+
+                    foreach (var modelo in cantidadXModelo)
+                    {
+                        cantidadSel.Add(new Tuple<string, string>(modelo.Key.ToString(), modelo.Count().ToString()));
+                    }
+                    ModelState.AddModelError("", "Debe seleccionar al menos un equipo");
                 }
 
                 if (ModelState.IsValid)
@@ -481,26 +499,19 @@ namespace Sigeret.Controllers
                 else
                 {
                     ViewBag.EdificioId = new SelectList(db.Lugars, "Id", "Edificio", form["edificioId"]);
-/*
-                    //seleccionando los equipos disponibles
-                    var modelosDisponibles = from mE in db.ModeloEquipoes
-                                             join equipo in db.Equipoes on mE.Id equals equipo.IdModelo
-                                             join solEquipo in db.SolicitudEquipoes on equipo.Id equals solEquipo.idEquipo
-                                             join Solicituds in db.Solicituds on solEquipo.IdSolicitud equals Solicituds.Id
+                    ViewBag.SalonId = new SelectList(db.AulaEdificios.Where(x => x.IdLugar == edificioId), "Id", "Aula", SolicitudsBD.IdLugar);
 
-                                             where Solicituds.Id == id || equipo.IdEstatusEquipo == 1
-                                             group mE by mE.Id into equipo
-                                             select equipo;
+                    List<Equipo> equiposDisponibles = totalEquiposDisponibles(SolicitudsBD.Fecha.ToString(), SolicitudsBD.HoraInicio.ToString(), SolicitudsBD.HoraFin.ToString());
 
-                    List<ModeloEquipo> equiposDisponibles = new List<ModeloEquipo>();
+                    List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
 
-                    foreach (var modelos in modelosDisponibles)
+                    foreach (var modelo in equiposDisponibles.GroupBy(e => e.IdModelo))
                     {
-                        equiposDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == modelos.Key));
+                        modelosDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(m => m.Id == modelo.Key));
                     }
 
-                    ViewBag.ModeloEquipo = equiposDisponibles;
- */
+                    ViewBag.ModeloEquipo = modelosDisponibles;
+ 
                     ViewBag.cantidadSel = cantidadSel;
 
                     return View(editada);

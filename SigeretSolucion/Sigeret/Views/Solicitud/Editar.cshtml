@@ -135,16 +135,16 @@
                                         }
                                     </span>
                                     @if (cantidadSel.Count == 0)
-                                    {
-                                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;" value="1" />
-                                    }
-                                    else
-                                    {
-                                        var b = 0;
-                                        foreach (var cant in cantidadSel)
-                                        {
-                                            if (item.Id == Int32.Parse(cant.Item1))
-                                            {
+{
+    <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass form-control col-lg-2" value="1" />
+}
+else
+{
+    var b = 0;
+    foreach (var cant in cantidadSel)
+    {
+        if (item.Id == Int32.Parse(cant.Item1))
+        {
                                                 <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass form-control col-lg-2" value="@cant.Item2" />
                                                 b = 1;
                                             }

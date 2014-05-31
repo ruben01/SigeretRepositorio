@@ -86,10 +86,6 @@
                 </th>
 
             </tr>
-            @{
-                
-                
-            }
 
             @foreach (var item in ViewBag.EquiposSeleccionados)
             {
@@ -123,6 +119,15 @@
 
 
 <p>
-    @Html.ActionLink("Editar", "Editar", new { id=Model.Id }) |
-    @Html.ActionLink("Regresar", "ReporteSolicitudesAdm")
-</p>
+        @*
+            Validando que las solititudes no puedan ser validadas despues de pasar la fecha de haber sido solicitdas
+        *@
+        @if (Model.Fecha > DateTime.Now.AddDays(1))
+        {
+
+            @Html.ActionLink("Editar", "Editar", new { id = Model.Id }) <text>|</text>
+
+        }
+
+        @Html.ActionLink("Regresar", "ReporteSolicitudesAdm")
+</p >
