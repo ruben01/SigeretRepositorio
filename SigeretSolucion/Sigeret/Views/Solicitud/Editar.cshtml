@@ -22,6 +22,8 @@
                     @Html.ValidationSummary(true)
                 </div>
                 }
+                @Html.HiddenFor(model => model.Id)
+                @Html.HiddenFor(model => model.IdUserProfile)
                 <fieldset>
                     <legend>Datos de la Solicitud a editar</legend>
 
