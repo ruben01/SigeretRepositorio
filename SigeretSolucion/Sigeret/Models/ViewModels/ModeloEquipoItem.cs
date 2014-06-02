@@ -1,20 +1,18 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Web;
 
-namespace Sigeret.Models
+namespace Sigeret.Models.ViewModels
 {
-    public partial class ModeloEquipo
+    public class ModeloEquipoItem
     {
-        public ModeloEquipo()
-        {
-            this.Equipoes = new List<Equipo>();
-        }
-
         public int Id { get; set; }
         public string Nombre { get; set; }
         public string Marca { get; set; }
         public string Descripcion { get; set; }
         public string Modelo { get; set; }
-        public virtual ICollection<Equipo> Equipoes { get; set; }
+        public bool IsSelected { get; set; }
+        public int Cantidad { get; set; }
     }
 }

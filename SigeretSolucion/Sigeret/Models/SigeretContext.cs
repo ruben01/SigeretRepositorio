@@ -22,17 +22,10 @@ namespace Sigeret.Models
         public DbSet<Contacto> Contactoes { get; set; }
         public DbSet<Controlador> Controladors { get; set; }
         public DbSet<Equipo> Equipoes { get; set; }
-        public DbSet<EstatusEquipo> EstatusEquipoes { get; set; }
-        public DbSet<EstatusMatricula> EstatusMatriculas { get; set; }
-        public DbSet<EstatusSolicitud> EstatusSolicituds { get; set; }
-        public DbSet<EstatusUsuario> EstatusUsuarios { get; set; }
         public DbSet<Lugar> Lugars { get; set; }
-        public DbSet<MarcaEquipo> MarcaEquipoes { get; set; }
         public DbSet<MatriculaUASD> MatriculaUASDs { get; set; }
         public DbSet<ModeloEquipo> ModeloEquipoes { get; set; }
         public DbSet<Solicitud> Solicituds { get; set; }
-        public DbSet<SolicitudEquipo> SolicitudEquipoes { get; set; }
-        public DbSet<SolicitudSm> SolicitudSms { get; set; }
         public DbSet<TipoContacto> TipoContactoes { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<User> Users { get; set; }
@@ -49,17 +42,10 @@ namespace Sigeret.Models
             modelBuilder.Configurations.Add(new ContactoMap());
             modelBuilder.Configurations.Add(new ControladorMap());
             modelBuilder.Configurations.Add(new EquipoMap());
-            modelBuilder.Configurations.Add(new EstatusEquipoMap());
-            modelBuilder.Configurations.Add(new EstatusMatriculaMap());
-            modelBuilder.Configurations.Add(new EstatusSolicitudMap());
-            modelBuilder.Configurations.Add(new EstatusUsuarioMap());
             modelBuilder.Configurations.Add(new LugarMap());
-            modelBuilder.Configurations.Add(new MarcaEquipoMap());
             modelBuilder.Configurations.Add(new MatriculaUASDMap());
             modelBuilder.Configurations.Add(new ModeloEquipoMap());
             modelBuilder.Configurations.Add(new SolicitudMap());
-            modelBuilder.Configurations.Add(new SolicitudEquipoMap());
-            modelBuilder.Configurations.Add(new SolicitudSmMap());
             modelBuilder.Configurations.Add(new TipoContactoMap());
             modelBuilder.Configurations.Add(new UserProfileMap());
             modelBuilder.Configurations.Add(new UserMap());

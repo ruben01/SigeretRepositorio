@@ -52,7 +52,7 @@ namespace Sigeret.Controllers
              *////////
 
            var UsuarioSuspendido = db.UserProfiles.SingleOrDefault(u => u.UserId == Id);
-           UsuarioSuspendido.IdEstatusUsuario = 2;
+           UsuarioSuspendido.EstatusUsuario = 2;
            db.SaveChanges();
 
             return RedirectToAction("Index");
@@ -78,7 +78,7 @@ namespace Sigeret.Controllers
             ///////
 
             var UsuarioSuspendido = db.UserProfiles.SingleOrDefault(u => u.UserId == Id);
-            UsuarioSuspendido.IdEstatusUsuario = 1;
+            UsuarioSuspendido.EstatusUsuario = 1;
             db.SaveChanges();
 
 

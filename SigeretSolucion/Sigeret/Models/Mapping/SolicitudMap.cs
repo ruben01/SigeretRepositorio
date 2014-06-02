@@ -22,17 +22,15 @@ namespace Sigeret.Models.Mapping
             this.Property(t => t.HoraFin).HasColumnName("HoraFin");
             this.Property(t => t.Descripcion).HasColumnName("Descripcion");
             this.Property(t => t.IdUserProfile).HasColumnName("IdUserProfile");
-            this.Property(t => t.IdLugar).HasColumnName("IdLugar");
-            this.Property(t => t.IdEstatusSolicitud).HasColumnName("IdEstatusSolicitud");
+            this.Property(t => t.IdAulaEdificio).HasColumnName("IdAulaEdificio");
+            this.Property(t => t.EstatusSolicitud).HasColumnName("EstatusSolicitud");
             this.Property(t => t.Fecha).HasColumnName("Fecha");
+            this.Property(t => t.TipoSolicitud).HasColumnName("TipoSolicitud");
 
             // Relationships
             this.HasRequired(t => t.AulaEdificio)
                 .WithMany(t => t.Solicituds)
-                .HasForeignKey(d => d.IdLugar);
-            this.HasRequired(t => t.EstatusSolicitud)
-                .WithMany(t => t.Solicituds)
-                .HasForeignKey(d => d.IdEstatusSolicitud);
+                .HasForeignKey(d => d.IdAulaEdificio);
             this.HasRequired(t => t.UserProfile)
                 .WithMany(t => t.Solicituds)
                 .HasForeignKey(d => d.IdUserProfile);

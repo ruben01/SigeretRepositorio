@@ -8,7 +8,7 @@
     protected void ReportViewer1_Load(object sender, EventArgs e)
     {
         var type = String.Format("Sigeret.Reportes.{0}", ViewBag.ReportToRender);
-        var ReportType = SIGERET.CustomCode.GlobalHelpers.GetType(type);
+        var ReportType = Sigeret.CustomCode.GlobalHelpers.GetType(type);
         //Telerik.Reporting.IReportDocument Report = (Telerik.Reporting.IReportDocument)Activator.CreateInstance(ReportType);
         //ReportViewer1.Report = Report;
         Telerik.Reporting.ReportSource Report = Activator.CreateInstance(ReportType);

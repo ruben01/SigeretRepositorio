@@ -34,8 +34,8 @@ namespace Sigeret.Models
         [DisplayName("Descripción")]
         public string Descripcion { get; set; }
         public int IdUserProfile { get; set; }
-        public int IdLugar { get; set; }
-        public int IdEstatusSolicitud { get; set; }
+        public int IdAulaEdificio { get; set; }
+        public int EstatusSolicitud { get; set; }
 
         
         [validarFecha]
@@ -43,10 +43,7 @@ namespace Sigeret.Models
         public System.DateTime Fecha { get; set; }
 
         public virtual AulaEdificio AulaEdificio { get; set; }
-        public virtual EstatusSolicitud EstatusSolicitud { get; set; }
         public virtual UserProfile UserProfile { get; set; }
-        public virtual ICollection<SolicitudEquipo> SolicitudEquipoes { get; set; }
-        public virtual ICollection<SolicitudSm> SolicitudSms { get; set; }
 
     }
 }

@@ -7,8 +7,8 @@ namespace Sigeret.Models
     {
         public Solicitud()
         {
-            this.SolicitudEquipoes = new List<SolicitudEquipo>();
-            this.SolicitudSms = new List<SolicitudSm>();
+            this.Equipoes = new List<Equipo>();
+            this.Contactoes = new List<Contacto>();
         }
 
         public int Id { get; set; }
@@ -16,13 +16,13 @@ namespace Sigeret.Models
         public System.TimeSpan HoraFin { get; set; }
         public string Descripcion { get; set; }
         public int IdUserProfile { get; set; }
-        public int IdLugar { get; set; }
-        public int IdEstatusSolicitud { get; set; }
+        public int IdAulaEdificio { get; set; }
+        public int EstatusSolicitud { get; set; }
         public System.DateTime Fecha { get; set; }
+        public int TipoSolicitud { get; set; }
         public virtual AulaEdificio AulaEdificio { get; set; }
-        public virtual EstatusSolicitud EstatusSolicitud { get; set; }
         public virtual UserProfile UserProfile { get; set; }
-        public virtual ICollection<SolicitudEquipo> SolicitudEquipoes { get; set; }
-        public virtual ICollection<SolicitudSm> SolicitudSms { get; set; }
+        public virtual ICollection<Equipo> Equipoes { get; set; }
+        public virtual ICollection<Contacto> Contactoes { get; set; }
     }
 }

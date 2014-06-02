@@ -19,16 +19,22 @@ namespace Sigeret.Models.Mapping
             this.ToTable("Equipo");
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.Serie).HasColumnName("Serie");
-            this.Property(t => t.IdEstatusEquipo).HasColumnName("IdEstatusEquipo");
-            this.Property(t => t.IdModelo).HasColumnName("IdModelo");
+            this.Property(t => t.EstatusEquipo).HasColumnName("EstatusEquipo");
+            this.Property(t => t.IdModeloEquipo).HasColumnName("IdModeloEquipo");
 
             // Relationships
-            this.HasRequired(t => t.EstatusEquipo)
+            this.HasMany(t => t.Solicituds)
                 .WithMany(t => t.Equipoes)
-                .HasForeignKey(d => d.IdEstatusEquipo);
+                .Map(m =>
+                    {
+                        m.ToTable("SolicitudEquipo");
+                        m.MapLeftKey("idEquipo");
+                        m.MapRightKey("IdSolicitud");
+                    });
+
             this.HasRequired(t => t.ModeloEquipo)
                 .WithMany(t => t.Equipoes)
-                .HasForeignKey(d => d.IdModelo);
+                .HasForeignKey(d => d.IdModeloEquipo);
 
         }
     }

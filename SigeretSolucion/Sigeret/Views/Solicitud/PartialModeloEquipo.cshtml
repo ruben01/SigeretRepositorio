@@ -1,12 +1,7 @@
-﻿@model IEnumerable<Sigeret.Models.ModeloEquipo>
+﻿@model IEnumerable<ModeloEquipoItem>
 
 @{
 
-    List<String> check = new List<string>();
-    check = ViewBag.check;
-
-    List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>();
-    cantidadSel = ViewBag.cantidad;
 }
 
 @{
@@ -21,63 +16,21 @@
             @Html.Label("Descripción")
         </div>
     </div>
-
+    int i = 0;
     foreach (var item in Model)
     {
         var checkBoxId = "chk" + @item.Id;
-        var checkBoxValue = @item.Id;
-        var cantidad = "cant" + @item.Id;
-        var td = "td" + @item.Id;
         <div class="row">
             <div class="form-group col-lg-2">
                 <div class="input-group col-lg-8">
                     <span class="input-group-addon">
-                        @if (check.Count == 0)
-                        {
-                            <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="" />
-                        }
-                        else
-                        {
-                            var a = 0;
-                            foreach (var ck in check)
-                            {
-                                if (checkBoxId == ck)
-                                {
-                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" checked="checked" value="@checkBoxValue" class="chkclass" onchange="" />
-                                    a = 1;
-                                }
-
-                                if (a != 1)
-                                {
-                                    <input type="checkbox" id="@checkBoxId" name="@checkBoxId" value="@checkBoxValue" class="chkclass" onchange="" />
-                                }
-                            }
-                        }
+                        <input type="checkbox" id="@checkBoxId" name="modelos[@i].isSelected" @((item.IsSelected) ? "checked" : "") value="true" class="chkclass" onchange="" />
+                        <input type="hidden" name="modelos[@i].isSelected" value="false" />
                     </span>
-
-                    @if (cantidadSel.Count == 0)
-                    {
-                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass form-control col-lg-2" value="1" />
-                    }
-                    else
-                    {
-
-                        var a = 0;
-                        foreach (var cant in cantidadSel)
-                        {
-
-                            if (cantidad == cant.Item1)
-                            {
-                                a = 1;
-                                <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="border-color: red; border:1em;" value="@cant.Item2" />
-                            }
-                        }
-
-                        if (a == 0)
-                        {
-                            <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;" value="1" />
-                        }
-                    }
+                    <input type="text" name="modelos[@i].Cantidad" id="@checkBoxId" maxlength="2" class="chkclass form-control col-lg-2 txtQuantity" value="@item.Cantidad" />
+                    <input type="hidden" name="modelos[@i].Id" value="@item.Id" />
+                    <input type="hidden" name="modelos[@i].Nombre" value="@item.Nombre" />
+                    <input type="hidden" name="modelos[@i].Descripcion" value="@item.Descripcion" />
                 </div>
             </div>
             <div class="form-group col-lg-4">
@@ -87,5 +40,6 @@
                 @item.Descripcion
             </div>
         </div>
+        i++;
     }
 }

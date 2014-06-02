@@ -20,9 +20,8 @@ namespace Sigeret.Models
         public string Cedula { get; set; }
         public byte[] Foto { get; set; }
         public string Matricula { get; set; }
-        public int IdEstatusUsuario { get; set; }
+        public int EstatusUsuario { get; set; }
         public virtual ICollection<Contacto> Contactoes { get; set; }
-        public virtual EstatusUsuario EstatusUsuario { get; set; }
         public virtual ICollection<Solicitud> Solicituds { get; set; }
         public virtual ICollection<UsuarioNipSm> UsuarioNipSms { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }

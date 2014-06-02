@@ -236,16 +236,11 @@
     </Compile>
     <Compile Include="Models\Accion.cs" />
     <Compile Include="Models\AccountModels.cs" />
-    <Compile Include="Models\AgregarEquipo.cs" />
     <Compile Include="Models\AulaEdificio.cs" />
     <Compile Include="Models\CedulaUASD.cs" />
     <Compile Include="Models\Contacto.cs" />
     <Compile Include="Models\Controlador.cs" />
     <Compile Include="Models\Equipo.cs" />
-    <Compile Include="Models\EstatusEquipo.cs" />
-    <Compile Include="Models\EstatusMatricula.cs" />
-    <Compile Include="Models\EstatusSolicitud.cs" />
-    <Compile Include="Models\EstatusUsuario.cs" />
     <Compile Include="Models\Lugar.cs" />
     <Compile Include="Models\Mapping\AccionMap.cs" />
     <Compile Include="Models\Mapping\AulaEdificioMap.cs" />
@@ -253,17 +248,10 @@
     <Compile Include="Models\Mapping\ContactoMap.cs" />
     <Compile Include="Models\Mapping\ControladorMap.cs" />
     <Compile Include="Models\Mapping\EquipoMap.cs" />
-    <Compile Include="Models\Mapping\EstatusEquipoMap.cs" />
-    <Compile Include="Models\Mapping\EstatusMatriculaMap.cs" />
-    <Compile Include="Models\Mapping\EstatusSolicitudMap.cs" />
-    <Compile Include="Models\Mapping\EstatusUsuarioMap.cs" />
     <Compile Include="Models\Mapping\LugarMap.cs" />
-    <Compile Include="Models\Mapping\MarcaEquipoMap.cs" />
     <Compile Include="Models\Mapping\MatriculaUASDMap.cs" />
     <Compile Include="Models\Mapping\ModeloEquipoMap.cs" />
-    <Compile Include="Models\Mapping\SolicitudEquipoMap.cs" />
     <Compile Include="Models\Mapping\SolicitudMap.cs" />
-    <Compile Include="Models\Mapping\SolicitudSmMap.cs" />
     <Compile Include="Models\Mapping\TipoContactoMap.cs" />
     <Compile Include="Models\Mapping\UserMap.cs" />
     <Compile Include="Models\Mapping\UserProfileMap.cs" />
@@ -271,22 +259,21 @@
     <Compile Include="Models\Mapping\webpages_MembershipMap.cs" />
     <Compile Include="Models\Mapping\webpages_OAuthMembershipMap.cs" />
     <Compile Include="Models\Mapping\webpages_RolesMap.cs" />
-    <Compile Include="Models\MarcaEquipo.cs" />
     <Compile Include="Models\MatriculaUASD.cs" />
+    <Compile Include="Models\ModelExtensions\ModelEnums.cs" />
+    <Compile Include="Models\ModelExtensions\validarFecha.cs" />
+    <Compile Include="Models\ModelExtensions\ValidarHora.cs" />
     <Compile Include="Models\ModelMetadata\Solicitud.cs" />
     <Compile Include="Models\ModelMetadata\UserProfile.cs" />
     <Compile Include="Models\ModeloEquipo.cs" />
     <Compile Include="Models\SigeretContext.cs" />
     <Compile Include="Models\Solicitud.cs" />
-    <Compile Include="Models\SolicitudEquipo.cs" />
-    <Compile Include="Models\SolicitudSm.cs" />
     <Compile Include="Models\TipoContacto.cs" />
     <Compile Include="Models\User.cs" />
     <Compile Include="Models\UserProfile.cs" />
     <Compile Include="Models\UsuarioNipSm.cs" />
-    <Compile Include="Models\validarFecha.cs" />
-    <Compile Include="Models\ValidarHora.cs" />
     <Compile Include="Models\ViewModels\ContactoViewModel.cs" />
+    <Compile Include="Models\ViewModels\ModeloEquipoItem.cs" />
     <Compile Include="Models\ViewModels\PermisosViewModel.cs" />
     <Compile Include="Models\ViewModels\SolicitudViewModel.cs" />
     <Compile Include="Models\webpages_Membership.cs" />
@@ -330,6 +317,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="A. external references\Telerik.Reporting.dll" />
+    <Content Include="A. external references\Telerik.ReportViewer.Mvc.dll" />
+    <Content Include="A. external references\Telerik.ReportViewer.WebForms.dll" />
     <Content Include="App_Data\Sigeret.mdf" />
     <Content Include="App_Data\Sigeret_log.ldf">
       <DependentUpon>Sigeret.mdf</DependentUpon>
@@ -582,9 +572,7 @@
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="A. external references\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

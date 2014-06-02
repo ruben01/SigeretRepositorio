@@ -68,10 +68,11 @@ $(document).ready(function () {
     //Inicializacion de mascarillas usando el plugin Jquery Input mask -- Saúl H. S.
     var telefono = '(999) 999-9999'; //telefono
     var cedula = '999-9999999-9'; //cedula
-
+    var quantity = '9[9][9]'; //mascara para las solicitudes
     //Remover datos si estos no estan completos.
     $('.telefono').inputmask(telefono, { "clearIncomplete": true });
     $('.cedula').inputmask(cedula, { "clearIncomplete": true });
+    $('.txtQuantity').inputmask(quantity, { "clearIncomplete": true });
 
     //quitar mascara de inputs luego del submit -- Saúl H. S.
     $('form').submit(function () {

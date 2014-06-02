@@ -2,11 +2,6 @@
 
 @{
     ViewBag.Title = "Solicitud";
-    List<String> check = new List<string>();
-    check = ViewBag.check;
-
-    List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>();
-    cantidadSel = ViewBag.cantidad;
 }
 
 <div class="row">
@@ -15,17 +10,23 @@
             <h2>Nueva Solicitud</h2>
         </hgroup>
         <div class="well">
-            @using (Html.BeginForm())
+            @using (Html.BeginForm(null, null, FormMethod.Post, new { @class = "solicitudForm" }))
             {
                 @Html.AntiForgeryToken()
-                @Html.ValidationSummary(true)
+                if (ViewData.ModelState[""] != null && ViewData.ModelState[""].Errors.Count() > 0)
+                { 
+                <div class="alert alert-dismissable alert-danger">
+                    <button type="button" class="close" data-dismiss="alert">×</button>
+                    @Html.ValidationSummary(true)
+                </div>
+                }
                 <fieldset class="employe">
                     <legend>Datos de la nueva Solicitud a registrar</legend>
                     <div class="row">
                         <div class="form-group col-lg-4">
                             @Html.CLabelFor(model => model.Fecha)
                             <div class="input-group">
-                                @Html.CTextBoxFor(model => model.Fecha, new { @class = "fechaFutura", Value = (Model==null)? "" : Model.Fecha.ToString("yyyy/MM/dd") })
+                                @Html.CTextBoxFor(model => model.Fecha, new { @class = "fechaFutura", Value = (Model == null) ? "" : Model.Fecha.ToString("yyyy/MM/dd") })
                                 <label for="Fecha" class="input-group-addon btn">
                                     <i class="glyphicon glyphicon-calendar"></i>
                                 </label>
@@ -65,12 +66,12 @@
                     <div class="row">
                         <div class="form-group col-lg-6">
                             @Html.CLabelFor(model => model.EdificioId)
-                            @Html.CDropDownListFor(model => model.EdificioId, null, "--Seleccione Edificio--",  new { @class = "chosen" })
+                            @Html.CDropDownListFor(model => model.EdificioId, null, "--Seleccione Edificio--", new { @class = "chosen" })
                             @Html.CValidationMessageFor(model => model.EdificioId)
                         </div>
                         <div class="form-group col-lg-6">
                             @Html.CLabelFor(model => model.SalonId)
-                            @Html.CDropDownListFor(model => model.SalonId, null,  "--Seleccione Salon--", new { @class = "chosen" })
+                            @Html.CDropDownListFor(model => model.SalonId, null, "--Seleccione Salon--", new { @class = "chosen" })
                             @Html.CValidationMessageFor(model => model.SalonId)
                         </div>
                     </div>
@@ -81,11 +82,13 @@
                     </div>
 
                     <div id="PartialModeloEquipo">
-
+                        @if (ViewBag.PostedBack != null && ViewBag.PostedBack == true) {
+                            @Html.Partial("PartialModeloEquipo", Model.modelos) 
+                        }
                     </div>
 
                     <div class="row form-group col-lg-12 pt20">
-                        <input type="submit" class="btn btn-primary" value="Crear" />
+                        <input type="submit" class="btn btn-primary btnGuardar" value="Crear" />
                         @Html.ActionLink("Retroceder", "Index", null, new { @class = "btn btn-default" })
                     </div>
                 </fieldset>
@@ -101,34 +104,23 @@
         
 
         $(document).ready(function () {
+            function FnObtenerEquiposDisponibles() {
+                var fechaVar = $('#Fecha').val();
+                var horaInicioVar = $('#HoraInicio').val();;
+                var horaFinVar = $('#HoraFin').val();
+                if (fechaVar != "" && horaFinVar != "" && horaInicioVar != "" && (horaInicioVar < horaFinVar)) {
 
-            var fechaVar = $('#Fecha').val();
-            var horaInicioVar = $('#HoraInicio').val();
-            var horaFinVar = $('#HoraFin').val();
-            //asignando el valor que tienen los viewvag despues del post para mentener el estado de los check y cantidad que han sido 
-            //seleccionado 0jojojoojooj no esta funcionando hasta el momento
-            var checkVar = '@ViewBag.check';
-            var cantSelVar = '@ViewBag.cantidad';
-           
-            
-           
-            if (fechaVar != "" && horaFinVar != "" && horaInicioVar != "") {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("EquiposDisponibles", "Solicitud")',
 
-
-
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("EquiposDisponibles", "Solicitud")',
-
-                    data: { fecha: fechaVar, horaInicio: horaInicioVar, horaFin: horaFinVar, checkPost: checkVar, cantidadSelPost: cantSelVar },
-                    success: function (data) {
-                        $('#PartialModeloEquipo').html(data);
-                    }
-                })
-
+                        data: $('.solicitudForm').serialize(),
+                        success: function (data) {
+                            $('#PartialModeloEquipo').html(data);
+                        }
+                    })
+                }
             }
-
-
 
             $("#EdificioId").change(function () {
                 updateDropdown(
@@ -137,80 +129,48 @@
                     $('#SalonId'),
                     $('#SalonId').chosen()
                 );
-                @*$.ajax({
-                    type: "POST",
-                    url: '@Url.Action("getSalonJson", "Solicitud")',
-                    data: { salonId: $("#EdificioId > option:selected").attr("value") },
-                    success: function (data) {
-                        var items = [];
-                        items.push("<option>--Seleccione Salon--</option>");
-                        $.each(data, function () {
-                            items.push("<option value=" + this.Value + ">" + this.Text + "</option>");
-                        });
-                        $("#SalonId").html(items.join(' '));
+            });
+
+            $("#Fecha, #HoraInicio, #HoraFin").on('focusout', function () {
+                FnObtenerEquiposDisponibles();
+            });
+
+            //$("#HoraInicio").change(function () {
+            //    FnObtenerEquiposDisponibles();
+            //});
+
+            //$("#HoraFin").change(function () {
+            //    FnObtenerEquiposDisponibles();
+            //});
+
+            $('.btnGuardar').on('click', function (evt) {
+                evt.preventDefault();
+                var valid = false;
+                var incorrect = false;
+                $("input[name$='isSelected']").each(function () {
+                    if ($(this).is(':checked')) {
+                        if ($('#' + $(this).attr('id') + '.form-control').val() <= 0) {
+                            incorrect = true;
+                            valid = false;
+                            return false;
+                        }
+                        else {
+                            valid = true;
+                        }
                     }
-                })*@
-            });
-
-
-            $("#Fecha").change(function () {
-
-
-                var fechaVar = $('#Fecha').val();
-                var horaInicioVar = $('#HoraInicio').val();;
-                var horaFinVar = $('#HoraFin').val();
-                if (fechaVar != "" && horaFinVar != "" && horaInicioVar != "") {
-
-                    $.ajax({
-                        type: "POST",
-                        url: '@Url.Action("EquiposDisponibles", "Solicitud")',
-
-                        data: { fecha: fechaVar, horaInicio: horaInicioVar, horaFin: horaFinVar },
-                        success: function (data) {
-                            $('#PartialModeloEquipo').html(data);
-                        }
-                    })
+                });
+                if (valid) {
+                    $('.solicitudForm').submit();
+                    return true;
                 }
-            });
-
-            $("#HoraInicio").change(function () {
-
-
-                var fechaVar = $('#Fecha').val();
-                var horaInicioVar = $('#HoraInicio').val();;
-                var horaFinVar = $('#HoraFin').val();
-                if (fechaVar != "" && horaFinVar != "" && horaInicioVar != "") {
-
-                    $.ajax({
-                        type: "POST",
-                        url: '@Url.Action("EquiposDisponibles", "Solicitud")',
-
-                        data: { fecha: fechaVar, horaInicio: horaInicioVar, horaFin: horaFinVar },
-                        success: function (data) {
-                            $('#PartialModeloEquipo').html(data);
-                        }
-                    })
+                else if (incorrect) {
+                    alert('Debe poner una cantidad mayor que cero en los equipos seleccionados');
                 }
-            });
-
-            $("#HoraFin").change(function () {
-
-
-                var fechaVar = $('#Fecha').val();
-                var horaInicioVar = $('#HoraInicio').val();;
-                var horaFinVar = $('#HoraFin').val();
-                if (fechaVar != "" && horaFinVar != "" && horaInicioVar != "") {
-
-                    $.ajax({
-                        type: "POST",
-                        url: '@Url.Action("EquiposDisponibles", "Solicitud")',
-
-                        data: { fecha: fechaVar, horaInicio: horaInicioVar, horaFin: horaFinVar },
-                        success: function (data) {
-                            $('#PartialModeloEquipo').html(data);
-                        }
-                    })
+                else {
+                    alert('Debe seleccionar al menos un equipo para poder procesar su solicitud');
                 }
+
+                return false;
             });
 
         });

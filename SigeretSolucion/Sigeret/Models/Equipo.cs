@@ -7,15 +7,14 @@ namespace Sigeret.Models
     {
         public Equipo()
         {
-            this.SolicitudEquipoes = new List<SolicitudEquipo>();
+            this.Solicituds = new List<Solicitud>();
         }
 
         public int Id { get; set; }
         public string Serie { get; set; }
-        public int IdEstatusEquipo { get; set; }
-        public int IdModelo { get; set; }
-        public virtual EstatusEquipo EstatusEquipo { get; set; }
+        public int EstatusEquipo { get; set; }
+        public int IdModeloEquipo { get; set; }
         public virtual ModeloEquipo ModeloEquipo { get; set; }
-        public virtual ICollection<SolicitudEquipo> SolicitudEquipoes { get; set; }
+        public virtual ICollection<Solicitud> Solicituds { get; set; }
     }
 }

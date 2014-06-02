@@ -89,8 +89,10 @@
 
                 <fieldset>
                     <legend>Editar Equipos Seleccionados</legend>
-
-                    <div class="row">
+                    <div id="PartialModeloEquipo">
+                        @Html.Partial("PartialModeloEquipo", Model.modelos)
+                    </div>
+                    @*<div class="row">
                         <div class="form-group col-lg-2">
                             @Html.Label("Cantidad")
                         </div>
@@ -100,9 +102,10 @@
                         <div class="form-group col-lg-6">
                             @Html.Label("Descripción")
                         </div>
-                    </div>
+                    </div>*@
 
-                    @foreach (var item in ViewBag.ModeloEquipo)
+
+                    @*@foreach (var item in ViewBag.ModeloEquipo)
                     {
                         var checkBoxId = "chk" + @item.Id;
                         var hiddenCheckBoxId = "hChk" + @item.Id;
@@ -135,16 +138,16 @@
                                         }
                                     </span>
                                     @if (cantidadSel.Count == 0)
-{
-    <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass form-control col-lg-2" value="1" />
-}
-else
-{
-    var b = 0;
-    foreach (var cant in cantidadSel)
-    {
-        if (item.Id == Int32.Parse(cant.Item1))
-        {
+                                    {
+                                        <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass" style="width:30px; text-align:center;" value="1" />
+                                    }
+                                    else
+                                    {
+                                        var b = 0;
+                                        foreach (var cant in cantidadSel)
+                                        {
+                                            if (item.Id == Int32.Parse(cant.Item1))
+                                            {
                                                 <input type="text" name="@cantidad" id="@checkBoxId" maxlength="2" class="chkclass form-control col-lg-2" value="@cant.Item2" />
                                                 b = 1;
                                             }
@@ -164,10 +167,10 @@ else
                                 @item.Descripcion
                             </div>
                         </div>
-                    }
+                    }*@
 
                     <div class="row form-group col-lg-12 pt20">
-                        <input type="submit" class="btn btn-primary" value="Guardar" />
+                        <input type="submit" class="btn btn-primary btnSubmit" value="Guardar" />
                         @Html.ActionLink("Regresar", "Index", null, new { @class = "btn btn-default" })
                     </div>
                 </fieldset>
@@ -179,21 +182,71 @@ else
 @section Scripts{
     <script>
         $(document).ready(function () {
-            $("#edificioId").change(function () {
 
-                $.ajax({
-                    type: "POST",
-                    url: '@Url.Action("getSalonJson", "Solicitud")',
-                    data: { salonId: $("#edificioId > option:selected").attr("value") },
-                    success: function (data) {
-                        var items = [];
-                        items.push("<option>--Seleccione Salon--</option>");
-                        $.each(data, function () {
-                            items.push("<option value=" + this.Value + ">" + this.Text + "</option>");
-                        });
-                        $("#IdAula").html(items.join(' '));
+            function FnObtenerEquiposDisponibles() {
+                var fechaVar = $('#Fecha').val();
+                var horaInicioVar = $('#HoraInicio').val();;
+                var horaFinVar = $('#HoraFin').val();
+                if (fechaVar != "" && horaFinVar != "" && horaInicioVar != "" && (horaInicioVar < horaFinVar)) {
+                    $.ajax({
+                        type: "POST",
+                        url: '@Url.Action("EquiposDisponibles", "Solicitud")',
+
+                        data: $('.solicitudForm').serialize(),
+                        success: function (data) {
+                            $('#PartialModeloEquipo').html(data);
+                            if (data == null || data == "") {
+                                $('.btnSubmit').prop('disabled', true);
+                            }
+                            else {
+                                $('.btnSubmit').prop('disabled', false);
+                            }
+                        }
+                    })
+                }
+            }
+
+            $("#EdificioId").change(function () {
+                updateDropdown(
+                    { salonId: $("#EdificioId > option:selected").attr("value") },
+                    '@Url.Action("getSalonJson", "Solicitud")',
+                    $('#SalonId'),
+                    $('#SalonId').chosen()
+                );
+            });
+
+            $("#Fecha, #HoraInicio, #HoraFin").on('focusout', function () {
+                FnObtenerEquiposDisponibles();
+            });
+
+            $('.btnGuardar').on('click', function (evt) {
+                evt.preventDefault();
+                var valid = false;
+                var incorrect = false;
+                $("input[name$='isSelected']").each(function () {
+                    if ($(this).is(':checked')) {
+                        if ($('#' + $(this).attr('id') + '.form-control').val() <= 0) {
+                            incorrect = true;
+                            valid = false;
+                            return false;
+                        }
+                        else {
+                            valid = true;
+                        }
                     }
-                })
+                });
+                if (valid) {
+                    $('.solicitudForm').submit();
+                    return true;
+                }
+                else if (incorrect) {
+                    alert('Debe poner una cantidad mayor que cero en los equipos seleccionados');
+                }
+                else {
+                    alert('Debe seleccionar al menos un equipo para poder procesar su solicitud');
+                }
+
+                return false;
             });
         });
     </script>
