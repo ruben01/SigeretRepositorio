@@ -198,7 +198,7 @@
                         success: function (data) {
                             $('#PartialModeloEquipo').html(data);
                             if (data == null || data == "") {
-                                $('.btnSubmit').prop('disabled', true);
+                                $('.btnSubmit').prop('disabled', 'disabled');
                             }
                             else {
                                 $('.btnSubmit').prop('disabled', false);
