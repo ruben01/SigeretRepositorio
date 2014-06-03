@@ -263,6 +263,11 @@ namespace Sigeret.CustomCode
                            });
         }
 
+        public static String EnumToStr(this Enum e)
+        {
+            return e.ToString().Replace("_", " ");
+        }
+
         /// <summary>
         /// Método extensión utilizado para crear un arreglo de objetos del tipo
         /// SelectListItem utilizado para construir instancias de objetos html 

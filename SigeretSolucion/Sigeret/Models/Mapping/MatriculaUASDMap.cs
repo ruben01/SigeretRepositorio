@@ -20,15 +20,12 @@ namespace Sigeret.Models.Mapping
             this.Property(t => t.Id).HasColumnName("Id");
             this.Property(t => t.Matricula).HasColumnName("Matricula");
             this.Property(t => t.IdCedula).HasColumnName("IdCedula");
-            this.Property(t => t.IdEstatus).HasColumnName("IdEstatus");
+            this.Property(t => t.Estatus).HasColumnName("Estatus");
 
             // Relationships
             this.HasRequired(t => t.CedulaUASD)
                 .WithMany(t => t.MatriculaUASDs)
                 .HasForeignKey(d => d.IdCedula);
-            this.HasRequired(t => t.EstatusMatricula)
-                .WithMany(t => t.MatriculaUASDs)
-                .HasForeignKey(d => d.IdEstatus);
 
         }
     }

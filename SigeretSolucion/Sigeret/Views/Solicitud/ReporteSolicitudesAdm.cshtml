@@ -54,29 +54,9 @@
                                         @Html.DisplayFor(modelItem => item.AulaEdificio.Aula)
                                     </td>
                                     <td>
-                                        @*
-                                            Validando que las solititudes no puedan ser validadas despues de pasar la fecha de haber sido solicitdas
-                                        *@
-                                        @if (item.Fecha > DateTime.Now.AddDays(1)) { 
-                                        
-                                              @Html.ActionLink("Editar", "Editar", new { id = item.Id }) <text>|</text> 
-                                            
-                                        }
-                                        else
-                                        {
-                                           <text>No |</text> 
-                                        }
-                                                                                                  
-                                        @Html.ActionLink("Detalles", "Detalles", new { id = item.Id })
-
-                                        @if (item.Fecha > DateTime.Now) {  
-                                        
-                                           <text>|</text>  @Html.ActionLink("Cancelar", "Cancelar", new { id = item.Id })
-                                        }
-                                        else
-                                        {
-                                            <text>| No </text> 
-                                        }
+                                        @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
+                                        @Html.ActionLink("Detalles", "Detalles", new { id = item.Id }) |
+                                        @Html.ActionLink("Cancelar", "Cancelar", new { id = item.Id })
                                     </td>
                                 </tr>
                             }

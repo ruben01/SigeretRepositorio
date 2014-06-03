@@ -23,6 +23,15 @@ namespace Sigeret.Models.Mapping
             this.Property(t => t.IdTipoContacto).HasColumnName("IdTipoContacto");
 
             // Relationships
+            this.HasMany(t => t.Solicituds)
+                .WithMany(t => t.Contactoes)
+                .Map(m =>
+                    {
+                        m.ToTable("SolicitudSms");
+                        m.MapLeftKey("IdContacto");
+                        m.MapRightKey("IdSolicitud");
+                    });
+
             this.HasRequired(t => t.TipoContacto)
                 .WithMany(t => t.Contactoes)
                 .HasForeignKey(d => d.IdTipoContacto);

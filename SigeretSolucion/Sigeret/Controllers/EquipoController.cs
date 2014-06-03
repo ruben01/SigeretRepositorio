@@ -70,7 +70,7 @@ namespace Sigeret.Controllers
                 //editarEquipo.Nombre = equipo.Nombre;
                 //editarEquipo.Marca = equipo.Marca;
                 //editarEquipo.Modelo = equipo.Modelo;
-                editarEquipo.IdEstatusEquipo = equipo.IdEstatusEquipo;
+                editarEquipo.EstatusEquipo = equipo.EstatusEquipo;
                 editarEquipo.Serie = equipo.Serie;
                 db.Entry(editarEquipo).State = System.Data.EntityState.Modified;
                 db.SaveChanges();

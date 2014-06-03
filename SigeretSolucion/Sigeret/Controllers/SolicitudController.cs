@@ -9,7 +9,7 @@ using Sigeret.CustomCode;
 using System.Data.SqlClient;
 using System.Data;
 using Sigeret.Models.ViewModels;
-using System.Data.Objects;
+using Sigeret.Models.ModelExtensions;
 
 namespace Sigeret.Controllers
 {
@@ -30,21 +30,7 @@ namespace Sigeret.Controllers
         [Vista("Ver Detalles", "AEA02")]
         public ActionResult Detalles(int id)
         {
-            List<Equipo> equiposSeleccionados = new List<Equipo>();
-
-            var solicitados = db.SolicitudEquipoes.Where(se => se.IdSolicitud == id)
-                .Select(se => se.idEquipo).ToList();
-
-            var query = from e in db.SolicitudEquipoes
-                        where e.IdSolicitud == id
-                        select e.idEquipo;
-
-            foreach (var equipoId in solicitados)
-            {
-
-                equiposSeleccionados.Add(db.Equipoes.FirstOrDefault(e => e.Id == equipoId));
-            }
-
+            List<Equipo> equiposSeleccionados = db.Solicituds.Find(id).Equipoes.ToList();
             ViewBag.equiposSeleccionados = equiposSeleccionados;
 
             return View(db.Solicituds.FirstOrDefault(s => s.Id == id));
@@ -62,208 +48,125 @@ namespace Sigeret.Controllers
             return View();
         }
 
-        //Consultando los equipos disponibles para mostrarlos a traves de ajax
-        public ActionResult EquiposDisponibles(string fecha, string horaInicio, string horaFin, List<String> checkPost, List<Tuple<String, String>> cantidadSelPost)
+        //Consultando los equipos disponibles
+        //[HttpPost]
+        public ActionResult EquiposDisponibles(string fecha, string horaInicio, string horaFin, List<ModeloEquipoItem> modelos)
         {
 
-            DateTime fechaObj= new DateTime();
-            fechaObj=DateTime.Parse(fecha);
-
-            //Almacena los equipos que estan disponibles para ser solicitado
-            List<Equipo>EquiposDisponibles=new List<Equipo>();
+            DateTime fechaObj = new DateTime();
+            fechaObj = DateTime.Parse(fecha);
 
             //Consultando los equipos que podrian estar disponible para la solicitud
-           EquiposDisponibles=db.Equipoes.Where(e=>e.IdEstatusEquipo==5 || e.IdEstatusEquipo==1).ToList();
+            var EquiposDisponibles = db.Equipoes.Where(e => e.EstatusEquipo == 5 || e.EstatusEquipo == 1).ToList();
 
             //Consultando los equipos que no han sido solicitado para la fecha indicada para eliminarlos
             //de la lista de equipos disponibles
 
-            var query= db.Database.SqlQuery<int>("EXEC EquiposNoDisponibles {0},{1},{2}", fecha, horaInicio, horaFin).ToList();
+            var query = db.Database.SqlQuery<int>("EXEC EquiposNoDisponibles {0},{1},{2}", fecha, horaInicio, horaFin).ToList();
 
             //Agregando los equipos a la lista de equipos disponibles
 
             foreach (var item in query)
             {
-
-                EquiposDisponibles.Remove(EquiposDisponibles.SingleOrDefault(e=>e.Id==item));
-                    
-            }
-            //almacenamos los check seleccionados para mantener el estado de seleccionado en la vista despues del post
-            //en caso de que sean null los dos objetos que entran al metodo desde la vista nueva solicitud simplemente le asignamos memoria
-            //de lo contrario le asignamos lo que vienen de la vista que estos traen la informacion seleccionada
-
-            ///ooooooooooooooooojjjjjjjjooooooooooo no estan funcioando en este momento
-            if(cantidadSelPost==null || checkPost==null){
-                   
-                    ViewBag.check = new List<String>();
-                    ViewBag.cantidad = new List<Tuple<String, String>>();
-            }else{
-
-                    ViewBag.check = checkPost;
-                    ViewBag.cantidad = cantidadSelPost;
+                EquiposDisponibles.Remove(EquiposDisponibles.SingleOrDefault(e => e.Id == item));
             }
 
+            List<ModeloEquipoItem> model = new List<ModeloEquipoItem>();
 
-           List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
-
-            foreach (var item in EquiposDisponibles.GroupBy(e=>e.IdModelo))
+            foreach (var item in EquiposDisponibles.GroupBy(e => e.IdModeloEquipo))
             {
-                 modelosDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(e => e.Id == item.Key));
+                model.Add(GlobalHelpers.Transfer<ModeloEquipo, ModeloEquipoItem>(db.ModeloEquipoes.Find(item.Key), null));
+                //modelosDisponibles.Add(db.Equipoes.SingleOrDefault(e => e.Id == item.Key));
             }
-           
 
-                       
-            return PartialView("PartialModeloEquipo",modelosDisponibles);
+            if (modelos != null)
+                foreach (var item in modelos)
+                {
+                    model.ForEach(m =>
+                    {
+                        if (m.Id == item.Id)
+                        {
+                            m.IsSelected = item.IsSelected;
+                            m.Cantidad = item.Cantidad;
+                        }
+                    });
+                }
+
+            return PartialView("PartialModeloEquipo", model);
         }
 
         //
         // POST: /Solicituds/Create
 
         [HttpPost]
-        public ActionResult Nueva(SolicitudViewModel nuevaSolicituds, FormCollection form)
+        public ActionResult Nueva(SolicitudViewModel model)
         {
-            //almacenamos los check seleccionados para mantener el estado de seleccionado en la vista despues del post
-            List<String> check = new List<string>();
-            List<Tuple<String, String>> cantidad = new List<Tuple<string, string>>();
-
             if (ModelState.IsValid)
             {
-
-                IEnumerable<SelectListItem> edificioList = new List<SelectListItem>();
-                IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
-           /*     int edificioId = 0;
-
-                if (form["edificioId"] != null && form["edificioId"] != "")
+                //verificar que la cantidad de modelos seleccionados esta disponible.
+                var datosValidos = true;
+                var EquiposDisponibles = db.Equipoes.Where(e => e.EstatusEquipo == 5 || e.EstatusEquipo == 1).ToList();
+                var query = db.Database
+                    .SqlQuery<int>("EXEC EquiposNoDisponibles {0},{1},{2}", model.Fecha, model.HoraInicio, model.HoraFin)
+                    .ToList();
+                foreach (var item in query)
                 {
-                     edificioId = int.Parse(form["edificioId"]);
+                    EquiposDisponibles.Remove(EquiposDisponibles.SingleOrDefault(e => e.Id == item));
                 }
-            */
 
-                //Seleccionando los id de las Solicitudes anteriores para obtener la ultima
-                var SolicitudsId = db.Solicituds.Select(s => s.Id).ToList();
-
-                //variable para verificar que en la Solicitud se ha seleccionado al menos un equipo
-                bool contieneEquipos = false;
-               // bool modelStateValido = true;
-
-
-                //lista para almacenar los equipos seleccionados en la Solicitud
-                List<SolicitudEquipo> listaEquiposSelecionados = new List<SolicitudEquipo>();
-
-                //Verificando si hay equipos seleccionado en la Solicitud
-                for (int i = 1; i < form.Count; i++)
+                foreach (var item in model.modelos)
                 {
-
-                    if (form["chk" + i] != null)
+                    var cantidadDisponible = EquiposDisponibles.Where(e => e.IdModeloEquipo == item.Id).Count();
+                    if (item.Cantidad > cantidadDisponible)
                     {
-                        //agregando los check seleccionado a la lista para mantener el modelo en caso de error
-                        check.Add("chk" + i);
-                        cantidad.Add(new Tuple<string, string>("cant" + i, form["cant" + i]));
-                        contieneEquipos = true;
-                        //             oooooooooooooojjjjjjjjjjjjoooooooooooooooo ojo ojo ojo ojo
-                        //
-                        //aqui hay que cambiar esta logica para seleccionar los equipos x modelo disponibles
-                        //hay que poner la logica que esta en el metodo equipos disponibles de este controlador.
-                        /////////////////////////////////////////////////////////////////////////
-                        var equiposDisponibles =totalEquiposDisponibles(nuevaSolicituds.Fecha.ToString(), nuevaSolicituds.HoraInicio.ToString(), nuevaSolicituds.HoraFin.ToString());
-                       ///////////////////////////////////////////////////  /////////// /////
+                        datosValidos = false;
+                        var err = String
+                            .Format(
+                              "Cantidad requerida del equipo '{0}' no puede ser satisfecha, seleccione una cantidad menor o igual a {1}",
+                              item.Descripcion, cantidadDisponible);
+                        ModelState.AddModelError("", err);
+                    }
+                }
 
-                        if (equiposDisponibles.Where(e => e.IdModelo == Int32.Parse(form["chk" + i])).Count() >= int.Parse(form["cant" + i]))
-                        {
-                            int cantidadSeleccionada = int.Parse(form["cant" + i]);
-                            //buscando en la lista de equipos los equipos que estan disponibles
-                            foreach (var item in equiposDisponibles)
+                if (datosValidos)
+                {
+                    var equiposNuevosSolicitados = new List<int>();
+                    var nuevaSolicitud = GlobalHelpers.Transfer<SolicitudViewModel, Solicitud>(model, null);
+                    nuevaSolicitud.IdUserProfile = WebSecurity.CurrentUserId;
+                    nuevaSolicitud.EstatusSolicitud = (int)EstatusSolicitudes.En_Proceso;
+                    nuevaSolicitud.TipoSolicitud = (int)TiposSolicitudes.Sistema;
+                    nuevaSolicitud.IdAulaEdificio = model.SalonId;
+                    foreach (var item in model.modelos.Where(m => m.IsSelected == true))
+                    {
+                        var equipos = EquiposDisponibles.Where(e => e.IdModeloEquipo == item.Id);
+                        for(int i = 0; i < item.Cantidad; i++){
+                            nuevaSolicitud.Equipoes.Add(equipos.ElementAt(i));
+                            if (equipos.ElementAt(i).EstatusEquipo == (int)EstatusEquipos.Nuevo_Equipo)
                             {
-                                if (item.IdModelo == Int32.Parse(form["chk" + i]))
-                                {
-                                    //Instancia de equipo para almacenar los nuevos equipos
-                                    SolicitudEquipo nuevoEquipo = new SolicitudEquipo();
-                                    nuevoEquipo.idEquipo = item.Id;
-
-                                    //Verificando si hay Solicitudses Registrada
-                                    if (SolicitudsId.Count() > 0)
-                                    {
-                                        nuevoEquipo.IdSolicitud = SolicitudsId.Max() + 1;
-                                    }
-                                    else
-                                    {
-                                        nuevoEquipo.IdSolicitud = 1;
-                                    }
-
-                                    if (cantidadSeleccionada > 0)
-                                    {
-                                        //agregando el equipo seleccionado a la lista de equipos seleccionados
-                                        listaEquiposSelecionados.Add(nuevoEquipo);
-                                        cantidadSeleccionada--;
-                                    }
-                                }
+                                equiposNuevosSolicitados.Add(equipos.ElementAt(i).Id);
                             }
                         }
-                        else
-                        {
-                            //Mostramos un mensaje diciendo que la cantidad del equipo seleccionado no esta disponible
-                            ViewBag.Seleccionar = "Cantidad " + db.ModeloEquipoes.FirstOrDefault(e => e.Id == i).Nombre + " No disponible!";
-                           // modelStateValido = false;
-                            break;
-                        }
                     }
-                }
 
-                    var error = ModelState.Values.SelectMany(e => e.Errors);
-                    if (contieneEquipos)
+                    if (equiposNuevosSolicitados.Count() > 0)
                     {
-                        //Registrando la nueva Solicituds
-                        nuevaSolicituds.IdEstatusSolicitud = 3;
-                        nuevaSolicituds.IdUserProfile = WebSecurity.GetUserId(User.Identity.Name);
-                        nuevaSolicituds.IdLugar = nuevaSolicituds.SalonId;
-                        var solicitud = new Solicitud();
-                        GlobalHelpers.Transfer<SolicitudViewModel, Solicitud>(nuevaSolicituds, solicitud);
-                        db.Solicituds.Add(solicitud);
-                        foreach (var item in listaEquiposSelecionados)
-                        {
-                            db.SolicitudEquipoes.Add(item);
-                            //Actualizamos el estatus del equipo para que los equipos que nunca
-                            //se han solicitado su estatus se actualice a solicitado
-                            db.Equipoes.SingleOrDefault(e => e.Id == item.idEquipo).IdEstatusEquipo = 1;
-                        }
-                        db.SaveChanges();
+                        var actualizarEquipos = db.Equipoes.Where(e => equiposNuevosSolicitados.Contains(e.Id)).ToList();
+                        actualizarEquipos.ForEach(e => e.EstatusEquipo = (int)EstatusEquipos.Disponible);
                     }
-                    else
-                    {
-                        //almacenar check activos por si hay error en el modelo
-                        ViewBag.check = check;
-                        ViewBag.cantidad = cantidad;
 
-                        ViewBag.EdificioId = getEdificio(nuevaSolicituds.EdificioId);
-                        var salonList2 = db.AulaEdificios.Where(a => a.IdLugar == nuevaSolicituds.EdificioId)
-                        .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString());
-                        ViewBag.SalonID = new SelectList(salonList2, "Value", "Text", form["salonId"]);
-                  
-
-                        if (contieneEquipos == false)
-                        {
-                            ViewBag.Seleccionar = "Debe seleccionar al menos un equipo!";
-                        }
-
-                        return View(nuevaSolicituds);
-                    }
+                    db.Solicituds.Add(nuevaSolicitud);
+                    db.SaveChanges();
 
                     return RedirectToAction("Index");
-
+                }
             }
-            else
-            {
-                //almacenar check activos por si hay error en el modelo
-                ViewBag.check = check;
-                ViewBag.cantidad = cantidad;
 
+            ViewBag.EdificioID = getEdificio(model.EdificioId);
+            ViewBag.SalonID = db.AulaEdificios.Where(a => a.IdLugar == model.EdificioId)
+                .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString(), a => a.Id == model.SalonId);
+            ViewBag.PostedBack = true;
 
-                ViewBag.EdificioId = getEdificio(nuevaSolicituds.EdificioId);
-                var salonList = db.AulaEdificios.Where(a => a.IdLugar == nuevaSolicituds.EdificioId)
-                        .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString());
-                ViewBag.SalonID = new SelectList(salonList, "Value", "Text", nuevaSolicituds.SalonId);
-                return View(nuevaSolicituds);
-            }
+            return View(model);
         }
 
         /// <summary>
@@ -281,64 +184,48 @@ namespace Sigeret.Controllers
         [Vista("Editar Solicitud", "AEA05")]
         public ActionResult Editar(int id)
         {
-
-            Solicitud editar = db.Solicituds.SingleOrDefault(x => x.Id == id);
-
-            //Validando que las solicitudes con fechas anterior a la fecha actual no puedan ser editadas
-            if (editar.Fecha < DateTime.Now)
+            var solicitud = db.Solicituds.Find(id);
+            var equipos = solicitud.Equipoes.ToList();
+            var modelos = new List<ModeloEquipoItem>();
+            var iniciales = new List<ModeloEquipoItem>();
+            foreach (var item in equipos.GroupBy(e => e.IdModeloEquipo))
             {
-                return RedirectToAction("Detalles",new{ id = id});
+                var modelo = db.ModeloEquipoes.Find(item.Key);
+                modelos.Add(new ModeloEquipoItem
+                {
+                    Id = modelo.Id,
+                    Nombre = modelo.Nombre,
+                    Descripcion = modelo.Descripcion,
+                    IsSelected = true,
+                    Cantidad = equipos.Where(e => e.IdModeloEquipo == modelo.Id).Count()
+                });
+            }
+            var model = GlobalHelpers.Transfer<Solicitud, SolicitudViewModel>(solicitud, null);
+            var EquiposDisponibles = db.Equipoes.Where(e => e.EstatusEquipo == 5 || e.EstatusEquipo == 1).ToList();
+            var query = db.Database
+                .SqlQuery<int>("EXEC EquiposNoDisponibles {0},{1},{2}", model.Fecha, model.HoraInicio, model.HoraFin)
+                .ToList();
+            foreach (var item in query)
+            {
+                EquiposDisponibles.Remove(EquiposDisponibles.SingleOrDefault(e => e.Id == item));
+            }
+            foreach (var item in EquiposDisponibles.GroupBy(e => e.IdModeloEquipo))
+            {
+                iniciales.Add(GlobalHelpers.Transfer<ModeloEquipo, ModeloEquipoItem>(db.ModeloEquipoes.Find(item.Key), null));
+                //modelosDisponibles.Add(db.Equipoes.SingleOrDefault(e => e.Id == item.Key));
             }
 
-            //almacena la cantidad y el modelo del equipo seleccionado
-            List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>();
-
-            var aulaEdificio = from s in db.Solicituds
-                        join aula in db.AulaEdificios on s.IdLugar equals aula.Id
-                               where s.Id == id
-                        select s.AulaEdificio;
-
-            int aulaId = 0;
-            int edificioId = 0;
-
-            foreach (var aula in aulaEdificio)
+            foreach (var item in modelos)
             {
-                aulaId = aula.Id;
-                edificioId = aula.IdLugar;
+                iniciales.Remove(iniciales.Find(m => m.Id == item.Id));
+                iniciales.Add(item);
             }
 
-            ViewBag.EdificioId = new SelectList(db.Lugars, "Id", "Edificio", edificioId);
-            ViewBag.SalonId = new SelectList(db.AulaEdificios.Where(x => x.IdLugar == edificioId), "Id", "Aula", aulaId);
-
-            
-
-            //seleccionando los equipos disponibles
-           List<Equipo>equiposDisponibles = totalEquiposDisponibles(editar.Fecha.ToString(),editar.HoraInicio.ToString(),editar.HoraFin.ToString());
-
-            List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
-
-            foreach (var modelo in equiposDisponibles.GroupBy(e => e.IdModelo))
-            {
-                modelosDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(m => m.Id == modelo.Key));
-            }
-
-            //consultando para obtener la cantidad de equipos seleccionados por modelos
-            var cantidadXModelo = from se in db.SolicitudEquipoes
-                                      join solEquipo in db.Solicituds on se.IdSolicitud equals solEquipo.Id
-                                      join equipo in db.Equipoes on se.idEquipo equals equipo.Id
-                                      join modelo in db.ModeloEquipoes on equipo.IdModelo equals modelo.Id
-                                  where solEquipo.Id == id
-                                  group equipo by equipo.IdModelo into modelosSeleccionados
-                                  select modelosSeleccionados;
-
-            foreach (var modelo in cantidadXModelo)
-            {
-                cantidadSel.Add(new Tuple<string, string>(modelo.Key.ToString(), modelo.Count().ToString()));
-            }
-
-            ViewBag.ModeloEquipo = modelosDisponibles;
-            ViewBag.cantidadSel = cantidadSel;
-            SolicitudViewModel model = GlobalHelpers.Transfer<Solicitud, SolicitudViewModel>(editar, null);
+            model.modelos = iniciales.OrderBy(m => m.Nombre).ToList();
+            ViewBag.EdificioId = db.Lugars.ToList()
+                .ToSelectListItems(l => l.Edificio, l => l.Id.ToString(), l => l.Id == solicitud.AulaEdificio.IdLugar);
+            ViewBag.SalonId = db.AulaEdificios.Where(a => a.IdLugar == solicitud.AulaEdificio.IdLugar)
+                .ToSelectListItems(a => a.Aula, a => a.Id.ToString(), a => a.Id == solicitud.IdAulaEdificio);
 
             return View(model);
         }
@@ -346,181 +233,79 @@ namespace Sigeret.Controllers
 
 
         [HttpPost]
-        public ActionResult Editar(int id, SolicitudViewModel editada, FormCollection form)
+        public ActionResult Editar(SolicitudViewModel model)
         {
-            try
+            if (ModelState.IsValid)
             {
-                List<Tuple<String, String>> cantidadSel = new List<Tuple<string, string>>(); //almacena la cantidad y el modelo del equipo seleccionado
-                IEnumerable<SelectListItem> salonList = new List<SelectListItem>();
-                int edificioId = int.Parse(form["edificioId"]);
-                bool contieneEquipo = false;
-                var SolicitudsBD = db.Solicituds.SingleOrDefault(s => s.Id == id);
-
-                SolicitudsBD.Descripcion = editada.Descripcion;
-                SolicitudsBD.HoraInicio = editada.HoraInicio;
-                SolicitudsBD.HoraFin = editada.HoraFin;
-                SolicitudsBD.Fecha = editada.Fecha;
-
-               
-                //lista para almacenar los equipos seleccionados en la Solicituds
-                List<SolicitudEquipo> listaEquiposSelecionados = new List<SolicitudEquipo>();
-
-                //lista de equipos ya preseleccionados cuando se creo la Solicituds
-                List<SolicitudEquipo> listaEquiposPreseleccionados = new List<SolicitudEquipo>();
-
-                listaEquiposPreseleccionados = db.SolicitudEquipoes.Where(e => e.IdSolicitud == id).ToList();
-
-                //Verificando si hay equipos seleccionado en la Solicituds
-                for (int i = 1; i < form.Count; i++)
+                //verificar que la cantidad de modelos seleccionados esta disponible.
+                var datosValidos = true;
+                var EquiposDisponibles = db.Equipoes.Where(e => e.EstatusEquipo == 5 || e.EstatusEquipo == 1).ToList();
+                var query = db.Database
+                    .SqlQuery<int>("EXEC EquiposNoDisponibles {0},{1},{2}", model.Fecha, model.HoraInicio, model.HoraFin)
+                    .ToList();
+                var solicitud = db.Solicituds.Find(model.Id);
+                foreach (var item in query)
                 {
-                    //Verificando si hay modelos de equipos eliminados
-                    if (form["hChk" + i] != null)
+                    var equipo = EquiposDisponibles.SingleOrDefault(e => e.Id == item);
+                    if (!solicitud.Equipoes.Contains(equipo, new GlobalHelpers.Compare<Equipo>((e, f) => e.Id == f.Id)))
                     {
-                        if (form["chk" + i] == null)
-                        {
-                            int hChk = Int32.Parse(form["hChk" + i]);
-                            //eliminamos los equipos con el modelo especifico
-                            List<SolicitudEquipo> equiposEliminadosXmodelo = new List<SolicitudEquipo>();
-                            equiposEliminadosXmodelo = db.SolicitudEquipoes.Where(e => e.IdSolicitud == id && e.Equipo.IdModelo == hChk).ToList();
-
-                            foreach (var equipo in equiposEliminadosXmodelo)
-                            {
-                                db.Equipoes.SingleOrDefault(e => e.Id == equipo.idEquipo).IdEstatusEquipo = 1;
-                                db.SolicitudEquipoes.Remove(equipo);
-                            }
-                        }
-                    }
-
-                    if (form["chk" + i] != null)
-                    {
-                        int idModelo = Int32.Parse( form["chk" + i]);
-                        int cantidad = Int32.Parse(form["cant" + i]);
-                        //agregando los check seleccionado a la lista para mantener el modelo en caso de error
-
-                        cantidadSel.Add(new Tuple<string, string>(i.ToString(), form["cant" + i]));
-                        contieneEquipo = true;
-                        var ques = from e in db.Equipoes select e;
-
-                        int ke = ques.Count();
-                        //Equipos disponibles por modelos
-                        List<Equipo> equiposDisponibles = totalEquiposDisponibles(SolicitudsBD.Fecha.ToString(), SolicitudsBD.HoraInicio.ToString(), SolicitudsBD.HoraFin.ToString());
-                        //Equipos x modelo previamente seleccionados al momento de crear la Solicituds
-
-                        var equiposXmodelosPrevios = from e in db.Equipoes
-                                                     join solicitudEquipo in db.SolicitudEquipoes
-                                                     on e.Id equals solicitudEquipo.idEquipo
-                                                     where e.IdModelo == idModelo && solicitudEquipo.IdSolicitud == id
-                                                     select e;
-
-                        //verificamos si la cantidad selecionada al momento de crear la Solicituds
-                        //es mayor que la cantidad seleccionada al momento de editar la Solicituds
-                        //para proceder a reducir los equipos previamente seleccionados
-                        if (equiposXmodelosPrevios.Count() > cantidad)
-                        {
-                            List<SolicitudEquipo> equiposAEliminar = new List<SolicitudEquipo>();
-                            int cantidadEliminar = equiposXmodelosPrevios.Count() - cantidad;
-
-                            foreach (var equipo in equiposXmodelosPrevios)
-                            {
-
-                                if (cantidadEliminar > 0)
-                                {
-                                    equiposAEliminar.Add(db.SolicitudEquipoes.SingleOrDefault(e => e.idEquipo == equipo.Id && e.IdSolicitud == id));
-                                    db.Equipoes.SingleOrDefault(e => e.Id == equipo.Id).IdEstatusEquipo = 1;
-                                    cantidadEliminar--;
-                                }
-                            }
-
-                            foreach (var equipoAEliminar in equiposAEliminar)
-                            {
-                                db.SolicitudEquipoes.Remove(equipoAEliminar);
-                            }
-                        }
-                        else if (equiposXmodelosPrevios.Count() < cantidad && equiposDisponibles.Where(e=>e.IdModelo==idModelo).Count() >= cantidad - equiposXmodelosPrevios.Count())
-                        {
-                           
-                            int cantidadSeleccionada = int.Parse(form["cant" + i]) - equiposXmodelosPrevios.Count();
-
-                            //agregando los nuevos equipos
-                            foreach (var item in equiposDisponibles.Where(e=>e.IdModelo==idModelo))
-                            {
-                                if (cantidadSeleccionada > 0)
-                                {
-                                    //Instancia de equipo para almacenar los nuevos equipos
-                                    SolicitudEquipo nuevoEquipo = new SolicitudEquipo();
-
-                                    nuevoEquipo.idEquipo = item.Id;
-                                    nuevoEquipo.IdSolicitud = id;
-                                    //agregando el equipo seleccionado a la lista de equipos seleccionados
-                                    listaEquiposSelecionados.Add(nuevoEquipo);
-
-                                   cantidadSeleccionada--;
-                                }
-                            }
-                            foreach (var equipoSolicitud in listaEquiposSelecionados)
-                            {
-                                db.SolicitudEquipoes.Add(equipoSolicitud);
-                            }
-                        }
-                        else if (equiposDisponibles.Where(e=>e.IdModelo==idModelo).Count() < Int32.Parse(form["cant" + i]))
-                        {
-                            //Mostramos un mensaje diciendo que la cantidad del equipo seleccionado no esta disponible
-                            ModelState.AddModelError("", "Cantidad de " + db.ModeloEquipoes.SingleOrDefault(e => e.Id == i).Nombre + " no disponible");
-
-                        }
-
+                        EquiposDisponibles.Remove(EquiposDisponibles.SingleOrDefault(e => e.Id == item));
                     }
                 }
 
-                if (!contieneEquipo)
+                foreach (var item in model.modelos)
                 {
-                    //consultando para obtener la cantidad de equipos seleccionados por modelos
-                    var cantidadXModelo = from se in db.SolicitudEquipoes
-                                          join solEquipo in db.Solicituds on se.IdSolicitud equals solEquipo.Id
-                                          join equipo in db.Equipoes on se.idEquipo equals equipo.Id
-                                          join modelo in db.ModeloEquipoes on equipo.IdModelo equals modelo.Id
-                                          where solEquipo.Id == id
-                                          group equipo by equipo.IdModelo into modelosSeleccionados
-                                          select modelosSeleccionados;
-
-                    foreach (var modelo in cantidadXModelo)
+                    var cantidadDisponible = EquiposDisponibles.Where(e => e.IdModeloEquipo == item.Id).Count();
+                    if (item.Cantidad > cantidadDisponible)
                     {
-                        cantidadSel.Add(new Tuple<string, string>(modelo.Key.ToString(), modelo.Count().ToString()));
+                        datosValidos = false;
+                        var err = String
+                            .Format(
+                              "Cantidad requerida del equipo '{0}' no puede ser satisfecha, seleccione una cantidad menor o igual a {1}",
+                              item.Descripcion, cantidadDisponible);
+                        ModelState.AddModelError("", err);
                     }
-                    ModelState.AddModelError("", "Debe seleccionar al menos un equipo");
                 }
 
-                if (ModelState.IsValid)
+                if (datosValidos)
                 {
+                    model.modelos = model.modelos.Where(m => m.IsSelected == true).ToList();
+                    var equiposNuevosSolicitados = new List<int>();
+                    GlobalHelpers.Transfer<SolicitudViewModel, Solicitud>(model, solicitud);
+                    solicitud.IdAulaEdificio = model.SalonId;
+                    solicitud.Equipoes.Clear();
+                    foreach (var item in model.modelos)
+                    {
+                        var equipos = EquiposDisponibles.Where(e => e.IdModeloEquipo == item.Id);
+                        for (int i = 0; i < item.Cantidad; i++)
+                        {
+                            solicitud.Equipoes.Add(equipos.ElementAt(i));
+                            if (equipos.ElementAt(i).EstatusEquipo == (int)EstatusEquipos.Nuevo_Equipo)
+                            {
+                                equiposNuevosSolicitados.Add(equipos.ElementAt(i).Id);
+                            }
+                        }
+                    }
 
+                    if (equiposNuevosSolicitados.Count() > 0)
+                    {
+                        var actualizarEquipos = db.Equipoes.Where(e => equiposNuevosSolicitados.Contains(e.Id)).ToList();
+                        actualizarEquipos.ForEach(e => e.EstatusEquipo = (int)EstatusEquipos.Disponible);
+                    }
+
+                    db.Entry(solicitud).State = EntityState.Modified;
                     db.SaveChanges();
-                    return RedirectToAction("Detalles", new { Id = editada.Id });
-                }
-                else
-                {
-                    ViewBag.EdificioId = new SelectList(db.Lugars, "Id", "Edificio", form["edificioId"]);
-                    ViewBag.SalonId = new SelectList(db.AulaEdificios.Where(x => x.IdLugar == edificioId), "Id", "Aula", SolicitudsBD.IdLugar);
 
-                    List<Equipo> equiposDisponibles = totalEquiposDisponibles(SolicitudsBD.Fecha.ToString(), SolicitudsBD.HoraInicio.ToString(), SolicitudsBD.HoraFin.ToString());
-
-                    List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
-
-                    foreach (var modelo in equiposDisponibles.GroupBy(e => e.IdModelo))
-                    {
-                        modelosDisponibles.Add(db.ModeloEquipoes.SingleOrDefault(m => m.Id == modelo.Key));
-                    }
-
-                    ViewBag.ModeloEquipo = modelosDisponibles;
- 
-                    ViewBag.cantidadSel = cantidadSel;
-
-                    return View(editada);
+                    return RedirectToAction("Index");
                 }
             }
-            catch(Exception e)
-            {
-                return View(e);
-            }
+
+            ViewBag.EdificioID = getEdificio(model.EdificioId);
+            ViewBag.SalonID = db.AulaEdificios.Where(a => a.IdLugar == model.EdificioId)
+                .ToList().ToSelectListItems(a => a.Aula, a => a.Id.ToString(), a => a.Id == model.SalonId);
+            ViewBag.PostedBack = true;
+
+            return View(model);
         }
 
         //
@@ -590,39 +375,6 @@ namespace Sigeret.Controllers
 
             return View();
         }
-
-        //Consultando los equipos disponibles
-        public List<Equipo> totalEquiposDisponibles(string fecha, string horaInicio, string horaFin)
-        {
-
-            DateTime fechaObj = new DateTime();
-            fechaObj = DateTime.Parse(fecha);
-            fecha = fechaObj.ToString("yyyy-MM-dd");
-
-            //Almacena los equipos que estan disponibles para ser solicitado
-            List<Equipo> EquiposDisponibles = new List<Equipo>();
-
-            //Consultando los equipos que podrian estar disponible para la solicitud
-            EquiposDisponibles = db.Equipoes.Where(e => e.IdEstatusEquipo == 5 || e.IdEstatusEquipo == 1).ToList();
-
-            //Consultando los equipos que no han sido solicitado para la fecha indicada para eliminarlos
-            //de la lista de equipos disponibles
-
-
-            var query = db.Database.SqlQuery<int>("EXEC EquiposNoDisponibles {0},{1},{2}", fecha, horaInicio, horaFin);
-
-            //Eliminando los equipos no disponibles de la lista de equipos disponibles
-
-            foreach (var item in query)
-            {
-
-                EquiposDisponibles.Remove(EquiposDisponibles.SingleOrDefault(e => e.Id == item));
-
-            }
-
-            return EquiposDisponibles;
-        }
-
 
     }
 }

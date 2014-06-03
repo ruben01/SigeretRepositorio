@@ -39,5 +39,6 @@ namespace Sigeret.Models.ViewModels
         [Required]
         [Display(Name="Salón")]
         public int SalonId { get; set; }
+        public List<ModeloEquipoItem> modelos { get; set; }
     }
 }

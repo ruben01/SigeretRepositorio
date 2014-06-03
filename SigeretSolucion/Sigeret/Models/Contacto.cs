@@ -7,7 +7,7 @@ namespace Sigeret.Models
     {
         public Contacto()
         {
-            this.SolicitudSms = new List<SolicitudSm>();
+            this.Solicituds = new List<Solicitud>();
         }
 
         public int Id { get; set; }
@@ -16,6 +16,6 @@ namespace Sigeret.Models
         public int IdTipoContacto { get; set; }
         public virtual TipoContacto TipoContacto { get; set; }
         public virtual UserProfile UserProfile { get; set; }
-        public virtual ICollection<SolicitudSm> SolicitudSms { get; set; }
+        public virtual ICollection<Solicitud> Solicituds { get; set; }
     }
 }
