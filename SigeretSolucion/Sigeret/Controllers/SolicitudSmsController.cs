@@ -484,8 +484,8 @@ namespace Sigeret.Controllers
                     //Validando que el usurario solo pueda Registrar 5 solucitudes maximas por sms cada semestre
 
                     var solicitudesSMS = from s in contacto.Solicituds
-                                         where contacto.IdUserProfile == codigoUsuario && s.Fecha >= EntityFunctions.AddMonths(s.Fecha, -3)
-                                              && s.Fecha <= EntityFunctions.AddMonths(s.Fecha, 3)
+                                         where contacto.IdUserProfile == codigoUsuario && s.Fecha >= DateTime.Now.AddMonths(-3)
+                                              && s.Fecha <= DateTime.Now.AddMonths( 3)
                                          select s.Id;
 
                     if (solicitudesSMS.Count() > 8)
@@ -605,7 +605,7 @@ namespace Sigeret.Controllers
                 //Verificando si el modelo seleccionado esta disponible con relacion a los modelos disponibles por fecha y hora
                 foreach (var item in equipos)
                 {
-                    int cantidadXModelo = equiposDisponibles.Where(e => e.Id == Int32.Parse(item.Item1)).Count(); //cambiar logica a nuevo formato BD
+                    int cantidadXModelo = equiposDisponibles.Where(e => e.IdModeloEquipo == Int32.Parse(item.Item1)).Count(); //cambiar logica a nuevo formato BD
 
                     if (cantidadXModelo == 0)
                     {
@@ -687,10 +687,10 @@ namespace Sigeret.Controllers
                 {
                     respuesta = "\nCodigos Equipos";
 
-                    foreach (var modelo in db.Equipoes)
+                    foreach (var modelo in db.ModeloEquipoes)
                     {
 
-                        //respuesta = respuesta + "\n" + modelo.Nombre + "=" + modelo.Id;
+                        respuesta = respuesta + "\n" + modelo.Nombre + "=" + modelo.Id;
                     }
 
 
@@ -700,7 +700,7 @@ namespace Sigeret.Controllers
                 {
 
                     int codigoEquipo = Int32.Parse(ce);
-                    //respuesta = db.Equipoes.SingleOrDefault(e => e.Id == codigoEquipo).Descripcion;
+                    respuesta = db.ModeloEquipoes.SingleOrDefault(e => e.Id == codigoEquipo).Descripcion;
 
                     return respuesta;
                 }
@@ -733,15 +733,15 @@ namespace Sigeret.Controllers
                 else
                 {
 
-                    int codigoEquipo = Int32.Parse(cs);
-                    //respuesta = db.Equipoes.SingleOrDefault(e => e.Id == codigoEquipo).Descripcion;
+                    int codigoSalon = Int32.Parse(cs);
+                    respuesta = db.AulaEdificios.SingleOrDefault(e => e.Id == codigoSalon).Aula;
 
                     return respuesta;
                 }
             }
             catch
             {
-                return "Problema al procesar el equipo !verifique Formato instruccion!";
+                return "Problema al procesar el Salon !verifique Formato instruccion!";
             }
         }
 
