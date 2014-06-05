@@ -30,7 +30,7 @@
                                 @Html.DisplayNameFor(model => model.ModeloEquipo.Modelo)
                             </th>
                             <th>
-                                @Html.DisplayNameFor(model => model.ModeloEquipo.MarcaEquipo.Marca)
+                                @Html.DisplayNameFor(model => model.ModeloEquipo.Marca)
                             </th>
                             <th>
                                 @Html.DisplayNameFor(model => model.ModeloEquipo.Descripcion)
@@ -55,13 +55,13 @@
                                         @Html.DisplayFor(modelItem => item.ModeloEquipo.Modelo)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.ModeloEquipo.MarcaEquipo.Marca)
+                                        @Html.DisplayFor(modelItem => item.ModeloEquipo.Marca)
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.ModeloEquipo.Descripcion)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.EstatusEquipo.Estatus)
+                                        @Html.DisplayFor(modelItem => item.EstatusEquipo)
                                     </td>
                                     <td>
                                         @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
