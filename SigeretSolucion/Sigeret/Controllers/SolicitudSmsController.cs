@@ -636,8 +636,8 @@ namespace Sigeret.Controllers
                                 //}
 
                                 //nuevo.idEquipo = equipo.Id;
-                                ////Actualizamos el estatus del equipo para que se refleje su primer uso en caso de que no haya sido utilizado
-                                //db.Equipoes.SingleOrDefault(e => e.Id == equipo.Id).EstatusEquipo = 1;
+                               //Actualizamos el estatus del equipo para que se refleje su primer uso en caso de que no haya sido utilizado
+                                db.Equipoes.SingleOrDefault(e => e.Id == equipo.Id).EstatusEquipo = 1;
                                 ////nuevaSolicitud.SolicitudEquipoes.Add(nuevo);
 
                                 //cantidad--;
@@ -673,7 +673,7 @@ namespace Sigeret.Controllers
 
                 return "Error procesando su solicitud Revise el formato";
             }
-            return "";
+            return "Solicitud Procesada.\nSu codigo:";// +nuevaSolSms.IdSolicitud + "\n!Gracias!\n!Favor guardar Codigo!";
         }
 
 
