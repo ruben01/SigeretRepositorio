@@ -96,14 +96,17 @@ namespace Sigeret.Models
 
         [Required]
         [Display(Name = "Nombre de usuario")]
+        [System.Web.Mvc.Remote("ValidarUserName", "Account", AdditionalFields = "UserId")]
         public string UserName { get; set; }
 
         [Required]
         [Display(Name = "Matricula")]
+        [System.Web.Mvc.Remote("ValidarMatricula", "Account", AdditionalFields = "UserId")]
         public string Matricula { get; set; }
 
         [Required]
         [Display(Name = "Cedula")]
+        [System.Web.Mvc.Remote("ValidarCedula", "Account", AdditionalFields = "UserId")]
         public string Cedula { get; set; }
 
         [Required]

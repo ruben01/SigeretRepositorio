@@ -34,7 +34,7 @@
                                 </div>
                                 <div id="stackTrace" class="panel-collapse collapse">
                                     <div class="panel-body center">
-                                        <p class="center col-lg-12">@Model.Exception.InnerException</p>
+                                        <p class="center col-lg-12">@Model.Exception.GetBaseException().Message</p>
                                         <a href="#errorTrace" class="btn btn-primary" data-toggle="modal">Ver Detalles avanzados de error</a>
                                     </div>
                                 </div>

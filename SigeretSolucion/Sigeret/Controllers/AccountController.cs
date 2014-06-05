@@ -479,7 +479,7 @@ namespace Sigeret.Controllers
             up.UserName = UserName;
             up.UserId = UserId;
             var valido = !db.UserProfiles.ToList()
-                .Contains(up, new GlobalHelpers.Compare<UserProfile>((l, r) => l.UserName == r.UserName && l.UserName != r.UserName));
+                .Contains(up, new GlobalHelpers.Compare<UserProfile>((l, r) => l.UserName == r.UserName && l.UserId != r.UserId));
 
             return Json(valido, JsonRequestBehavior.AllowGet);
         }

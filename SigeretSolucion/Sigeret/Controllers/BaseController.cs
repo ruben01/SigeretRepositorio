@@ -46,11 +46,11 @@ namespace Sigeret.Controllers
             {
                 if (!filterContext.HttpContext.IsCustomErrorEnabled)
                 {
-                    returnData = filterContext.Exception.Message + filterContext.Exception.StackTrace;
+                    returnData = filterContext.Exception.Message + " " + filterContext.Exception.StackTrace;
                 }
                 else
                 {
-                    returnData = "Ha ocurrido un error al procesar la solicitud";
+                    returnData = "Ha ocurrido un error al procesar la solicitud\n" + filterContext.Exception.Message + " " + filterContext.Exception.StackTrace; 
                 }
 
                 // TODO: Decide what to do if ajax

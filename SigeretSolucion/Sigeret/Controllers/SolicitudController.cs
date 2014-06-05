@@ -80,7 +80,7 @@ namespace Sigeret.Controllers
             }
 
             if (modelos != null)
-                foreach (var item in modelos)
+                foreach (var item in modelos.OrderBy(m => m.Nombre))
                 {
                     model.ForEach(m =>
                     {
