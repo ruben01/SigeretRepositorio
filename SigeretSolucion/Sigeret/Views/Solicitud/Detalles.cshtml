@@ -3,128 +3,101 @@
 @{
     ViewBag.Title = "Detalles";
 
-    
+
 }
 
-<h2>Detalles</h2>
+<hgroup class="title">
+    <h1>@ViewBag.Title.</h1>
+    <h2></h2>
+</hgroup>
 
 
-    <div class="display-label">
-        @Html.DisplayName("Número Solicitud")
+<div class="well">
+    <div class="col-lg-12">
+        @using (Html.BeginForm())
+        {
+            <fieldset>
+
+                <legend>Solicitud</legend>
+
+                <div class="row">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">@Html.Label("Número Solicitud")</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.DisplayFor(model => model.Id)
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">@Html.LabelFor(model => model.HoraInicio)</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.DisplayFor(model => model.HoraInicio)
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">@Html.LabelFor(model => model.HoraFin)</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.DisplayFor(model => model.HoraFin)
+                        </div>
+                    </div>
+
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">@Html.LabelFor(model => model.Descripcion)</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.DisplayFor(model => model.Descripcion)
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">@Html.LabelFor(model => model.AulaEdificio.Lugar.Edificio)</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.DisplayFor(model => model.AulaEdificio.Lugar.Edificio)
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">@Html.Label("Salon")</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.DisplayFor(model => model.AulaEdificio.Aula)
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">@Html.Label("Estatus")</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.Display("Estatus")
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">@Html.LabelFor(model => model.Fecha)</h3>
+                        </div>
+                        <div class="panel-body">
+                            @Html.DisplayFor(model => model.Fecha)
+                        </div>
+                    </div>
+                </div>
+
+            
+          
+          </fieldset>     
+        }
     </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Id)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.HoraInicio)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.HoraInicio)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.HoraFin)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.HoraFin)
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Descripcion)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.Descripcion)
-    </div>
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.AulaEdificio.Lugar.Edificio)
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AulaEdificio.Lugar.Edificio)
-    </div>
-    <div class="display-label">
-        @Html.DisplayName("Salon")
-    </div>
-    <div class="display-field">
-        @Html.DisplayFor(model => model.AulaEdificio.Aula)
-    </div>
-    <div class="display-label">
-         @Html.DisplayName("Estatus")
-    </div>
-    <div class="display-field">
-        @Html.Display("Estatus")
-    </div>
-
-    <div class="display-label">
-         @Html.DisplayNameFor(model => model.Fecha)
-    </div>
-    <div class="display-field">
-
-         @Html.DisplayFor(model => model.Fecha)
-    </div>
-
-    <fieldset>
-
-        <legend>
-            Equipos Solicitados
-        </legend>
-
-        <table>
-            <tr>
-                <th>
-                    @Html.DisplayName("Serie")
-                </th>
-
-                <th>
-                    @Html.DisplayName("Nombre")
-                </th>
-                <th>
-                    @Html.DisplayName("Marca")
-                </th>
-                <th>
-                    @Html.DisplayName("Modelo")
-                </th>
-                <th>
-                    @Html.DisplayName("Descripción")
-                </th>
-
-            </tr>
-            @{
-                
-                
-            }
-
-            @foreach (var item in ViewBag.EquiposSeleccionados)
-            {
-                <tr>
-
-                    <td>
-                      @item.Serie
-                    </td>
-                    <td>
-                        @item.ModeloEquipo.Nombre
-                    </td>
-                    <td>
-                        @item.ModeloEquipo.Marca
-                    </td>
-                    <td>
-                       @item.ModeloEquipo.Modelo
-                    </td>
-                    <td>
-                       @item.ModeloEquipo.Descripcion
-                    </td>
-
-                </tr>
-            }
-
-        </table>
-
-
-    </fieldset>
-
-
-
-
-<p>
-    @Html.ActionLink("Editar", "Editar", new { id=Model.Id }) |
-    @Html.ActionLink("Regresar", "ReporteSolicitudesAdm")
-</p>
+</div>
