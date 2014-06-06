@@ -72,7 +72,8 @@ namespace Sigeret.Controllers
                 }
                 else if (opcion == "spp*")
                 {
-                    body = "*" + (string)Session["spp"] + body + "*";
+                    string sol = (string)Session["spp"];
+                    body = "*" + sol+"*"+ body + "*";
                     Session["opcion"] = "";
                 }
 
@@ -404,7 +405,7 @@ namespace Sigeret.Controllers
             int indice2 = 0;
             int contador = 0;
             int idSolicitud = 0;
-            int idEquipo = 0;
+            int idModeloEquipo = 0;
             int cantidad = 0;
 
             Solicitud solicitud = new Solicitud();
@@ -425,7 +426,7 @@ namespace Sigeret.Controllers
             try
             {
                 idSolicitud = Int32.Parse(body.Substring(0, indice1));
-                idEquipo = Int32.Parse(body.Substring(indice1 + 1, indice2 - indice1 - 1));
+                idModeloEquipo = Int32.Parse(body.Substring(indice1 + 1, indice2 - indice1 - 1));
                 cantidad = Int32.Parse(body.Substring(indice2 + 1, body.Length - indice2 - 1));
             }
             catch
@@ -445,14 +446,18 @@ namespace Sigeret.Controllers
             {
                 List<Equipo> equipos = solicitud.Equipoes.ToList();
 
-                if (equipos.Where(e => e.Id == idEquipo).Count() == 0)
+                if (equipos.Where(e => e.IdModeloEquipo == idModeloEquipo).Count() == 0)
                 {
                     return "No existen equipos con ese codigo.";
                 }
 
                 foreach (var equipo in equipos)
                 {
-                    if (cantidad > 0 && equipo.Id == idEquipo)
+                    if (solicitud.Equipoes.Count() == 1)
+                    {
+                        return "No se pueden eliminar Todos los equipos de la solicitud, de lo contrario sera cancelada.";
+                    }
+                    if (cantidad > 0 && equipo.IdModeloEquipo == idModeloEquipo)
                     {
                         solicitud.Equipoes.Remove(equipo);
                         cantidad--;
@@ -472,6 +477,21 @@ namespace Sigeret.Controllers
 
         public string ProcesarSolicitud(string solicitud, string telefono)
         {
+            string fecha;
+            string horaInicio;
+            string horaFin;
+            string equiposStr;
+            int lugar = 0;
+            string nipSMS = null;
+            List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
+            List<Equipo> equiposDisponibles = new List<Equipo>();
+
+            //almacena la nueva Solicitud
+            Solicitud nuevaSolicitud = new Solicitud();
+
+            //Seleccionando los id de las Solicitudes anteriores para obtener la ultima
+            var SolicitudsId = db.Solicituds.Select(s => s.Id).ToList();
+
             try
             {
                 //Validando que el usuario este registrado para proceder con la solicitud
@@ -498,20 +518,7 @@ namespace Sigeret.Controllers
                 {
                     return "Su numero No esta registrado como Contacto de algun usuario.\n Registrelo o cree una cuenta. ";
                 }
-                string fecha;
-                string horaInicio;
-                string horaFin;
-                string equiposStr;
-                int lugar = 0;
-                string nipSMS = null;
-                List<ModeloEquipo> modelosDisponibles = new List<ModeloEquipo>();
-                List<Equipo> equiposDisponibles = new List<Equipo>();
 
-                //almacena la nueva Solicitud
-                Solicitud nuevaSolicitud = new Solicitud();
-
-                //Seleccionando los id de las Solicitudes anteriores para obtener la ultima
-                var SolicitudsId = db.Solicituds.Select(s => s.Id).ToList();
 
 
 
@@ -605,7 +612,7 @@ namespace Sigeret.Controllers
                 //Verificando si el modelo seleccionado esta disponible con relacion a los modelos disponibles por fecha y hora
                 foreach (var item in equipos)
                 {
-                    int cantidadXModelo = equiposDisponibles.Where(e => e.IdModeloEquipo == Int32.Parse(item.Item1)).Count(); //cambiar logica a nuevo formato BD
+                    int cantidadXModelo = equiposDisponibles.Where(e => e.IdModeloEquipo == Int32.Parse(item.Item1)).Count();
 
                     if (cantidadXModelo == 0)
                     {
@@ -619,28 +626,18 @@ namespace Sigeret.Controllers
                     else
                     {
                         int cantidad = Int32.Parse(item.Item2);
-                        int cantidadXModelo2 = equiposDisponibles.Where(e => e.Id == Int32.Parse(item.Item1)).Count();
+                        int cantidadXModelo2 = equiposDisponibles.Where(e => e.IdModeloEquipo == Int32.Parse(item.Item1)).Count();
 
                         foreach (var equipo in equiposDisponibles)
                         {
-                            if (cantidad > 0 && equipo.Id == Int32.Parse(item.Item1) && cantidad <= cantidadXModelo2)
+                            if (cantidad > 0 && equipo.IdModeloEquipo == Int32.Parse(item.Item1) && cantidad <= cantidadXModelo2)
                             {
-
-                                //if (SolicitudsId.Count() > 0)
-                                //{
-                                //    nuevo.IdSolicitud = SolicitudsId.Max() + 1;
-                                //}
-                                //else
-                                //{
-                                //    nuevo.IdSolicitud = 1;
-                                //}
-
-                                //nuevo.idEquipo = equipo.Id;
+                                
                                //Actualizamos el estatus del equipo para que se refleje su primer uso en caso de que no haya sido utilizado
                                 db.Equipoes.SingleOrDefault(e => e.Id == equipo.Id).EstatusEquipo = 1;
-                                ////nuevaSolicitud.SolicitudEquipoes.Add(nuevo);
+                                nuevaSolicitud.Equipoes.Add(equipo);
 
-                                //cantidad--;
+                                cantidad--;
                             }
 
                         }
@@ -656,11 +653,7 @@ namespace Sigeret.Controllers
                 {
                     db.Solicituds.Add(nuevaSolicitud);
                     db.SaveChanges();
-                    //Sacando el ultimo id registrado de la solicitud para asignarlo a la solicitudSms
-                    //nuevaSolSms.IdSolicitud = db.Solicituds.Select(s => s.Id).Max();
-                    //db.SolicitudSms.Add(nuevaSolSms);
-                    db.SaveChanges();
-                    //return "Solicitud Procesada.\nSu codigo:" + nuevaSolSms.IdSolicitud + "\n!Gracias!\n!Favor guardar Codigo!";
+
                 }
                 catch (DbEntityValidationException e)
                 {
@@ -673,7 +666,7 @@ namespace Sigeret.Controllers
 
                 return "Error procesando su solicitud Revise el formato";
             }
-            return "Solicitud Procesada.\nSu codigo:";// +nuevaSolSms.IdSolicitud + "\n!Gracias!\n!Favor guardar Codigo!";
+            return "Solicitud Procesada.\nSu codigo:" +nuevaSolicitud.Id + "\n!Gracias!\n!Favor guardar Codigo!";
         }
 
 
