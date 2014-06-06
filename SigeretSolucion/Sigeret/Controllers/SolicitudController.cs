@@ -32,8 +32,9 @@ namespace Sigeret.Controllers
         {
             List<Equipo> equiposSeleccionados = db.Solicituds.Find(id).Equipoes.ToList();
             ViewBag.equiposSeleccionados = equiposSeleccionados;
-
-            return View(db.Solicituds.FirstOrDefault(s => s.Id == id));
+            var solicitud = db.Solicituds.FirstOrDefault(s => s.Id == id);
+            ViewBag.Estatus = ((EstatusSolicitudes)solicitud.EstatusSolicitud).EnumToStr();
+            return View(solicitud);
         }
 
         //

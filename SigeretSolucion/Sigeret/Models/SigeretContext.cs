@@ -29,7 +29,7 @@ namespace Sigeret.Models
         public DbSet<TipoContacto> TipoContactoes { get; set; }
         public DbSet<UserProfile> UserProfiles { get; set; }
         public DbSet<User> Users { get; set; }
-        public DbSet<UsuarioNipSm> UsuarioNipSms { get; set; }
+       // public DbSet<UsuarioNipSm> UsuarioNipSms { get; set; }
         public DbSet<webpages_Membership> webpages_Membership { get; set; }
         public DbSet<webpages_OAuthMembership> webpages_OAuthMembership { get; set; }
         public DbSet<webpages_Roles> webpages_Roles { get; set; }
@@ -49,7 +49,7 @@ namespace Sigeret.Models
             modelBuilder.Configurations.Add(new TipoContactoMap());
             modelBuilder.Configurations.Add(new UserProfileMap());
             modelBuilder.Configurations.Add(new UserMap());
-            modelBuilder.Configurations.Add(new UsuarioNipSmMap());
+           // modelBuilder.Configurations.Add(new UsuarioNipSmMap());
             modelBuilder.Configurations.Add(new webpages_MembershipMap());
             modelBuilder.Configurations.Add(new webpages_OAuthMembershipMap());
             modelBuilder.Configurations.Add(new webpages_RolesMap());

@@ -2,6 +2,8 @@
 
 @{
     ViewBag.Title = "Detalles";
+
+    
 }
 
 <h2>Detalles</h2>
@@ -46,10 +48,10 @@
         @Html.DisplayFor(model => model.AulaEdificio.Aula)
     </div>
     <div class="display-label">
-         @Html.DisplayNameFor(model => model.EstatusSolicitud)
+         @Html.DisplayName("Estatus")
     </div>
     <div class="display-field">
-        @Html.DisplayFor(model => model.EstatusSolicitud)
+        @Html.Display("Estatus")
     </div>
 
     <div class="display-label">

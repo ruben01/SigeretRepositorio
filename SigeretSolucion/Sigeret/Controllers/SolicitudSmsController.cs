@@ -510,12 +510,18 @@ namespace Sigeret.Controllers
 
                     if (solicitudesSMS.Count() > 8)
                     {
+                        Session["opcion"] = "";
+                        Session["spp"] = "";
+                        Session["sppOpcion"] = "";
                         return "Usted ha excedido el maximo de solicitud sms por semestre.";
                     }
 
                 }
                 else
                 {
+                    Session["opcion"] = "";
+                    Session["spp"] = "";
+                    Session["sppOpcion"] = "";
                     return "Su numero No esta registrado como Contacto de algun usuario.\n Registrelo o cree una cuenta. ";
                 }
 
@@ -529,8 +535,11 @@ namespace Sigeret.Controllers
                 equiposStr = solicitud.Substring(30, solicitud.Length - 30);
 
                 //validando que el nipsms enviado sea igual al que esta registrado y pertenece al usuario para confirmar la solicitud
-                if (db.UsuarioNipSms.SingleOrDefault(n => n.IdUserProfile == codigoUsuario).Nip != nipSMS)
+                if (db.UserProfiles.SingleOrDefault(n => n.UserId == codigoUsuario).NipSms != nipSMS)
                 {
+                    Session["opcion"] = "";
+                    Session["spp"] = "";
+                    Session["sppOpcion"] = "";
                     return "NipSMS invalido. \nFavor vuelva a intentarlo.\nPuede Solicitarlo via web.";
                 }
 
@@ -545,6 +554,9 @@ namespace Sigeret.Controllers
                 }
                 catch
                 {
+                    Session["opcion"] = "";
+                    Session["spp"] = "";
+                    Session["sppOpcion"] = "";
                     return "Error en el formato de la hora o la fecha";
                 }
 
@@ -554,6 +566,9 @@ namespace Sigeret.Controllers
 
                 if (equiposDisponibles.Count == 0)
                 {
+                    Session["opcion"] = "";
+                    Session["spp"] = "";
+                    Session["sppOpcion"] = "";
                     return "No hay equipos disponibles para esta fecha";
                 }
 
@@ -581,6 +596,9 @@ namespace Sigeret.Controllers
                         }
                         else
                         {
+                            Session["opcion"] = "";
+                            Session["spp"] = "";
+                            Session["sppOpcion"] = "";
 
                             return "Error con el codigo Lugar.\nVuelva a intentarlo.\nEnviar Lu para saber mas.";
                         }
@@ -616,11 +634,16 @@ namespace Sigeret.Controllers
 
                     if (cantidadXModelo == 0)
                     {
+                        Session["opcion"] = "";
+                        Session["spp"] = "";
+                        Session["sppOpcion"] = "";
                         return "Equipo " + item.Item1 + " no esta disponible.\nSolicitud cancelada\n Vuelva a intentarlo";
                     }
                     else if (cantidadXModelo < Int32.Parse(item.Item2))
                     {
-
+                        Session["opcion"] = "";
+                        Session["spp"] = "";
+                        Session["sppOpcion"] = "";
                         return "Cantidad Equipo " + item.Item1 + " solo hay " + cantidadXModelo + " disponible.\nSolicitud cancelada\n Vuelva a intentarlo";
                     }
                     else
@@ -663,9 +686,15 @@ namespace Sigeret.Controllers
             }
             catch (Exception e)
             {
-
+                Session["opcion"] = "";
+                Session["spp"] = "";
+                Session["sppOpcion"] = "";
                 return "Error procesando su solicitud Revise el formato";
             }
+
+            Session["opcion"] = "";
+            Session["spp"] = "";
+            Session["sppOpcion"] = "";
             return "Solicitud Procesada.\nSu codigo:" +nuevaSolicitud.Id + "\n!Gracias!\n!Favor guardar Codigo!";
         }
 

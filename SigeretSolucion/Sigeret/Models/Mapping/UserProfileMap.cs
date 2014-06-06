@@ -31,6 +31,10 @@ namespace Sigeret.Models.Mapping
                 .IsRequired()
                 .HasMaxLength(50);
 
+            this.Property(t => t.NipSms)
+                .IsRequired()
+                .HasMaxLength(4);
+
             // Table & Column Mappings
             this.ToTable("UserProfile");
             this.Property(t => t.UserId).HasColumnName("UserId");
@@ -41,6 +45,7 @@ namespace Sigeret.Models.Mapping
             this.Property(t => t.Foto).HasColumnName("Foto");
             this.Property(t => t.Matricula).HasColumnName("Matricula");
             this.Property(t => t.EstatusUsuario).HasColumnName("EstatusUsuario");
+            this.Property(t => t.NipSms).HasColumnName("NipSms");
         }
     }
 }

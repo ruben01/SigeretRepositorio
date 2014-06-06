@@ -15,6 +15,7 @@ namespace Sigeret.Models
         [Key]
         public int UserId { get; set; }
         [Required]
+        [Display(Name = "Nombre de usuario")]
         [System.Web.Mvc.Remote("ValidarUserName", "Account", AdditionalFields = "UserId")]
         public string UserName { get; set; }
         [Required]
@@ -31,7 +32,7 @@ namespace Sigeret.Models
         public int EstatusUsuario { get; set; }
         public virtual ICollection<Contacto> Contactoes { get; set; }
         public virtual ICollection<Solicitud> Solicituds { get; set; }
-        public virtual ICollection<UsuarioNipSm> UsuarioNipSms { get; set; }
+       // public virtual ICollection<UsuarioNipSm> UsuarioNipSms { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }
 }

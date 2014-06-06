@@ -120,11 +120,15 @@ namespace Sigeret.Controllers
                 // Intento de registrar al usuario
                 try
                 {
-
+                    Random Nip = new Random();
+                    model.NipSms = Nip.Next(1234, 9876).ToString();
+                    
                     WebSecurity.CreateUserAndAccount(
                         model.UserName, model.Password,
-                        propertyValues: new { Nombre = model.Nombre, Apellido = model.Apellido, Cedula = model.Cedula, Matricula = model.Matricula });
+                        propertyValues: new { Nombre = model.Nombre, Apellido = model.Apellido, Cedula = model.Cedula, Matricula = model.Matricula, NipSms = model.NipSms });
                     WebSecurity.Login(model.UserName, model.Password);
+
+
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

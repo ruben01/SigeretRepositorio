@@ -35,7 +35,7 @@ namespace Sigeret.Models
         public string Descripcion { get; set; }
         public int IdUserProfile { get; set; }
         public int IdAulaEdificio { get; set; }
-        [DisplayName("Estatus Solicitud")]
+        [DisplayName("Id Estatus Solicitud")]
         public int EstatusSolicitud { get; set; }
 
         

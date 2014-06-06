@@ -128,6 +128,9 @@ namespace Sigeret.Models
         [Required]
         [Display(Name = "Rol de Usuario")]
         public int RoleId { get; set; }
+
+        [Display(Name = "Nip Sms")]
+        public string NipSms { get; set; }
     }
      
 
