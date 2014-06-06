@@ -327,5 +327,26 @@ namespace Sigeret.CustomCode
             return values;
         }
 
+        public static IEnumerable<SelectListItem> EnumToList<TEnum>(this Type type, bool useIntegerValue, TEnum enumObj) where TEnum : struct
+        {
+            var values = from TEnum e in Enum.GetValues(typeof(TEnum))
+                         select
+                             new SelectListItem
+                             {
+                                 Value =
+                                     (useIntegerValue)
+                                         ? Enum.Format(type, Enum.Parse(type, e.ToString()), "d")
+                                         : e.ToString(),
+                                 Text = e.ToString().Replace("_", " "),
+                                 Selected = (enumObj.Equals(null)) ? false :
+                                     (useIntegerValue)
+                                         ? (Convert.ToInt32(e) & Convert.ToInt32(enumObj)) == Convert.ToInt32(e)
+                                         : enumObj.ToString().Contains(e.ToString())
+                             };
+
+
+            return values;
+        }
+
     }
 }

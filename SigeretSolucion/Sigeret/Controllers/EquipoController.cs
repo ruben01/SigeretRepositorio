@@ -23,18 +23,24 @@ namespace Sigeret.Controllers
         [Vista("Nuevo Equipo", "ACA02")]
         public ActionResult NuevoEquipo()
         {
+            ViewBag.Marca = Sigeret.Properties.Settings.Default.Marcas.Cast<string>().ToList()
+                .ToSelectListItems(a => a, a => a);
+
             return View();
         }
         [HttpPost]
-        public ActionResult NuevoEquipo(Equipo equipo)
+        public ActionResult NuevoEquipo(ModeloEquipo equipo)
         {
             if (ModelState.IsValid)
             {
-                db.Equipoes.Add(equipo);
+                db.ModeloEquipoes.Add(equipo);
                 db.SaveChanges();
 
                 return RedirectToAction("Index");
             }
+
+            ViewBag.Marca = Sigeret.Properties.Settings.Default.Marcas.Cast<string>().ToList()
+                .ToSelectListItems(a => a, a => a, a => a == equipo.Marca);
 
             return View(equipo);
         }
@@ -57,26 +63,32 @@ namespace Sigeret.Controllers
         [Vista("Editar Equipo", "ACA05")]
         public ActionResult Editar(int Id)
         {
-            return View(db.Equipoes.Find(Id));
+            var equipo = db.ModeloEquipoes.Find(Id);
+            ViewBag.Marca = Sigeret.Properties.Settings.Default.Marcas.Cast<string>().ToList()
+                .ToSelectListItems(a => a, a => a, a => a == equipo.Marca);
+
+            return View(equipo);
         }
 
         [HttpPost]
-        public ActionResult Editar(Equipo equipo)
+        public ActionResult Editar(ModeloEquipo equipo)
         {
             if (ModelState.IsValid)
             {
-                var editarEquipo = db.Equipoes.FirstOrDefault(e => e.Id == equipo.Id);
+                var editarEquipo = db.ModeloEquipoes.FirstOrDefault(e => e.Id == equipo.Id);
 
-                //editarEquipo.Nombre = equipo.Nombre;
-                //editarEquipo.Marca = equipo.Marca;
-                //editarEquipo.Modelo = equipo.Modelo;
-                editarEquipo.EstatusEquipo = equipo.EstatusEquipo;
-                editarEquipo.Serie = equipo.Serie;
+                editarEquipo.Nombre = equipo.Nombre;
+                editarEquipo.Marca = equipo.Marca;
+                editarEquipo.Modelo = equipo.Modelo;
+                editarEquipo.Descripcion = equipo.Descripcion;
                 db.Entry(editarEquipo).State = System.Data.EntityState.Modified;
                 db.SaveChanges();
 
                 return RedirectToAction("Detalles", new { Id = equipo.Id });
             }
+
+            ViewBag.Marca = Sigeret.Properties.Settings.Default.Marcas.Cast<string>().ToList()
+                .ToSelectListItems(a => a, a => a, a => a == equipo.Marca);
 
             return View(equipo);
         }

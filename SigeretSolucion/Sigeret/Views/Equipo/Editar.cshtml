@@ -1,4 +1,4 @@
-﻿@model Sigeret.Models.Equipo
+﻿@model Sigeret.Models.ModeloEquipo
 
 @{
     ViewBag.Title = "Editar";
@@ -23,41 +23,29 @@
 
                     <div class="row">
                         <div class="form-group col-lg-4">
-                            @Html.CLabelFor(model => model.ModeloEquipo.Nombre)
-                            @Html.CTextBoxFor(model => model.ModeloEquipo.Nombre)
-                            @Html.CValidationMessageFor(model => model.ModeloEquipo.Nombre)
+                            @Html.CLabelFor(model => model.Nombre)
+                            @Html.CTextBoxFor(model => model.Nombre)
+                            @Html.CValidationMessageFor(model => model.Nombre)
                         </div>
 
                         <div class="form-group col-lg-4">
-                            @Html.CLabelFor(model => model.Serie)
-                            @Html.CTextBoxFor(model => model.Serie)
-                            @Html.CValidationMessageFor(model => model.Serie)
+                            @Html.CLabelFor(model => model.Marca)
+                            @Html.CDropDownListFor(model => model.Marca)
+                            @Html.CValidationMessageFor(model => model.Marca)
                         </div>
 
                         <div class="form-group col-lg-4">
-                            @Html.CLabelFor(model => model.ModeloEquipo.Modelo)
-                            @Html.CTextBoxFor(model => model.ModeloEquipo.Modelo)
-                            @Html.CValidationMessageFor(model => model.ModeloEquipo.Modelo)
+                            @Html.CLabelFor(model => model.Modelo)
+                            @Html.CTextBoxFor(model => model.Modelo)
+                            @Html.CValidationMessageFor(model => model.Modelo)
                         </div>
                     </div>
 
                     <div class="row">
-                        <div class="form-group col-lg-4">
-                            @Html.CLabelFor(model => model.ModeloEquipo.MarcaEquipo.Marca)
-                            @Html.CTextBoxFor(model => model.ModeloEquipo.MarcaEquipo.Marca)
-                            @Html.CValidationMessageFor(model => model.ModeloEquipo.MarcaEquipo.Marca)
-                        </div>
-
-                        <div class="form-group col-lg-4">
-                            @Html.CLabelFor(model => model.ModeloEquipo.Descripcion)
-                            @Html.CTextBoxFor(model => model.ModeloEquipo.Descripcion)
-                            @Html.CValidationMessageFor(model => model.ModeloEquipo.Descripcion)
-                        </div>
-
-                        <div class="form-group col-lg-4">
-                            @Html.CLabelFor(model => model.IdEstatusEquipo)
-                            @Html.CTextBoxFor(model => model.IdEstatusEquipo)
-                            @Html.CValidationMessageFor(model => model.IdEstatusEquipo)
+                        <div class="form-group col-lg-12">
+                            @Html.CLabelFor(model => model.Descripcion)
+                            @Html.CTextAreaFor(model => model.Descripcion)
+                            @Html.CValidationMessageFor(model => model.Descripcion)
                         </div>
                     </div>
 
@@ -73,5 +61,5 @@
 </div>
 
 @section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+    
 }

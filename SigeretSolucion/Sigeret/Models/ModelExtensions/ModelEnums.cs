@@ -44,4 +44,5 @@ namespace Sigeret.Models.ModelExtensions
         Suspendido = 2,
         Inactivo = 3
     }
+
 }
