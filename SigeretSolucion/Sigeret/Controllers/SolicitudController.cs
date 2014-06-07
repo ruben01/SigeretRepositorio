@@ -33,7 +33,7 @@ namespace Sigeret.Controllers
             List<Equipo> equiposSeleccionados = db.Solicituds.Find(id).Equipoes.ToList();
             ViewBag.equiposSeleccionados = equiposSeleccionados;
             var solicitud = db.Solicituds.FirstOrDefault(s => s.Id == id);
-            ViewBag.Estatus = ((EstatusSolicitudes)solicitud.EstatusSolicitud).EnumToStr();
+            //ViewBag.Estatus = ((EstatusSolicitudes)solicitud.EstatusSolicitud).EnumToStr();
             return View(solicitud);
         }
 

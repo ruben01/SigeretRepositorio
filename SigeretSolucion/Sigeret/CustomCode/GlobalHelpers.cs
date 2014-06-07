@@ -268,6 +268,13 @@ namespace Sigeret.CustomCode
             return e.ToString().Replace("_", " ");
         }
 
+        public static String EnumInstanceToStr<TEnum>(this object value)  where TEnum : struct
+        {
+
+            return Enum.Parse(typeof(TEnum), value.ToString(), true)
+                .ToString().Replace("_", " ");
+        }
+
         /// <summary>
         /// Método extensión utilizado para crear un arreglo de objetos del tipo
         /// SelectListItem utilizado para construir instancias de objetos html 

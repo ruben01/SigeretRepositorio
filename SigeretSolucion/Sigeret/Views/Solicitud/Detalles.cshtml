@@ -80,7 +80,7 @@
                             <h3 class="panel-title">@Html.Label("Estatus")</h3>
                         </div>
                         <div class="panel-body">
-                            @Html.Display("Estatus")
+                            @(Model.EstatusSolicitud.EnumInstanceToStr<EstatusSolicitudes>())
                         </div>
                     </div>
                 </div>
