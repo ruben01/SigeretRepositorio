@@ -1,0 +1,52 @@
+﻿@using Sigeret.Models.ModelExtensions
+
+@model IEnumerable<Equipo>
+
+<div class="row">
+    <div class="form-group col-lg-12">
+        <p class="">
+            @*            @Html.ActionLink("Nueva Unidad", "NuevaUnidad", null, new { @class = "btn btn-primary  fr mb10 btnAddUnidad" })*@
+            <a class="btn btn-primary fr mb10 btnAddUnidad" data-toggle="modal" href="#UnidadesModalCreate">
+                <i class="glyphicon glyphicon-plus"></i>&nbsp;
+                Nueva Unidad
+            </a>
+        </p>
+    </div>
+    <div class="form-group scroll form_table col-lg-12">
+        <table class="table table-striped table-bordered table-hover">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.Serie)
+                </th>
+                <th>
+                    @Html.DisplayName("Estatus")
+                </th>
+
+                <th>Opciones</th>
+            </tr>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Serie)
+                        </td>
+                        <td>
+                            @Html.Label(((EstatusEquipos)item.EstatusEquipo).ToString().Replace("_", " "))
+                        </td>
+                        <td>
+                            @Html.ActionLink("Editar", "EditarUnidad", new { id = item.Id }, new { @class = "editUnidad", data_val_id = item.Id }) 
+                            @if (item.Solicituds.Count() == 0)
+                            { 
+                                <label> | </label>
+                                @Html.ActionLink("Eliminar", "EliminarUnidad", new { id = item.Id }, new { @class = "deleteUnidad", data_val_id = item.Id })
+                            }
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
