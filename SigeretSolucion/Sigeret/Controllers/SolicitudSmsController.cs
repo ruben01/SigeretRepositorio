@@ -36,12 +36,13 @@ namespace Sigeret.Controllers
          */
         //
         // GET: /SolicitudSms/
-        public ActionResult Index()
+   /*     public ActionResult Index()
         {
             return View();
         }
 
         [HttpPost]
+    */
 
         public ActionResult Index(string body, string From)
         {
@@ -278,13 +279,13 @@ namespace Sigeret.Controllers
                 }
             }
 
-            // var twilio = new TwilioRestClient("AC7329769855ac2319f51129e29352294c","30b5abfcedeec6ec14586780e880fc88");
-            //  var sms = twilio.SendSmsMessage(sender,From,respuesta);
+             var twilio = new TwilioRestClient("AC7329769855ac2319f51129e29352294c","30b5abfcedeec6ec14586780e880fc88");
+             var sms = twilio.SendSmsMessage(sender,From,respuesta);
 
-            //   return Content(sms.Sid);
-            ViewBag.resp = respuesta + " Opcion=" + opcion;
-            ViewBag.leng = respuesta.Length;
-            return View();
+               return Content(sms.Sid);
+         //   ViewBag.resp = respuesta + " Opcion=" + opcion;
+          //  ViewBag.leng = respuesta.Length;
+           // return View();
         }
 
         private string estatusSolicitud(string body, string telefono)
