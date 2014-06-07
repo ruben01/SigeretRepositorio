@@ -1,5 +1,6 @@
 ﻿using Sigeret.CustomCode;
 using Sigeret.Models;
+using Sigeret.Models.ModelExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -49,7 +50,7 @@ namespace Sigeret.Controllers
         public ActionResult ReporteEquipos()
         {
 
-            return View(db.Equipoes.ToList());
+            return View(db.ModeloEquipoes.ToList());
 
         }
 
@@ -91,6 +92,74 @@ namespace Sigeret.Controllers
                 .ToSelectListItems(a => a, a => a, a => a == equipo.Marca);
 
             return View(equipo);
+        }
+
+        [HttpPost]
+        public ActionResult AgregarUnidad(Equipo model)
+        {
+            try
+            {
+                model.EstatusEquipo = (int)EstatusEquipos.Nuevo_Equipo;
+                db.Equipoes.Add(model);
+                db.SaveChanges();
+                var equipos = db.ModeloEquipoes.Find(model.IdModeloEquipo).Equipoes.ToList();
+                var result = this.PartialViewToString("PartialEquiposModelo", equipos);
+                return Json(JsonResponseBase.SuccessResponse(result, "Unidad registrada satisfactoriamente"), JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception)
+            {
+                return Json(JsonResponseBase.ErrorResponse("Ha ocurrido un error al registrar la unidad"), JsonRequestBehavior.DenyGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EliminarUnidad(int id)
+        {
+            try
+            {
+                var equipo = db.Equipoes.Find(id);
+                db.Equipoes.Remove(equipo);
+                db.SaveChanges();
+                var equipos = db.ModeloEquipoes.Find(equipo.IdModeloEquipo).Equipoes.ToList();
+                var result = this.PartialViewToString("PartialEquiposModelo", equipos);
+                return Json(JsonResponseBase.SuccessResponse(result, "Unidad eliminada satisfactoriamente"), JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception)
+            {
+                return Json(JsonResponseBase.ErrorResponse("Ha ocurrido un error al eliminar la unidad"), JsonRequestBehavior.DenyGet);
+            }
+        }
+
+        public ActionResult EditarUnidad(int id)
+        {
+            try
+            {
+                var equipo = db.Equipoes.Find(id);
+                ViewBag.EstatusEquipo = typeof(EstatusEquipos).EnumToList(true, (EstatusEquipos)equipo.EstatusEquipo);
+                var result = this.PartialViewToString("PartialEquipoUnidadEditar", equipo);
+                return Json(JsonResponseBase.SuccessResponse(result), JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception)
+            {
+                return Json(JsonResponseBase.ErrorResponse("Ha ocurrido un error al obtener los datos de la unidad"), JsonRequestBehavior.DenyGet);
+            }
+        }
+
+        [HttpPost]
+        public ActionResult EditarUnidad(Equipo model)
+        {
+            try
+            {
+                db.Entry(model).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+                var equipos = db.ModeloEquipoes.Find(model.IdModeloEquipo).Equipoes.ToList();
+                var result = this.PartialViewToString("PartialEquiposModelo", equipos);
+                return Json(JsonResponseBase.SuccessResponse(result, "Unidad actualizada satisfactoriamente"), JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception)
+            {
+                return Json(JsonResponseBase.ErrorResponse("Ha ocurrido un error al actualizar los datos de la unidad"), JsonRequestBehavior.DenyGet);
+            }
         }
 
     }
