@@ -226,6 +226,7 @@
     <Compile Include="CustomCode\DataHelpers.cs" />
     <Compile Include="CustomCode\GlobalHelpers.cs" />
     <Compile Include="CustomCode\HtmlHelpers.cs" />
+    <Compile Include="CustomCode\JsonResponseBase.cs" />
     <Compile Include="CustomCode\MenuAuthorize.cs" />
     <Compile Include="CustomCode\ViewBase.cs" />
     <Compile Include="Filters\InitializeSimpleMembershipAttribute.cs" />
@@ -262,6 +263,7 @@
     <Compile Include="Models\ModelExtensions\ModelEnums.cs" />
     <Compile Include="Models\ModelExtensions\validarFecha.cs" />
     <Compile Include="Models\ModelExtensions\ValidarHora.cs" />
+    <Compile Include="Models\ModelMetadata\Equipo.cs" />
     <Compile Include="Models\ModelMetadata\Solicitud.cs" />
     <Compile Include="Models\ModelMetadata\UserProfile.cs" />
     <Compile Include="Models\ModeloEquipo.cs" />
@@ -542,6 +544,11 @@
     <Content Include="Views\SolicitudSms\prueba.cshtml" />
     <Content Include="Views\Permisos\Editar.cshtml" />
     <Content Include="Views\Permisos\_AutorizacionesRolPartial.cshtml" />
+    <Content Include="Views\Equipo\PartialEquiposModelo.cshtml">
+      <SubType>Code</SubType>
+    </Content>
+    <Content Include="Views\Equipo\PartialEquipoUnidadCrear.cshtml" />
+    <Content Include="Views\Equipo\PartialEquipoUnidadEditar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
