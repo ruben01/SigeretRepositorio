@@ -5,7 +5,7 @@
 */
 
 /* 
-	Saúl H. Sánchez.
+	Saúl H. S.
 	Estilos css customizados globales para el site.
 */
 
@@ -19,6 +19,9 @@ body {
 	padding-top: 70px; /* body padding for fixed top nav */
 	background: url(/Images/cream_dust.png) repeat 0 0;
 }
+
+/* Saúl H. S. -- Justificación de Parrafos*/
+.justify { text-align: justify !important; }
 
 .img-home-portfolio,
 .img-customer,
@@ -203,7 +206,7 @@ a.reload_link {
 }
 /*End Anchor styles*/
 
-/**Carlos Gonzalez. Class to put styles to section subtitles*/
+/**Saúl H. S. Class to put styles to section subtitles*/
 .section-subtitle {
 	-moz-border-bottom-colors: none;
 	-moz-border-left-colors: none;
