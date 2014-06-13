@@ -9,7 +9,6 @@ namespace Sigeret.Models
         {
             this.Contactoes = new List<Contacto>();
             this.Solicituds = new List<Solicitud>();
-           // this.UsuarioNipSms = new List<UsuarioNipSm>();
             this.webpages_Roles = new List<webpages_Roles>();
         }
 
@@ -24,7 +23,6 @@ namespace Sigeret.Models
         public string NipSms { get; set; }
         public virtual ICollection<Contacto> Contactoes { get; set; }
         public virtual ICollection<Solicitud> Solicituds { get; set; }
-        //public virtual ICollection<UsuarioNipSm> UsuarioNipSms { get; set; }
         public virtual ICollection<webpages_Roles> webpages_Roles { get; set; }
     }
 }

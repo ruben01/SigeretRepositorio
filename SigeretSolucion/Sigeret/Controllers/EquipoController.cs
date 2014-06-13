@@ -54,6 +54,13 @@ namespace Sigeret.Controllers
 
         }
 
+        public ActionResult EquipoXModelo(int Id)
+        {
+            ViewBag.Modelo = db.ModeloEquipoes.FirstOrDefault(m => m.Id == Id).Modelo;
+
+            return View(db.Equipoes.Where(e => e.IdModeloEquipo == Id));
+        }
+
         [Vista("Ver Detalles", "ACA04")]
         public ActionResult Detalles(int Id)
         {

@@ -549,6 +549,7 @@
     </Content>
     <Content Include="Views\Equipo\PartialEquipoUnidadCrear.cshtml" />
     <Content Include="Views\Equipo\PartialEquipoUnidadEditar.cshtml" />
+    <Content Include="Views\Equipo\EquipoXModelo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
