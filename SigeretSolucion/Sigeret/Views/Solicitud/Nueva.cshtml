@@ -105,11 +105,14 @@
 
         $(document).ready(function () {
             function FnObtenerEquiposDisponibles() {
+
+                
                 var fechaVar = $('#Fecha').val();
                 var horaInicioVar = $('#HoraInicio').val();;
                 var horaFinVar = $('#HoraFin').val();
+                
                 if (fechaVar != "" && horaFinVar != "" && horaInicioVar != "" && (horaInicioVar < horaFinVar)) {
-
+                    
                     $.ajax({
                         type: "POST",
                         url: '@Url.Action("EquiposDisponibles", "Solicitud")',
@@ -131,7 +134,7 @@
                 );
             });
 
-            $("#Fecha, #HoraInicio, #HoraFin").on('focusout', function () {
+            $("#Fecha, #HoraInicio, #HoraFin").on('change', function () {
                 FnObtenerEquiposDisponibles();
             });
 
