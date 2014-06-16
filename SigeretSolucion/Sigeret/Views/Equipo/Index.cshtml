@@ -8,3 +8,30 @@
 <section id="">
     @Html.Partial("PartialMenuEquipos")
 </section>
+
+@section Scripts{
+    <script>
+        function Success(data) {
+            if (data.Success) {
+                alert(data.Message);
+                $('#Marca').val('');
+                $('#MarcasModalCreate').modal('hide');
+            }
+            else {
+                alert(data.ErrorMessage);
+            }
+        }
+
+        function Failure(data) {
+            alert('Error al procesar los datos');
+        }
+
+        $(document).ready(function () {
+            $('.addUnidadBtn').on('click', function () {
+                if ($('.addMarcaFrm').valid()) {
+                    $('.addMarcaFrm').submit();
+                }
+            });
+        });
+    </script>
+}

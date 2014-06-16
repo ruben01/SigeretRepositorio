@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Marcas>
+  <Marca>
+    <nombre>Epson</nombre>
+  </Marca>
+  <Marca>
+    <nombre>Peavey</nombre>
+  </Marca>
+  <Marca>
+    <nombre>Logitech</nombre>
+  </Marca>
+  <Marca>
+    <nombre>Dell</nombre>
+  </Marca>
+  <Marca>
+    <nombre>Benq</nombre>
+  </Marca>
+  <Marca>
+    <nombre>Sony</nombre>
+  </Marca>
+  <Marca>
+    <nombre>Panasonic</nombre>
+  </Marca>
+  <Marca>
+    <nombre>Yamaha</nombre>
+  </Marca>
+</Marcas>

@@ -1,11 +1,13 @@
 ﻿using Sigeret.CustomCode;
 using Sigeret.Models;
 using Sigeret.Models.ModelExtensions;
+using Sigeret.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Xml.Linq;
 
 namespace Sigeret.Controllers
 {
@@ -24,7 +26,10 @@ namespace Sigeret.Controllers
         [Vista("Nuevo Equipo", "ACA02")]
         public ActionResult NuevoEquipo()
         {
-            ViewBag.Marca = Sigeret.Properties.Settings.Default.Marcas.Cast<string>().ToList()
+            var doc = XDocument.Load(Server.MapPath("~/App_Data/Marcas.xml"));
+            IEnumerable<string> marcas = from d in doc.Descendants("Marca")
+                                         select d.Element("nombre").Value;
+            ViewBag.Marca = marcas.ToList()
                 .ToSelectListItems(a => a, a => a);
 
             return View();
@@ -40,10 +45,42 @@ namespace Sigeret.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Marca = Sigeret.Properties.Settings.Default.Marcas.Cast<string>().ToList()
+            var doc = XDocument.Load(Server.MapPath("~/App_Data/Marcas.xml"));
+            IEnumerable<string> marcas = from d in doc.Descendants("Marca")
+                                         select d.Element("nombre").Value;
+            ViewBag.Marca = marcas.ToList()
                 .ToSelectListItems(a => a, a => a, a => a == equipo.Marca);
 
             return View(equipo);
+        }
+
+        [HttpPost]
+        public ActionResult AgregaMarca(MarcaModel model)
+        {
+            try
+            {
+                var doc = XDocument.Load(Server.MapPath("~/App_Data/Marcas.xml"));
+                IEnumerable<string> marcas = from d in doc.Descendants("Marca")
+                                             select d.Element("nombre").Value.ToLower();
+                var valid = !marcas.Contains(model.Marca.ToLower());
+                if (ModelState.IsValid && valid)
+                {
+                    var path = Server.MapPath("~/App_Data/Marcas.xml");
+                    var element = new XElement("Marca");
+                    element.Add(new XElement("nombre", model.Marca));
+                    doc.Root.Add(element);
+                    doc.Save(path);
+                    return Json(JsonResponseBase.SuccessResponse(null, "Marca registrada satisfactoriamente"), JsonRequestBehavior.DenyGet);
+                }
+
+                if (!valid)
+                    return Json(JsonResponseBase.ErrorResponse("La Marca que intenta registrar ya existe"), JsonRequestBehavior.DenyGet);
+                return Json(JsonResponseBase.ErrorResponse("Ha ocurrido un error al registrar la Marca"), JsonRequestBehavior.DenyGet);
+            }
+            catch (Exception)
+            {
+                return Json(JsonResponseBase.ErrorResponse("Ha ocurrido un error al registrar la Marca"), JsonRequestBehavior.DenyGet);
+            }
         }
 
         [Vista("Listar Equipos", "ACA03")]
