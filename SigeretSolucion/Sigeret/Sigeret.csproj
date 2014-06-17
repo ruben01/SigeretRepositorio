@@ -456,6 +456,7 @@
     <Content Include="Scripts\knockout-2.2.0.debug.js" />
     <Content Include="Scripts\knockout-2.2.0.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Views\Equipo\ReporteEquipos.cshtml" />
     <Content Include="Views\Reporte\Partial_PrestamosUsuarios.aspx" />
     <Content Include="Views\Reporte\PartialReportViewer.aspx" />
     <Content Include="Views\Reporte\Partial_Usuarios.aspx" />
@@ -503,7 +504,6 @@
     <Content Include="Views\Equipo\PartialMenuEquipos.cshtml" />
     <Content Include="Views\Equipo\Index.cshtml" />
     <Content Include="Views\Equipo\NuevoEquipo.cshtml" />
-    <Content Include="Views\Equipo\ReporteEquipos.cshtml" />
     <Content Include="Views\Equipo\Detalles.cshtml" />
     <Content Include="Views\Equipo\Editar.cshtml" />
     <Content Include="Views\Usuario\ReporteUsuarios.cshtml" />

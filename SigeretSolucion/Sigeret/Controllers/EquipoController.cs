@@ -55,6 +55,7 @@ namespace Sigeret.Controllers
         }
 
         [HttpPost]
+        [Vista("Registrar Marca", "ACA06")]
         public ActionResult AgregaMarca(MarcaModel model)
         {
             try
@@ -83,12 +84,20 @@ namespace Sigeret.Controllers
             }
         }
 
-        [Vista("Listar Equipos", "ACA03")]
-        public ActionResult ReporteEquipos()
+        public ActionResult ComprobarSerie(String Serie)
         {
+            var series = db.Equipoes.Select(e => e.Serie).ToList();
+            var resultado = !series.Contains(Serie);
 
-            return View(db.ModeloEquipoes.ToList());
+            return Json(resultado, JsonRequestBehavior.AllowGet);
+        }
 
+        [HttpPost]
+
+        [Vista("Listar Equipos", "ACA03")]
+        public ActionResult Details()
+        {
+            return View("ReporteEquipos", db.ModeloEquipoes.ToList());
         }
 
         public ActionResult EquipoXModelo(int Id)
@@ -109,7 +118,10 @@ namespace Sigeret.Controllers
         public ActionResult Editar(int Id)
         {
             var equipo = db.ModeloEquipoes.Find(Id);
-            ViewBag.Marca = Sigeret.Properties.Settings.Default.Marcas.Cast<string>().ToList()
+            var doc = XDocument.Load(Server.MapPath("~/App_Data/Marcas.xml"));
+            IEnumerable<string> marcas = from d in doc.Descendants("Marca")
+                                         select d.Element("nombre").Value;
+            ViewBag.Marca = marcas.ToList()
                 .ToSelectListItems(a => a, a => a, a => a == equipo.Marca);
 
             return View(equipo);
@@ -132,7 +144,10 @@ namespace Sigeret.Controllers
                 return RedirectToAction("Detalles", new { Id = equipo.Id });
             }
 
-            ViewBag.Marca = Sigeret.Properties.Settings.Default.Marcas.Cast<string>().ToList()
+            var doc = XDocument.Load(Server.MapPath("~/App_Data/Marcas.xml"));
+            IEnumerable<string> marcas = from d in doc.Descendants("Marca")
+                                         select d.Element("nombre").Value;
+            ViewBag.Marca = marcas.ToList()
                 .ToSelectListItems(a => a, a => a, a => a == equipo.Marca);
 
             return View(equipo);

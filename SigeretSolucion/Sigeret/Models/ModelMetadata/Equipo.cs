@@ -14,6 +14,7 @@ namespace Sigeret.Models
         public int Id { get; set; }
         [Display(Name="Número de Serie")]
         [Required]
+        [System.Web.Mvc.Remote("ComprobarSerie", "Equipo", ErrorMessage="Ya existe un Equipo con este número de serie.")]
         public string Serie { get; set; }
         [Display(Name = "Estatus del Equipo")]
         [Required]

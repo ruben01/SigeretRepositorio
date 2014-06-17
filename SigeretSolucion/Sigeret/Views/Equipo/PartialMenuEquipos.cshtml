@@ -1,11 +1,15 @@
 ﻿@model MarcaModel
 
 <ul>
-    <li>
-        <a data-toggle="modal" href="#MarcasModalCreate">Nueva Marca</a>
-    </li>
+    @{
+        var link = Html.AuthorizeActionLink(menu, "Nueva Marca", "AgregaMarca", "Equipo", "ACA06", null, new { data_toggle="modal", href="#MarcasModalCreate" }); 
+    }
+    
+    @if(!MvcHtmlString.IsNullOrEmpty(link)){
+        <li>@(link)</li>
+    }
     <li>@Html.ActionLink("Nuevo Modelo", "NuevoEquipo", "Equipo")</li>
-    <li>@Html.ActionLink("Reporte Equipos", "ReporteEquipos", "Equipo")</li>
+    <li>@Html.ActionLink("Reporte Equipos", "Details", "Equipo", null, null)</li>
 </ul>
 
 <div class="modal fade dn ignore" id="MarcasModalCreate" data-focus-on="input:first" data-width="760">
