@@ -84,19 +84,36 @@ namespace Sigeret.Controllers
             }
         }
 
-        public ActionResult ComprobarSerie(String Serie)
+        public ActionResult ComprobarSerie(String Serie, Nullable<int> Id)
         {
+            bool resultado = false;
             var series = db.Equipoes.Select(e => e.Serie).ToList();
-            var resultado = !series.Contains(Serie);
+            if (Id == null)
+            {
+                resultado = !series.Contains(Serie);
+            }
+            else
+            {
+                var equipo = db.Equipoes.Find(Id);
+                if (equipo.Serie == Serie)
+                    resultado = true;
+                else
+                    resultado = !series.Contains(Serie);
+            }
 
             return Json(resultado, JsonRequestBehavior.AllowGet);
         }
 
         [HttpPost]
 
-        [Vista("Listar Equipos", "ACA03")]
-        public ActionResult Details()
+        
+        public ActionResult ReporteEquipos()
         {
+            return View(db.ModeloEquipoes.ToList());
+        }
+
+        [Vista("Listar Equipos", "ACA03")]
+        public ActionResult Details(){
             return View("ReporteEquipos", db.ModeloEquipoes.ToList());
         }
 
