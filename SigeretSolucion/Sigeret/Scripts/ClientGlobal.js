@@ -64,6 +64,39 @@ function fnClearForm(elementClass, isForm) {
     }
 }
 
+$('.table').dataTable({
+    "sPaginationType": "full_numbers",
+    "oLanguage": {
+        "sLengthMenu": 'Mostrar _MENU_ registros por páginas',
+        "sZeroRecords": 'No hay registros entontrados.',
+        "sInfo": 'Mostrando _START_ a _END_ de _TOTAL_ registros',
+        "sInfoEmpty": 'Mostrando 0 a 0 de 0 records',
+        "sInfoFiltered": '(filtrado desde _MAX_ total registros)',
+        "sSearch": "",
+        "oPaginate": {
+            "sFirst": 'Primero',
+            "sPrevious": 'Anterior',
+            "sNext": 'Siguiente',
+            "sLast": 'Último'
+        },
+        "bJQueryUI": true
+    }
+});
+
+$(function () {
+    $('.table').each(function () {
+        var datatable = $(this);
+        // estilo y label inline para el input de busqueda
+        var search_input = datatable.closest('.dataTables_wrapper').find('div[id$=_filter] input');
+        search_input.attr('placeholder', 'Buscar');
+        search_input.addClass('form-control input-sm');
+
+        // posicionamiento de la informacion de los records filtrados
+        var length_sel = datatable.closest('.dataTables_wrapper').find('div[id$=_info]');
+        length_sel.css('margin-top', '2px');
+    });
+});
+
 $(document).ready(function () {
     //Inicializacion de mascarillas usando el plugin Jquery Input mask -- Saúl H. S.
     var telefono = '(999) 999-9999'; //telefono

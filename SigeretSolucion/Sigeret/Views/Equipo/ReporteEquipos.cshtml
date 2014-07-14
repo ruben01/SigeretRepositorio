@@ -19,22 +19,24 @@
                 </div>
                 <div class="form-group scroll form_table col-lg-12 pl0">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Nombre)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Modelo)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Marca)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Descripcion)
-                            </th>
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nombre)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Modelo)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Marca)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Descripcion)
+                                </th>
 
-                            <th>Opciones</th>
-                        </tr>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {

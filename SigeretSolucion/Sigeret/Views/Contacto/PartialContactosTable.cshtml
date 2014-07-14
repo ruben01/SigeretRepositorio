@@ -2,16 +2,18 @@
 
 @Html.Hidden("exitoso", (ViewBag.Exito == null) ? true : (bool)ViewBag.Exito)
 <table class="table tblContacts table-striped table-bordered table-hover">
-    <tr>
-        <th>
-            @Html.DisplayName("Contacto")
-        </th>
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Contacto")
+            </th>
 
-        <th>
-            @Html.DisplayName("Tipo")
-        </th>
-        <th>Opciones</th>
-    </tr>
+            <th>
+                @Html.DisplayName("Tipo")
+            </th>
+            <th>Opciones</th>
+        </tr>
+    </thead>
     <tbody>
         @foreach (var item in Model)
         {

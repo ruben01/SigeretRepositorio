@@ -19,28 +19,30 @@
                 </div>
                 <div class="form-group scroll form_table col-lg-12 pl0">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Nombre)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Apellido)
-                            </th>
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Nombre)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Apellido)
+                                </th>
 
-                            <th>
-                                @Html.DisplayName("Usuario")
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Matricula)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Cedula)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.NipSms)
-                            </th>
-                            <th>Opciones</th>
-                        </tr>
+                                <th>
+                                    @Html.DisplayName("Usuario")
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Matricula)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Cedula)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.NipSms)
+                                </th>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {

@@ -11,7 +11,7 @@
         </hgroup>
         <div class="well">
             <fieldset>
-              
+                <legend></legend>
                 <div class="form-group col-lg-12">
                     <p class="">
                         @Html.ActionLink("Nuevo Equipo", "NuevoEquipo", null, new { @class = "btn btn-primary  fr mb10" })
@@ -19,22 +19,24 @@
                 </div>
                 <div class="form-group scroll form_table col-lg-12 pl0">
                     <table class="table table-striped table-bordered table-hover">
-                        <tr>
-                            <th>
-                                @Html.DisplayNameFor(model => model.Serie)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model=>model.ModeloEquipo.Nombre)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.ModeloEquipo.Marca)
-                            </th>
-                            <th>
-                                @Html.DisplayNameFor(model => model.ModeloEquipo.Descripcion)
-                            </th>
+                        <thead>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Serie)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ModeloEquipo.Nombre)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ModeloEquipo.Marca)
+                                </th>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ModeloEquipo.Descripcion)
+                                </th>
 
-                            <th>Opciones</th>
-                        </tr>
+                                <th>Opciones</th>
+                            </tr>
+                        </thead>
                         <tbody>
                             @foreach (var item in Model)
                             {
@@ -46,7 +48,7 @@
                                         @item.ModeloEquipo.Nombre
                                     </td>
                                     <td>
-                                       @item.ModeloEquipo.Marca
+                                        @item.ModeloEquipo.Marca
                                     </td>
                                     <td>
                                         @item.ModeloEquipo.Descripcion
