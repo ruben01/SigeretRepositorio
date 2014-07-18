@@ -26,6 +26,11 @@ namespace Sigeret
                         "~/Scripts/jquery.unobtrusive*",
                         "~/Scripts/jquery.validate*"));
 
+            bundles.Add(new ScriptBundle("~/bundles/datatables").Include(
+                       "~/Scripts/DataTables-1.9.4/media/js/*.js"));
+
+
+
             bundles.Add(new ScriptBundle("~/bundles/timepicker").Include(
                         "~/Scripts/jquery-ui-timepicker-addon.js",
                         "~/Scripts/jquery-ui-sliderAccess.js",
@@ -43,6 +48,9 @@ namespace Sigeret
                         "~/Scripts/modernizr-*"));
 
             bundles.Add(new StyleBundle("~/Content/css").Include("~/Content/site.css"));
+
+            bundles.Add(new StyleBundle("~/Content/DataTables-1.9.4/media/css/css").Include(
+                        "~/Content/DataTables-1.9.4/media/css/*.css"));
 
             // Adicionando referencia para los estilos. -- Saúl H. S.
             bundles.Add(new StyleBundle("~/Content/bootstrap").Include("~/Content/bootstrap.css"));

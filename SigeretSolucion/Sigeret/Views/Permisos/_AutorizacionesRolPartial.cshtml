@@ -23,7 +23,7 @@
                     @foreach (Accion action in item.Accions)
                     {
                         <label class="permissions">
-                            <input type="checkbox" name="actions" value="@action.Id" @((Model.AccionesSeleccionadas.Contains(action.Id) ? "checked" : ""))/>
+                            <input type="checkbox" name="Acciones" value="@action.Id" @((Model.AccionesSeleccionadas.Contains(action.Id) ? "checked" : ""))/>
                             @(action.Name)
                         </label>
                     }

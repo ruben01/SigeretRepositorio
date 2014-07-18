@@ -89,7 +89,7 @@ namespace Sigeret.Controllers
                 contactoBd.Descripcion = contacto.Descripcion;
 
                 db.Entry(contactoBd).State = System.Data.EntityState.Modified;
-
+                db.SaveChanges();
                 return RedirectToAction("Detalles", new { Id = contacto.Id });
             }
 

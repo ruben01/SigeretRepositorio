@@ -20,7 +20,7 @@
                     <div class="row">
                         <div class="form-group col-lg-4">
                             @Html.CLabelFor(m => m.RoleId)
-                            @Html.CDropDownListFor(m => m.RoleId, null, null, new { @class = "rolPermisos" })
+                            @Html.CDropDownListFor(m => m.RoleId, null, "", new { @class = "chosen rolPermisos" })
                             @Html.CValidationMessageFor(m => m.RoleId)
                         </div>
                     </div>
