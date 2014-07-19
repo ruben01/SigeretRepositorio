@@ -57,7 +57,7 @@ namespace Sigeret.CustomCode
         Dictionary<string, string> Menu = new Dictionary<string, string>();
 
         /// <summary>
-        /// Retorna true si el usuario loged acutal tiene permiso al controlador-acción
+        /// Retorna true si el usuario loged actual tiene permiso al controlador-acción
         /// </summary>
         /// <param name="actionName">Nombre de la acción</param>
         /// <param name="ControllerName">Nombre del controlador</param>
