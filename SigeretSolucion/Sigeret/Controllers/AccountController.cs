@@ -127,7 +127,9 @@ namespace Sigeret.Controllers
                         model.UserName, model.Password,
                         propertyValues: new { Nombre = model.Nombre, Apellido = model.Apellido, Cedula = model.Cedula, Matricula = model.Matricula, NipSms = model.NipSms });
                     WebSecurity.Login(model.UserName, model.Password);
-
+                    var role = db.webpages_Roles.Find(model.RoleId);
+                    var provider = (SimpleRoleProvider)Roles.Provider;
+                    provider.AddUsersToRoles(new[] { model.UserName }, new[] { role.RoleName }); // Agregar rol a usuario.
 
                     return RedirectToAction("Index", "Home");
                 }
