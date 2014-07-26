@@ -45,11 +45,6 @@ namespace Sigeret.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult SuspenderConfirmado(int Id)
         {
-           // Eliminar Usuario
-            /*************
-            //sigeretDbEntity.UserProfiles.Remove(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id));
-            //sigeretDbEntity.SaveChanges();
-             *////////
 
            var UsuarioSuspendido = db.UserProfiles.SingleOrDefault(u => u.UserId == Id);
            UsuarioSuspendido.EstatusUsuario = 2;
@@ -70,12 +65,6 @@ namespace Sigeret.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Habilitar(int Id, FormCollection formcol)
         {
-            // Eliminar Usuario
-            /*************
-            //sigeretDbEntity.UserProfiles.Remove(sigeretDbEntity.UserProfiles.SingleOrDefault(u => u.UserId == Id));
-            //sigeretDbEntity.SaveChanges();
-             */
-            ///////
 
             var UsuarioSuspendido = db.UserProfiles.SingleOrDefault(u => u.UserId == Id);
             UsuarioSuspendido.EstatusUsuario = 1;
