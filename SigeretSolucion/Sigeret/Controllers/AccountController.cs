@@ -130,6 +130,12 @@ namespace Sigeret.Controllers
                     var role = db.webpages_Roles.Find(model.RoleId);
                     var provider = (SimpleRoleProvider)Roles.Provider;
                     provider.AddUsersToRoles(new[] { model.UserName }, new[] { role.RoleName }); // Agregar rol a usuario.
+                    Contacto nuevo = new Contacto();
+                    nuevo.Descripcion = model.Correo;
+                    nuevo.IdUserProfile = db.UserProfiles.SingleOrDefault(u=>u.UserName==model.UserName).UserId;
+                    nuevo.IdTipoContacto = 1;
+                    db.Contactoes.Add(nuevo);
+                    db.SaveChanges();
 
                     return RedirectToAction("Index", "Home");
                 }
