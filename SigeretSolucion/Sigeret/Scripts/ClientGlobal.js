@@ -146,6 +146,14 @@ $(document).ready(function () {
         addSliderAccess: true,
         sliderAccessArgs: { touchonly: false }
     });
+
+});
+
+$(window).load(function () {
+    //if ($('#MessageToDeliver').val()) {
+    //    alert($('#MessageToDeliver').val());
+    //}
+    $('#SpMessage').modal('show');
 });
 
 function updateDropdown(data, url, dropdownElement, chosenElement) {

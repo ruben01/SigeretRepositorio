@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sigeret.Models.ModelExtensions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -95,7 +96,7 @@ namespace Sigeret.Models
         public string Apellido { get; set; }
 
         [Required]
-        [Display(Name = "Nombre de usuario")]
+        [Display(Name = "Nombre Usuario")]
         [System.Web.Mvc.Remote("ValidarUserName", "Account", AdditionalFields = "UserId")]
         public string UserName { get; set; }
 
@@ -113,6 +114,7 @@ namespace Sigeret.Models
         [StringLength(100, ErrorMessage = "El número de caracteres de {0} debe ser al menos {2}.", MinimumLength = 6)]
         [DataType(DataType.Password)]
         [Display(Name = "Contraseña")]
+        [NotEqualTo("UserName", "Nombre de usuario")]
         public string Password { get; set; }
 
         [DataType(DataType.Password)]
