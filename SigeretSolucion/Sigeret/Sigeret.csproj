@@ -220,6 +220,7 @@
     <Compile Include="Controllers\CustomErrorsController.cs" />
     <Compile Include="Controllers\EquipoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ParametrizacionController.cs" />
     <Compile Include="Controllers\PermisosController.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\SolicitudController.cs" />
@@ -267,6 +268,7 @@
     <Compile Include="Models\ModelExtensions\ModelEnums.cs" />
     <Compile Include="Models\ModelExtensions\validarFecha.cs" />
     <Compile Include="Models\ModelExtensions\ValidarHora.cs" />
+    <Compile Include="Models\ModelMetadata\AulaEdificio.cs" />
     <Compile Include="Models\ModelMetadata\Equipo.cs" />
     <Compile Include="Models\ModelMetadata\Solicitud.cs" />
     <Compile Include="Models\ModelMetadata\UserProfile.cs" />
@@ -683,6 +685,15 @@
     <Content Include="Views\Equipo\PartialEquipoUnidadCrear.cshtml" />
     <Content Include="Views\Equipo\PartialEquipoUnidadEditar.cshtml" />
     <Content Include="Views\Equipo\EquipoXModelo.cshtml" />
+    <Content Include="Views\Parametrizacion\Index.cshtml" />
+    <Content Include="Views\Parametrizacion\Edificios.cshtml" />
+    <Content Include="Views\Parametrizacion\Aulas.cshtml" />
+    <Content Include="Views\Parametrizacion\NuevoEdificio.cshtml" />
+    <Content Include="Views\Parametrizacion\NuevaAula.cshtml" />
+    <Content Include="Views\Parametrizacion\EditarEdificio.cshtml" />
+    <Content Include="Views\Parametrizacion\EliminarEdificio.cshtml" />
+    <Content Include="Views\Parametrizacion\EliminarAula.cshtml" />
+    <Content Include="Views\Parametrizacion\EditarAula.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
