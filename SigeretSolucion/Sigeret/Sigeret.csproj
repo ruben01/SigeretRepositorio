@@ -696,6 +696,7 @@
     <Content Include="Views\Parametrizacion\EliminarEdificio.cshtml" />
     <Content Include="Views\Parametrizacion\EliminarAula.cshtml" />
     <Content Include="Views\Parametrizacion\EditarAula.cshtml" />
+    <Content Include="Views\Usuario\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

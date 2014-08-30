@@ -73,5 +73,43 @@ namespace Sigeret.Controllers
 
             return RedirectToAction("Index");
         }
+
+        [Vista("Editar", "AFA06")]
+        public ActionResult Editar(int id)
+        {
+            var user = db.UserProfiles.FirstOrDefault(m => m.UserId == id);
+            var model = GlobalHelpers.Transfer<UserProfile, EditUserModel>(user);
+            ViewBag.RoleId = db.webpages_Roles.ToList()
+                .ToSelectListItems(r => r.RoleName, r => r.RoleId.ToString(), r => r.RoleId == user.webpages_Roles.First().RoleId);
+            model.Correo = user.Contactoes.FirstOrDefault(c => c.IdTipoContacto == 1).Descripcion;
+            ViewBag.userId = id;
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public ActionResult Editar(EditUserModel model, int id)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = db.UserProfiles.FirstOrDefault(m => m.UserId == id);
+                GlobalHelpers.Transfer<EditUserModel, UserProfile>(model, user);
+                user.webpages_Roles.Clear();
+                user.webpages_Roles.Add(db.webpages_Roles.Find(model.RoleId));
+                var ct = user.Contactoes.FirstOrDefault(c => c.IdTipoContacto == 1).Id;
+                var contacto = db.Contactoes.Find(ct);
+                contacto.Descripcion = model.Correo;
+                db.Entry(contacto).State = System.Data.EntityState.Modified;
+                db.Entry(user).State = System.Data.EntityState.Modified;
+                db.SaveChanges();
+
+                TempData["MessageToDeliver"] = "Datos de Usuario actualizados satisfactoriamente";
+                return RedirectToAction("ReporteUsuarios");
+            }
+            ViewBag.RoleId = db.webpages_Roles.ToList()
+                .ToSelectListItems(r => r.RoleName, r => r.RoleId.ToString(), r => r.RoleId == model.RoleId);
+
+            return View(model);
+        }
     }
 }

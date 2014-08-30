@@ -134,7 +134,45 @@ namespace Sigeret.Models
         [Display(Name = "Nip Sms")]
         public string NipSms { get; set; }
     }
-     
+
+    public class EditUserModel
+    {
+
+        [Required]
+        [Display(Name = "Nombres")]
+        public string Nombre { get; set; }
+
+        [Required]
+        [Display(Name = "Apellidos")]
+        public string Apellido { get; set; }
+
+        [Required]
+        [Display(Name = "Nombre Usuario")]
+        [System.Web.Mvc.Remote("ValidarUserName", "Account", AdditionalFields = "UserId")]
+        public string UserName { get; set; }
+
+        [Required]
+        [Display(Name = "Matricula")]
+        [System.Web.Mvc.Remote("ValidarMatricula", "Account", AdditionalFields = "UserId")]
+        public string Matricula { get; set; }
+
+        [Required]
+        [Display(Name = "Cedula")]
+        [System.Web.Mvc.Remote("ValidarCedula", "Account", AdditionalFields = "UserId")]
+        public string Cedula { get; set; }
+
+        [Display(Name = "Correo Electrónico")]
+        [Required]
+        [EmailAddress(ErrorMessage = "Introduzca una dirección de correo válida")]
+        public string Correo { get; set; }
+
+        [Required]
+        [Display(Name = "Rol de Usuario")]
+        public int RoleId { get; set; }
+
+        [Display(Name = "Nip Sms")]
+        public string NipSms { get; set; }
+    } 
 
     public class ExternalLogin
     {

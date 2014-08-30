@@ -61,7 +61,7 @@
                                         @Html.DisplayFor(modelItem => item.Matricula)
                                     </td>
                                     <td>
-                                        @Html.DisplayFor(modelItem => item.Cedula)
+                                        @(item.Cedula.CFormat("dni"))
                                     </td>
                                     <td>
                                         @Html.DisplayFor(modelItem => item.NipSms)
@@ -80,6 +80,11 @@
                                         {
                                             @:|
                                             @Html.ActionLink("Habilitar", "Habilitar", new { id = item.UserId })
+                                        }
+                                        @if (EsAdministrador) 
+                                        {
+                                            @:|
+                                            @Html.ActionLink("Editar", "Editar", "Usuario", new { id = item.UserId }, null)     
                                         }
                                     </td>
                                 </tr>
