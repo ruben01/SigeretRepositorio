@@ -1,0 +1,38 @@
+﻿@model Sigeret.Models.Lugar
+
+@{
+    ViewBag.Title = "Nuevo Edificio";
+}
+
+<div class="row">
+    <div class="col-lg-12">
+        <hgroup class="title">
+            <h2>Nuevo Edificio</h2>
+        </hgroup>
+        <div class="well">
+            @using (Html.BeginForm())
+            {
+                @Html.AntiForgeryToken()
+                @Html.ValidationSummary(true)
+
+                <fieldset class="employe">
+                    <legend>Datos del nuevo Edificio a registrar</legend>
+
+                    <div class="row">
+                        <div class="form-group col-lg-4">
+                            @Html.CLabelFor(model => model.Edificio)
+                            @Html.CTextBoxFor(model => model.Edificio)
+                            @Html.CValidationMessageFor(model => model.Edificio)
+                        </div>
+
+                    </div>
+
+                    <div class="row form-group col-lg-12">
+                        <input type="submit" class="btn btn-primary" value="Guardar" />
+                        @Html.ActionLink("Regresar", "Edificios", null, new { @class = "btn btn-default" })
+                    </div>
+                </fieldset>
+            }
+        </div>
+    </div>
+</div>

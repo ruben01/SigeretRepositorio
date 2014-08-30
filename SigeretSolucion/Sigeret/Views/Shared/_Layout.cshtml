@@ -18,6 +18,19 @@
     @Html.Partial("_NavBar")
     <div id="holder" class="container">
         @RenderSection("featured", required: false)
+        @if (TempData["MessageToDeliver"] != null)
+        { 
+            <div class="modal dn fade" id="SpMessage" data-width="400">
+                <div class="modal-header">
+                    <a class="close" data-dismiss="modal">×</a>
+                    <p class="center">SIGERET</p>
+                </div>
+                <div class="modal-body">
+                    <p>@(TempData["MessageToDeliver"])</p>
+                </div>
+            </div>
+        }
+        @Html.Hidden("MessageToDeliver", TempData["MessageToDeliver"], new { id = "MessageToDeliver" })
         @RenderBody()
     </div>
     <div id="footer" class="">

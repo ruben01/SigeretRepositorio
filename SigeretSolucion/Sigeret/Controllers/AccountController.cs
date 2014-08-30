@@ -120,13 +120,12 @@ namespace Sigeret.Controllers
                 // Intento de registrar al usuario
                 try
                 {
-                    Random Nip = new Random();
-                    model.NipSms = Nip.Next(1234, 9876).ToString();
+                    //Random Nip = new Random();
+                    //model.NipSms = Nip.Next(1234, 9876).ToString();
                     
                     WebSecurity.CreateUserAndAccount(
                         model.UserName, model.Password,
                         propertyValues: new { Nombre = model.Nombre, Apellido = model.Apellido, Cedula = model.Cedula, Matricula = model.Matricula, NipSms = model.NipSms });
-                    WebSecurity.Login(model.UserName, model.Password);
                     var role = db.webpages_Roles.Find(model.RoleId);
                     var provider = (SimpleRoleProvider)Roles.Provider;
                     provider.AddUsersToRoles(new[] { model.UserName }, new[] { role.RoleName }); // Agregar rol a usuario.
@@ -136,7 +135,7 @@ namespace Sigeret.Controllers
                     nuevo.IdTipoContacto = 1;
                     db.Contactoes.Add(nuevo);
                     db.SaveChanges();
-
+                    TempData["MessageToDeliver"] = "Usuario registrado satisfactoriamente";
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

@@ -43,7 +43,8 @@ namespace Sigeret.Controllers
 
                 db.Entry(role).State = EntityState.Modified;
                 db.SaveChanges();
-                return RedirectToAction("Index", "Home");
+                TempData["Done"] = "Cambios guardados satisfactoriamente";
+                return RedirectToAction("Editar");
             }
 
             ViewBag.RoleId = new SelectList(db.webpages_Roles.ToList(), "RoleID", "RoleName", model.RoleId);

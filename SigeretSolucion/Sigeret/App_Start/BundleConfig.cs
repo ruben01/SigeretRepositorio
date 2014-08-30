@@ -13,7 +13,7 @@ namespace Sigeret
 
             //referencia para scripts globales de javascript en el cliente -- Saúl H. Sánchez.
             bundles.Add(new ScriptBundle("~/bundles/global").Include(
-                        "~/Scripts/ClientGlobal.js"));
+                        "~/Scripts/ClientGlobal.js", "~/Scripts/not-equal-to-validator.js"));
 
             // Agregando referencia de Boostrap para el Layaout de la aplicación -- Saúl H. S.
             bundles.Add(new ScriptBundle("~/bundles/bootstrap").Include(
