@@ -5,6 +5,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
+using WebMatrix.WebData;
 
 namespace Sigeret.Controllers
 {
@@ -111,5 +113,35 @@ namespace Sigeret.Controllers
 
             return View(model);
         }
+
+        [Vista("Eliminar", "AFA07")]
+        public ActionResult Eliminar(int id)
+        {
+            var user = db.UserProfiles.Find(id);
+
+            if (user == null)
+            {
+                return HttpNotFound();
+            }
+            foreach (var c in user.Contactoes.ToList())
+            {
+                db.Contactoes.Remove(c);
+            }
+            user.Contactoes.Clear();
+            db.SaveChanges();
+            var userName = user.UserName;
+            var roles = Roles.GetRolesForUser(userName);
+            if (roles.Count() > 0)
+            {
+                Roles.RemoveUserFromRoles(userName, roles);
+            }
+            ((SimpleMembershipProvider)Membership.Provider).DeleteAccount(userName);
+            Membership.Provider.DeleteUser(userName, true);
+            Membership.DeleteUser(userName, true);
+
+            TempData["MessageToDeliver"] = "Datos de Usuario eliminados satisfactoriamente";
+            return RedirectToAction("ReporteUsuarios");
+        }
+
     }
 }

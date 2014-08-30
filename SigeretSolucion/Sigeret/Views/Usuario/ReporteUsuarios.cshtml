@@ -81,10 +81,15 @@
                                             @:|
                                             @Html.ActionLink("Habilitar", "Habilitar", new { id = item.UserId })
                                         }
-                                        @if (EsAdministrador) 
+                                        @if (EsAdministrador)
                                         {
                                             @:|
-                                            @Html.ActionLink("Editar", "Editar", "Usuario", new { id = item.UserId }, null)     
+                                            @Html.ActionLink("Editar", "Editar", "Usuario", new { id = item.UserId }, null)
+                                            if (item.Solicituds.Count == 0 && item.UserName != "SigeretAdmin")
+                                            { 
+                                                @:|
+                                                @Html.ActionLink("Eliminar", "Eliminar", "Usuario", new { id = item.UserId }, null)
+                                            }
                                         }
                                     </td>
                                 </tr>
