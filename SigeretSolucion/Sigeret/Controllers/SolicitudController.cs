@@ -194,6 +194,11 @@ namespace Sigeret.Controllers
         public ActionResult Editar(int id)
         {
             var solicitud = db.Solicituds.Find(id);
+            if (solicitud.Fecha < DateTime.Now || (solicitud.EstatusSolicitud != 3 && solicitud.EstatusSolicitud != 5))
+            {
+                TempData["MessageToDeliver"] = "Esta solicitud no puede ser editada";
+                return RedirectToAction("Index");
+            }
             var equipos = solicitud.Equipoes.ToList();
             var modelos = new List<ModeloEquipoItem>();
             var iniciales = new List<ModeloEquipoItem>();
