@@ -56,7 +56,11 @@
                                         @Html.DisplayFor(modelItem => item.AulaEdificio.Aula)
                                     </td>
                                     <td>
-                                        @Html.ActionLink("Editar", "Editar", new { id = item.Id }) |
+                                        @if (item.Fecha >= DateTime.Now && item.EstatusSolicitud == 3 || item.EstatusSolicitud == 5 )
+                                        { 
+                                            @Html.ActionLink("Editar", "Editar", new { id = item.Id }) @:|
+                                        }
+                                        
                                         @Html.ActionLink("Detalles", "Detalles", new { id = item.Id }) |
                                         @Html.ActionLink("Cancelar", "Cancelar", new { id = item.Id })
                                     </td>
