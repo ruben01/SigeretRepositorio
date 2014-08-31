@@ -1,0 +1,459 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet type="text/xsl" href="_UpgradeWizard_Files\UpgradeWizardLog.xslt"?>
+<log>
+  <event action="Analyze" type="Success" name="Assembly References" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Sigeret.csproj" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" name="Assembly References" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\packages.config" />
+  <event action="Analyze" type="Success" name="Http Handlers" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\packages.config" />
+  <event action="Analyze" type="Success" name="Handlers (IIS7+)" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\packages.config" />
+  <event action="Analyze" type="Success" name="Config Sections" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\packages.config" />
+  <event action="Analyze" type="Success" name="Render Extensions" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\packages.config" />
+  <event action="Analyze" type="Success" name="Session State Providers" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\packages.config" />
+  <event action="Analyze" type="Success" name="packages.config" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\packages.config" />
+  <event action="Analyze" type="Success" name="PrestamosUsuarios.resx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Reportes\PrestamosUsuarios.resx" />
+  <event action="Analyze" type="Success" name="ReporteUsuarios.resx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Reportes\ReporteUsuarios.resx" />
+  <event action="Analyze" type="Success" name="ReporteUsuariosSolicitud.resx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Reportes\ReporteUsuariosSolicitud.resx" />
+  <event action="Analyze" type="Success" name="Solicitudes.resx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Reportes\Solicitudes.resx" />
+  <event action="Analyze" type="Success" name="Usuarios.resx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Reportes\Usuarios.resx" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\_ViewStart.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\_ViewStart.cshtml" />
+  <event action="Analyze" type="Success" name="_ViewStart.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\_ViewStart.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_ChangePasswordPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_ChangePasswordPartial.cshtml" />
+  <event action="Analyze" type="Success" name="_ChangePasswordPartial.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_ChangePasswordPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_ExternalLoginsListPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_ExternalLoginsListPartial.cshtml" />
+  <event action="Analyze" type="Success" name="_ExternalLoginsListPartial.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_ExternalLoginsListPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+  <event action="Analyze" type="Success" name="_RemoveExternalLoginsPartial.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_RemoveExternalLoginsPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_SetPasswordPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_SetPasswordPartial.cshtml" />
+  <event action="Analyze" type="Success" name="_SetPasswordPartial.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\_SetPasswordPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Detalles.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Editar.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\ExternalLoginConfirmation.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\ExternalLoginConfirmation.cshtml" />
+  <event action="Analyze" type="Success" name="ExternalLoginConfirmation.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\ExternalLoginConfirmation.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\ExternalLoginFailure.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\ExternalLoginFailure.cshtml" />
+  <event action="Analyze" type="Success" name="ExternalLoginFailure.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\ExternalLoginFailure.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Index.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Login.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Login.cshtml" />
+  <event action="Analyze" type="Success" name="Login.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Login.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Manage.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Manage.cshtml" />
+  <event action="Analyze" type="Success" name="Manage.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Manage.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\PartialMenuCuenta.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\PartialMenuCuenta.cshtml" />
+  <event action="Analyze" type="Success" name="PartialMenuCuenta.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\PartialMenuCuenta.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Register.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Register.cshtml" />
+  <event action="Analyze" type="Success" name="Register.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Account\Register.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Editar.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Index.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\MisContactos.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\MisContactos.cshtml" />
+  <event action="Analyze" type="Success" name="MisContactos.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\MisContactos.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\NuevoContacto.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\NuevoContacto.cshtml" />
+  <event action="Analyze" type="Success" name="NuevoContacto.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\NuevoContacto.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialContactosModal.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialContactosModal.cshtml" />
+  <event action="Analyze" type="Success" name="PartialContactosModal.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialContactosModal.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialContactosTable.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialContactosTable.cshtml" />
+  <event action="Analyze" type="Success" name="PartialContactosTable.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialContactosTable.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialEditarContacto.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialEditarContacto.cshtml" />
+  <event action="Analyze" type="Success" name="PartialEditarContacto.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialEditarContacto.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialMenuContacto.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialMenuContacto.cshtml" />
+  <event action="Analyze" type="Success" name="PartialMenuContacto.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Contacto\PartialMenuContacto.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\CustomErrors\Error.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\CustomErrors\Error.cshtml" />
+  <event action="Analyze" type="Success" name="Error.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\CustomErrors\Error.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\CustomErrors\ExceptionError.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\CustomErrors\ExceptionError.cshtml" />
+  <event action="Analyze" type="Success" name="ExceptionError.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\CustomErrors\ExceptionError.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\CustomErrors\NotFound.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\CustomErrors\NotFound.cshtml" />
+  <event action="Analyze" type="Success" name="NotFound.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\CustomErrors\NotFound.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Detalles.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Editar.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\EquipoXModelo.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\EquipoXModelo.cshtml" />
+  <event action="Analyze" type="Success" name="EquipoXModelo.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\EquipoXModelo.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Index.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\NuevoEquipo.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\NuevoEquipo.cshtml" />
+  <event action="Analyze" type="Success" name="NuevoEquipo.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\NuevoEquipo.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialEquiposModelo.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialEquiposModelo.cshtml" />
+  <event action="Analyze" type="Success" name="PartialEquiposModelo.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialEquiposModelo.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialEquipoUnidadCrear.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialEquipoUnidadCrear.cshtml" />
+  <event action="Analyze" type="Success" name="PartialEquipoUnidadCrear.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialEquipoUnidadCrear.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialEquipoUnidadEditar.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialEquipoUnidadEditar.cshtml" />
+  <event action="Analyze" type="Success" name="PartialEquipoUnidadEditar.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialEquipoUnidadEditar.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialMenuEquipos.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialMenuEquipos.cshtml" />
+  <event action="Analyze" type="Success" name="PartialMenuEquipos.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\PartialMenuEquipos.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\ReporteEquipos.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\ReporteEquipos.cshtml" />
+  <event action="Analyze" type="Success" name="ReporteEquipos.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Equipo\ReporteEquipos.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Home\About.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Home\About.cshtml" />
+  <event action="Analyze" type="Success" name="About.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Home\About.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Home\Contact.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Home\Contact.cshtml" />
+  <event action="Analyze" type="Success" name="Contact.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Home\Contact.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Home\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Home\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Index.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Home\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\Aulas.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\Aulas.cshtml" />
+  <event action="Analyze" type="Success" name="Aulas.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\Aulas.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\Edificios.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\Edificios.cshtml" />
+  <event action="Analyze" type="Success" name="Edificios.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\Edificios.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EditarAula.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EditarAula.cshtml" />
+  <event action="Analyze" type="Success" name="EditarAula.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EditarAula.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EditarEdificio.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EditarEdificio.cshtml" />
+  <event action="Analyze" type="Success" name="EditarEdificio.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EditarEdificio.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EliminarAula.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EliminarAula.cshtml" />
+  <event action="Analyze" type="Success" name="EliminarAula.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EliminarAula.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EliminarEdificio.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EliminarEdificio.cshtml" />
+  <event action="Analyze" type="Success" name="EliminarEdificio.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\EliminarEdificio.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Index.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\NuevaAula.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\NuevaAula.cshtml" />
+  <event action="Analyze" type="Success" name="NuevaAula.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\NuevaAula.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\NuevoEdificio.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\NuevoEdificio.cshtml" />
+  <event action="Analyze" type="Success" name="NuevoEdificio.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Parametrizacion\NuevoEdificio.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Permisos\_AutorizacionesRolPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Permisos\_AutorizacionesRolPartial.cshtml" />
+  <event action="Analyze" type="Success" name="_AutorizacionesRolPartial.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Permisos\_AutorizacionesRolPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Permisos\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Permisos\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Editar.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Permisos\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Index.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_PrestamosUsuarios.aspx" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_PrestamosUsuarios.aspx" />
+  <event action="Analyze" type="Success" name="Partial_PrestamosUsuarios.aspx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_PrestamosUsuarios.aspx" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_Solicitudes.aspx" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_Solicitudes.aspx" />
+  <event action="Analyze" type="Success" name="Partial_Solicitudes.aspx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_Solicitudes.aspx" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_Usuarios.aspx" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_Usuarios.aspx" />
+  <event action="Analyze" type="Success" name="Partial_Usuarios.aspx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_Usuarios.aspx" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\PartialReportViewer.aspx" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\PartialReportViewer.aspx" />
+  <event action="Analyze" type="Success" name="PartialReportViewer.aspx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\PartialReportViewer.aspx" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReportePrestamosUsuarios.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReportePrestamosUsuarios.cshtml" />
+  <event action="Analyze" type="Success" name="ReportePrestamosUsuarios.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReportePrestamosUsuarios.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReporteUsuarios.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReporteUsuarios.cshtml" />
+  <event action="Analyze" type="Success" name="ReporteUsuarios.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReporteUsuarios.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReporteUsuarioSolicitud.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReporteUsuarioSolicitud.cshtml" />
+  <event action="Analyze" type="Success" name="ReporteUsuarioSolicitud.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReporteUsuarioSolicitud.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReportsGeneric.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReportsGeneric.cshtml" />
+  <event action="Analyze" type="Success" name="ReportsGeneric.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\ReportsGeneric.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\_Layout.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\_Layout.cshtml" />
+  <event action="Analyze" type="Success" name="_Layout.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\_Layout.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\_LoginPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\_LoginPartial.cshtml" />
+  <event action="Analyze" type="Success" name="_LoginPartial.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\_LoginPartial.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\_NavBar.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\_NavBar.cshtml" />
+  <event action="Analyze" type="Success" name="_NavBar.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\_NavBar.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\Error.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\Error.cshtml" />
+  <event action="Analyze" type="Success" name="Error.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Shared\Error.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Detalles.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Editar.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\EquiposDisponibles.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\EquiposDisponibles.cshtml" />
+  <event action="Analyze" type="Success" name="EquiposDisponibles.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\EquiposDisponibles.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Index.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Nueva.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Nueva.cshtml" />
+  <event action="Analyze" type="Success" name="Nueva.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\Nueva.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\PartialMenuSolicitudes.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\PartialMenuSolicitudes.cshtml" />
+  <event action="Analyze" type="Success" name="PartialMenuSolicitudes.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\PartialMenuSolicitudes.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\PartialModeloEquipo.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\PartialModeloEquipo.cshtml" />
+  <event action="Analyze" type="Success" name="PartialModeloEquipo.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\PartialModeloEquipo.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\ReporteSolicitudesAdm.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\ReporteSolicitudesAdm.cshtml" />
+  <event action="Analyze" type="Success" name="ReporteSolicitudesAdm.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Solicitud\ReporteSolicitudesAdm.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\SolicitudSms\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\SolicitudSms\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Index.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\SolicitudSms\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\SolicitudSms\prueba.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\SolicitudSms\prueba.cshtml" />
+  <event action="Analyze" type="Success" name="prueba.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\SolicitudSms\prueba.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Unauthorize\ErrorUnauthorized.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Unauthorize\ErrorUnauthorized.cshtml" />
+  <event action="Analyze" type="Success" name="ErrorUnauthorized.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Unauthorize\ErrorUnauthorized.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Detalles.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Detalles.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Editar.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Editar.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Habilitar.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Habilitar.cshtml" />
+  <event action="Analyze" type="Success" name="Habilitar.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Habilitar.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Index.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Index.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\PartialMenuUsuario.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\PartialMenuUsuario.cshtml" />
+  <event action="Analyze" type="Success" name="PartialMenuUsuario.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\PartialMenuUsuario.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\ReporteUsuarios.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\ReporteUsuarios.cshtml" />
+  <event action="Analyze" type="Success" name="ReporteUsuarios.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\ReporteUsuarios.cshtml" />
+  <event action="Analyze" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Suspender.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Suspender.cshtml" />
+  <event action="Analyze" type="Success" name="Suspender.cshtml" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Usuario\Suspender.cshtml" />
+  <event action="Analyze" type="Success" name="Assembly References" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Web.config" />
+  <event action="Analyze" type="Success" name="Http Handlers" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Web.config" />
+  <event action="Analyze" type="Success" name="Handlers (IIS7+)" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Web.config" />
+  <event action="Analyze" type="Success" name="Config Sections" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Web.config" />
+  <event action="Analyze" type="Success" name="Render Extensions" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Web.config" />
+  <event action="Analyze" type="Success" name="Session State Providers" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Web.config" />
+  <event action="Analyze" type="Success" name="Web.config" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Web.config" />
+  <event action="Analyze" type="Success" name="Assembly References" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.config" />
+  <event action="Analyze" type="Success" name="Http Handlers" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.config" />
+  <event action="Analyze" type="Success" name="Handlers (IIS7+)" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.config" />
+  <event action="Analyze" type="Success" name="Config Sections" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.config" />
+  <event action="Analyze" type="Success" name="Render Extensions" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.config" />
+  <event action="Analyze" type="Success" name="Session State Providers" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.config" />
+  <event action="Analyze" type="Success" name="Web.config" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.config" />
+  <event action="Analyze" type="Success" name="Assembly References" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Debug.config" />
+  <event action="Analyze" type="Success" name="Http Handlers" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Debug.config" />
+  <event action="Analyze" type="Success" name="Handlers (IIS7+)" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Debug.config" />
+  <event action="Analyze" type="Success" name="Config Sections" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Debug.config" />
+  <event action="Analyze" type="Success" name="Render Extensions" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Debug.config" />
+  <event action="Analyze" type="Success" name="Session State Providers" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Debug.config" />
+  <event action="Analyze" type="Success" name="Web.Debug.config" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Debug.config" />
+  <event action="Analyze" type="Success" name="Assembly References" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Release.config" />
+  <event action="Analyze" type="Success" name="Http Handlers" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Release.config" />
+  <event action="Analyze" type="Success" name="Handlers (IIS7+)" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Release.config" />
+  <event action="Analyze" type="Success" name="Config Sections" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Release.config" />
+  <event action="Analyze" type="Success" name="Render Extensions" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Release.config" />
+  <event action="Analyze" type="Success" name="Session State Providers" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Release.config" />
+  <event action="Analyze" type="Success" name="Web.Release.config" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.Release.config" />
+  <event action="Analyze" type="Success" name="Sigeret" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Sigeret.csproj" />
+  <event action="Analyze" type="Success" name="SigeretSolucion" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\SigeretSolucion.sln" />
+  <event action="Backup" type="Success" name="Sigeret" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Sigeret.csproj" />
+  <event action="Upgrade" type="Success" name="Assembly References" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Sigeret.csproj" />
+  <event action="Upgrade" type="Success" name="PrestamosUsuarios.resx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Reportes\PrestamosUsuarios.resx" />
+  <event action="Upgrade" type="Success" name="ReporteUsuarios.resx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Reportes\ReporteUsuarios.resx" />
+  <event action="Upgrade" type="Success" name="ReporteUsuariosSolicitud.resx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Reportes\ReporteUsuariosSolicitud.resx" />
+  <event action="Upgrade" type="Success" name="Solicitudes.resx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Reportes\Solicitudes.resx" />
+  <event action="Upgrade" type="Success" name="Usuarios.resx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Reportes\Usuarios.resx" />
+  <event action="Upgrade" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_PrestamosUsuarios.aspx" />
+  <event action="Upgrade" type="Success" name="Partial_PrestamosUsuarios.aspx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_PrestamosUsuarios.aspx" />
+  <event action="Upgrade" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_Solicitudes.aspx" />
+  <event action="Upgrade" type="Success" name="Partial_Solicitudes.aspx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_Solicitudes.aspx" />
+  <event action="Upgrade" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_Usuarios.aspx" />
+  <event action="Upgrade" type="Success" name="Partial_Usuarios.aspx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\Partial_Usuarios.aspx" />
+  <event action="Upgrade" type="Success" name="Register Directives" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\PartialReportViewer.aspx" />
+  <event action="Upgrade" type="Success" name="PartialReportViewer.aspx" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Views\Reporte\PartialReportViewer.aspx" />
+  <event action="Upgrade" type="Success" name="Assembly References" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.config" />
+  <event action="Upgrade" type="Success" name="Http Handlers" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.config" />
+  <event action="Upgrade" type="Success" name="Handlers (IIS7+)" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.config" />
+  <event action="Upgrade" type="Success" name="Web.config" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Web.config" />
+  <event action="Upgrade" type="Success" name="Sigeret" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\Sigeret\Sigeret.csproj" />
+  <event action="Upgrade" type="Success" name="SigeretSolucion" path="D:\Documentos\GitHub\SigeretRepositorio\SigeretSolucion\SigeretSolucion.sln" />
+</log>

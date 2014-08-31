@@ -16,17 +16,16 @@ namespace Sigeret.Reportes
             Telerik.Reporting.Drawing.StyleRule styleRule2 = new Telerik.Reporting.Drawing.StyleRule();
             Telerik.Reporting.Drawing.StyleRule styleRule3 = new Telerik.Reporting.Drawing.StyleRule();
             Telerik.Reporting.Drawing.StyleRule styleRule4 = new Telerik.Reporting.Drawing.StyleRule();
-            this.DsSolicitudes = new Telerik.Reporting.SqlDataSource();
-            this.labelsGroupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.labelsGroupFooterSection = new Telerik.Reporting.GroupFooterSection();
+            this.labelsGroupHeaderSection = new Telerik.Reporting.GroupHeaderSection();
             this.usuarioCaptionTextBox = new Telerik.Reporting.TextBox();
             this.nombreCaptionTextBox = new Telerik.Reporting.TextBox();
-            this.estatusCaptionTextBox = new Telerik.Reporting.TextBox();
             this.edificioCaptionTextBox = new Telerik.Reporting.TextBox();
             this.aulaCaptionTextBox = new Telerik.Reporting.TextBox();
             this.fechaCaptionTextBox = new Telerik.Reporting.TextBox();
             this.horaInicioCaptionTextBox = new Telerik.Reporting.TextBox();
             this.horaFinCaptionTextBox = new Telerik.Reporting.TextBox();
+            this.DsSolicitudes = new Telerik.Reporting.SqlDataSource();
             this.pageHeader = new Telerik.Reporting.PageHeaderSection();
             this.reportNameTextBox = new Telerik.Reporting.TextBox();
             this.pageFooter = new Telerik.Reporting.PageFooterSection();
@@ -38,7 +37,6 @@ namespace Sigeret.Reportes
             this.detail = new Telerik.Reporting.DetailSection();
             this.usuarioDataTextBox = new Telerik.Reporting.TextBox();
             this.nombreDataTextBox = new Telerik.Reporting.TextBox();
-            this.estatusDataTextBox = new Telerik.Reporting.TextBox();
             this.edificioDataTextBox = new Telerik.Reporting.TextBox();
             this.aulaDataTextBox = new Telerik.Reporting.TextBox();
             this.fechaDataTextBox = new Telerik.Reporting.TextBox();
@@ -46,15 +44,11 @@ namespace Sigeret.Reportes
             this.horaFinDataTextBox = new Telerik.Reporting.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
             // 
-            // DsSolicitudes
+            // labelsGroupFooterSection
             // 
-            this.DsSolicitudes.ConnectionString = "SigeretContext";
-            this.DsSolicitudes.Name = "DsSolicitudes";
-            this.DsSolicitudes.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
-            new Telerik.Reporting.SqlDataSourceParameter("@FechaInicio", System.Data.DbType.Date, "=Parameters.FechaInicio.Value"),
-            new Telerik.Reporting.SqlDataSourceParameter("@FechaFin", System.Data.DbType.Date, "=Parameters.FechaFin.Value")});
-            this.DsSolicitudes.SelectCommand = "dbo.UspSolicitudes";
-            this.DsSolicitudes.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
+            this.labelsGroupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.71437495946884155D);
+            this.labelsGroupFooterSection.Name = "labelsGroupFooterSection";
+            this.labelsGroupFooterSection.Style.Visible = false;
             // 
             // labelsGroupHeaderSection
             // 
@@ -62,7 +56,6 @@ namespace Sigeret.Reportes
             this.labelsGroupHeaderSection.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.usuarioCaptionTextBox,
             this.nombreCaptionTextBox,
-            this.estatusCaptionTextBox,
             this.edificioCaptionTextBox,
             this.aulaCaptionTextBox,
             this.fechaCaptionTextBox,
@@ -70,12 +63,6 @@ namespace Sigeret.Reportes
             this.horaFinCaptionTextBox});
             this.labelsGroupHeaderSection.Name = "labelsGroupHeaderSection";
             this.labelsGroupHeaderSection.PrintOnEveryPage = true;
-            // 
-            // labelsGroupFooterSection
-            // 
-            this.labelsGroupFooterSection.Height = Telerik.Reporting.Drawing.Unit.Cm(0.71437495946884155D);
-            this.labelsGroupFooterSection.Name = "labelsGroupFooterSection";
-            this.labelsGroupFooterSection.Style.Visible = false;
             // 
             // usuarioCaptionTextBox
             // 
@@ -91,25 +78,16 @@ namespace Sigeret.Reportes
             this.nombreCaptionTextBox.CanGrow = true;
             this.nombreCaptionTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(2.0230729579925537D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
             this.nombreCaptionTextBox.Name = "nombreCaptionTextBox";
-            this.nombreCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9172395467758179D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
+            this.nombreCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(3.3769266605377197D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.nombreCaptionTextBox.StyleName = "Caption";
             this.nombreCaptionTextBox.Value = "Nombre";
-            // 
-            // estatusCaptionTextBox
-            // 
-            this.estatusCaptionTextBox.CanGrow = true;
-            this.estatusCaptionTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(3.9932291507720947D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
-            this.estatusCaptionTextBox.Name = "estatusCaptionTextBox";
-            this.estatusCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9172395467758179D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
-            this.estatusCaptionTextBox.StyleName = "Caption";
-            this.estatusCaptionTextBox.Value = "Estatus";
             // 
             // edificioCaptionTextBox
             // 
             this.edificioCaptionTextBox.CanGrow = true;
-            this.edificioCaptionTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(5.9633855819702148D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
+            this.edificioCaptionTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(5.6000003814697266D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
             this.edificioCaptionTextBox.Name = "edificioCaptionTextBox";
-            this.edificioCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9172395467758179D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
+            this.edificioCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.2806248664855957D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.edificioCaptionTextBox.StyleName = "Caption";
             this.edificioCaptionTextBox.Value = "Edificio";
             // 
@@ -148,6 +126,16 @@ namespace Sigeret.Reportes
             this.horaFinCaptionTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9172395467758179D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.horaFinCaptionTextBox.StyleName = "Caption";
             this.horaFinCaptionTextBox.Value = "Hora Fin";
+            // 
+            // DsSolicitudes
+            // 
+            this.DsSolicitudes.ConnectionString = "SigeretContext";
+            this.DsSolicitudes.Name = "DsSolicitudes";
+            this.DsSolicitudes.Parameters.AddRange(new Telerik.Reporting.SqlDataSourceParameter[] {
+            new Telerik.Reporting.SqlDataSourceParameter("@FechaInicio", System.Data.DbType.Date, "=Parameters.FechaInicio.Value"),
+            new Telerik.Reporting.SqlDataSourceParameter("@FechaFin", System.Data.DbType.Date, "=Parameters.FechaFin.Value")});
+            this.DsSolicitudes.SelectCommand = "dbo.UspSolicitudes";
+            this.DsSolicitudes.SelectCommandType = Telerik.Reporting.SqlDataSourceCommandType.StoredProcedure;
             // 
             // pageHeader
             // 
@@ -215,7 +203,6 @@ namespace Sigeret.Reportes
             this.detail.Items.AddRange(new Telerik.Reporting.ReportItemBase[] {
             this.usuarioDataTextBox,
             this.nombreDataTextBox,
-            this.estatusDataTextBox,
             this.edificioDataTextBox,
             this.aulaDataTextBox,
             this.fechaDataTextBox,
@@ -237,25 +224,16 @@ namespace Sigeret.Reportes
             this.nombreDataTextBox.CanGrow = true;
             this.nombreDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(2.0230729579925537D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
             this.nombreDataTextBox.Name = "nombreDataTextBox";
-            this.nombreDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9172395467758179D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
+            this.nombreDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(3.3769266605377197D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.nombreDataTextBox.StyleName = "Data";
             this.nombreDataTextBox.Value = "=Fields.Nombre";
-            // 
-            // estatusDataTextBox
-            // 
-            this.estatusDataTextBox.CanGrow = true;
-            this.estatusDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(3.9932291507720947D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
-            this.estatusDataTextBox.Name = "estatusDataTextBox";
-            this.estatusDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9172395467758179D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
-            this.estatusDataTextBox.StyleName = "Data";
-            this.estatusDataTextBox.Value = "=Fields.Estatus";
             // 
             // edificioDataTextBox
             // 
             this.edificioDataTextBox.CanGrow = true;
-            this.edificioDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(5.9633855819702148D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
+            this.edificioDataTextBox.Location = new Telerik.Reporting.Drawing.PointU(Telerik.Reporting.Drawing.Unit.Cm(5.6000003814697266D), Telerik.Reporting.Drawing.Unit.Cm(0.052916664630174637D));
             this.edificioDataTextBox.Name = "edificioDataTextBox";
-            this.edificioDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(1.9172395467758179D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
+            this.edificioDataTextBox.Size = new Telerik.Reporting.Drawing.SizeU(Telerik.Reporting.Drawing.Unit.Cm(2.2806248664855957D), Telerik.Reporting.Drawing.Unit.Cm(0.99999988079071045D));
             this.edificioDataTextBox.StyleName = "Data";
             this.edificioDataTextBox.Value = "=Fields.Edificio";
             // 
@@ -363,7 +341,6 @@ namespace Sigeret.Reportes
         private Telerik.Reporting.GroupHeaderSection labelsGroupHeaderSection;
         private Telerik.Reporting.TextBox usuarioCaptionTextBox;
         private Telerik.Reporting.TextBox nombreCaptionTextBox;
-        private Telerik.Reporting.TextBox estatusCaptionTextBox;
         private Telerik.Reporting.TextBox edificioCaptionTextBox;
         private Telerik.Reporting.TextBox aulaCaptionTextBox;
         private Telerik.Reporting.TextBox fechaCaptionTextBox;
@@ -381,7 +358,6 @@ namespace Sigeret.Reportes
         private Telerik.Reporting.DetailSection detail;
         private Telerik.Reporting.TextBox usuarioDataTextBox;
         private Telerik.Reporting.TextBox nombreDataTextBox;
-        private Telerik.Reporting.TextBox estatusDataTextBox;
         private Telerik.Reporting.TextBox edificioDataTextBox;
         private Telerik.Reporting.TextBox aulaDataTextBox;
         private Telerik.Reporting.TextBox fechaDataTextBox;
