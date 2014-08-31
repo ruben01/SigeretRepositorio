@@ -120,8 +120,8 @@ namespace Sigeret.Controllers
                 // Intento de registrar al usuario
                 try
                 {
-                    //Random Nip = new Random();
-                    //model.NipSms = Nip.Next(1234, 9876).ToString();
+                    Random Nip = new Random();
+                    model.NipSms = Nip.Next(1234, 9876).ToString();
                     
                     WebSecurity.CreateUserAndAccount(
                         model.UserName, model.Password,
@@ -135,7 +135,8 @@ namespace Sigeret.Controllers
                     nuevo.IdTipoContacto = 1;
                     db.Contactoes.Add(nuevo);
                     db.SaveChanges();
-                    TempData["MessageToDeliver"] = "Usuario registrado satisfactoriamente";
+                    string Message = string.Format("{0}. {1}: {2}. Favor anotarlo.", "Usuario registrado satisfactoriamente", "Su Nip Sms es", model.NipSms);
+                    TempData["MessageToDeliver"] = Message;
                     return RedirectToAction("Index", "Home");
                 }
                 catch (MembershipCreateUserException e)

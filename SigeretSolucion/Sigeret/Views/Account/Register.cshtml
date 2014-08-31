@@ -80,20 +80,6 @@
                         </div>
                     </div>
 
-                    <div class="row">
-                        <div class="form-group col-lg-4">
-                            @*@Html.CLabelFor(model => model.NipSms)*@
-                            <label for="NipSms" class="control-label">
-                                Nip Sms&nbsp;&nbsp;
-                                <i data-toggle="popover" data-content="Introduzca la contraseña a usar para las peticiones a través de Sms" 
-                                    title="Datos de Nip Sms" class="glyphicon glyphicon-info-sign">
-                                </i>
-                            </label>
-                            @Html.CTextBoxFor(model => model.NipSms)
-                            @Html.CValidationMessageFor(model => model.NipSms)
-                        </div>
-                    </div>
-
                     <div class="row form-group col-lg-12">
                         <input type="submit" class="btn btn-primary" value="Guardar" />                        
                         @Html.ActionLink("Regresar", "Index", "Home", new { @class = "btn btn-default" })

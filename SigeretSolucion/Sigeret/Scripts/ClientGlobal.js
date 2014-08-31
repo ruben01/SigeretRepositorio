@@ -140,7 +140,7 @@ $(document).ready(function () {
     });
 
     $('.CtimePicker').timepicker({
-        hourMin: 8,
+        hourMin: 7,
         hourMax: 22,
         timeFormat: "HH:mm:ss",
         addSliderAccess: true,

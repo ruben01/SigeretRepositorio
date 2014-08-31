@@ -177,7 +177,15 @@ namespace Sigeret.Controllers
         [Vista("Ver Detalles (Adm)", "AEA04")]
         public ActionResult ReporteSolicitudesAdm()
         {
-            return View(db.Solicituds.ToList());
+            if (EsAdministrador)
+            {
+                return View(db.Solicituds.ToList());
+            }
+
+            var solicitudes = db.Solicituds.Where(s => s.IdUserProfile == WebSecurity.CurrentUserId)
+                .ToList();
+            
+            return View(solicitudes);
         }
 
         //
