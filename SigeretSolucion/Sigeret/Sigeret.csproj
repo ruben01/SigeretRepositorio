@@ -197,14 +197,18 @@
     <Reference Include="Telerik.Reporting, Version=8.1.14.804, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
       <HintPath>C:\Program Files (x86)\Telerik\Reporting Q2 2014\bin\Telerik.Reporting.dll</HintPath>
       <SpecificVersion>True</SpecificVersion>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.ReportViewer.Mvc, Version=8.1.14.804, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
       <HintPath>C:\Program Files (x86)\Telerik\Reporting Q2 2014\bin\Telerik.ReportViewer.Mvc.dll</HintPath>
       <SpecificVersion>True</SpecificVersion>
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <Private>True</Private>
     </Reference>
     <Reference Include="Telerik.ReportViewer.WebForms, Version=8.1.14.804, Culture=neutral, PublicKeyToken=a9d7983dfcc261be">
       <HintPath>C:\Program Files (x86)\Telerik\Reporting Q2 2014\bin\Telerik.ReportViewer.WebForms.dll</HintPath>
       <SpecificVersion>True</SpecificVersion>
+      <Private>True</Private>
     </Reference>
   </ItemGroup>
   <ItemGroup>
